@@ -1,0 +1,29 @@
+{
+  "name": "miao",
+  "version": "0.1.0",
+  "description": "A Guizhou Miao culture and travel promotion mini-program-style demo.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@tanstack/router-plugin": "^1.168.35",
+    "@types/bun": "latest",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "@vitejs/plugin-react": "^6.1.1",
+    "picocolors": "^1.1.1",
+    "vite": "^8.2.2"
+  },
+  "peerDependencies": {
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@tanstack/react-router": "^1.170.32",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  }
+}
