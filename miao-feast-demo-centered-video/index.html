@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07101f">
+  <meta name="description" content="百米长桌宴沉浸式交互展览 Demo">
+  <title>百米长桌宴 · 等宽居中版</title>
+  <style>
+    :root{
+      --night:#07101f;
+      --night-2:#0b1930;
+      --ink:#12151a;
+      --paper:#eee6d2;
+      --paper-dim:#b8ad96;
+      --gold:#c7a564;
+      --gold-bright:#e0c98e;
+      --red:#6f2525;
+      --red-soft:#913835;
+      --blue:#23476b;
+      --blue-deep:#142f4d;
+      --bronze:#76502f;
+      --serif:"Songti SC","STSong","Noto Serif SC",serif;
+      --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+      --sat:env(safe-area-inset-top,0px);
+      --sab:env(safe-area-inset-bottom,0px);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;overscroll-behavior:none}
+    body{background:#02060d;color:var(--paper);font-family:var(--sans);display:flex;justify-content:center;-webkit-font-smoothing:antialiased}
+    button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+    button:focus-visible{outline:1px solid var(--gold-bright);outline-offset:4px}
+    #app{position:relative;width:100%;max-width:430px;height:100%;min-height:560px;overflow:hidden;background:var(--night);isolation:isolate;box-shadow:0 0 90px rgba(0,0,0,.72)}
+
+    /* 深藏青苗寨夜景：背景存在，但让位于长桌主体 */
+    .world{position:absolute;inset:0;z-index:0;overflow:hidden;background:
+      linear-gradient(180deg,rgba(3,10,23,.78) 0%,rgba(5,15,31,.91) 42%,rgba(4,11,23,.98) 100%),
+      url("img/cover.jpg") center 18%/cover no-repeat}
+    .world::before{content:"";position:absolute;inset:0;background:
+      radial-gradient(circle at 20% 28%,rgba(205,147,69,.14),transparent 17%),
+      radial-gradient(circle at 82% 35%,rgba(137,56,43,.12),transparent 18%),
+      linear-gradient(90deg,rgba(1,5,13,.7),transparent 30%,transparent 70%,rgba(1,5,13,.7));mix-blend-mode:screen;opacity:.75}
+    .world::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 40%,rgba(1,4,10,.74) 100%);pointer-events:none}
+    .ridge{position:absolute;left:-15%;right:-15%;bottom:0;height:46%;background:
+      linear-gradient(158deg,transparent 0 28%,rgba(4,10,20,.68) 28.2% 46%,transparent 46.2%),
+      linear-gradient(202deg,transparent 0 34%,rgba(3,9,18,.88) 34.2% 58%,transparent 58.2%);opacity:.8}
+    .lamp-glow{position:absolute;width:7px;height:7px;border-radius:50%;background:#d5a252;box-shadow:0 0 12px 4px rgba(222,153,70,.28);animation:lamp 4s ease-in-out infinite}
+    .lamp-glow.a{left:10%;top:24%}.lamp-glow.b{right:12%;top:31%;animation-delay:1.4s}.lamp-glow.c{left:19%;top:52%;animation-delay:2.3s}
+    @keyframes lamp{50%{opacity:.45;transform:scale(.8)}}
+
+    /* 场景与纵向游席 */
+    .scene{position:absolute;inset:0;z-index:4;opacity:0;pointer-events:none;transition:opacity .7s ease}
+    #app.in .scene{opacity:1;pointer-events:auto}
+    #app.entering .scene{animation:sceneIn 1s cubic-bezier(.18,.72,.18,1)}
+    @keyframes sceneIn{from{opacity:.15;transform:scale(1.045)}to{opacity:1;transform:none}}
+    .scroller{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;touch-action:pan-y;cursor:grab}
+    .scroller::-webkit-scrollbar{display:none}
+    .scroller.dragging{cursor:grabbing;user-select:none}
+    .strip{position:relative;height:4380px;padding-top:1px}
+
+    /* 暖木长桌与克制的中央织锦 */
+    .table{position:absolute;left:22px;right:22px;top:0;height:4260px;border-radius:8px 8px 28px 28px;overflow:hidden;
+      background:
+        linear-gradient(90deg,rgba(30,14,6,.66),transparent 18%,rgba(255,190,100,.045) 48%,transparent 76%,rgba(21,10,5,.72)),
+        repeating-linear-gradient(180deg,transparent 0 108px,rgba(24,10,4,.28) 108px 112px),
+        url("img/wood.jpg") center/340px 340px repeat;
+      box-shadow:0 0 0 1px rgba(199,165,100,.18),0 30px 80px rgba(0,0,0,.58),inset 0 0 60px rgba(8,3,1,.34)}
+    .table::before,.table::after{content:"";position:absolute;top:0;bottom:0;width:5px;background:
+      linear-gradient(90deg,rgba(224,201,142,.07),rgba(199,165,100,.62),rgba(60,35,17,.5));opacity:.68}
+    .table::before{left:7px}.table::after{right:7px;transform:scaleX(-1)}
+    .runner{position:absolute;z-index:1;left:50%;top:0;transform:translateX(-50%);width:48px;height:4260px;
+      background:
+        linear-gradient(90deg,rgba(6,13,27,.58),transparent 20% 80%,rgba(6,13,27,.58)),
+        repeating-linear-gradient(0deg,transparent 0 26px,rgba(213,192,143,.36) 26px 28px,transparent 28px 52px),
+        repeating-linear-gradient(45deg,rgba(203,181,128,.18) 0 2px,transparent 2px 10px),
+        linear-gradient(180deg,#173653,#0f2944 42%,#142f4d 75%,#0d243c);
+      border-left:1px solid rgba(219,200,154,.28);border-right:1px solid rgba(219,200,154,.28);
+      box-shadow:inset 7px 0 12px rgba(1,8,17,.38),inset -7px 0 12px rgba(1,8,17,.38),0 0 14px rgba(2,8,15,.35)}
+    .runner::before,.runner::after{content:"";position:absolute;left:8px;right:8px;height:80px;background:
+      linear-gradient(45deg,transparent 39%,rgba(218,196,144,.72) 40% 44%,transparent 45% 55%,rgba(218,196,144,.72) 56% 60%,transparent 61%),
+      linear-gradient(-45deg,transparent 39%,rgba(120,39,37,.88) 40% 44%,transparent 45% 55%,rgba(120,39,37,.88) 56% 60%,transparent 61%);opacity:.74}
+    .runner::before{top:24px}.runner::after{bottom:24px;transform:rotate(180deg)}
+
+    .chapter{position:absolute;z-index:5;left:50%;transform:translateX(-50%);width:max-content;text-align:center;pointer-events:none}
+    .chapter::before{content:"";display:block;width:1px;height:26px;background:linear-gradient(transparent,var(--gold));margin:0 auto 8px}
+    .chapter b{display:block;font-family:var(--serif);font-size:12px;font-weight:600;letter-spacing:.42em;text-indent:.42em;color:#e5d7b6;text-shadow:0 3px 12px #000}
+    .chapter small{display:block;margin-top:5px;font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:rgba(224,201,142,.62)}
+    .chapter.c1{top:92px}.chapter.c2{top:1498px}.chapter.c3{top:2818px}.chapter.c4{top:4090px}
+
+    /* 菜品：青花与铜器交替，降低卡片密度 */
+    .node{position:absolute;z-index:8;width:168px;min-height:220px;display:flex;flex-direction:column;align-items:center;gap:11px;text-align:center;user-select:none;-webkit-tap-highlight-color:transparent}
+    .node.left{left:24px}.node.right{right:24px}
+    .plate{position:relative;width:148px;height:148px;border-radius:50%;padding:9px;background:#dfe6df;transition:transform .24s ease,filter .24s ease,box-shadow .24s ease;
+      box-shadow:0 16px 26px rgba(0,0,0,.42),0 0 0 1px rgba(228,214,177,.24),inset 0 0 0 3px rgba(26,63,93,.88),inset 0 0 0 7px rgba(223,230,223,.94)}
+    .plate::before{content:"";position:absolute;inset:3px;border-radius:50%;border:1px dashed rgba(35,71,107,.7);pointer-events:none}
+    .plate img{width:100%;height:100%;display:block;object-fit:cover;border-radius:50%;filter:saturate(.82) contrast(1.03) brightness(.88);transition:filter .24s ease}
+    .node.bronze .plate{padding:8px;background:linear-gradient(145deg,#987047,#49301f);box-shadow:0 16px 27px rgba(0,0,0,.48),0 0 0 1px rgba(215,180,111,.34),inset 0 0 0 2px #392218,inset 0 0 0 7px #805a37}
+    .node.bronze .plate::before{border:1px solid rgba(226,195,127,.4);box-shadow:inset 0 0 13px rgba(10,5,2,.5)}
+    .node:hover .plate,.node:focus-visible .plate{transform:translateY(-4px) scale(1.025);filter:drop-shadow(0 0 10px rgba(199,165,100,.18))}
+    .node:hover img,.node:focus-visible img{filter:saturate(1) contrast(1.04) brightness(.98)}
+    .node:active .plate{transform:scale(.97)}
+    .node.pulse .plate::after{content:"";position:absolute;inset:-9px;border:1px solid rgba(224,201,142,.72);border-radius:50%;animation:platePulse 2.4s ease-out infinite}
+    @keyframes platePulse{0%{opacity:0;transform:scale(.92)}22%{opacity:.8}75%,100%{opacity:0;transform:scale(1.15)}}
+    .steam{position:absolute;z-index:3;top:-14px;left:52%;width:12px;height:32px;border-radius:50%;border-left:2px solid rgba(239,231,210,.4);filter:blur(1px);opacity:0;animation:steam 3s ease-in-out infinite;pointer-events:none}
+    .steam.s2{left:38%;animation-delay:1.1s}
+    @keyframes steam{0%{opacity:0;transform:translateY(8px) rotate(4deg)}35%{opacity:.55}100%{opacity:0;transform:translateY(-28px) rotate(-10deg) scale(1.3)}}
+    .node-copy{position:relative;min-width:128px;padding:8px 12px 9px;background:linear-gradient(180deg,rgba(7,16,31,.88),rgba(6,13,26,.78));border:1px solid rgba(199,165,100,.22);backdrop-filter:blur(10px);box-shadow:0 9px 22px rgba(0,0,0,.28)}
+    .node-copy::before{content:"";position:absolute;left:50%;top:-12px;width:1px;height:12px;background:rgba(199,165,100,.42)}
+    .node-index{display:block;margin-bottom:3px;font-size:8px;letter-spacing:.18em;color:var(--gold)}
+    .node-title{display:block;font-family:var(--serif);font-size:13px;font-weight:600;letter-spacing:.18em;text-indent:.18em;color:#eee3c9}
+    .node-cue{display:block;margin-top:4px;font-size:8px;letter-spacing:.14em;color:rgba(223,216,197,.54)}
+    .node.visited .node-copy{border-color:rgba(199,165,100,.52)}
+    .node.visited .node-index::after{content:" · 已阅";color:#d8c99d}
+    .node.hit .plate{box-shadow:0 0 0 1px var(--gold-bright),0 15px 30px rgba(0,0,0,.52),0 0 28px rgba(199,165,100,.24)}
+
+    .ending{position:absolute;z-index:6;top:4138px;left:44px;right:44px;height:150px;text-align:center;pointer-events:none}
+    .ending::before{content:"";position:absolute;left:50%;top:14px;transform:translateX(-50%);width:220px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(158,62,35,.38),rgba(158,62,35,.08) 45%,transparent 72%);animation:fire 3.4s ease-in-out infinite}
+    .ending span{position:relative;top:80px;font-family:var(--serif);font-size:11px;letter-spacing:.4em;text-indent:.4em;color:rgba(238,224,191,.64)}
+    @keyframes fire{50%{transform:translateX(-50%) scale(1.12);opacity:.7}}
+
+    /* 顶部信息层：细、轻、留白 */
+    .topbar{position:absolute;z-index:30;left:0;right:0;top:0;display:grid;grid-template-columns:58px 1fr 58px;align-items:start;padding:calc(var(--sat) + 16px) 14px 46px;background:linear-gradient(180deg,rgba(2,7,15,.94),rgba(3,9,19,.62) 58%,transparent);opacity:0;pointer-events:none;transition:opacity .5s ease}
+    #app.in .topbar{opacity:1;pointer-events:auto}
+    .text-btn{height:30px;border:1px solid rgba(224,201,142,.24);font-size:9px;letter-spacing:.18em;color:rgba(239,228,201,.72);background:rgba(6,14,28,.42);backdrop-filter:blur(8px);transition:border-color .2s,color .2s,background .2s}
+    .text-btn:hover{border-color:rgba(224,201,142,.56);color:#f0dfb9;background:rgba(21,34,49,.62)}
+    .title-lockup{text-align:center;padding-top:1px}
+    .eyebrow{font-size:7px;letter-spacing:.32em;text-transform:uppercase;color:rgba(199,165,100,.7)}
+    .title-lockup h1{margin-top:6px;font-family:var(--serif);font-size:15px;font-weight:600;letter-spacing:.34em;text-indent:.34em;color:#eee1c3;text-shadow:0 3px 14px #000}
+    .position{margin-top:7px;font-size:8px;letter-spacing:.16em;color:rgba(225,216,193,.55)}
+
+    .help-pop{position:absolute;z-index:42;top:calc(var(--sat) + 58px);right:14px;width:214px;padding:15px 16px;background:rgba(6,14,28,.94);border:1px solid rgba(199,165,100,.32);box-shadow:0 18px 42px rgba(0,0,0,.5);backdrop-filter:blur(14px);opacity:0;transform:translateY(-5px);pointer-events:none;transition:.2s ease}
+    .help-pop.show{opacity:1;transform:none;pointer-events:auto}
+    .help-pop b{display:block;margin-bottom:7px;font-family:var(--serif);font-size:12px;letter-spacing:.2em;color:#ead9b3}
+    .help-pop p{font-size:10px;line-height:1.9;letter-spacing:.06em;color:rgba(230,221,199,.7)}
+
+    /* 右侧细长进度轴 */
+    .walk{position:absolute;z-index:28;right:10px;top:50%;transform:translateY(-42%);height:min(320px,43vh);display:flex;flex-direction:column;align-items:center;gap:9px;opacity:0;transition:opacity .5s ease;pointer-events:none}
+    #app.in .walk{opacity:1}
+    .walk-label{font-size:7px;letter-spacing:.18em;color:rgba(224,201,142,.58);writing-mode:vertical-rl}
+    .track{position:relative;width:1px;flex:1;background:rgba(231,219,191,.17)}
+    .track::before,.track::after{content:"";position:absolute;left:-2px;width:5px;height:1px;background:rgba(224,201,142,.38)}
+    .track::before{top:33%}.track::after{top:66%}
+    .fill{position:absolute;left:0;top:0;width:1px;height:0;background:linear-gradient(var(--gold-bright),var(--red-soft))}
+    .dot{position:absolute;left:50%;top:0;transform:translate(-50%,-50%);width:7px;height:7px;border:1px solid var(--gold-bright);border-radius:50%;background:var(--night);box-shadow:0 0 9px rgba(224,201,142,.5)}
+    .step-count{font-family:var(--serif);font-size:8px;color:rgba(229,214,181,.55)}
+
+    .coach{position:absolute;z-index:29;left:50%;bottom:calc(var(--sab) + 22px);transform:translateX(-50%);width:max-content;padding:8px 13px;border-bottom:1px solid rgba(199,165,100,.42);font-size:9px;letter-spacing:.16em;color:rgba(237,227,203,.7);text-shadow:0 2px 8px #000;opacity:0;transition:opacity .5s;pointer-events:none}
+    #app.in .coach{opacity:1}.coach.hide{opacity:0!important}
+    .coach::before{content:"↓";display:inline-block;margin-right:8px;color:var(--gold);animation:coach 2s ease-in-out infinite}
+    @keyframes coach{50%{transform:translateY(4px)}}
+
+    /* 菜品详情：深色展签，而非白底 H5 卡片 */
+    .backdrop{position:absolute;z-index:70;inset:0;background:rgba(1,5,11,.68);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s}
+    .backdrop.show{opacity:1;pointer-events:auto}
+    .sheet{position:absolute;z-index:72;left:10px;right:10px;bottom:10px;max-height:76%;overflow-y:auto;padding:10px 22px calc(var(--sab) + 22px);background:
+      linear-gradient(145deg,rgba(17,33,52,.98),rgba(7,16,30,.99));border:1px solid rgba(199,165,100,.34);box-shadow:0 -24px 70px rgba(0,0,0,.58);transform:translateY(calc(100% + 24px));transition:transform .4s cubic-bezier(.2,.78,.2,1);scrollbar-width:none}
+    .sheet::-webkit-scrollbar{display:none}.sheet.open{transform:none}
+    .grab{display:block;width:34px;height:1px;background:rgba(224,201,142,.5);margin:2px auto 16px}
+    .sheet-close{position:absolute;right:14px;top:13px;width:30px;height:30px;border:1px solid rgba(224,201,142,.22);font-size:12px;color:rgba(236,224,194,.72)}
+    .sheet-head{display:grid;grid-template-columns:88px 1fr;gap:15px;align-items:center;padding-right:28px}
+    .sheet-plate{width:86px;height:86px;border-radius:50%;padding:6px;background:#dfe6df;box-shadow:0 11px 24px rgba(0,0,0,.4),inset 0 0 0 3px #23476b}
+    .sheet-plate.bronze{background:linear-gradient(145deg,#987047,#49301f);box-shadow:0 11px 24px rgba(0,0,0,.45),inset 0 0 0 4px #76502f}
+    .sheet-plate img{width:100%;height:100%;display:block;border-radius:50%;object-fit:cover;filter:saturate(.9) brightness(.93)}
+    .sheet-order{font-size:8px;letter-spacing:.2em;color:var(--gold);margin-bottom:6px}
+    .sheet h2{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.12em;color:#f0e2c2}
+    .sheet-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
+    .sheet-tags span{padding:3px 7px;border:1px solid rgba(199,165,100,.25);font-size:8px;letter-spacing:.08em;color:rgba(232,218,185,.68)}
+    .sheet-section{margin-top:19px;padding-top:14px;border-top:1px solid rgba(224,201,142,.13)}
+    .sheet-section h3{margin-bottom:8px;font-size:8px;font-weight:500;letter-spacing:.3em;color:var(--gold)}
+    .sheet-section p{font-size:12px;line-height:1.9;letter-spacing:.03em;color:rgba(238,231,213,.76)}
+    .custom-note{position:relative;padding-left:13px;color:rgba(224,201,142,.72)!important}
+    .custom-note::before{content:"";position:absolute;left:0;top:.55em;width:3px;height:3px;transform:rotate(45deg);background:var(--red-soft);box-shadow:0 0 0 1px var(--gold)}
+    .sheet-cta{width:100%;margin-top:20px;padding:11px 12px;border:1px solid rgba(199,165,100,.42);display:flex;justify-content:space-between;align-items:center;font-size:10px;letter-spacing:.2em;color:#e6d5b0;background:rgba(111,37,37,.15);transition:.2s}
+    .sheet-cta:hover{background:rgba(111,37,37,.3);border-color:rgba(224,201,142,.68)}
+
+    /* 进场封面：像展览序厅，不做大红金开屏 */
+    .cover{position:absolute;z-index:100;inset:0;background:
+      linear-gradient(180deg,rgba(3,10,22,.46),rgba(3,10,22,.7) 48%,rgba(2,7,15,.98) 100%),
+      url("img/cover.jpg") center/cover no-repeat;transition:opacity .65s ease,transform .8s cubic-bezier(.2,.7,.2,1);overflow:hidden}
+    .cover::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(1,5,12,.46),transparent 55%),radial-gradient(circle at 74% 20%,rgba(196,133,59,.15),transparent 22%)}
+    .cover.hide{opacity:0;transform:scale(1.035);pointer-events:none;visibility:hidden}
+    .cover-brand{position:absolute;top:calc(var(--sat) + 24px);left:26px;display:flex;align-items:center;gap:10px;font-size:8px;letter-spacing:.24em;color:rgba(237,225,198,.72)}
+    .cover-brand::before{content:"";width:9px;height:9px;border:1px solid var(--gold);transform:rotate(45deg);box-shadow:inset 0 0 0 2px rgba(4,13,26,.8)}
+    .cover-index{position:absolute;top:calc(var(--sat) + 25px);right:24px;font-family:var(--serif);font-size:9px;letter-spacing:.16em;color:rgba(224,201,142,.56);writing-mode:vertical-rl}
+    .cover-copy{position:absolute;left:26px;right:26px;bottom:calc(var(--sab) + 72px)}
+    .cover-kicker{display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:8px;letter-spacing:.28em;color:var(--gold)}
+    .cover-kicker::before{content:"";width:32px;height:1px;background:var(--gold)}
+    .cover h1{font-family:var(--serif);font-size:49px;line-height:1.16;font-weight:600;letter-spacing:.09em;color:#efe2c5;text-shadow:0 6px 28px rgba(0,0,0,.64)}
+    .cover h1 span{display:block;margin-top:6px;font-family:var(--sans);font-size:10px;font-weight:400;letter-spacing:.33em;color:rgba(235,224,200,.62)}
+    .cover-desc{max-width:286px;margin-top:21px;font-size:11px;line-height:1.95;letter-spacing:.07em;color:rgba(232,224,206,.68)}
+    .enter{width:100%;margin-top:29px;padding:13px 3px;border-top:1px solid rgba(224,201,142,.46);border-bottom:1px solid rgba(224,201,142,.18);display:flex;align-items:center;justify-content:space-between;text-align:left;transition:padding .25s ease,color .25s ease}
+    .enter strong{font-family:var(--serif);font-size:14px;font-weight:600;letter-spacing:.24em;color:#eadbb9}
+    .enter small{font-size:8px;letter-spacing:.18em;color:rgba(228,215,184,.5)}
+    .enter i{font-style:normal;font-size:16px;color:var(--gold);transition:transform .25s ease}
+    .enter:hover{padding-left:8px;padding-right:8px}.enter:hover i{transform:translateX(4px)}
+
+    @media(max-width:379px){
+      .table{left:16px;right:16px}.node.left{left:13px}.node.right{right:27px}.node{width:154px}.plate{width:138px;height:138px}.cover h1{font-size:43px}.walk{right:7px}
+    }
+    @media(max-height:660px){
+      .cover-copy{bottom:calc(var(--sab) + 38px)}.cover-desc{margin-top:14px}.enter{margin-top:18px}.cover h1{font-size:43px}.topbar{padding-top:calc(var(--sat) + 10px)}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+    }
+
+    /* 主视觉匹配版：严格沿用参考图的桌面、器皿与古金/藏青/暗红语言 */
+    body{background:#00050b}
+    #app{max-width:440px;background:#020814;border-left:1px solid rgba(214,176,99,.25);border-right:1px solid rgba(214,176,99,.25)}
+    .world{background:#020815}
+    .world::before{background:radial-gradient(circle at 50% 32%,rgba(18,49,84,.46),transparent 52%)}
+    .world::after{background:linear-gradient(90deg,rgba(0,3,9,.8),transparent 14%,transparent 86%,rgba(0,3,9,.8))}
+    .ridge,.lamp-glow{display:none}
+    .strip{height:4380px}
+    .table{left:0;right:0;top:0;height:4260px;border-radius:0;background:url("img/table-visual.png") center top/100% auto repeat-y;box-shadow:none;overflow:hidden}
+    .table::before,.table::after,.runner{display:none}
+    .chapter{opacity:.38}
+    .chapter::before{height:18px;margin-bottom:5px}
+    .chapter b{font-size:11px;color:#e2c483;letter-spacing:.32em;text-indent:.32em}
+    .chapter small{font-size:7px;color:rgba(225,196,131,.58)}
+
+    .node{width:176px;min-height:214px;gap:0}
+    .node.left{left:25px}.node.right{right:25px}
+    .plate,.node.bronze .plate{width:176px;height:176px;padding:0;overflow:hidden;border-radius:50%;background:none;box-shadow:0 16px 28px rgba(0,0,0,.42),inset 0 0 0 1px rgba(218,181,104,.44);filter:drop-shadow(0 0 7px rgba(214,176,99,.12))}
+    .plate::before,.node.bronze .plate::before{display:none}
+    .plate img,.node.bronze .plate img{width:100%;height:100%;object-fit:contain;border-radius:0;filter:none;transform:scale(var(--asset-scale,1.16))}
+    .node:hover .plate,.node:focus-visible .plate{transform:translateY(-5px) scale(1.035);filter:drop-shadow(0 0 13px rgba(224,193,121,.38))}
+    .node:hover img,.node:focus-visible img{filter:none}
+    .node-copy{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;min-width:142px;max-width:174px;margin-top:-6px;padding:8px 13px 9px;border-radius:999px;background:linear-gradient(180deg,rgba(17,27,48,.97),rgba(5,12,25,.96));border:1px solid rgba(214,176,99,.62);box-shadow:0 8px 18px rgba(0,0,0,.55),inset 0 0 0 2px rgba(4,10,22,.72)}
+    .node-copy::before{display:none}
+    .node-title{order:1;font-size:14px;letter-spacing:.1em;text-indent:0;color:#f0dfba}
+    .node-index{order:2;margin:0;font-size:10px;letter-spacing:.04em;color:#e7bb4e}
+    .node-cue{display:none}
+    .node.visited .node-index::after{content:" · 阅";color:#d5bd7e}
+    .node.hit .plate{box-shadow:0 0 0 1px rgba(227,194,118,.8),0 18px 34px rgba(0,0,0,.55),0 0 28px rgba(211,166,80,.26)}
+    .steam{top:0}
+
+    .topbar{grid-template-columns:48px 1fr 48px;padding:calc(var(--sat) + 14px) 16px 78px;background:linear-gradient(180deg,rgba(0,5,14,.94),rgba(1,8,19,.58) 62%,transparent)}
+    .text-btn{width:42px;height:42px;border-radius:50%;border:1px solid rgba(222,181,94,.72);background:rgba(3,13,30,.72);box-shadow:inset 0 0 0 3px rgba(2,8,18,.8),0 0 0 1px rgba(116,61,30,.55);font-size:0;color:#e3c176}
+    #exitBtn::before{content:"←";font-size:21px}
+    #helpBtn::before{content:"?";font-family:var(--serif);font-size:20px}
+    .eyebrow{display:none}
+    .title-lockup h1{margin-top:0;font-size:26px;font-weight:700;letter-spacing:.16em;text-indent:.16em;color:#e6c27d;text-shadow:0 2px 0 #69401f,0 5px 16px rgba(0,0,0,.8)}
+    .position{display:inline-block;margin-top:8px;padding:5px 17px;border:1px solid rgba(214,176,99,.7);border-radius:999px;background:rgba(5,18,38,.82);font-family:var(--serif);font-size:10px;letter-spacing:.12em;color:#ead6aa;box-shadow:inset 0 0 0 2px rgba(4,10,22,.7)}
+    .help-pop{top:calc(var(--sat) + 67px);border-color:rgba(214,176,99,.55);background:rgba(3,13,29,.96)}
+
+    .walk{right:12px;height:min(380px,46vh);gap:7px}
+    .walk-label{font-family:var(--serif);font-size:9px;letter-spacing:.08em;color:#d9bc7a;writing-mode:horizontal-tb}
+    .track{width:2px;background:rgba(218,181,102,.25);box-shadow:0 0 0 1px rgba(2,8,18,.8)}
+    .fill{width:2px;background:linear-gradient(#f2d78e,#d79f3c,#7d2c2c)}
+    .dot{width:12px;height:12px;background:#f2d18a;border:2px solid #fff1bd;box-shadow:0 0 12px 4px rgba(232,185,75,.55)}
+    .step-count{color:#d8b769}
+    .coach{border:1px solid rgba(214,176,99,.34);border-radius:999px;background:rgba(2,10,22,.72);padding:7px 13px;backdrop-filter:blur(8px)}
+
+    .sheet{background:linear-gradient(145deg,rgba(8,23,44,.99),rgba(3,10,23,.99));border-color:rgba(214,176,99,.58);box-shadow:0 -24px 70px rgba(0,0,0,.7),inset 0 0 0 2px rgba(2,7,16,.8)}
+    .sheet-plate,.sheet-plate.bronze{width:100px;height:100px;padding:0;overflow:hidden;border-radius:50%;background:none;box-shadow:0 8px 18px rgba(0,0,0,.38),inset 0 0 0 1px rgba(218,181,104,.4)}
+    .sheet-plate img{object-fit:contain;border-radius:0;filter:none;transform:scale(var(--asset-scale,1.16))}
+    .sheet-order,.sheet-section h3{color:#d6ab55}
+    .sheet h2{color:#ecd8a5}
+    .sheet-cta{border-color:rgba(214,176,99,.62);background:linear-gradient(180deg,rgba(112,41,35,.42),rgba(72,24,24,.38))}
+
+    .cover{background:linear-gradient(180deg,rgba(0,7,19,.72) 0%,rgba(0,7,19,.18) 38%,rgba(0,5,13,.56) 100%),url("img/table-visual.png") center top/100% auto repeat-y}
+    .cover::before{background:linear-gradient(180deg,rgba(0,7,20,.76),rgba(2,10,23,.08) 42%,rgba(0,4,11,.58)),radial-gradient(circle at 50% 10%,rgba(22,57,98,.4),transparent 34%)}
+    .cover-brand,.cover-index,.cover-kicker,.cover-desc{display:none}
+    .cover-copy{top:calc(var(--sat) + 42px);bottom:auto;left:30px;right:30px;text-align:center}
+    .cover h1{font-size:45px;line-height:1.1;font-weight:700;letter-spacing:.08em;color:#e7c27b;text-shadow:0 2px 0 #71451e,0 6px 18px rgba(0,0,0,.86)}
+    .cover h1 span{margin-top:10px;font-size:8px;letter-spacing:.28em;color:rgba(231,206,150,.66)}
+    .cover-zone{width:max-content;margin:14px auto 0;padding:5px 24px;border:1px solid rgba(215,176,93,.72);border-radius:999px;background:rgba(4,17,38,.86);font-family:var(--serif);font-size:12px;letter-spacing:.14em;color:#ead4a3;box-shadow:inset 0 0 0 2px rgba(3,9,20,.74)}
+    .enter{width:188px;height:58px;margin:13px auto 0;padding:0 20px;border:1px solid #d2a34d;border-radius:9px;justify-content:center;background:linear-gradient(180deg,#9c4037,#6e2626);box-shadow:inset 0 0 0 3px rgba(77,23,22,.72),0 7px 18px rgba(0,0,0,.45)}
+    .enter strong{font-size:22px;letter-spacing:.22em;text-indent:.22em;color:#f0d495;text-shadow:0 2px 0 #6c2b21}
+    .enter small,.enter i{display:none}
+    .enter:hover{padding:0 20px;transform:translateY(-2px);filter:brightness(1.08)}
+    .cover-dishes{position:absolute;inset:0;z-index:0;pointer-events:none}
+    .cover-dish{position:absolute;width:164px;height:164px;overflow:hidden;border-radius:50%;filter:drop-shadow(0 15px 16px rgba(0,0,0,.48))}
+    .cover-dish img{width:100%;height:100%;object-fit:contain;transform:scale(var(--asset-scale,1.16))}
+    .cover-dishes .d1{top:310px;left:20px;--asset-scale:1.3}.cover-dishes .d2{top:485px;right:18px;--asset-scale:1.1}.cover-dishes .d3{top:675px;left:25px;--asset-scale:1.19}
+    .cover-dishes::after{content:"";position:absolute;left:-8%;right:-8%;top:620px;height:1px;background:linear-gradient(90deg,transparent,#a56a2c 12%,#d69d45 50%,#a56a2c 88%,transparent);box-shadow:0 0 13px rgba(226,159,68,.38);transform:rotate(1.5deg)}
+    .ending::before{background:radial-gradient(circle,rgba(192,85,33,.55),rgba(149,55,31,.14) 48%,transparent 72%)}
+    .ending span{color:#dfc383}
+
+    @media(max-width:379px){
+      .node.left{left:15px}.node.right{right:22px}.node{width:160px}.plate,.node.bronze .plate{width:160px;height:160px}.node-copy{max-width:158px;min-width:132px}.cover h1{font-size:39px}.cover-dish{width:148px;height:148px}.cover-dishes .d1{left:13px}.cover-dishes .d2{right:12px}
+    }
+    @media(max-height:700px){
+      .cover-copy{top:calc(var(--sat) + 24px)}.cover h1{font-size:38px}.enter{margin-top:17px;height:50px}.cover-dishes .d1{top:255px}.cover-dishes .d2{top:430px}.cover-dishes .d3{top:595px}
+    }
+
+    /* 等宽居中对比版：平行桌边 + 单列菜品中轴 */
+    .table{left:26px;right:26px;width:auto;border-left:1px solid rgba(213,174,93,.44);border-right:1px solid rgba(213,174,93,.44);border-radius:0 0 18px 18px;background-size:150% 100%;background-position:center top;background-repeat:no-repeat;box-shadow:0 0 34px rgba(0,0,0,.5),inset 0 0 26px rgba(0,0,0,.22)}
+    .table::before,.table::after{display:block;top:0;bottom:0;width:7px;opacity:1;background:linear-gradient(90deg,#071224,#b18a4b 38%,#1d2f42 58%,#050c18);box-shadow:0 0 8px rgba(0,0,0,.52)}
+    .table::before{left:0}.table::after{right:0;left:auto;transform:scaleX(-1)}
+    .runner{display:block;z-index:2;left:50%;top:0;width:96px;height:4260px;transform:translateX(-50%);background:url("img/table-visual.png") center top/504px auto repeat-y;border-left:1px solid rgba(211,175,99,.32);border-right:1px solid rgba(211,175,99,.32);box-shadow:8px 0 18px rgba(0,0,0,.18),-8px 0 18px rgba(0,0,0,.18)}
+    .chapter{display:none}
+    .node,.node.left,.node.right{left:50%!important;right:auto!important;transform:translateX(-50%);width:194px;min-height:230px}
+    .plate,.node.bronze .plate{width:188px;height:188px}
+    .node-copy{min-width:148px;max-width:190px;margin-top:-7px;padding:9px 16px 10px}
+    .node-title{font-size:15px}
+    .node-index{font-size:10px}
+    .cover-dishes .d1,.cover-dishes .d2,.cover-dishes .d3{left:50%;right:auto;transform:translateX(-50%)}
+    .cover-dishes .d1{top:310px}.cover-dishes .d2{top:515px}.cover-dishes .d3{top:720px}
+    .cover-dishes::after{display:none}
+    .ending{left:50%;right:auto;width:280px;transform:translateX(-50%)}
+
+    @media(max-width:379px){
+      .table{left:22px;right:22px}.node,.node.left,.node.right{left:50%!important;right:auto!important;width:184px}.plate,.node.bronze .plate{width:178px;height:178px}.cover-dishes .d1,.cover-dishes .d2,.cover-dishes .d3{left:50%;right:auto}
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="world" aria-hidden="true">
+      <div class="ridge"></div>
+      <i class="lamp-glow a"></i><i class="lamp-glow b"></i><i class="lamp-glow c"></i>
+    </div>
+
+    <main class="scene" aria-label="百米长桌宴游席场景">
+      <div class="scroller" id="scroller" tabindex="0" aria-label="上下滑动浏览长桌">
+        <div class="strip" id="strip">
+          <div class="table"></div>
+          <div class="runner"></div>
+          <div class="chapter c1"><b>迎客入寨</b><small>Chapter I · Welcome</small></div>
+          <div class="chapter c2"><b>主宾入席</b><small>Chapter II · The Feast</small></div>
+          <div class="chapter c3"><b>酒歌正酣</b><small>Chapter III · Toast</small></div>
+          <div class="chapter c4"><b>篝火歌堂</b><small>Chapter IV · Bonfire</small></div>
+          <div id="nodes"></div>
+          <div class="ending"><span>山有多高 · 情有多长</span></div>
+        </div>
+      </div>
+    </main>
+
+    <header class="topbar">
+      <button class="text-btn" id="exitBtn" aria-label="返回序厅">离席</button>
+      <div class="title-lockup">
+        <div class="eyebrow">Miao Long-table Feast</div>
+        <h1>百米长桌宴</h1>
+        <div class="position" id="position">迎客入寨 · 第 01 席</div>
+      </div>
+      <button class="text-btn" id="helpBtn" aria-label="查看操作说明" aria-expanded="false">导览</button>
+    </header>
+
+    <aside class="help-pop" id="helpPop" aria-hidden="true">
+      <b>游席方式</b>
+      <p>上下滑动，沿长桌由寨门走向篝火。轻触桌上器皿，阅读每一道风物与待客讲究。</p>
+    </aside>
+
+    <aside class="walk" aria-label="游席进度">
+      <span class="walk-label">寨门</span>
+      <div class="track"><div class="fill" id="walkFill"></div><div class="dot" id="walkDot"></div></div>
+      <span class="walk-label">歌堂</span>
+      <span class="step-count" id="stepCount">01/12</span>
+    </aside>
+
+    <div class="coach" id="coach">向下游席 · 轻触器皿</div>
+
+    <div class="backdrop" id="backdrop"></div>
+    <section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="sheetName">
+      <span class="grab"></span>
+      <button class="sheet-close" id="sheetClose" aria-label="关闭详情">×</button>
+      <div class="sheet-head">
+        <div class="sheet-plate" id="sheetPlate"><img id="sheetImage" src="img/niubin-visual.png" alt=""></div>
+        <div>
+          <div class="sheet-order" id="sheetOrder">第 01 席 · 进寨礼</div>
+          <h2 id="sheetName">迎宾米酒</h2>
+          <div class="sheet-tags" id="sheetTags"></div>
+        </div>
+      </div>
+      <div class="sheet-section">
+        <h3>这一席</h3>
+        <p id="sheetIntro"></p>
+      </div>
+      <div class="sheet-section">
+        <h3>苗家讲究</h3>
+        <p class="custom-note" id="sheetNote"></p>
+      </div>
+      <button class="sheet-cta" id="sheetCta"><span>收起展签 · 继续游席</span><span>↓</span></button>
+    </section>
+
+    <section class="cover" id="cover" aria-label="百米长桌宴序厅">
+      <div class="cover-dishes" aria-hidden="true">
+        <span class="cover-dish d1"><img src="img/niubin-visual.png" alt=""></span>
+        <span class="cover-dish d2"><img src="img/suantangyu-visual.png" alt=""></span>
+        <span class="cover-dish d3"><img src="img/lawei-visual.png" alt=""></span>
+      </div>
+      <div class="cover-brand">西江 · 夜宴数字展</div>
+      <div class="cover-index">EXHIBITION / 01</div>
+      <div class="cover-copy">
+        <div class="cover-kicker">苗家待客长卷</div>
+        <h1>百米长桌宴<span>THE LONG-TABLE FEAST</span></h1>
+        <div class="cover-zone">寨门 · 拦门酒</div>
+        <p class="cover-desc">沿一席暖木长桌入寨。看草木染色、尝酸鲜烟火，也听见酒歌与银饰在夜色里相逢。</p>
+        <button class="enter" id="enterBtn">
+          <span><strong>入宴门</strong><br><small>上下滑动 · 十二席风物</small></span><i>→</i>
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const $=(s,r=document)=>r.querySelector(s);
+    const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+
+    const DISHES=[
+      {id:'niubin',y:250,side:'left',ware:'bronze',tag:'迎客',order:'第 01 席 · 进寨礼',name:'迎宾米酒',tags:['低度甜酒','十二道拦门酒'],intro:'进寨的第一口。苗家阿妹在寨门排开十二道拦门酒，以牛角杯相敬；酒杯悬着递来，不落在桌上，喝过才算正式入寨。',note:'不胜酒力可以只抿一口，双手扶杯示意即可。真诚比酒量更重要。'},
+      {id:'suantangyu',y:578,side:'right',ware:'qinghua',pulse:true,tag:'酸来自时间',order:'第 02 席 · 招牌',name:'苗岭酸汤鱼',tags:['红酸汤','木姜子','年年有余'],intro:'红酸汤用毛辣果自然发酵，再以木姜子油提香。稻田鲤鱼下锅，汤色橙红，一口酸鲜先把味蕾唤醒。',note:'苗家有“三天不吃酸，走路打蹿蹿”的说法。无酸不成席，先喝汤，再吃鱼。'},
+      {id:'paoshanji',y:906,side:'left',ware:'bronze',steam:true,tag:'长者先动筷',order:'第 03 席',name:'白切跑山鸡',tags:['山林散养','糊辣椒蘸水'],intro:'山林散养的土鸡，白水煮至皮爽肉滑，斩件装盘。鸡肉清甜，滋味全在一碗糊辣椒蘸水里。',note:'鸡头敬给席间最年长的长辈。长辈动筷，宴席才算真正开始。'},
+      {id:'lawei',y:1234,side:'right',ware:'qinghua',steam:true,tag:'一月柴火香',order:'第 04 席',name:'烟熏腊味拼',tags:['腊肉','香肠','血豆腐'],intro:'柴火冷熏一个月的腊肉、香肠与血豆腐切厚片蒸软，肥肉透亮、瘦肉紧实，是苗家屋檐下存住的年味。',note:'熏得越久，越是待客的诚意。就一口自酿米酒，最合适。'},
+      {id:'zheergen',y:1562,side:'left',ware:'qinghua',tag:'贵州人的灵魂',order:'第 05 席',name:'折耳根拌腊肉',tags:['微辣','凉菜','烟熏'],intro:'折耳根拌烟熏腊肉丁，淋糊辣椒红油。草木气与烟火气撞在一起，第一口陌生，第三口已经离不开。',note:'先夹一小筷试试。对折耳根的爱恨，常常是认识贵州味道的分水岭。'},
+      {id:'yujiang',y:1890,side:'right',ware:'bronze',tag:'去年埋下的心意',order:'第 06 席',name:'苗王鱼酱',tags:['酸辣','坛藏发酵'],intro:'韭菜根与小鱼同坛腌制，密封发酵数月。开坛酸辣冲鼻，入口却醇厚回甘，是苗家人的下饭珍味。',note:'一坛鱼酱常要等贵客上门才开封。眼前这一勺，是去年就埋下的心意。'},
+      {id:'midoufu',y:2218,side:'left',ware:'qinghua',tag:'给舌头歇口气',order:'第 07 席',name:'米豆腐',tags:['清爽','酸萝卜','酥黄豆'],intro:'米浆点成嫩黄豆腐，切作小方块，浇红油、酸萝卜丁和酥黄豆。滑嫩清爽，是宴席中途的一段留白。',note:'长桌宴吃得火热，中途来一碗米豆腐，让舌头歇口气，再走向下半场。'},
+      {id:'nuomifan',y:2546,side:'right',ware:'bronze',tag:'山间草木染',order:'第 08 席 · 主食',name:'五彩糯米饭',tags:['草木染','五谷丰登'],intro:'枫叶染黑、黄花染黄、紫蓝草染紫。颜色都来自山间草木，蒸出的糯米饭带着清淡植物香。',note:'五色寄托五谷丰登。姑娘们会把最漂亮的一团糯米饭递给心上人。'},
+      {id:'ciba',y:2874,side:'left',ware:'bronze',tag:'越打越黏',order:'第 09 席 · 席间现做',name:'手打糍粑',tags:['现做','黄豆面','软糯'],intro:'蒸熟糯米倒进木槽，两人轮番捶打。趁热揪团、压扁，再蘸黄豆面，软糯拉丝，甜香扑鼻。',note:'打糍粑讲“越打越黏”，象征主客情谊越结越紧。'},
+      {id:'mijiu',y:3202,side:'right',ware:'qinghua',tag:'山高水长',order:'第 10 席 · 席间畅饮',name:'自酿米酒',tags:['低度','敬酒歌','高山流水'],intro:'糯米酒酿入口清甜。酒意渐浓，姑娘们唱着敬酒歌层叠酒壶，让酒线如瀑落进碗中。',note:'“高山流水”时不必用手扶杯，张口即饮便是敬意：山有多高，情有多长。'},
+      {id:'suanluobo',y:3530,side:'left',ware:'qinghua',tag:'酸坛不空',order:'第 11 席',name:'酸萝卜',tags:['酸爽','脆嫩','开胃'],intro:'红皮白心萝卜泡进酸汤坛，两天起坛。酸爽脆嫩，一口下去，把前面的浓香重新收束。',note:'苗家的酸坛子从不空着，坛水清亮，是家宅兴旺的彩头。'},
+      {id:'guihuo',y:3858,side:'right',ware:'bronze',tag:'宴终才是高潮',order:'第 12 席 · 狂欢',name:'篝火歌堂',tags:['芦笙','铜鼓','全寨同欢'],intro:'宴至酣时，芦笙响起，篝火升腾。人们拉起手围成圈，踩着鼓点跳到深夜；宴席的尾声，才是真正的高潮。',note:'被拉进舞圈就是贵客。无需记动作，跟着节奏跺脚便好。'}
+    ];
+    const ASSET_SCALE={niubin:1.3,suantangyu:1.1,paoshanji:1.15,lawei:1.19,zheergen:1.18,yujiang:1.23,midoufu:1.2,nuomifan:1.18,ciba:1.23,mijiu:1.34,suanluobo:1.17,guihuo:1.25};
+
+    $('#nodes').innerHTML=DISHES.map((d,i)=>`
+      <button class="node ${d.side} ${d.ware}${d.pulse?' pulse':''}" style="top:${d.y}px;--asset-scale:${ASSET_SCALE[d.id]||1.16}" data-id="${d.id}" aria-label="查看${d.name}的介绍">
+        ${d.steam?'<span class="steam"></span><span class="steam s2"></span>':''}
+        <span class="plate"><img src="img/${d.id}-visual.png" alt=""></span>
+        <span class="node-copy">
+          <span class="node-index">${String(i+1).padStart(2,'0')}</span>
+          <span class="node-title">${d.name}</span>
+          <span class="node-cue">${d.tag}</span>
+        </span>
+      </button>`).join('');
+
+    const app=$('#app');
+    const cover=$('#cover');
+    const scroller=$('#scroller');
+    const sheet=$('#sheet');
+    const backdrop=$('#backdrop');
+    let lastTrigger=null;
+    let dragMoved=false;
+    let down=false;
+    let startY=0;
+    let startScroll=0;
+
+    function enterFeast(){
+      scroller.scrollTop=0;
+      app.classList.add('in','entering');
+      cover.classList.add('hide');
+      cover.setAttribute('aria-hidden','true');
+      setTimeout(()=>app.classList.remove('entering'),1000);
+    }
+
+    function exitFeast(){
+      closeSheet();
+      app.classList.remove('in','entering');
+      cover.classList.remove('hide');
+      cover.setAttribute('aria-hidden','false');
+      scroller.scrollTop=0;
+      $('#enterBtn').focus({preventScroll:true});
+    }
+
+    $('#enterBtn').addEventListener('click',enterFeast);
+    $('#exitBtn').addEventListener('click',exitFeast);
+
+    scroller.addEventListener('pointerdown',e=>{
+      down=true;dragMoved=false;startY=e.clientY;startScroll=scroller.scrollTop;
+      if(e.pointerType==='mouse')scroller.classList.add('dragging');
+    });
+    window.addEventListener('pointermove',e=>{
+      if(!down)return;
+      const distance=e.clientY-startY;
+      if(Math.abs(distance)>7){dragMoved=true;$('#coach').classList.add('hide')}
+      if(e.pointerType==='mouse'&&dragMoved)scroller.scrollTop=startScroll-distance;
+    });
+    window.addEventListener('pointerup',()=>{down=false;scroller.classList.remove('dragging')});
+
+    function updateProgress(){
+      const max=scroller.scrollHeight-scroller.clientHeight;
+      const progress=max?Math.min(1,Math.max(0,scroller.scrollTop/max)):0;
+      const nearest=Math.min(DISHES.length-1,Math.max(0,Math.round(progress*(DISHES.length-1))));
+      const chapter=progress<.31?'迎客入寨':progress<.63?'主宾入席':progress<.88?'酒歌正酣':'篝火歌堂';
+      $('#walkFill').style.height=`${progress*100}%`;
+      $('#walkDot').style.top=`${progress*100}%`;
+      $('#stepCount').textContent=`${String(nearest+1).padStart(2,'0')}/12`;
+      $('#position').textContent=`${chapter} · 第 ${String(nearest+1).padStart(2,'0')} 席`;
+      if(scroller.scrollTop>42)$('#coach').classList.add('hide');
+    }
+    scroller.addEventListener('scroll',()=>requestAnimationFrame(updateProgress),{passive:true});
+    scroller.addEventListener('keydown',e=>{
+      if(e.key==='ArrowDown'){e.preventDefault();scroller.scrollBy({top:280,behavior:'smooth'})}
+      if(e.key==='ArrowUp'){e.preventDefault();scroller.scrollBy({top:-280,behavior:'smooth'})}
+    });
+
+    function openDish(id,trigger){
+      const dish=DISHES.find(item=>item.id===id);
+      if(!dish)return;
+      lastTrigger=trigger||null;
+      $$('.node').forEach(node=>node.classList.remove('hit','pulse'));
+      if(trigger)trigger.classList.add('hit','visited');
+      $('#sheetPlate').className=`sheet-plate ${dish.ware}`;
+      $('#sheetPlate').style.setProperty('--asset-scale',ASSET_SCALE[dish.id]||1.16);
+      $('#sheetImage').src=`img/${dish.id}-visual.png`;
+      $('#sheetImage').alt=dish.name;
+      $('#sheetOrder').textContent=dish.order;
+      $('#sheetName').textContent=dish.name;
+      $('#sheetTags').innerHTML=dish.tags.map(tag=>`<span>${tag}</span>`).join('');
+      $('#sheetIntro').textContent=dish.intro;
+      $('#sheetNote').textContent=dish.note;
+      sheet.classList.add('open');
+      backdrop.classList.add('show');
+      sheet.setAttribute('aria-hidden','false');
+      $('#coach').classList.add('hide');
+      setTimeout(()=>$('#sheetClose').focus({preventScroll:true}),350);
+    }
+
+    function closeSheet(){
+      const wasOpen=sheet.classList.contains('open');
+      sheet.classList.remove('open');
+      backdrop.classList.remove('show');
+      sheet.setAttribute('aria-hidden','true');
+      if(wasOpen&&lastTrigger)setTimeout(()=>lastTrigger.focus({preventScroll:true}),380);
+    }
+
+    $('#nodes').addEventListener('click',e=>{
+      if(dragMoved)return;
+      const node=e.target.closest('.node');
+      if(node)openDish(node.dataset.id,node);
+    });
+    backdrop.addEventListener('click',closeSheet);
+    $('#sheetClose').addEventListener('click',closeSheet);
+    $('#sheetCta').addEventListener('click',closeSheet);
+
+    const helpBtn=$('#helpBtn');
+    const helpPop=$('#helpPop');
+    function closeHelp(){helpPop.classList.remove('show');helpPop.setAttribute('aria-hidden','true');helpBtn.setAttribute('aria-expanded','false')}
+    helpBtn.addEventListener('click',e=>{
+      e.stopPropagation();
+      const open=!helpPop.classList.contains('show');
+      helpPop.classList.toggle('show',open);
+      helpPop.setAttribute('aria-hidden',String(!open));
+      helpBtn.setAttribute('aria-expanded',String(open));
+    });
+    window.addEventListener('click',e=>{if(!e.target.closest('#helpPop'))closeHelp()});
+    window.addEventListener('keydown',e=>{if(e.key==='Escape'){if(sheet.classList.contains('open'))closeSheet();else closeHelp()}});
+
+    updateProgress();
+  </script>
+</body>
+</html>
