@@ -7,6 +7,7 @@ import './map-background.css'
 import silverStencil from './assets/silver-stencil.png'
 import batikStencil from './assets/batik-stencil.png'
 import dressStencil from './assets/dress-stencil.png'
+import introVideo from './assets/intro.mp4'
 
 type TabKey = 'home' | 'map' | 'workshop' | 'culture'
 const tabs: { key: TabKey; label: string; to: '/' | '/map' | '/workshop' | '/culture'; iconClass: string }[] = [
@@ -18,17 +19,29 @@ function Shell({ active, title, children }: { active: TabKey; title: string; chi
   return <main className={`mini-program ${active === 'home' ? 'home-shell' : ''}`}><header className="navigation-bar"><span className="page-title">{title}</span><span className="capsule" aria-label="小程序胶囊按钮"><i /><b /><em /></span></header><section className="page-content">{children}</section><nav className="tab-bar" aria-label="主导航">{tabs.map((tab) => <Link key={tab.key} to={tab.to} className={`tab-item ${active === tab.key ? 'active' : ''}`} activeOptions={{ exact: true }}><span className={`tab-icon ${tab.iconClass}`} aria-hidden="true" /><span>{tab.label}</span></Link>)}</nav></main>
 }
 
+function IntroScreen({ onComplete }: { onComplete: () => void }) {
+  return <main className="intro-screen" aria-label="黔苗行开屏"><video className="intro-video" src={introVideo} autoPlay muted playsInline preload="auto" onEnded={onComplete} /><div className="intro-video-shade" /><p>黔苗行</p><button type="button" onClick={onComplete}>跳过 <span>›</span></button></main>
+}
+
 const dailyDialogues = [
   '想听听姊妹节的故事', '苗绣纹样有什么寓意？', '推荐一条苗寨路线',
+]
+const openingGuides = [
+  '刚才的开屏，不只是一个画面。蓝靛、白纹与生长的树，来自苗族对生命的想象。',
+  '苗族传说里，蝴蝶妈妈孕育万物。她的蝶翼、花纹和种子，后来被绣进衣裳与蜡染。',
+  '所以我们从这段传说开始：欢迎你沿着一只蝴蝶的翅膀，走进苗寨。',
 ]
 
 function HomePage() {
   const [questions, setQuestions] = useState<string[]>([])
   const [draft, setDraft] = useState('')
   const [reply, setReply] = useState('你好，我是纠笙。想从苗乡的哪段故事开始听？')
-  const [chatOpen, setChatOpen] = useState(true)
+  const [chatOpen, setChatOpen] = useState(false)
   const [fading, setFading] = useState(false)
   const [autoDismiss, setAutoDismiss] = useState(false)
+  const [guideStep, setGuideStep] = useState(0)
+  const [guiding, setGuiding] = useState(true)
+  const [showInvite, setShowInvite] = useState(false)
   useEffect(() => {
     if (!chatOpen || !autoDismiss) return undefined
     setFading(false)
@@ -45,10 +58,12 @@ function HomePage() {
     setFading(false)
     setChatOpen(true)
     setAutoDismiss(true)
+    setShowInvite(false)
   }
   const submit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); sendMessage(draft) }
-  const openChat = () => { setFading(false); setAutoDismiss(false); setChatOpen(true) }
-  return <Shell active="home" title="黔苗行"><section className="dress-hero daily-hero"><div className="dress-copy"><p>贵州 · 黔东南</p><h1>走进苗寨<br />遇见纠笙</h1><span>让她带你认识苗乡日常</span></div><div className="dress-avatar photo-avatar outfit-silver home-avatar-entrance" aria-label="苗寨向导纠笙" /><div className="dress-seal">苗<br />乡</div>{chatOpen && <section className={`joson-chat pet-speech ${fading ? 'is-fading' : ''}`} aria-label="纠笙的缩略回答"><header><span>纠</span><div><b>纠笙</b><small>苗寨文化向导 · 在线</small></div><button type="button" className="pet-close" aria-label="收起对话" onClick={() => setChatOpen(false)}>×</button></header><p className="pet-answer" aria-live="polite">{reply}</p><div className="chat-suggestions">{dailyDialogues.slice(0, 2).map((item) => <button key={item} type="button" onClick={() => sendMessage(item)}>{item}</button>)}</div><form onSubmit={submit}><input value={draft} onFocus={() => setAutoDismiss(false)} onChange={(event) => setDraft(event.target.value)} placeholder="问问纠笙…" aria-label="输入想问纠笙的问题" /><button type="submit">发送</button></form></section>}{!chatOpen && questions.length > 0 && <button type="button" className="question-trail" onClick={openChat} aria-label="查看已问问题并再次提问"><span>已问</span><b>{questions[questions.length - 1]}</b><i>{questions.length}</i></button>}{!chatOpen && <button type="button" className="joson-chat-trigger" onClick={openChat} aria-label="再次向纠笙提问"><span>问</span><b>问问纠笙</b></button>}</section></Shell>
+  const openChat = () => { setFading(false); setAutoDismiss(false); setShowInvite(false); setChatOpen(true) }
+  const nextGuide = () => { if (guideStep === openingGuides.length - 1) { setGuiding(false); setShowInvite(true) } else setGuideStep((current) => current + 1) }
+  return <Shell active="home" title="黔苗行"><section className="dress-hero daily-hero"><div className="dress-copy"><p>贵州 · 黔东南</p><h1>走进苗寨<br />遇见纠笙</h1><span>让她带你认识苗乡日常</span></div><div className="dress-avatar photo-avatar outfit-silver home-avatar-entrance" aria-label="苗寨向导纠笙" /><div className="dress-seal">苗<br />乡</div>{guiding && <section className="opening-guide" aria-label="开屏故事引导"><p><span>蝴蝶妈妈的故事 · {guideStep + 1}/{openingGuides.length}</span>{openingGuides[guideStep]}</p><button type="button" onClick={nextGuide}>{guideStep === openingGuides.length - 1 ? '去问问纠笙' : '继续 ›'}</button></section>}{!guiding && showInvite && <section className="question-invite" aria-label="邀请向纠笙提问"><p>还有其他的问题<br />可以再问我。</p><button type="button" onClick={openChat}>问问纠笙 ›</button></section>}{chatOpen && <section className={`joson-chat pet-speech ${fading ? 'is-fading' : ''}`} aria-label="纠笙的缩略回答"><header><span>纠</span><div><b>纠笙</b><small>苗寨文化向导 · 在线</small></div><button type="button" className="pet-close" aria-label="收起对话" onClick={() => setChatOpen(false)}>×</button></header><p className="pet-answer" aria-live="polite">{reply}</p><div className="chat-suggestions">{dailyDialogues.slice(0, 2).map((item) => <button key={item} type="button" onClick={() => sendMessage(item)}>{item}</button>)}</div><form onSubmit={submit}><input value={draft} onFocus={() => setAutoDismiss(false)} onChange={(event) => setDraft(event.target.value)} placeholder="问问纠笙…" aria-label="输入想问纠笙的问题" /><button type="submit">发送</button></form></section>}{!chatOpen && !guiding && questions.length > 0 && <button type="button" className="question-trail" onClick={openChat} aria-label="查看已问问题并再次提问"><span>已问</span><b>{questions[questions.length - 1]}</b><i>{questions.length}</i></button>}{!chatOpen && !guiding && !showInvite && <button type="button" className={`joson-chat-trigger ${questions.length > 0 ? 'compact' : ''}`} onClick={openChat} aria-label="再次向纠笙提问"><span>问</span><b>问问纠笙</b></button>}</section></Shell>
 }
 const mapPlaces = [
   { name: '观景台', note: '云端日出', detail: '站在山脊俯瞰层层叠叠的木楼，等一场云海日出。', x: 22, y: 18 },
@@ -166,4 +181,8 @@ const heritageRoute = createRoute({ getParentRoute: () => rootRoute, path: '/her
 const cultureRoute = createRoute({ getParentRoute: () => rootRoute, path: '/culture', component: CulturePage })
 const router = createRouter({ routeTree: rootRoute.addChildren([indexRoute, mapRoute, workshopRoute, heritageRoute, cultureRoute]) })
 declare module '@tanstack/react-router' { interface Register { router: typeof router } }
-createRoot(document.getElementById('root')!).render(<StrictMode><RouterProvider router={router} /></StrictMode>)
+function App() {
+  const [showIntro, setShowIntro] = useState(true)
+  return showIntro ? <IntroScreen onComplete={() => setShowIntro(false)} /> : <RouterProvider router={router} />
+}
+createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>)
