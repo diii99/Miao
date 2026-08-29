@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0b0c14">
+<title>千锤成银 · 西江千户苗寨银饰锻制体验</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{background:#07080d;display:flex;align-items:center;justify-content:center;
+  font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:#e8e2d6;
+  -webkit-font-smoothing:antialiased;overflow:hidden;-webkit-tap-highlight-color:transparent}
+#stage{position:relative;width:100%;height:100dvh;max-width:470px;background:#0b0c14;display:flex;flex-direction:column;overflow:hidden}
+@media(min-width:560px) and (min-height:700px){
+  #stage{height:min(880px,94vh);border-radius:26px;border:1px solid #2b3247;
+    box-shadow:0 30px 80px rgba(0,0,0,.65),inset 0 0 0 1px rgba(255,255,255,.02)}
+  body{background:radial-gradient(1200px 800px at 50% -10%,#181c2e,#07080d 62%)}
+}
+header{display:flex;align-items:center;gap:10px;padding:12px 14px 6px;z-index:5}
+.brand{font-weight:700;letter-spacing:2px;color:#e8c872;font-size:15px;white-space:nowrap}
+#bar{flex:1;display:flex;justify-content:space-between;padding:0 4px}
+.st{display:flex;flex-direction:column;align-items:center;gap:3px;opacity:.35;transition:.3s}
+.st .dot{width:25px;height:25px;border-radius:50%;border:1px solid #55607a;display:flex;align-items:center;justify-content:center;
+  font-size:12px;background:#171b28;color:#9aa4bb;transition:.3s}
+.st .lb{font-size:9px;letter-spacing:1px;color:#7d879e}
+.st.on{opacity:1}
+.st.on .dot{border-color:#e8c872;color:#ffe9b8;box-shadow:0 0 12px rgba(232,200,114,.45)}
+.st.done{opacity:.85}
+.st.done .dot{background:#3d3421;border-color:#a8843c;color:#e8c872}
+.iconbtn{background:#171b28;border:1px solid #39415a;color:#aeb8d0;border-radius:8px;width:30px;height:30px;
+  font-size:13px;cursor:pointer;font-family:inherit;flex:none}
+main{flex:1;position:relative;min-height:0}
+canvas#cv{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair;display:block}
+footer{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 14px 12px;
+  font-size:12px;color:#8d96ad;z-index:5;border-top:1px solid rgba(255,255,255,.05)}
+#hint{flex:1;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* ---------- 弹层卡片 ---------- */
+#ovl{position:absolute;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;
+  background:rgba(6,7,14,.68);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+  opacity:0;pointer-events:none;transition:opacity .35s}
+#ovl.show{opacity:1;pointer-events:auto}
+#card{position:relative;width:min(89%,380px);max-height:92%;overflow:auto;
+  background:linear-gradient(165deg,#1d2231,#12141f 72%);border:1px solid #3a4258;border-radius:18px;
+  padding:26px 24px 20px;text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.55);
+  transform:translateY(10px) scale(.97);transition:transform .35s}
+#ovl.show #card{transform:none}
+.kicker{font-size:11px;letter-spacing:3px;color:#9aa4bb;margin-bottom:10px}
+.title{font-size:42px;letter-spacing:10px;color:#f2ead6;text-shadow:0 2px 18px rgba(232,200,114,.28);
+  margin:2px 0 6px;padding-left:10px}
+.title2{font-size:29px;letter-spacing:8px;color:#f2ead6;margin:2px 0 4px;padding-left:8px}
+.sub{font-size:12.5px;color:#e8c872;letter-spacing:2px;margin-bottom:13px}
+.body{font-size:13.5px;line-height:1.95;color:#c6cbd9;text-align:justify;margin:4px 2px 14px}
+.body b{color:#ffe9b8;font-weight:600}
+.tags{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.tags span{font-size:10.5px;padding:4px 10px;border:1px solid #4a5470;border-radius:999px;color:#aab4cc;letter-spacing:1px}
+.btn{display:inline-block;background:linear-gradient(180deg,#f0cf8a,#c9973f);color:#2a1c07;border:none;
+  font-family:inherit;font-size:16px;letter-spacing:6px;font-weight:700;padding:12px 32px 12px 38px;
+  border-radius:999px;cursor:pointer;box-shadow:0 8px 24px rgba(201,151,63,.35),inset 0 1px 0 rgba(255,255,255,.5);transition:.2s}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.06)}
+.btn:active{transform:translateY(1px)}
+.tip{font-size:12px;color:#9db1d0;background:rgba(120,160,220,.08);border:1px dashed #46536f;
+  border-radius:10px;padding:8px 10px;margin-bottom:16px;line-height:1.75;text-align:left}
+.skiprow{margin-top:12px}
+.btn2{background:none;border:none;color:#768098;font-family:inherit;
+  font-size:12px;letter-spacing:2px;cursor:pointer;text-decoration:underline;padding:6px 10px}
+.btn2:hover{color:#c6cbd9}
+.fact{font-size:12.5px;color:#c3b393;background:rgba(232,200,114,.06);border-left:3px solid #a8843c;
+  border-radius:6px;padding:9px 12px;margin:4px 0 16px;line-height:1.85;text-align:left}
+.stepch{width:58px;height:58px;margin:0 auto 12px;border-radius:50%;border:1px solid #a8843c;color:#ffe9b8;
+  font-size:26px;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 35% 30%,#3a3222,#191510);box-shadow:0 0 24px rgba(232,200,114,.25)}
+.grade{font-size:16px;color:#f2ead6;letter-spacing:2px;margin-bottom:10px}
+.grade b{color:#ffd27a;font-size:22px}
+.stars{color:#e8c872;margin-left:6px;letter-spacing:2px}
+.seal{position:absolute;top:16px;right:16px;width:44px;height:44px;border:2px solid #b03a2e;border-radius:8px;
+  color:#cf5a4e;font-size:14px;line-height:1.15;display:flex;align-items:center;justify-content:center;
+  transform:rotate(8deg);letter-spacing:1px;opacity:.92;font-weight:700}
+.foot{margin-top:14px;font-size:10.5px;color:#6d7690;letter-spacing:1px}
+.rlist{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:10px 0 12px}
+.ritem{background:rgba(255,255,255,.04);border:1px solid #333c52;border-radius:8px;padding:7px 2px;
+  font-size:11px;color:#b9c2d8;display:flex;flex-direction:column;gap:3px;align-items:center}
+.rs{color:#e8c872;font-size:10px;letter-spacing:1px}
+#fcv{width:100%;height:auto;border-radius:12px;margin-bottom:8px;
+  background:radial-gradient(circle at 50% 45%,#232839,#12141f)}
+.fps-tip{position:absolute;top:60px;left:50%;transform:translateX(-50%);z-index:20;
+  background:rgba(20,24,38,.94);border:1px solid #46536f;color:#cdd6e8;font-size:11.5px;
+  padding:8px 12px;border-radius:10px;max-width:84%;text-align:center;line-height:1.6;
+  box-shadow:0 10px 30px rgba(0,0,0,.45);animation:tipIn .4s ease}
+@keyframes tipIn{from{opacity:0;transform:translate(-50%,-6px)}}
+</style>
+</head>
+<body>
+<div id="stage">
+  <header>
+    <div class="brand">千锤成银</div>
+    <div id="bar"></div>
+    <button class="iconbtn" id="muteBtn" title="音效开关">♪</button>
+    <button class="iconbtn" id="homeBtn" title="回到封面">↺</button>
+  </header>
+  <main><canvas id="cv"></canvas></main>
+  <footer><span id="hint">西江千户苗寨 · 苗族银饰锻制技艺</span><span id="prog"></span></footer>
+  <div id="ovl"><div id="card"></div></div>
+</div>
+<script>
+'use strict';
+/* ================= 基础工具 ================= */
+const $=s=>document.querySelector(s);
+const clamp=(v,a,b)=>v<a?a:v>b?b:v;
+const lerp=(a,b,t)=>a+(b-a)*t;
+const rand=(a,b)=>a+Math.random()*(b-a);
+const TAU=Math.PI*2, RAD=Math.PI/180;
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const DEMO=location.search.indexOf('demo')>=0;
+function mix(c1,c2,t){
+  const p=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+  const a=p(c1),b=p(c2);
+  return `rgb(${Math.round(lerp(a[0],b[0],t))},${Math.round(lerp(a[1],b[1],t))},${Math.round(lerp(a[2],b[2],t))})`;
+}
+function silverGrad(ctx,x0,y0,x1,y1,shine){
+  const g=ctx.createLinearGradient(x0,y0,x1,y1);
+  g.addColorStop(0,mix('#8a8074','#f2f6fb',shine));
+  g.addColorStop(.28,mix('#6e6459','#b7c3d4',shine));
+  g.addColorStop(.52,mix('#57503f','#7e8ba0',shine));
+  g.addColorStop(.78,mix('#6e6459','#b7c3d4',shine));
+  g.addColorStop(1,mix('#a29a8d','#ffffff',shine));
+  return g;
+}
+function rr(ctx,x,y,w,h,r){r=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function chaikin(pts){if(pts.length<3)return pts.slice();const out=[pts[0]];
+  for(let i=0;i<pts.length-1;i++){const ax=pts[i][0],ay=pts[i][1],bx=pts[i+1][0],by=pts[i+1][1];
+    out.push([ax*.75+bx*.25,ay*.75+by*.25],[ax*.25+bx*.75,ay*.25+by*.75]);}
+  out.push(pts[pts.length-1]);return out;}
+
+/* ================= 音效（WebAudio 合成，无外部资源） ================= */
+let AC=null,muted=false,noiseB=null;
+function ensureAudio(){
+  if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();
+    const n=AC.sampleRate;noiseB=AC.createBuffer(1,n,AC.sampleRate);
+    const d=noiseB.getChannelData(0);for(let i=0;i<n;i++)d[i]=Math.random()*2-1;}catch(e){AC=null;}}
+  if(AC&&AC.state==='suspended')AC.resume().catch(()=>{});
+}
+function beep(o){if(!AC||muted)return;o=o||{};const t=AC.currentTime+(o.delay||0);
+  const osc=AC.createOscillator(),g=AC.createGain();
+  osc.type=o.type||'sine';osc.frequency.setValueAtTime(o.f0||440,t);
+  if(o.f1)osc.frequency.exponentialRampToValueAtTime(Math.max(1,o.f1),t+(o.d||.25));
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(o.vol||.2,t+(o.a||.005));
+  g.gain.exponentialRampToValueAtTime(.0001,t+(o.d||.25));
+  osc.connect(g);g.connect(AC.destination);osc.start(t);osc.stop(t+(o.d||.25)+.05);}
+function noise(o){if(!AC||muted||!noiseB)return;o=o||{};const t=AC.currentTime+(o.delay||0);
+  const s=AC.createBufferSource();s.buffer=noiseB;s.loop=true;
+  const fl=AC.createBiquadFilter();fl.type=o.type||'bandpass';fl.frequency.setValueAtTime(o.f||1200,t);
+  if(o.f1)fl.frequency.exponentialRampToValueAtTime(o.f1,t+(o.d||.3));fl.Q.value=o.q||1;
+  const g=AC.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(o.vol||.2,t+(o.a||.01));
+  g.gain.exponentialRampToValueAtTime(.0001,t+(o.d||.3));
+  s.connect(fl);fl.connect(g);g.connect(AC.destination);s.start(t);s.stop(t+(o.d||.3)+.05);}
+const sfx={
+  ding(v){v=v||1;beep({f0:rand(1900,2300),f1:1300,type:'triangle',vol:.22*v,d:.4});
+    beep({f0:3600,f1:3000,type:'sine',vol:.07*v,d:.15});},
+  buzz(){beep({f0:170,f1:120,type:'sawtooth',vol:.12,d:.16});},
+  tick(){beep({f0:2600,f1:2400,type:'square',vol:.03,d:.03});},
+  whoosh(){noise({f:420,f1:900,q:.8,vol:.15,a:.06,d:.3});},
+  sizzle(){noise({f:5200,q:.6,vol:.13,a:.02,d:.4,type:'highpass'});},
+  pop(){beep({f0:520,f1:140,type:'square',vol:.1,d:.09});},
+  drop(){beep({f0:760,f1:240,type:'sine',vol:.07,d:.14});},
+  weld(){noise({f:3000,q:1,vol:.11,a:.01,d:.25,type:'highpass'});beep({f0:1400,f1:600,type:'triangle',vol:.08,d:.2});},
+  chime(){[660,880,1108,1318].forEach((f,i)=>beep({f0:f,type:'sine',vol:.13,d:.7,delay:i*.09}));},
+  fire(){noise({f:220,q:.6,vol:.07,a:.05,d:.22});},
+};
+
+/* ================= 粒子 ================= */
+let parts=[];
+function spawn(o){if(parts.length>420)parts.shift();
+  parts.push(Object.assign({type:'spark',x:0,y:0,vx:0,vy:0,g:420,life:.7,t:0,r:2,c:'#ffd27a',txt:'',size:14,rot:0,vr:0},o));}
+function stepParts(dt){for(let i=parts.length-1;i>=0;i--){const p=parts[i];p.t+=dt;
+  if(p.t>=p.life){parts.splice(i,1);continue;}p.vy+=p.g*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.rot+=p.vr*dt;}}
+function drawParts(ctx){for(const p of parts){const k=1-p.t/p.life;ctx.save();ctx.globalAlpha=Math.max(0,k);
+  if(p.type==='spark'){ctx.strokeStyle=p.c;ctx.lineWidth=1.6;ctx.beginPath();
+    ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-p.vx*.03,p.y-p.vy*.03);ctx.stroke();}
+  else if(p.type==='dot'){ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,Math.max(.3,p.r*k),0,TAU);ctx.fill();}
+  else if(p.type==='bubble'){ctx.strokeStyle='rgba(255,255,255,.75)';ctx.fillStyle='rgba(200,230,255,.16)';
+    ctx.lineWidth=1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,TAU);ctx.fill();ctx.stroke();}
+  else if(p.type==='star'){ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.fillStyle=p.c;const s=p.r*(.4+.6*k);
+    ctx.beginPath();for(let i=0;i<4;i++){ctx.lineTo(0,-s*(i%2?.38:1));ctx.rotate(Math.PI/2);}ctx.closePath();ctx.fill();}
+  else if(p.type==='text'){ctx.fillStyle=p.c;ctx.font=`700 ${p.size}px "Noto Serif SC","Songti SC",serif`;
+    ctx.textAlign='center';ctx.fillText(p.txt,p.x,p.y);}
+  else if(p.type==='steam'){ctx.fillStyle=`rgba(235,240,245,${.22*k})`;ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r*(1.6-k*.6),0,TAU);ctx.fill();}
+  ctx.restore();}}
+function burst(x,y,n,o){o=o||{};for(let i=0;i<n;i++){const a=rand(0,TAU),v=rand(60,o.vmax||260);
+  spawn({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-60,r:rand(1.5,3.2),c:o.c||'#ffd27a',life:rand(.4,.9)});}}
+function sparkle(x,y,n,c){n=n||6;c=c||'#dff1ff';for(let i=0;i<n;i++){const a=rand(0,TAU),v=rand(10,60);
+  spawn({type:'star',x:x+rand(-16,16),y:y+rand(-16,16),vx:Math.cos(a)*v,vy:Math.sin(a)*v-20,g:0,
+    r:rand(2,5),c,life:rand(.5,1.1),rot:rand(0,TAU),vr:rand(-2,2)});}}
+function floatText(x,y,txt,c,size){spawn({type:'text',x,y,txt,c:c||'#ffe9b8',size:size||18,vx:0,vy:-46,g:0,life:1});}
+
+/* ================= 画布与舞台 ================= */
+const cv=$('#cv'),ctx=cv.getContext('2d');
+let W=0,H=0;
+function resize(){const r=cv.parentElement.getBoundingClientRect();
+  const DPR=Math.min(window.devicePixelRatio||1,2);
+  W=r.width;H=r.height;cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  if(game&&game.layout)game.layout();}
+addEventListener('resize',resize);
+
+function backdrop(c,tint){
+  const g=c.createLinearGradient(0,0,0,H);g.addColorStop(0,'#12141f');g.addColorStop(1,'#0a0b12');
+  c.fillStyle=g;c.fillRect(0,0,W,H);
+  const rg=c.createRadialGradient(W/2,H*.45,20,W/2,H*.45,Math.max(W,H)*.72);
+  rg.addColorStop(0,tint);rg.addColorStop(1,'rgba(0,0,0,0)');
+  c.globalAlpha=.55;c.fillStyle=rg;c.fillRect(0,0,W,H);c.globalAlpha=1;
+  const by=H*.82;
+  c.fillStyle='#221810';c.fillRect(0,by,W,H-by);
+  c.fillStyle='#2e2115';c.fillRect(0,by,W,5);
+  c.strokeStyle='rgba(0,0,0,.28)';c.lineWidth=1;
+  for(let x=8;x<W;x+=48){c.beginPath();c.moveTo(x,by);c.lineTo(x-16,H);c.stroke();}
+  const vg=c.createRadialGradient(W/2,H/2,Math.min(W,H)*.35,W/2,H/2,Math.max(W,H)*.78);
+  vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.5)');
+  c.fillStyle=vg;c.fillRect(0,0,W,H);
+}
+function drawFlame(c,x,y,w,h,t,alpha,cols){
+  cols=cols||['rgba(255,110,10,.75)','rgba(255,170,40,.9)','rgba(255,238,175,.95)'];
+  const wf=[.62,.42,.26],hf=[1,.74,.5];
+  c.save();c.translate(x,y);c.globalAlpha=alpha;
+  for(let i=0;i<3;i++){
+    const f=Math.sin(t*9+i*2.4)*.16+Math.sin(t*23+i*1.7)*.07;
+    const ww=w*wf[i],hh=h*hf[i]*(1-f*.5);
+    const sx=f*ww*.9+(i-1)*w*.05;
+    c.fillStyle=cols[i];
+    c.beginPath();
+    c.moveTo(-ww/2+(i-1)*w*.04,0);
+    c.quadraticCurveTo(-ww*.62,-hh*.42,sx,-hh);
+    c.quadraticCurveTo(ww*.62,-hh*.42,ww/2+(i-1)*w*.04,0);
+    c.closePath();c.fill();
+  }
+  c.restore();
+}
+
+/* ================= 苗蝶造型库 ================= */
+function wingPath(c){c.beginPath();c.moveTo(0,-26);
+  c.bezierCurveTo(10,-46,44,-62,62,-42);
+  c.bezierCurveTo(76,-26,58,-6,26,-2);
+  c.bezierCurveTo(46,10,44,38,24,44);
+  c.bezierCurveTo(12,47,4,34,2,22);c.closePath();}
+function drawButterflyShape(c,shine,ghost){
+  const paint=()=>{const g=ghost?null:silverGrad(c,-70,-60,70,50,shine);
+    wingPath(c);
+    if(ghost){c.fillStyle='rgba(220,230,245,.05)';c.fill();c.setLineDash([4,3]);
+      c.strokeStyle='rgba(200,215,235,.45)';c.lineWidth=1.5;c.stroke();c.setLineDash([]);}
+    else{c.fillStyle=g;c.fill();c.strokeStyle='rgba(50,60,80,.8)';c.lineWidth=1.6;c.stroke();}};
+  c.save();paint();c.scale(-1,1);paint();c.restore();
+  const g2=ghost?null:silverGrad(c,-8,-30,8,26,shine);
+  c.beginPath();c.ellipse(0,-2,5.5,24,0,0,TAU);
+  if(ghost){c.strokeStyle='rgba(200,215,235,.45)';c.lineWidth=1.5;c.stroke();}
+  else{c.fillStyle=g2;c.fill();c.strokeStyle='rgba(50,60,80,.8)';c.lineWidth=1.5;c.stroke();}
+  if(ghost)return;
+  c.beginPath();c.arc(0,-29,6,0,TAU);c.fillStyle=g2;c.fill();c.stroke();
+  c.strokeStyle='#5d6a80';c.lineWidth=2;
+  c.beginPath();c.moveTo(-3,-33);c.quadraticCurveTo(-10,-46,-18,-52);c.stroke();
+  c.beginPath();c.moveTo(3,-33);c.quadraticCurveTo(10,-46,18,-52);c.stroke();
+  c.strokeStyle='rgba(60,70,90,.55)';c.lineWidth=1.4;
+  for(const sx of[-1,1]){c.beginPath();c.arc(sx*30,-24,8,0,TAU);c.stroke();
+    c.beginPath();c.arc(sx*20,20,6,0,TAU);c.stroke();}
+}
+/* 银件：butterfly / plate / bell */
+function drawPiece(c,id,x,y,k,shine,ghost){
+  c.save();c.translate(x,y);c.scale(k,k);
+  if(id==='butterfly'){drawButterflyShape(c,shine,ghost);}
+  else if(id==='plate'){
+    const body=()=>rr(c,-30,-21,60,42,8);
+    if(ghost){body();c.fillStyle='rgba(220,230,245,.05)';c.fill();c.setLineDash([5,4]);
+      c.strokeStyle='rgba(200,215,235,.45)';c.lineWidth=1.5;c.stroke();c.setLineDash([]);}
+    else{body();c.fillStyle=silverGrad(c,-30,-21,30,21,shine);c.fill();
+      c.strokeStyle='#8f9cb0';c.lineWidth=1.5;c.stroke();
+      c.strokeStyle='rgba(60,70,90,.7)';c.lineWidth=1.6;
+      for(let i=-1;i<=1;i++){c.beginPath();c.arc(0,i*11,14,.15*Math.PI,.85*Math.PI);c.stroke();}}}
+  else if(id==='bell'){
+    const dome=()=>{c.beginPath();c.moveTo(-15,8);c.quadraticCurveTo(-17,-16,0,-18);
+      c.quadraticCurveTo(17,-16,15,8);c.closePath();};
+    if(ghost){dome();c.fillStyle='rgba(220,230,245,.05)';c.fill();c.setLineDash([4,3]);
+      c.strokeStyle='rgba(200,215,235,.45)';c.lineWidth=1.5;c.stroke();c.setLineDash([]);
+      c.beginPath();c.arc(0,14,5,0,TAU);c.stroke();}
+    else{dome();c.fillStyle=silverGrad(c,-15,-18,15,8,shine);c.fill();
+      c.strokeStyle='#7e8ba0';c.lineWidth=1.6;c.stroke();
+      c.strokeStyle='rgba(60,70,90,.6)';c.lineWidth=1.4;
+      c.beginPath();c.moveTo(-13,2);c.lineTo(13,2);c.stroke();
+      c.beginPath();c.arc(0,13,4.5,0,TAU);c.fillStyle='#c9d4e2';c.fill();c.stroke();}}
+  c.restore();
+}
+/* 完整银项圈（编结后 / 洗涤 / 结算） */
+function drawOrnament(c,ox,oy,s,shine,placed,t){
+  t=t||0;c.save();c.translate(ox,oy);c.scale(s,s);
+  const grad=silverGrad(c,-150,-220,150,120,shine);
+  c.lineCap='butt';
+  c.lineWidth=27;c.strokeStyle=grad;
+  c.beginPath();c.arc(0,-70,150,115*RAD,65*RAD,false);c.stroke();
+  c.lineWidth=5;c.strokeStyle=`rgba(255,255,255,${.55*shine})`;
+  c.beginPath();c.arc(0,-70,141,120*RAD,60*RAD,false);c.stroke();
+  c.lineWidth=3;c.strokeStyle='rgba(30,36,50,.55)';
+  c.beginPath();c.arc(0,-70,163,116*RAD,64*RAD,false);c.stroke();
+  for(const a of[115*RAD,65*RAD]){const x=150*Math.cos(a),y=-70+150*Math.sin(a);
+    c.beginPath();c.arc(x,y,15,0,TAU);c.fillStyle=grad;c.fill();
+    c.strokeStyle='rgba(30,36,50,.5)';c.lineWidth=2;c.stroke();}
+  c.beginPath();c.arc(0,92,9,0,TAU);c.lineWidth=5;c.strokeStyle=grad;c.stroke();
+  const has=id=>!placed||placed.indexOf(id)>=0;
+  if(has('plateL'))drawPiece(c,'plate',-115,30,1,shine,false);
+  if(has('plateR'))drawPiece(c,'plate',115,30,1,shine,false);
+  if(has('bellL'))drawPiece(c,'bell',-58,74,1,shine,false);
+  if(has('bellR'))drawPiece(c,'bell',58,74,1,shine,false);
+  if(has('butterfly'))drawPiece(c,'butterfly',0,132,.62,shine,false);
+  c.restore();
+}
+
+/* ================= 流程数据 ================= */
+const STEPS=[
+ {id:'zhu',ch:'熔',name:'铸炼',sub:'熔银成水 · 观火候',
+  desc:'银料入坩埚，炭火熔为银水。苗家匠师凭一双眼睛观火色、判炉温——请把炉温稳定在熔点附近（绿色区间），切忌过火。',
+  hint:'长按屏幕鼓风，松手降温；炉温进入绿色区间即开始熔炼',
+  fact:'银的熔点约 962℃。老师傅不用温度计，只凭火色深浅便知炉温高低。'},
+ {id:'chui',ch:'锻',name:'捶打',sub:'千锤百炼 · 打银成片',
+  desc:'熔出的银锭要趁热反复捶打，方能延展成薄而韧的银片。看准亮区落锤——锤锤都要打在火候上。',
+  hint:'指针进入亮区时点击（或按空格）落锤，共八锤',
+  fact:'一件银冠用银两三公斤，需千万次捶打、数十道工序、数月方能完成。'},
+ {id:'ke',ch:'刻',name:'錾刻',sub:'绘样落刀 · 蝴蝶纹样',
+  desc:'先绘样，再以錾刀刻纹。「蝴蝶妈妈」是苗族创世神话中的始祖，蝴蝶纹也是银饰上最常见的纹样。亮区之内皆是刀路，放心走刀。',
+  hint:'按住刀尖沿蓝色走廊从「始」走到「终」，稍偏也会自动吸附',
+  fact:'蝴蝶妈妈生十二个蛋，孵出人类始祖姜央与万物——她是苗家心中最美的纹样。'},
+ {id:'han',ch:'焊',name:'焊接',sub:'银丝相连 · 火候分寸',
+  desc:'拉细如发的银丝、錾好的银片，要靠焊药与火焰相连成体。对准接点稳住手，火候一到，浑然一体。',
+  hint:'按住接点持续加热，温度环满即自动焊牢',
+  fact:'银丝可拉拔至头发般纤细；焊接时火焰稍偏、温度稍过，便前功尽弃。'},
+ {id:'jie',ch:'结',name:'编结',sub:'环环相扣 · 结体成器',
+  desc:'部件已成，接下来把吊坠、银片、银铃编结组装到项圈之上——疏密有致，环环相扣，全凭手上功夫。',
+  hint:'把托盘里的银件拖到项圈对应的虚线轮廓上',
+  fact:'编结讲究「疏可走马、密不透风」，一套盛装银饰往往重达十余斤。'},
+ {id:'xi',ch:'洗',name:'洗涤',sub:'煮洗去污 · 光彩照人',
+  desc:'最后一道洗涤：把成器放入明矾水中煮沸去污，再用铜刷擦亮。来回擦拭，让银光彻底亮起来。',
+  hint:'按住银饰来回擦拭，擦满光泽槽',
+  fact:'2006 年，苗族银饰锻制技艺列入第一批国家级非物质文化遗产名录。'},
+];
+
+/* ================= 游戏基类 ================= */
+let game=null;
+class G{
+  constructor(){this.done=false;this.t=0;if(this.layout)this.layout();}
+  finish(q){if(this.done)return;this.done=true;sfx.chime();if(this.onDone)this.onDone(q);}
+}
+
+/* ---------- 1 铸炼 ---------- */
+class Zhu extends G{
+  constructor(){super();
+    this.T=26;this.hold=false;this.pump=0;this.melt=0;this.phase='heat';this.pt=0;
+    this.over=0;this.whooshT=0;this.roarT=0;
+    setHint('长按屏幕鼓风 · 将炉温稳定在绿色区间');}
+  layout(){this.benchY=H*.82;this.s=Math.min(W,H)/430;this.cx=W/2;this.cy=this.benchY-46*this.s;}
+  down(){if(this.done||this.phase!=='heat')return;this.hold=true;}
+  up(){this.hold=false;}
+  update(dt){this.t+=dt;
+    if(this.phase==='heat'){
+      if(DEMO){if(this.T>1030)this.hold=false;else if(this.T<980)this.hold=true;}
+      if(this.hold){this.pump+=dt*7;
+        this.whooshT-=dt;
+        if(this.whooshT<=0){sfx.whoosh();this.whooshT=.5;
+          spawn({type:'steam',x:W*.16+30*this.s,y:this.benchY-30*this.s,vx:rand(30,60),vy:-rand(10,30),g:-10,r:rand(5,9),life:.7});}
+        this.T+=dt*(170+50*Math.sin(this.pump));
+      }else this.T=Math.max(26,this.T-dt*80);
+      if(this.T>1085){this.over+=dt;
+        if(Math.random()<.06)floatText(this.cx+rand(-50,50),this.cy-120*this.s,'火太旺','#ff9d7a',15);}
+      const inZone=this.T>=935&&this.T<=1065;
+      if(inZone){this.melt=Math.min(1,this.melt+dt/2.6);
+        this.roarT-=dt;if(this.roarT<=0){sfx.fire();this.roarT=.4;}
+        if(Math.random()<.3)spawn({type:'steam',x:this.cx+rand(-30,30)*this.s,y:this.cy-60*this.s,vx:rand(-8,8),vy:-rand(20,40),g:0,r:rand(5,10),life:rand(.6,1.1)});
+        setHint('火候正好 · 继续保持，熔炼 '+Math.round(this.melt*100)+'%');
+      }else this.melt=Math.max(0,this.melt-dt*.12);
+      if(this.melt>=1){this.phase='pour';this.pt=0;this.hold=false;setHint('浇铸中……');}
+    }else if(this.phase==='pour'){
+      this.pt+=dt;
+      if(this.pt>.6&&this.pt<1.7){if(Math.random()<.5)spawn({type:'spark',x:W*.72+rand(-10,10),y:this.benchY-40*this.s,vx:rand(-30,30),vy:-rand(20,80),c:'#ffdf9e'});}
+      if(this.pt>1.4&&this.pt<1.42)burst(W*.72,this.benchY-30*this.s,22,{c:'#ffe2a0'});
+      if(this.pt>2.05){const q=clamp(Math.round(100-this.over*26),58,100);this.finish(q);}
+    }
+  }
+  render(c){
+    backdrop(c,'rgba(255,120,40,.14)');
+    const s=this.s,cx=this.cx,cy=this.cy,benchY=this.benchY,t=this.t;
+    /* ---- 右侧炉温计 ---- */
+    const bx=W-30,by0=H*.16,by1=H*.68,bw=12;
+    const yT=v=>by1-(clamp(v,0,1200)/1200)*(by1-by0);
+    rr(c,bx-4,by0-6,bw+8,(by1-by0)+12,8);c.strokeStyle='#3a4258';c.lineWidth=1.5;c.stroke();
+    c.fillStyle='rgba(120,220,140,.25)';c.fillRect(bx,yT(1065),bw,yT(935)-yT(1065));
+    c.fillStyle='rgba(230,90,60,.22)';c.fillRect(bx,yT(1200),bw,yT(1085)-yT(1200));
+    const fy=yT(this.T);
+    const g=c.createLinearGradient(0,fy,0,by1);
+    g.addColorStop(0,'#ffe9a8');g.addColorStop(.5,'#ff9c4a');g.addColorStop(1,'#5a2a12');
+    c.fillStyle=g;c.fillRect(bx,fy,bw,by1-fy);
+    c.fillStyle='#9fe6a0';c.lineWidth=2;
+    c.beginPath();c.moveTo(bx-7,yT(962));c.lineTo(bx-2,yT(962));c.stroke();
+    c.textAlign='center';
+    c.fillStyle='#8d96ad';c.font='11px "Noto Serif SC","Songti SC",serif';c.fillText('炉温',bx+bw/2,by0-12);
+    const inZone=this.T>=935&&this.T<=1065;
+    c.fillStyle=inZone?'#9fe6a0':'#e8e2d6';c.font='700 13px "Noto Serif SC","Songti SC",serif';
+    c.fillText(Math.round(this.T)+'℃',bx+bw/2,by1+20);
+    c.fillStyle='#9fe6a0';c.font='10px "Noto Serif SC","Songti SC",serif';c.textAlign='right';
+    c.fillText('熔点962',bx-10,yT(962)+4);
+    c.textAlign='left';
+    /* ---- 风箱 ---- */
+    const k=this.hold?(.5+.5*Math.sin(this.pump)):.16;
+    c.save();c.translate(W*.15,benchY-26*s);
+    c.fillStyle='#4a3323';rr(c,-34,4,68,10,3);c.fill();
+    c.fillStyle='#5d4128';rr(c,-34,-26+k*20,68,10,3);c.fill();
+    c.fillStyle='#7a5636';rr(c,-30,-16+k*20,60,Math.max(2,18-20*k),4);c.fill();
+    c.fillStyle='#8d6a3f';rr(c,32,-6+k*8,16,6,2);c.fill();
+    c.restore();
+    if(this.phase==='heat'&&!this.hold&&this.T<500){
+      c.fillStyle=`rgba(255,226,170,${.45+.35*Math.sin(this.t*4)})`;
+      c.font='13px "Noto Serif SC","Songti SC",serif';c.textAlign='center';
+      c.fillText('长 按 鼓 风',W*.15,benchY-64*s);}
+    /* ---- 炭火与火苗 ---- */
+    const fl=clamp(.16+(this.T-100)/950,0,1.3)*(this.hold?1.12:1);
+    const rg=c.createRadialGradient(cx,benchY-8*s,4,cx,benchY-8*s,110*s*fl+30);
+    rg.addColorStop(0,`rgba(255,160,60,${.4*fl+.1})`);rg.addColorStop(1,'rgba(255,120,30,0)');
+    c.fillStyle=rg;c.fillRect(cx-160,benchY-160,320,170);
+    c.fillStyle='#1c1410';
+    c.beginPath();c.ellipse(cx,benchY-4*s,58*s,14*s,0,Math.PI,TAU);c.fill();
+    for(let i=0;i<6;i++){const a=Math.sin(t*7+i*2.3)*.5+.5;
+      c.fillStyle=`rgba(255,${120+80*a|0},40,${.35+.5*a*fl})`;
+      c.beginPath();c.arc(cx+(i-2.5)*17*s,benchY-8*s-4*a,3.2*s,0,TAU);c.fill();}
+    drawFlame(c,cx,benchY-10*s,84*s,(52+60*fl)*s,t,.9);
+    /* ---- 空铸模（常驻） ---- */
+    const mx=W*.72,my=benchY-16*s;
+    if(this.phase!=='pour'){
+      c.fillStyle='#2a2018';rr(c,mx-46*s,my-14*s,92*s,32*s,5*s);c.fill();
+      c.strokeStyle='#4a3826';c.lineWidth=2;c.stroke();
+      c.fillStyle='rgba(160,140,110,.35)';c.font=`${11*s}px "Noto Serif SC","Songti SC",serif`;
+      c.textAlign='center';c.fillText('铸 模',mx,my+4*s);}
+    /* ---- 坩埚 ---- */
+    let tilt=0,stream=0;
+    if(this.phase==='pour'){
+      tilt=ease(clamp((this.pt-.05)/.45,0,1))*.7;
+      stream=this.pt>.5&&this.pt<1.75?clamp((this.pt-.5)/.15,0,1)*clamp((1.75-this.pt)/.15,0,1):0;}
+    c.save();c.translate(cx,cy);c.rotate(tilt);
+    c.fillStyle='#221812';
+    c.beginPath();c.ellipse(0,40*s,44*s,9*s,0,0,TAU);c.fill();
+    c.beginPath();c.moveTo(-56*s,-34*s);c.lineTo(56*s,-34*s);c.lineTo(40*s,36*s);c.lineTo(-40*s,36*s);c.closePath();
+    c.fillStyle='#4a3a2e';c.fill();c.strokeStyle='#6e5744';c.lineWidth=3.5;c.stroke();
+    c.strokeStyle='rgba(30,20,14,.6)';c.lineWidth=1.5;
+    c.beginPath();c.moveTo(-40*s,-6*s);c.quadraticCurveTo(0,2*s,40*s,-6*s);c.stroke();
+    c.beginPath();c.ellipse(0,-34*s,56*s,10*s,0,0,TAU);c.fillStyle='#2c211a';c.fill();
+    c.strokeStyle=this.T>400?'rgba(255,190,120,.4)':'#7a6350';c.lineWidth=2.5;c.stroke();
+    if(this.T>935||this.melt>0){
+      const pg=c.createRadialGradient(0,-30*s,2,0,-30*s,58*s);
+      pg.addColorStop(0,'rgba(255,242,205,.95)');pg.addColorStop(.45,'rgba(255,190,90,.8)');pg.addColorStop(1,'rgba(255,120,30,0)');
+      c.fillStyle=pg;c.beginPath();c.ellipse(0,-30*s,48*s,8*s,0,0,TAU);c.fill();
+    }
+    if(this.melt<.95&&this.T<=935){
+      const w=64*s*(1-this.melt*.7);
+      c.fillStyle=silverGrad(c,-w/2,-34*s,w/2,-26*s,1);
+      rr(c,-w/2,-34*s,w,8*s*(1-this.melt*.4),4*s);c.fill();}
+    c.restore();
+    /* ---- 浇铸：银水流入模 ---- */
+    if(this.phase==='pour'){
+      /* 铸模（含银水填充） */
+      c.fillStyle='#2a2018';rr(c,mx-46*s,my-14*s,92*s,32*s,5*s);c.fill();
+      c.strokeStyle='#4a3826';c.lineWidth=2;c.stroke();
+      const lvl=clamp((this.pt-.7)/1.0,0,1);
+      if(lvl>0){c.fillStyle=silverGrad(c,mx-40*s,my-10*s,mx+40*s,my+10*s,1);
+        rr(c,mx-40*s,my-10*s,80*s,22*s*Math.max(.25,lvl),4*s);c.fill();
+        c.fillStyle=`rgba(255,220,140,${.5*(1-lvl)})`;
+        rr(c,mx-40*s,my-10*s,80*s,22*s*Math.max(.25,lvl),4*s);c.fill();}
+      if(this.pt>1.75){c.fillStyle=silverGrad(c,mx-34*s,my-8*s,mx+34*s,my+6*s,1);
+        rr(c,mx-34*s,my-8*s,68*s,16*s,5*s);c.fill();}
+      /* 银水流（压在铸模之上） */
+      if(stream>0){
+        const a=tilt,lx=58*s,ly=-38*s;
+        const wx=cx+lx*Math.cos(a)-ly*Math.sin(a),wy=cy+lx*Math.sin(a)+ly*Math.cos(a);
+        c.save();c.globalAlpha=stream;
+        c.lineCap='round';
+        c.strokeStyle='#c88a30';c.lineWidth=9*s;
+        c.beginPath();c.moveTo(wx,wy);c.quadraticCurveTo((wx+mx)/2+14*s,(wy+my)/2-20*s,mx,my-12*s);c.stroke();
+        c.strokeStyle='#ffdf9e';c.lineWidth=4.5*s;
+        c.shadowColor='rgba(255,190,80,.9)';c.shadowBlur=16;
+        c.beginPath();c.moveTo(wx,wy);c.quadraticCurveTo((wx+mx)/2+14*s,(wy+my)/2-20*s,mx,my-12*s);c.stroke();
+        c.shadowBlur=0;c.restore();
+        if(Math.random()<.7)spawn({type:'spark',x:mx+rand(-8,8),y:my-12*s,vx:rand(-50,50),vy:-rand(20,90),c:'#ffdf9e'});
+      }
+      const fa=this.pt>1.5&&this.pt<1.8?(1.8-this.pt)/.3:0;
+      if(fa>0){c.fillStyle=`rgba(255,244,214,${fa*.85})`;c.fillRect(0,0,W,H);}
+    }
+    c.fillStyle='rgba(232,226,214,.8)';c.font='12px "Noto Serif SC","Songti SC",serif';
+    c.textAlign='left';c.fillText('第 一 环 · 铸 炼',14,H*.1);
+  }
+}
+
+/* ---------- 2 捶打 ---------- */
+class Chui extends G{
+  constructor(){super();
+    this.ph=0;this.spd=.46;this.hits=0;this.miss=0;
+    this.zone={c:.5,w:.26};this.heat=0;this.shake=0;this.dip=0;this.crx=[];
+    this.done2=false;this.doneT=0;
+    setHint('指针进入亮区时点击落锤（可按空格）· 共八锤');}
+  pos(){const p=this.ph%2;return p<1?p:2-p;}
+  down(){if(this.done||this.done2)return;
+    const p=this.pos(),d=Math.abs(p-this.zone.c);
+    if(d<=this.zone.w/2)this.hit(d<=this.zone.w*.16);else this.missHit();}
+  hit(perfect){this.hits++;this.heat=1;this.dip=1;this.shake=.18;
+    sfx.ding(perfect?1.25:.9);
+    const ax=W/2,ay=H*.62;
+    burst(ax,ay-16,perfect?24:12,{c:perfect?'#ffe9a8':'#ffd27a'});
+    floatText(ax+rand(-34,34),ay-80,perfect?'好！':'叮','#ffe9b8',perfect?24:18);
+    if(perfect)sparkle(ax,ay-34,8);
+    const nw=Math.max(.13,this.zone.w-.014);
+    this.zone={c:rand(.28,.72),w:nw};
+    if(this.hits>=8){this.done2=true;this.doneT=.9;burst(ax,ay-30,36,{c:'#ffe9a8',vmax:340});}}
+  missHit(){this.miss++;sfx.buzz();this.shake=.1;
+    floatText(W/2+rand(-40,40),H*.62-64,'偏了','#ff9d7a',16);
+    this.crx.push(rand(-32,32));}
+  update(dt){this.t+=dt;this.ph+=dt*this.spd*2;
+    this.heat=Math.max(0,this.heat-dt*1.6);this.shake=Math.max(0,this.shake-dt);this.dip=Math.max(0,this.dip-dt*4);
+    if(DEMO&&!this.done2&&!this.done){const p=this.pos();
+      if(Math.abs(p-this.zone.c)<=this.zone.w/2)this.hit(false);}
+    if(this.done2){this.doneT-=dt;
+      if(this.doneT<=0){this.done2=false;this.finish(clamp(Math.round(100-this.miss*12),55,100));}}}
+  render(c){
+    const shx=this.shake>0?rand(-3,3)*this.shake:0,shy=this.shake>0?rand(-2,2)*this.shake:0;
+    c.save();c.translate(shx,shy);
+    backdrop(c,'rgba(255,150,60,.08)');
+    const s=Math.min(W,H)/430;
+    /* ---- 轨道 ---- */
+    const tx0=W*.12,tx1=W*.88,ty=H*.24;
+    c.lineCap='round';
+    c.strokeStyle='#2b3140';c.lineWidth=10;
+    c.beginPath();c.moveTo(tx0,ty);c.lineTo(tx1,ty);c.stroke();
+    const zx0=tx0+(this.zone.c-this.zone.w/2)*(tx1-tx0),zx1=tx0+(this.zone.c+this.zone.w/2)*(tx1-tx0);
+    const pu=.5+.5*Math.sin(this.t*5);
+    c.strokeStyle=`rgba(255,210,120,${.25+.2*pu})`;c.lineWidth=12;
+    c.beginPath();c.moveTo(zx0,ty);c.lineTo(zx1,ty);c.stroke();
+    c.strokeStyle='rgba(255,235,180,.8)';c.lineWidth=3;
+    c.beginPath();c.moveTo(zx0+2,ty);c.lineTo(zx1-2,ty);c.stroke();
+    /* 滑锤 */
+    const p=this.pos(),nx=tx0+p*(tx1-tx0);
+    const inZ=Math.abs(p-this.zone.c)<=this.zone.w/2;
+    c.strokeStyle='#6b4d2c';c.lineWidth=5;
+    c.beginPath();c.moveTo(nx,ty-22);c.lineTo(nx,ty-2);c.stroke();
+    c.fillStyle=inZ?'#ffd27a':'#9aa4bb';
+    rr(c,nx-12,ty-36,24,15,4);c.fill();
+    c.strokeStyle='rgba(255,255,255,.4)';c.lineWidth=1;
+    rr(c,nx-12,ty-36,24,15,4);c.stroke();
+    c.fillStyle='#8d96ad';c.font='12px "Noto Serif SC","Songti SC",serif';c.textAlign='left';
+    c.fillText('已锻 '+this.hits+' / 8'+(this.miss?'　失手 '+this.miss:''),14,H*.1);
+    /* ---- 铁砧与银坯 ---- */
+    const ax=W/2,ay=H*.62;
+    c.fillStyle='#141821';
+    rr(c,ax-78*s,ay+16*s,156*s,13*s,6*s);c.fill();
+    c.fillStyle='#333b4d';
+    rr(c,ax-30*s,ay-8*s,60*s,24*s,5*s);c.fill();
+    c.beginPath();c.moveTo(ax+28*s,ay-8*s);c.quadraticCurveTo(ax+76*s,ay-3*s,ax+88*s,ay+14*s);
+    c.lineTo(ax+28*s,ay+16*s);c.closePath();c.fill();
+    c.fillStyle='#48536b';
+    rr(c,ax-36*s,ay-14*s,72*s,8*s,3*s);c.fill();
+    c.fillStyle='rgba(255,255,255,.08)';rr(c,ax-36*s,ay-14*s,72*s,3*s,1.5);c.fill();
+    const prog=this.hits/8;
+    const bw=lerp(52,150,prog)*s,bh=lerp(36,13,prog)*s;
+    const byy=ay-14*s-bh/2-this.dip*5;
+    c.fillStyle='rgba(0,0,0,.35)';
+    rr(c,ax-bw/2+3,byy-bh/2+4,bw,bh,6);c.fill();
+    c.fillStyle=silverGrad(c,ax-bw/2,byy-bh/2,ax+bw/2,byy+bh/2,1);
+    rr(c,ax-bw/2,byy-bh/2,bw,bh,6);c.fill();
+    c.strokeStyle='rgba(40,48,62,.7)';c.lineWidth=1.5;
+    rr(c,ax-bw/2,byy-bh/2,bw,bh,6);c.stroke();
+    c.strokeStyle='rgba(90,104,128,.5)';c.lineWidth=1;
+    c.beginPath();c.moveTo(ax-bw/2+6,byy);c.lineTo(ax+bw/2-6,byy);c.stroke();
+    if(this.heat>0){c.fillStyle=`rgba(255,150,60,${.4*this.heat})`;
+      rr(c,ax-bw/2,byy-bh/2,bw,bh,6);c.fill();}
+    c.strokeStyle='rgba(30,36,48,.8)';c.lineWidth=1.2;
+    for(const ox of this.crx){c.beginPath();c.moveTo(ax+ox*s,byy-bh/2+2);c.lineTo(ax+ox*s+5,byy+bh/2-2);c.stroke();}
+    if(this.hits===0&&this.t<4&&Math.sin(this.t*4)>0){
+      c.fillStyle='#ffe9b8';c.font='14px "Noto Serif SC","Songti SC",serif';c.textAlign='center';
+      c.fillText('点击落锤！',ax,H*.4);}
+    c.restore();
+  }
+}
+
+/* ---------- 3 錾刻 ---------- */
+const BUTTERFLY=[
+ [0,58],[0,-26],
+ [7,-34],[52,-70],[96,-46],[86,-6],[42,2],[7,-18],[0,-26],
+ [10,10],[54,28],[46,66],[10,50],[2,34],[0,58],
+ [-10,50],[-46,66],[-54,28],[-10,10],[-7,-18],
+ [-42,2],[-86,-6],[-96,-46],[-52,-70],[-7,-34],[0,-26]
+];
+function closestSeg(pts,seg,cum,lo,x,y,win){
+  let bd=1e18,bi=-1,bt=0;
+  const start=Math.max(0,lo),hi=Math.min(pts.length-1,lo+win);
+  for(let i=start;i<hi;i++){
+    const ax=pts[i][0],ay=pts[i][1],abx=pts[i+1][0]-ax,aby=pts[i+1][1]-ay;
+    const L2=abx*abx+aby*aby||1;
+    let t=((x-ax)*abx+(y-ay)*aby)/L2;t=clamp(t,0,1);
+    const px=ax+abx*t,py=ay+aby*t;
+    const d=(x-px)*(x-px)+(y-py)*(y-py);
+    if(d<bd){bd=d;bi=i;bt=t;}}
+  if(bi<0)return null;
+  return{d:Math.sqrt(bd),i:bi,x:pts[bi][0]+(pts[bi+1][0]-pts[bi][0])*bt,
+    y:pts[bi][1]+(pts[bi+1][1]-pts[bi][1])*bt,along:cum[bi]+seg[bi]*bt};
+}
+class Ke extends G{
+  constructor(){super();
+    let pts=BUTTERFLY.map(p=>p.slice());
+    pts=chaikin(chaikin(pts));
+    this.pts=pts;this.seg=[];this.cum=[0];let tot=0;
+    for(let i=1;i<pts.length;i++){tot+=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]);
+      this.seg.push(tot-this.cum[this.cum.length-1]);this.cum.push(tot);}
+    this.total=tot;
+    this.tracing=false;this.L=0;this.ci=0;this.drift=0;this.tickT=0;this.hintT=0;
+    this.px=1e9;this.py=1e9;
+    setHint('按住刀尖沿虚线从「始」走到「终」');}
+  layout(){this.s=Math.min(W*.78/300,H*.56/300);this.ox=W/2;this.oy=H*.47;}
+  toD(x,y){return[(x-this.ox)/this.s,(y-this.oy)/this.s];}
+  ptAt(L){L=clamp(L,0,this.total);let i=0;
+    while(i<this.seg.length-1&&this.cum[i+1]<L)i++;
+    const t=this.seg[i]?(L-this.cum[i])/this.seg[i]:0;
+    return[lerp(this.pts[i][0],this.pts[i+1][0],clamp(t,0,1)),
+           lerp(this.pts[i][1],this.pts[i+1][1],clamp(t,0,1))];}
+  down(x,y){if(this.done)return;
+    const[dx,dy]=this.toD(x,y);const p0=this.ptAt(this.L);
+    if(this.L<4&&Math.hypot(dx-p0[0],dy-p0[1])<64){this.tracing=true;this.px=dx;this.py=dy;}
+    else if(!this.done)floatText(x,y-22,'从「始」点落刀','#ffd9a8',15);}
+  move(x,y){if(!this.tracing||this.done)return;
+    const[dx,dy]=this.toD(x,y);this.px=dx;this.py=dy;}
+  up(){this.tracing=false;}
+  update(dt){this.t+=dt;
+    if(DEMO&&!this.done){this.tracing=true;this.L=Math.min(this.total,this.L+dt*300);
+      this.tickT-=dt;if(this.tickT<=0){sfx.tick();this.tickT=.2;}
+      const p=this.ptAt(this.L);this.px=p[0];this.py=p[1];
+      if(Math.random()<.3)sparkle(this.ox+p[0]*this.s,this.oy+p[1]*this.s,1,'#cfe6ff');
+      if(this.L>=this.total*.985)this.complete();}
+    if(this.tracing&&!this.done&&!DEMO){
+      let lo=0;while(lo<this.seg.length-1&&this.cum[lo+1]<this.L-12)lo++;
+      const b=closestSeg(this.pts,this.seg,this.cum,lo,this.px,this.py,26);
+      const tol=56;
+      if(b&&b.d<tol){
+        if(b.along>this.L+1){this.L=Math.min(this.total,b.along);this.ci=b.i;
+          this.tickT-=dt;if(this.tickT<=0){sfx.tick();this.tickT=.16;
+            if(Math.random()<.5)sparkle(this.ox+b.x*this.s,this.oy+b.y*this.s,1,'#cfe6ff');}}
+      }else{this.drift+=dt;this.hintT-=dt;
+        if(this.hintT<=0){floatText(this.px*this.s+this.ox,this.py*this.s+this.oy-26,'刀偏了','#ff9d7a',14);this.hintT=1.2;}}
+      if(this.L>=this.total*.985)this.complete();}
+  }
+  complete(){if(this.done)return;this.tracing=false;
+    sparkle(this.ox,this.oy,26,'#eaf4ff');burst(this.ox,this.oy,18,{c:'#cfe0f0'});
+    this.finish(clamp(Math.round(100-this.drift*4),70,100));}
+  pathTo(c,upto){const pts=this.pts;c.beginPath();c.moveTo(pts[0][0],pts[0][1]);
+    let rem=upto;
+    for(let i=1;i<pts.length;i++){const sg=this.seg[i-1];
+      if(sg<=rem){c.lineTo(pts[i][0],pts[i][1]);rem-=sg;}
+      else{const t=sg?rem/sg:0;
+        c.lineTo(lerp(pts[i-1][0],pts[i][0],t),lerp(pts[i-1][1],pts[i][1],t));break;}}}
+  render(c){
+    backdrop(c,'rgba(140,160,200,.07)');
+    const s=this.s,ox=this.ox,oy=this.oy;
+    /* 银牌 */
+    const half=150*s;
+    c.save();c.translate(ox,oy);
+    rr(c,-half,-half,half*2,half*2,14*s);
+    c.fillStyle=silverGrad(c,-half,-half,half,half,.55);c.fill();
+    c.strokeStyle='rgba(30,36,50,.8)';c.lineWidth=2;c.stroke();
+    rr(c,-half+10*s,-half+10*s,half*2-20*s,half*2-20*s,10*s);
+    c.setLineDash([8,6]);c.strokeStyle='rgba(60,72,95,.4)';c.lineWidth=1.2;c.stroke();c.setLineDash([]);
+    c.restore();
+    /* 蝴蝶墨线 */
+    c.save();c.translate(ox,oy);c.scale(s,s);
+    c.lineJoin='round';c.lineCap='round';
+    c.beginPath();c.moveTo(this.pts[0][0],this.pts[0][1]);
+    for(let i=1;i<this.pts.length;i++)c.lineTo(this.pts[i][0],this.pts[i][1]);
+    /* 行刀走廊：宽容区可视化 */
+    c.strokeStyle='rgba(140,190,255,.06)';c.lineWidth=120;c.stroke();
+    c.strokeStyle='rgba(140,190,255,.10)';c.lineWidth=56;c.stroke();
+    c.setLineDash([6,7]);c.strokeStyle='rgba(45,56,80,.6)';c.lineWidth=2;c.stroke();c.setLineDash([]);
+    /* 已刻部分 */
+    if(this.L>0){this.pathTo(c,this.L);
+      c.strokeStyle='#39435c';c.lineWidth=7;c.stroke();
+      c.strokeStyle='#f4faff';c.lineWidth=2.4;
+      c.shadowColor='#bfe0ff';c.shadowBlur=6;c.stroke();c.shadowBlur=0;}
+    /* 方向箭头 */
+    c.fillStyle='rgba(45,56,80,.4)';
+    for(let d=110;d<this.total-90;d+=95){
+      const a=this.ptAt(d),b=this.ptAt(Math.min(this.total,d+8));
+      const ang=Math.atan2(b[1]-a[1],b[0]-a[0]);
+      c.save();c.translate(a[0],a[1]);c.rotate(ang);
+      c.beginPath();c.moveTo(-4,-5);c.lineTo(4,0);c.lineTo(-4,5);c.closePath();c.fill();c.restore();}
+    /* 始 / 终 */
+    const st=this.pts[0],en=this.pts[this.pts.length-1];
+    const knob=(p,lab)=>{c.beginPath();c.arc(p[0],p[1],13,0,TAU);
+      c.fillStyle='rgba(232,200,114,.16)';c.fill();
+      c.strokeStyle='#a8843c';c.lineWidth=1.6;c.stroke();
+      c.fillStyle='#ffd27a';c.font='12px "Noto Serif SC","Songti SC",serif';
+      c.textAlign='center';c.textBaseline='middle';c.fillText(lab,p[0],p[1]+1);c.textBaseline='alphabetic';};
+    if(this.L<4)knob(st,'始');
+    if(this.L<this.total*.985)knob(en,'终');
+    c.restore();
+    /* 錾刀 */
+    if(this.tracing||this.L>0){
+      const p=this.ptAt(this.L),px=ox+p[0]*s,py=oy+p[1]*s;
+      c.save();c.translate(px,py);c.rotate(-.7);
+      c.fillStyle='#2b2118';rr(c,-3,-44,6,38,2);c.fill();
+      c.fillStyle='#c9d4e2';c.beginPath();c.moveTo(-3,-6);c.lineTo(3,-6);c.lineTo(0,4);c.closePath();c.fill();
+      c.restore();}
+    c.fillStyle='rgba(232,226,214,.8)';c.font='12px "Noto Serif SC","Songti SC",serif';c.textAlign='left';
+    c.fillText('第 三 环 · 錾 刻',14,H*.1);
+    c.textAlign='right';
+    c.fillText('錾刻 '+Math.round(clamp(this.L/this.total,0,1)*100)+'%',W-46,H*.1);
+  }
+}
+
+/* ---------- 4 焊接 ---------- */
+class Han extends G{
+  constructor(){super();
+    this.joints=[
+      {id:'antL',x:-5,y:-31},{id:'antR',x:5,y:-31},
+      {id:'dangL',x:-28,y:50},{id:'dangR',x:28,y:50}
+    ].map(j=>Object.assign(j,{heat:0,welded:false,flash:0}));
+    this.hold=-1;this.slips=0;this.welded=0;this.px=0;this.py=0;this.holdScreen=false;
+    setHint('按住接点持续加热 · 温度环满即焊牢');}
+  layout(){this.s=Math.min(W*.8/320,H*.6/320);this.ox=W/2;this.oy=H*.47;}
+  toD(x,y){return[(x-this.ox)/this.s,(y-this.oy)/this.s];}
+  down(x,y){if(this.done)return;
+    const[dx,dy]=this.toD(x,y);let best=-1,bd=42;
+    this.joints.forEach((j,i)=>{if(!j.welded){const d=Math.hypot(dx-j.x,dy-j.y);if(d<bd){bd=d;best=i;}}});
+    if(best>=0){this.hold=best;this.px=x;this.py=y;sfx.sizzle();}}
+  move(x,y){if(this.hold<0||this.done)return;
+    const[dx,dy]=this.toD(x,y);const j=this.joints[this.hold];
+    this.px=x;this.py=y;
+    if(Math.hypot(dx-j.x,dy-j.y)>50){this.hold=-1;this.slips++;sfx.buzz();
+      floatText(x,y-24,'手要稳！','#ff9d7a',15);}}
+  up(){this.hold=-1;}
+  weld(i){const j=this.joints[i];if(j.welded)return;
+    j.welded=true;j.flash=1;this.welded++;sfx.weld();
+    const sx=this.ox+j.x*this.s,sy=this.oy+j.y*this.s;
+    burst(sx,sy,14,{c:'#ffd9a0'});sparkle(sx,sy,8);
+    if(this.welded>=4){this.doneT=1.1;this.done2=true;}}
+  update(dt){this.t+=dt;
+    if(DEMO&&!this.done2&&!this.done){
+      const idx=this.joints.findIndex(j=>!j.welded);
+      if(idx>=0){const j=this.joints[idx];j.heat+=dt/.6;if(j.heat>=1)this.weld(idx);}}
+    if(this.hold>=0&&!this.done){const j=this.joints[this.hold];
+      if(!j.welded){j.heat=Math.min(1,j.heat+dt/.85);
+        if(Math.random()<.2)spawn({type:'spark',x:this.px+rand(-6,6),y:this.py,vx:rand(-40,40),vy:rand(-90,-20),c:'#ffc27a'});
+        if(j.heat>=1)this.weld(this.hold);}}
+    else this.joints.forEach(j=>{if(!j.welded)j.heat=Math.max(0,j.heat-dt*1.1);});
+    this.joints.forEach(j=>j.flash=Math.max(0,j.flash-dt*2));
+    if(this.done2){this.doneT-=dt;
+      if(this.doneT<=0){this.done2=false;this.finish(clamp(Math.round(100-this.slips*9),58,100));}}}
+  render(c){
+    backdrop(c,'rgba(255,150,60,.09)');
+    const s=this.s,ox=this.ox,oy=this.oy,t=this.t;
+    c.fillStyle='rgba(232,226,214,.8)';c.font='12px "Noto Serif SC","Songti SC",serif';
+    c.textAlign='left';c.fillText('第 四 环 · 焊 接',14,H*.1);
+    c.textAlign='right';c.fillText('已焊 '+this.welded+' / 4',W-46,H*.1);
+    c.save();c.translate(ox,oy);c.scale(s,s);
+    /* 主体蝴蝶坯 */
+    drawButterflyShape(c,.85,false);
+    c.restore();
+    /* 部件与接点 */
+    this.joints.forEach((j,i)=>{
+      const jx=ox+j.x*s,jy=oy+j.y*s;
+      c.save();c.translate(ox,oy);c.scale(s,s);
+      if(j.id[0]==='a'){ /* 触角 */
+        const side=j.id==='antL'?-1:1;
+        if(!j.welded){
+          const bob=Math.sin(t*3+i)*4;
+          c.setLineDash([3,3]);c.strokeStyle='rgba(200,215,235,.45)';c.lineWidth=1.6;
+          c.beginPath();c.moveTo(side*4,-31);c.quadraticCurveTo(side*10,-46,side*20,-58);c.stroke();c.setLineDash([]);
+          c.strokeStyle='rgba(220,230,245,.8)';c.lineWidth=3;
+          c.beginPath();c.moveTo(side*4+bob*.4,-31-14+bob);c.quadraticCurveTo(side*10+bob,-46+bob,side*20+bob,-58+bob);c.stroke();
+        }else{
+          c.strokeStyle=silverGrad(c,side*4,-58,side*20,-31,.9);c.lineWidth=3.4;c.lineCap='round';
+          c.beginPath();c.moveTo(side*4,-31);c.quadraticCurveTo(side*10,-46,side*20,-58);c.stroke();
+          c.beginPath();c.arc(side*20,-58,2.6,0,TAU);c.fillStyle='#e6ecf4';c.fill();}
+      }else{ /* 坠环 */
+        const side=j.id==='dangL'?-1:1;
+        if(!j.welded){
+          const bob=Math.sin(t*3+i)*4;
+          c.setLineDash([3,3]);c.strokeStyle='rgba(200,215,235,.45)';c.lineWidth=1.6;
+          c.beginPath();c.moveTo(side*28,50);c.lineTo(side*30,60);c.stroke();
+          c.beginPath();c.arc(side*30,68,8,0,TAU);c.stroke();c.setLineDash([]);
+          c.strokeStyle='rgba(220,230,245,.8)';c.lineWidth=3;
+          c.beginPath();c.moveTo(side*28+bob*.3,50+16+bob);c.lineTo(side*30+bob*.3,60+bob);c.stroke();
+          c.beginPath();c.arc(side*30+bob*.3,68+bob,8,0,TAU);c.stroke();
+        }else{
+          c.strokeStyle=silverGrad(c,side*22,50,side*38,76,.9);c.lineWidth=3.4;c.lineCap='round';
+          c.beginPath();c.moveTo(side*28,50);c.lineTo(side*30,60);c.stroke();
+          c.beginPath();c.arc(side*30,68,8,0,TAU);c.stroke();}}
+      c.restore();
+      /* 接点标记与温度环 */
+      if(!j.welded){
+        const pu=1+.08*Math.sin(t*5+i);
+        c.save();c.translate(jx,jy);
+        c.setLineDash([4,4]);c.lineDashOffset=-t*30;
+        c.strokeStyle='rgba(255,200,110,.75)';c.lineWidth=2;
+        c.beginPath();c.arc(0,0,15*pu,0,TAU);c.stroke();c.setLineDash([]);
+        c.fillStyle='rgba(255,220,150,.9)';c.beginPath();c.arc(0,0,3,0,TAU);c.fill();
+        if(j.heat>0){
+          c.strokeStyle=j.heat>.7?'#ff9c4a':'#ffdf9e';c.lineWidth=4;
+          c.beginPath();c.arc(0,0,22,-Math.PI/2,-Math.PI/2+j.heat*TAU);c.stroke();
+          const gg=c.createRadialGradient(0,0,2,0,0,26);
+          gg.addColorStop(0,`rgba(255,200,90,${.35*j.heat})`);gg.addColorStop(1,'rgba(255,120,30,0)');
+          c.fillStyle=gg;c.beginPath();c.arc(0,0,26,0,TAU);c.fill();}
+        c.restore();
+      }else if(j.flash>0){
+        c.strokeStyle=`rgba(255,240,200,${j.flash})`;c.lineWidth=3;
+        c.beginPath();c.arc(jx,jy,15+(1-j.flash)*22,0,TAU);c.stroke();}
+    });
+    /* 焊枪火苗 */
+    if(this.hold>=0&&!this.done){
+      drawFlame(c,this.px,this.py+8,24,40,t,.95,
+        ['rgba(90,140,255,.7)','rgba(160,200,255,.85)','rgba(240,248,255,.95)']);}
+  }
+}
+
+/* ---------- 5 编结 ---------- */
+const SLOT_DEFS=[
+  {id:'butterfly',x:0,y:132},{id:'plateL',x:-115,y:30},{id:'plateR',x:115,y:30},
+  {id:'bellL',x:-58,y:74},{id:'bellR',x:58,y:74}
+];
+class Jie extends G{
+  constructor(){super();
+    this.slots=SLOT_DEFS.slice();
+    const order=shuffle(SLOT_DEFS.map(s=>s.id));
+    this.pieces=order.map(id=>({id,placed:false,px:0,py:0,hx:0,hy:0,ret:false,scale:id==='butterfly'?.62:1}));
+    this.drag=null;this.mis=0;this.placedIds=[];this.done2=false;this.doneT=0;this.demoT=1;
+    this.layout();
+    setHint('把托盘里的银件拖到项圈对应的虚线轮廓上');}
+  layout(){this.s=Math.min(W*.84/360,H*.46/400);this.ox=W/2;this.oy=H*.40;
+    if(!this.pieces)return;
+    const n=this.pieces.length;
+    this.pieces.forEach((p,i)=>{p.hx=W*(i+.5)/n;p.hy=H*.885;
+      if(!p.placed&&!p.ret){p.px=p.hx;p.py=p.hy;}});}
+  pieceById(id){return this.pieces.find(p=>p.id===id);}
+  down(x,y){if(this.done||this.done2)return;
+    for(let i=this.pieces.length-1;i>=0;i--){const p=this.pieces[i];
+      if(!p.placed&&Math.hypot(x-p.px,y-p.py)<42){this.drag=p;p.ret=false;sfx.tick();return;}}}
+  move(x,y){if(this.drag){this.drag.px=x;this.drag.py=y;}}
+  up(x,y){if(!this.drag)return;const p=this.drag;this.drag=null;
+    const slot=this.slots.find(sl=>sl.id===p.id);
+    const sx=this.ox+slot.x*this.s,sy=this.oy+slot.y*this.s;
+    const snapR=Math.max(42,54*this.s);
+    if(Math.hypot(x-sx,y-sy)<snapR){this.placePiece(p);}
+    else{
+      const wrong=this.slots.some(sl=>sl.id!==p.id&&!this.placedIds.includes(sl.id)
+        &&Math.hypot(x-(this.ox+sl.x*this.s),y-(this.oy+sl.y*this.s))<snapR);
+      if(wrong){this.mis++;sfx.buzz();floatText(x,y-26,'部位不对','#ff9d7a',15);}
+      p.ret=true;}}
+  placePiece(p){p.placed=true;p.ret=false;
+    const slot=this.slots.find(sl=>sl.id===p.id);
+    const sx=this.ox+slot.x*this.s,sy=this.oy+slot.y*this.s;
+    sfx.pop();sparkle(sx,sy,9);this.placedIds.push(p.id);
+    if(this.placedIds.length===5){this.done2=true;this.doneT=.9;
+      sparkle(this.ox,this.oy,24,'#ffe9b8');}}
+  update(dt){this.t+=dt;
+    if(DEMO){this.demoT-=dt;
+      if(this.demoT<=0){this.demoT=.65;
+        const p=this.pieces.find(pp=>!pp.placed);
+        if(p)this.placePiece(p);}}
+    this.pieces.forEach(p=>{if(p.ret){p.px+=(p.hx-p.px)*Math.min(1,dt*9);p.py+=(p.hy-p.py)*Math.min(1,dt*9);
+      if(Math.hypot(p.px-p.hx,p.py-p.hy)<2){p.ret=false;p.px=p.hx;p.py=p.hy;}}});
+    if(this.done2){this.doneT-=dt;
+      if(this.doneT<=0){this.done2=false;this.finish(clamp(Math.round(100-this.mis*10),60,100));}}}
+  render(c){
+    backdrop(c,'rgba(140,160,220,.06)');
+    const s=this.s,ox=this.ox,oy=this.oy,t=this.t;
+    c.fillStyle='rgba(232,226,214,.8)';c.font='12px "Noto Serif SC","Songti SC",serif';
+    c.textAlign='left';c.fillText('第 五 环 · 编 结',14,H*.1);
+    c.textAlign='right';c.fillText('已结 '+this.placedIds.length+' / 5',W-46,H*.1);
+    /* 项圈虚影 */
+    c.save();c.translate(ox,oy);c.scale(s,s);
+    c.lineWidth=27;c.strokeStyle='rgba(190,205,230,.10)';
+    c.beginPath();c.arc(0,-70,150,115*RAD,65*RAD,false);c.stroke();
+    c.lineWidth=1.4;c.setLineDash([6,6]);c.strokeStyle='rgba(200,215,235,.35)';
+    c.beginPath();c.arc(0,-70,163,115*RAD,65*RAD,false);c.stroke();
+    c.beginPath();c.arc(0,-70,137,115*RAD,65*RAD,false);c.stroke();c.setLineDash([]);
+    c.restore();
+    /* 槽位 */
+    this.slots.forEach(sl=>{
+      if(this.placedIds.includes(sl.id))return;
+      drawPiece(c,sl.id.startsWith('plate')?'plate':sl.id.startsWith('bell')?'bell':'butterfly',
+        ox+sl.x*s,oy+sl.y*s,sl.id==='butterfly'?.62:1,0,true);
+      if(this.drag&&this.drag.id===sl.id){
+        const sx=ox+sl.x*s,sy=oy+sl.y*s;
+        const pu=.5+.5*Math.sin(t*6);
+        c.strokeStyle=`rgba(255,220,140,${.5+.4*pu})`;c.lineWidth=2;
+        c.beginPath();c.arc(sx,sy,34+5*pu,0,TAU);c.stroke();}});
+    /* 已放置 */
+    drawOrnament(c,ox,oy,s,1,this.placedIds,t);
+    /* 托盘 */
+    const ty0=H*.83;
+    c.fillStyle='rgba(40,28,18,.9)';rr(c,10,ty0,W-20,H-ty0-8,12);c.fill();
+    c.strokeStyle='#4a3826';c.lineWidth=1.5;rr(c,10,ty0,W-20,H-ty0-8,12);c.stroke();
+    c.fillStyle='#7d879e';c.font='11px "Noto Serif SC","Songti SC",serif';c.textAlign='left';
+    c.fillText('银 件 托 盘',20,ty0+16);
+    this.pieces.forEach(p=>{
+      if(p.placed)return;
+      c.fillStyle='rgba(255,255,255,.04)';rr(c,p.hx-34,p.hy-30,68,58,8);c.fill();
+      drawPiece(c,p.id.startsWith('plate')?'plate':p.id.startsWith('bell')?'bell':'butterfly',
+        p.px,p.py,.8,1,false);});
+    /* 拖拽中的件置顶 */
+    if(this.drag){c.save();c.shadowColor='rgba(255,220,140,.6)';c.shadowBlur=14;
+      drawPiece(c,this.drag.id.startsWith('plate')?'plate':this.drag.id.startsWith('bell')?'bell':'butterfly',
+        this.drag.px,this.drag.py,1,1,false);c.restore();}
+  }
+}
+
+/* ---------- 6 洗涤 ---------- */
+class Xi extends G{
+  constructor(){super();
+    this.shine=0;this.scrub=0;this.need=2600;this.down_=false;this.last=null;this.el=0;
+    setHint('按住银饰来回擦拭 · 擦出银光');}
+  layout(){this.s=Math.min(W*.84/360,H*.46/400);this.ox=W/2;this.oy=H*.42;}
+  toD(x,y){return[(x-this.ox)/this.s,(y-this.oy)/this.s];}
+  inside(x,y){const[dx,dy]=this.toD(x,y);return Math.abs(dx)<175&&dy>-235&&dy<185;}
+  down(x,y){if(this.done)return;this.down_=true;this.last=[x,y];}
+  move(x,y){if(!this.down_||this.done)return;
+    if(this.inside(x,y)){
+      const d=this.last?Math.hypot(x-this.last[0],y-this.last[1]):0;
+      this.scrub+=d;this.shine=clamp(this.scrub/this.need,0,1);
+      if(Math.random()<.5)spawn({type:'bubble',x:x+rand(-18,18),y:y+rand(-10,10),
+        vx:rand(-12,12),vy:-rand(20,55),g:-30,r:rand(3,7),life:rand(.5,1)});
+      if(Math.random()<.05)sfx.drop();}
+    this.last=[x,y];}
+  up(){this.down_=false;this.last=null;}
+  update(dt){this.t+=dt;this.el+=dt;
+    if(DEMO){this.scrub+=dt*1400;this.shine=clamp(this.scrub/this.need,0,1);
+      if(this.shine<1&&Math.random()<.5)spawn({type:'bubble',x:this.ox+rand(-140,140)*this.s,y:this.oy+rand(-120,120)*this.s,vx:rand(-10,10),vy:-rand(20,50),g:-30,r:rand(3,7),life:rand(.5,1)});}
+    if(this.shine>.2&&Math.random()<this.shine*.4)
+      sparkle(this.ox+rand(-130,130)*this.s,this.oy+rand(-150,150)*this.s,1,'#eaf6ff');
+    if(this.shine>=1&&!this.done){
+      burst(this.ox,this.oy,30,{c:'#eaf6ff',vmax:200});sparkle(this.ox,this.oy,30);
+      this.finish(clamp(Math.round(100-Math.max(0,this.el-14)*3),62,100));}}
+  render(c){
+    backdrop(c,'rgba(120,170,220,.10)');
+    const s=this.s,ox=this.ox,oy=this.oy,t=this.t;
+    c.fillStyle='rgba(232,226,214,.8)';c.font='12px "Noto Serif SC","Songti SC",serif';
+    c.textAlign='left';c.fillText('第 六 环 · 洗 涤',14,H*.1);
+    /* 水盆 */
+    const wy=H*.84;
+    c.fillStyle='rgba(90,140,190,.14)';
+    c.beginPath();c.ellipse(W/2,wy,W*.36,26,0,0,TAU);c.fill();
+    c.strokeStyle='rgba(150,190,230,.3)';c.lineWidth=1.5;c.stroke();
+    for(let i=0;i<3;i++){const rr2=30+((t*26+i*40)%(W*.3));
+      c.strokeStyle=`rgba(150,190,230,${.22*(1-rr2/(W*.3))})`;
+      c.beginPath();c.ellipse(W/2+rand(-2,2),wy,rr2,rr2*.2,0,0,TAU);c.stroke();}
+    /* 银饰（亮度随 shine） */
+    c.save();
+    c.shadowColor=`rgba(180,220,255,${.5*this.shine})`;c.shadowBlur=24*this.shine;
+    drawOrnament(c,ox,oy,s,this.shine,null,t);
+    c.restore();
+    /* 光泽槽 */
+    const bw2=W*.6,bx0=(W-bw2)/2,by2=H*.14;
+    c.fillStyle='rgba(255,255,255,.08)';rr(c,bx0,by2,bw2,10,5);c.fill();
+    if(this.shine>0){const g=c.createLinearGradient(bx0,0,bx0+bw2,0);
+      g.addColorStop(0,'#8fb8d8');g.addColorStop(1,'#f2f9ff');
+      c.fillStyle=g;rr(c,bx0,by2,bw2*this.shine,10,5);c.fill();}
+    c.fillStyle='#c9d4e2';c.font='12px "Noto Serif SC","Songti SC",serif';c.textAlign='center';
+    c.fillText('光泽 '+Math.round(this.shine*100)+'%',W/2,by2-8);
+    /* 擦拭光标 */
+    if(this.down_&&ptr.x>0){
+      c.strokeStyle='rgba(220,240,255,.7)';c.lineWidth=2;
+      c.beginPath();c.arc(ptr.x,ptr.y,14+2*Math.sin(t*8),0,TAU);c.stroke();}
+  }
+}
+
+const GAMES={zhu:Zhu,chui:Chui,ke:Ke,han:Han,jie:Jie,xi:Xi};
+
+/* ================= 流程 UI ================= */
+const bar=$('#bar'),ovl=$('#ovl'),card=$('#card'),hintEl=$('#hint'),progEl=$('#prog');
+function setHint(t){hintEl.textContent=t;}
+function buildBar(){bar.innerHTML='';
+  STEPS.forEach(st=>{const d=document.createElement('div');d.className='st';
+    d.innerHTML=`<div class="dot">${st.ch}</div><div class="lb">${st.name}</div>`;bar.appendChild(d);});}
+function setStep(i){[...bar.children].forEach((el,k)=>{
+  el.classList.toggle('on',k===i);el.classList.toggle('done',k<i);});}
+function showCard(html){card.innerHTML=html;ovl.classList.add('show');}
+function hideCard(){ovl.classList.remove('show');}
+let qualities=[];
+function showStart(){
+  setStep(-1);game=null;parts=[];progEl.textContent='';
+  setHint('西江千户苗寨 · 苗族银饰锻制技艺');
+  showCard(`
+   <div class="seal">苗银</div>
+   <h1 class="title" style="margin-top:6px">千锤成银</h1>
+   <div class="sub">西江千户苗寨 · 苗族银饰锻制技艺</div>
+   <p class="body">黔东南雷公山下，十余个寨子依山而建，白水河穿寨而过——这里是西江千户苗寨。苗家人「以钱为饰、以银为彩」，姑娘的盛装离不开一身银。锻制银饰全凭手工，自绘样至成品，须经<b>铸炼、捶打、錾刻、焊接、编结、洗涤</b>等三十余道工序。今天，请你执锤掌炉，亲历一件银项圈的诞生。</p>
+   <div class="tags"><span>国家级非遗</span><span>手工锻制</span><span>三十余道工序</span></div>
+   <button class="btn" id="go">开始锻制</button>`);
+  $('#go').onclick=()=>{ensureAudio();startStep(0);};
+}
+function startStep(i){
+  if(i>=STEPS.length){showResult();return;}
+  setStep(i);progEl.textContent=`工序 ${i+1} / 6`;
+  const s=STEPS[i];
+  showCard(`
+   <div class="stepch">${s.ch}</div>
+   <div class="kicker">第 ${i+1} 环 / 共六环 · 三十余道工序之一瞥</div>
+   <h2 class="title2">${s.name}</h2>
+   <div class="sub">${s.sub}</div>
+   <p class="body">${s.desc}</p>
+   <p class="tip">玩法 · ${s.hint}</p>
+   <button class="btn" id="go2">动 手</button>
+   <div class="skiprow"><button class="btn2" id="skip">这一环先跳过（记 75 分）</button></div>`);
+  $('#go2').onclick=()=>{ensureAudio();hideCard();parts=[];
+    const g=new GAMES[s.id]();
+    g.onDone=q=>{qualities[i]=q;after(750,()=>showDone(i,q));};
+    game=g;};
+  $('#skip').onclick=()=>{ensureAudio();qualities[i]=75;startStep(i+1);};
+}
+function showDone(i,q){
+  game=null;const s=STEPS[i];
+  const stars=q>=88?3:q>=72?2:1;
+  showCard(`
+   <div class="stepch">${s.ch}</div>
+   <div class="kicker">${s.name} · 完成</div>
+   <div class="grade">火候 <b>${q}</b> 分<span class="stars">${'★'.repeat(stars)}${'☆'.repeat(3-stars)}</span></div>
+   <p class="fact">${s.fact}</p>
+   <button class="btn" id="next">${i===STEPS.length-1?'淬火成器':'下一道工序'}</button>`);
+  $('#next').onclick=()=>startStep(i+1);
+}
+let finalRAF=null;
+function stopFinalAnim(){if(finalRAF){clearInterval(finalRAF);finalRAF=null;}}
+function showResult(){
+  stopFinalAnim();setStep(STEPS.length);game=null;parts=[];
+  progEl.textContent='体验完成';
+  setHint('一件银项圈的诞生 · 谢谢你的手艺');
+  const avg=Math.round(qualities.reduce((a,b)=>a+b,0)/qualities.length);
+  const g=avg>=92?['鬼斧神工','银匠大师','一炉银水，千锤成器。你的手已有匠师的沉稳。']
+    :avg>=80?['技艺精湛','银匠师傅','火候与刀工俱佳，师父点头，可以出师了。']
+    :avg>=65?['渐入佳境','熟练学徒','脉络已通，只欠千锤百炼的火候。']
+    :['初试锋芒','银匠学徒','第一步已迈出，苗岭的炉火等你再来。'];
+  const rows=STEPS.map((s,i)=>{const q=qualities[i];const st=q>=88?3:q>=72?2:1;
+    return `<div class="ritem"><span>${s.ch} · ${s.name}</span><span class="rs">${'★'.repeat(st)}${'☆'.repeat(3-st)}</span></div>`;}).join('');
+  showCard(`
+   <canvas id="fcv" width="560" height="430"></canvas>
+   <div class="kicker">你的作品 · 银项圈〈蝶恋〉</div>
+   <h2 class="title2">${g[0]}</h2>
+   <div class="sub">称号 · ${g[1]} · 综合 ${avg} 分</div>
+   <div class="rlist">${rows}</div>
+   <p class="fact">${g[2]}</p>
+   <button class="btn" id="again">再锻一件</button>
+   <div class="foot">苗家谚语 · 「无银无花，不成姑娘」</div>`);
+  $('#again').onclick=()=>{qualities=[];showStart();};
+  /* 结算动画 */
+  const c=$('#fcv');if(!c)return;
+  const fx=c.getContext('2d');let t=0;const fp=[];
+  const loop=()=>{
+    if(!document.getElementById('fcv'))return;
+    t+=1/60;fx.clearRect(0,0,560,430);
+    const gg=fx.createRadialGradient(280,215,10,280,215,200);
+    gg.addColorStop(0,'rgba(255,220,150,.16)');gg.addColorStop(1,'rgba(0,0,0,0)');
+    fx.fillStyle=gg;fx.fillRect(0,0,560,430);
+    fx.save();fx.translate(280,218);
+    drawOrnament(fx,0,0,.78+Math.sin(t*1.6)*.01,1,null,t);
+    fx.restore();
+    if(Math.random()<.3)fp.push({x:rand(100,460),y:rand(60,380),r:rand(2,5),t2:0,life:rand(.6,1.2),rot:rand(0,TAU)});
+    for(let i=fp.length-1;i>=0;i--){const p=fp[i];p.t2+=1/60;
+      if(p.t2>p.life){fp.splice(i,1);continue;}
+      const k=1-p.t2/p.life;fx.save();fx.globalAlpha=k;fx.translate(p.x,p.y);fx.rotate(p.rot);
+      fx.fillStyle='#eaf6ff';fx.beginPath();
+      for(let j=0;j<4;j++){fx.lineTo(0,-p.r*(j%2?.35:1)*k);fx.rotate(Math.PI/2);}
+      fx.closePath();fx.fill();fx.restore();}
+    finalRAF=setInterval(loop,33);};
+  loop();
+}
+
+/* ================= 输入与主循环 ================= */
+let ptr={down:false,x:0,y:0};
+function toXY(e){const r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};}
+cv.addEventListener('pointerdown',e=>{ensureAudio();maybeTick();
+  const p=toXY(e);ptr.down=true;ptr.x=p.x;ptr.y=p.y;
+  try{cv.setPointerCapture(e.pointerId);}catch(err){}
+  if(game&&game.down)game.down(p.x,p.y);e.preventDefault();});
+cv.addEventListener('pointermove',e=>{const p=toXY(e);ptr.x=p.x;ptr.y=p.y;
+  if(game&&game.move)game.move(p.x,p.y);
+  maybeTick();});
+function ptrUp(e){if(ptr.down){ptr.down=false;maybeTick();if(game&&game.up)game.up(ptr.x,ptr.y);}}
+cv.addEventListener('pointerup',ptrUp);
+cv.addEventListener('pointercancel',ptrUp);
+addEventListener('blur',()=>{if(ptr.down){ptr.down=false;if(game&&game.up)game.up(ptr.x,ptr.y);}});
+cv.addEventListener('contextmenu',e=>e.preventDefault());
+addEventListener('keydown',e=>{
+  if(e.code==='Space'&&!e.repeat){e.preventDefault();ensureAudio();maybeTick();
+    if(game&&game.down)game.down(W/2,H/2);}});
+addEventListener('keyup',e=>{if(e.code==='Space'&&game&&game.up)game.up(W/2,H/2);});
+$('#muteBtn').onclick=()=>{muted=!muted;$('#muteBtn').textContent=muted?'✕':'♪';
+  $('#muteBtn').style.opacity=muted?.5:1;};
+$('#homeBtn').onclick=()=>{stopFinalAnim();qualities=[];showStart();};
+
+function renderFrame(){
+  ctx.clearRect(0,0,W,H);
+  if(game)game.render(ctx);
+  else{
+    /* 待机：余烬飘浮 */
+    const g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#12141f');g.addColorStop(1,'#0a0b12');
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    const rg=ctx.createRadialGradient(W/2,H*.72,10,W/2,H*.72,Math.max(W,H)*.55);
+    rg.addColorStop(0,'rgba(255,140,50,.10)');rg.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=rg;ctx.fillRect(0,0,W,H);
+    if(Math.random()<.08)spawn({type:'dot',x:rand(0,W),y:H*.9,vx:rand(-6,6),vy:-rand(18,42),g:-8,r:rand(1,2.4),c:'#ffb45e',life:rand(1.5,3)});
+  }
+  drawParts(ctx);
+}
+if(DEMO)window.__step=function(n){n=n||1;for(let i=0;i<n;i++){if(game)game.update(1/60);stepParts(1/60);}renderFrame();return game?game.constructor.name:'idle';};
+/* ---- 抗节流驱动：Worker 定时器不受页面可见性节流影响 ---- */
+const pendingTimers=[];
+function after(ms,fn){pendingTimers.push({at:performance.now()+ms,fn});}
+function runPending(){
+  const now=performance.now();
+  for(let i=pendingTimers.length-1;i>=0;i--){
+    if(now>=pendingTimers[i].at){const f=pendingTimers[i].fn;pendingTimers.splice(i,1);
+      try{f();}catch(e){}}}
+}
+let workerDriver=null;
+try{
+  const wurl=URL.createObjectURL(new Blob(['setInterval(function(){postMessage(0)},50);'],{type:'text/javascript'}));
+  workerDriver=new Worker(wurl);
+  workerDriver.onmessage=()=>{if(performance.now()-lastT>40)tick(performance.now());};
+}catch(e){workerDriver=null;}
+let lastT=0,lowHits=0,tipShown=false;
+const STEP=1/60;
+function showFpsTip(){
+  const d=document.createElement('div');d.className='fps-tip';
+  d.textContent='当前窗口帧率受限，游戏进度仍按真实时间推进（画面可能不够流畅）。把本页用独立浏览器打开即可满帧体验。';
+  document.getElementById('stage').appendChild(d);
+  after(9000,()=>d.remove());
+}
+function tick(now){
+  if(!lastT)lastT=now;
+  let dt=(now-lastT)/1000;lastT=now;
+  if(!(dt>0))dt=0;
+  if(dt>1)dt=1;
+  if(dt>0.35){if(++lowHits>=4&&!tipShown){tipShown=true;showFpsTip();}}else lowHits=0;
+  let n=Math.min(Math.ceil(dt/STEP)||1,60);
+  const sdt=dt/n;
+  for(let i=0;i<n;i++){if(game)game.update(sdt);stepParts(sdt);}
+  runPending();
+  renderFrame();
+}
+function loop(t){tick(t);requestAnimationFrame(loop);}
+/* 输入驱动的补帧：指针事件永远实时，时钟被节流时靠它推进游戏 */
+function maybeTick(){const now=performance.now();if(now-lastT>34)tick(now);}
+/* rAF 被遮挡节流时，由看门狗按真实时间驱动 */
+setInterval(()=>{if(performance.now()-lastT>240)tick(performance.now());},200);
+requestAnimationFrame(loop);
+buildBar();
+resize();
+showStart();
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
