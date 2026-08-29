@@ -51,6 +51,92 @@ export function getWorkshopGenerationProfile(craft: WorkshopCraft, style: string
   return null
 }
 
+function loadUploadedImage(file: File): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file)
+    const image = new Image()
+    image.onload = () => {
+      URL.revokeObjectURL(url)
+      resolve(image)
+    }
+    image.onerror = () => {
+      URL.revokeObjectURL(url)
+      reject(new Error('无法读取上传的图片。'))
+    }
+    image.src = url
+  })
+}
+
+/**
+ * 黑客松演示回退：在浏览器内将上传图转为风格化预览，不上传文件也不调用外部服务。
+ * 它不是 AI 生成结果；当配置真实接口后，generateWorkshopArtwork 会自动优先使用接口。
+ */
+async function generateLocalWorkshopPreview(imageFile: File, craft: WorkshopCraft): Promise<string> {
+  const image = await loadUploadedImage(imageFile)
+  const sourceWidth = image.naturalWidth || image.width
+  const sourceHeight = image.naturalHeight || image.height
+  const scale = Math.min(1, 1024 / Math.max(sourceWidth, sourceHeight))
+  const width = Math.max(1, Math.round(sourceWidth * scale))
+  const height = Math.max(1, Math.round(sourceHeight * scale))
+  const canvas = document.createElement('canvas')
+  canvas.width = width
+  canvas.height = height
+  const context = canvas.getContext('2d')
+  if (!context) throw new Error('当前浏览器不支持本地图片预览。')
+
+  if (craft === 'silver') {
+    context.fillStyle = '#15191f'
+    context.fillRect(0, 0, width, height)
+    context.filter = 'grayscale(1) contrast(1.3) brightness(1.08)'
+    context.globalAlpha = 0.78
+    context.drawImage(image, 0, 0, width, height)
+    context.filter = 'none'
+    context.globalAlpha = 1
+
+    const silver = context.createLinearGradient(0, 0, width, height)
+    silver.addColorStop(0, 'rgba(244, 248, 255, 0.58)')
+    silver.addColorStop(0.42, 'rgba(108, 123, 145, 0.18)')
+    silver.addColorStop(0.72, 'rgba(234, 240, 248, 0.52)')
+    silver.addColorStop(1, 'rgba(68, 77, 91, 0.26)')
+    context.globalCompositeOperation = 'screen'
+    context.fillStyle = silver
+    context.fillRect(0, 0, width, height)
+    context.globalCompositeOperation = 'source-over'
+    context.strokeStyle = 'rgba(232, 240, 248, 0.44)'
+    context.lineWidth = Math.max(1, width / 360)
+    for (let radius = Math.min(width, height) * 0.1; radius < Math.max(width, height) * 0.72; radius += Math.max(16, width / 13)) {
+      context.beginPath()
+      context.ellipse(width * 0.5, height * 0.5, radius, radius * 0.68, -0.32, 0.16, Math.PI * 1.78)
+      context.stroke()
+    }
+  } else {
+    context.fillStyle = craft === 'embroidery' ? '#0b1834' : '#123c63'
+    context.fillRect(0, 0, width, height)
+    context.filter = craft === 'embroidery' ? 'contrast(1.2) saturate(1.48)' : 'contrast(1.16) saturate(1.12) hue-rotate(165deg)'
+    context.globalAlpha = 0.73
+    context.drawImage(image, 0, 0, width, height)
+    context.filter = 'none'
+    context.globalAlpha = 1
+
+    const threadColors = craft === 'embroidery'
+      ? ['rgba(239, 77, 104, 0.6)', 'rgba(245, 190, 66, 0.58)', 'rgba(85, 207, 170, 0.48)', 'rgba(225, 236, 247, 0.42)']
+      : ['rgba(224, 241, 255, 0.45)', 'rgba(104, 166, 220, 0.4)', 'rgba(246, 250, 255, 0.34)']
+    const spacing = Math.max(7, Math.round(Math.min(width, height) / 68))
+    context.lineWidth = Math.max(1, spacing * 0.18)
+    for (let y = -height; y < height * 2; y += spacing) {
+      context.strokeStyle = threadColors[Math.abs(Math.round(y / spacing)) % threadColors.length]
+      context.setLineDash([spacing * 0.48, spacing * 0.56])
+      context.beginPath()
+      context.moveTo(0, y)
+      context.lineTo(width, y - width * 0.38)
+      context.stroke()
+    }
+    context.setLineDash([])
+  }
+
+  return canvas.toDataURL('image/png')
+}
+
 /**
  * 浏览器端只负责上传素材、选择技能和显示最终成品；密钥与图像生成调用必须放在服务端。
  * 在 .env.local 中配置 VITE_WORKSHOP_GENERATION_ENDPOINT，例如：
@@ -61,7 +147,7 @@ export async function generateWorkshopArtwork({ image, craft, style }: Generatio
   const endpoint = import.meta.env.VITE_WORKSHOP_GENERATION_ENDPOINT
 
   if (!endpoint) {
-    throw new Error('尚未配置图像生成服务。请设置 VITE_WORKSHOP_GENERATION_ENDPOINT 后再生成。')
+    return generateLocalWorkshopPreview(image, craft)
   }
 
   const payload = new FormData()

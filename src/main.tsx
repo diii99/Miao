@@ -385,6 +385,10 @@ const router = createRouter({ routeTree: rootRoute.addChildren([indexRoute, mapR
 declare module '@tanstack/react-router' { interface Register { router: typeof router } }
 function App() {
   const [showIntro, setShowIntro] = useState(() => !window.location.pathname.startsWith("/games/"))
-  return showIntro ? <IntroScreen onComplete={() => setShowIntro(false)} /> : <RouterProvider router={router} />
+  const finishIntro = async () => {
+    await router.navigate({ to: '/' })
+    setShowIntro(false)
+  }
+  return showIntro ? <IntroScreen onComplete={() => { void finishIntro() }} /> : <RouterProvider router={router} />
 }
 createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>)
