@@ -1,0 +1,2 @@
+/* 西江千户苗寨夜景作为地图底图，深蓝蒙版确保探索节点清晰可读。 */
+.village-map{background:linear-gradient(180deg,#0b2c5a38,#0b2c5ab5),url('./assets/xijiang-qianhu-night.jpg') center/cover no-repeat!important}
