@@ -22,8 +22,11 @@
     "typescript": "^7.0.2"
   },
   "dependencies": {
+    "@google/model-viewer": "^4.3.1",
     "@tanstack/react-router": "^1.170.32",
+    "@types/three": "^0.185.4",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "react-dom": "^19.2.8",
+    "three": "^0.185.1"
   }
 }
