@@ -1,83 +1,370 @@
-import { StrictMode, type FormEvent, type ReactNode, useEffect, useState } from 'react'
+import { StrictMode, type FormEvent, type ReactNode, useEffect, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Link, Outlet, RouterProvider, createRootRoute, createRoute, createRouter } from '@tanstack/react-router'
+import { Link, Outlet, RouterProvider, createRootRoute, createRoute, createRouter, useNavigate } from '@tanstack/react-router'
+import '@google/model-viewer'
 import './styles.css'
 import './final-overrides.css'
 import './map-background.css'
+import { MiaoVillageScene } from './map-3d/MiaoVillageScene'
+import { type LandmarkPOI } from './map-3d/villageBuilder'
 import silverStencil from './assets/silver-stencil.png'
 import batikStencil from './assets/batik-stencil.png'
 import dressStencil from './assets/dress-stencil.png'
 import introVideo from './assets/intro.mp4'
 
-type TabKey = 'home' | 'map' | 'workshop' | 'culture'
-const tabs: { key: TabKey; label: string; to: '/' | '/map' | '/workshop' | '/culture'; iconClass: string }[] = [
-  { key: 'home', label: '首页', to: '/', iconClass: 'icon-home' }, { key: 'map', label: '地图', to: '/map', iconClass: 'icon-map' },
-  { key: 'workshop', label: '体验坊', to: '/workshop', iconClass: 'icon-workshop' }, { key: 'culture', label: '文化', to: '/culture', iconClass: 'icon-culture' },
+type TabKey = 'home' | 'map' | 'heritage' | 'workshop'
+const tabs: { key: TabKey; label: string; to: '/' | '/map' | '/heritage' | '/workshop'; iconClass: string }[] = [
+  { key: 'home', label: '首页', to: '/', iconClass: 'icon-home' },
+  { key: 'map', label: '地图', to: '/map', iconClass: 'icon-map' },
+  { key: 'heritage', label: '非遗', to: '/heritage', iconClass: 'icon-heritage' },
+  { key: 'workshop', label: '体验坊', to: '/workshop', iconClass: 'icon-workshop' },
 ]
 
 function Shell({ active, title, children }: { active: TabKey; title: string; children: ReactNode }) {
-  return <main className={`mini-program ${active === 'home' ? 'home-shell' : ''}`}><header className="navigation-bar"><span className="page-title">{title}</span><span className="capsule" aria-label="小程序胶囊按钮"><i /><b /><em /></span></header><section className="page-content">{children}</section><nav className="tab-bar" aria-label="主导航">{tabs.map((tab) => <Link key={tab.key} to={tab.to} className={`tab-item ${active === tab.key ? 'active' : ''}`} activeOptions={{ exact: true }}><span className={`tab-icon ${tab.iconClass}`} aria-hidden="true" /><span>{tab.label}</span></Link>)}</nav></main>
+  return (
+    <main className={`mini-program ${active === 'home' ? 'home-shell' : ''}`}>
+      <header className="navigation-bar">
+        <span className="page-title">{title}</span>
+        <span className="capsule" aria-label="小程序胶囊按钮">
+          <i />
+          <b />
+          <em />
+        </span>
+      </header>
+      <section className="page-content">{children}</section>
+      <nav className="tab-bar" aria-label="主导航">
+        {tabs.map((tab) => (
+          <Link
+            key={tab.key}
+            to={tab.to}
+            className={`tab-item ${active === tab.key ? 'active' : ''}`}
+            activeOptions={{ exact: true }}
+          >
+            <span className={`tab-icon ${tab.iconClass}`} aria-hidden="true" />
+            <span>{tab.label}</span>
+          </Link>
+        ))}
+      </nav>
+    </main>
+  )
 }
 
 function IntroScreen({ onComplete }: { onComplete: () => void }) {
-  return <main className="intro-screen" aria-label="黔苗行开屏"><video className="intro-video" src={introVideo} autoPlay muted playsInline preload="auto" onEnded={onComplete} /><div className="intro-video-shade" /><p>黔苗行</p><button type="button" onClick={onComplete}>跳过 <span>›</span></button></main>
+  return (
+    <main className="intro-screen" aria-label="黔苗行开屏">
+      <video
+        className="intro-video"
+        src={introVideo}
+        autoPlay
+        muted
+        playsInline
+        preload="auto"
+        onEnded={onComplete}
+      />
+      <div className="intro-video-shade" />
+      <p>黔苗行</p>
+      <button type="button" onClick={onComplete}>
+        跳过 <span>›</span>
+      </button>
+    </main>
+  )
 }
 
-const dailyDialogues = [
-  '想听听姊妹节的故事', '苗绣纹样有什么寓意？', '推荐一条苗寨路线',
-]
+const dailyDialogues = ['想听听姊妹节的故事', '苗绣纹样有什么寓意？', '推荐一条苗寨路线']
 const openingGuides = [
   '刚才的开屏，不只是一个画面。蓝靛、白纹与生长的树，来自苗族对生命的想象。',
   '苗族传说里，蝴蝶妈妈孕育万物。她的蝶翼、花纹和种子，后来被绣进衣裳与蜡染。',
   '所以我们从这段传说开始：欢迎你沿着一只蝴蝶的翅膀，走进苗寨。',
 ]
+const localGuideReply = (question: string) => {
+  if (/姊妹节/.test(question)) return '姊妹节时，姑娘会用五彩糯米饭传递心意。'
+  if (/苗绣|纹样/.test(question)) return '苗绣常把蝴蝶、鸟与花绣成家族的记忆。'
+  if (/路线|苗寨|行程/.test(question)) return '先到西江看晨雾，再去朗德听芦笙与古歌。'
+  if (/蜡染/.test(question)) return '蜡染以蜡防染，蓝白纹样里藏着自然万象。'
+  return '从寨门慢慢走起，山风会带来新的故事。'
+}
+type ChatMessage = { role: 'user' | 'assistant'; content: string }
 
 function HomePage() {
   const [questions, setQuestions] = useState<string[]>([])
   const [draft, setDraft] = useState('')
   const [reply, setReply] = useState('你好，我是纠笙。想从苗乡的哪段故事开始听？')
+  const [conversation, setConversation] = useState<ChatMessage[]>([])
+  const [lastInputWasSuggestion, setLastInputWasSuggestion] = useState(true)
+  const [isReplying, setIsReplying] = useState(false)
   const [chatOpen, setChatOpen] = useState(false)
   const [fading, setFading] = useState(false)
   const [autoDismiss, setAutoDismiss] = useState(false)
   const [guideStep, setGuideStep] = useState(0)
   const [guiding, setGuiding] = useState(true)
   const [showInvite, setShowInvite] = useState(false)
+  const chatHistoryRef = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
     if (!chatOpen || !autoDismiss) return undefined
     setFading(false)
     const fadeTimer = window.setTimeout(() => setFading(true), 4800)
     const closeTimer = window.setTimeout(() => setChatOpen(false), 5250)
-    return () => { window.clearTimeout(fadeTimer); window.clearTimeout(closeTimer) }
+    return () => {
+      window.clearTimeout(fadeTimer)
+      window.clearTimeout(closeTimer)
+    }
   }, [autoDismiss, chatOpen, reply])
-  const sendMessage = (content: string) => {
+
+  const sendMessage = async (content: string, fromSuggestion = false) => {
     const text = content.trim()
-    if (!text) return
+    if (!text || isReplying) return
+    const nextConversation = [...conversation, { role: 'user' as const, content: text }]
     setQuestions((current) => [...current, text])
-    setReply('我先悄悄告诉你：苗乡的故事，常藏在一针一线和一声芦笙里。')
+    setLastInputWasSuggestion(fromSuggestion)
+    setConversation(nextConversation)
     setDraft('')
     setFading(false)
     setChatOpen(true)
-    setAutoDismiss(true)
+    setAutoDismiss(false)
     setShowInvite(false)
+    setIsReplying(true)
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: nextConversation.slice(-8) }),
+      })
+      if (!response.ok) throw new Error('chat request failed')
+      const payload = (await response.json()) as { reply?: string }
+      const answer = payload.reply?.trim()
+      if (!answer) throw new Error('empty chat reply')
+      setReply(answer)
+      setConversation([...nextConversation, { role: 'assistant', content: answer }])
+    } catch {
+      const answer = localGuideReply(text)
+      setReply(answer)
+      setConversation([...nextConversation, { role: 'assistant', content: answer }])
+    } finally {
+      setAutoDismiss(true)
+      setIsReplying(false)
+    }
   }
-  const submit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); sendMessage(draft) }
-  const openChat = () => { setFading(false); setAutoDismiss(false); setShowInvite(false); setChatOpen(true) }
-  const nextGuide = () => { if (guideStep === openingGuides.length - 1) { setGuiding(false); setShowInvite(true) } else setGuideStep((current) => current + 1) }
-  return <Shell active="home" title="黔苗行"><section className="dress-hero daily-hero"><div className="dress-copy"><p>贵州 · 黔东南</p><h1>走进苗寨<br />遇见纠笙</h1><span>让她带你认识苗乡日常</span></div><div className="dress-avatar photo-avatar outfit-silver home-avatar-entrance" aria-label="苗寨向导纠笙" /><div className="dress-seal">苗<br />乡</div>{guiding && <section className="opening-guide" aria-label="开屏故事引导"><p><span>蝴蝶妈妈的故事 · {guideStep + 1}/{openingGuides.length}</span>{openingGuides[guideStep]}</p><button type="button" onClick={nextGuide}>{guideStep === openingGuides.length - 1 ? '去问问纠笙' : '继续 ›'}</button></section>}{!guiding && showInvite && <section className="question-invite" aria-label="邀请向纠笙提问"><p>还有其他的问题<br />可以再问我。</p><button type="button" onClick={openChat}>问问纠笙 ›</button></section>}{chatOpen && <section className={`joson-chat pet-speech ${fading ? 'is-fading' : ''}`} aria-label="纠笙的缩略回答"><header><span>纠</span><div><b>纠笙</b><small>苗寨文化向导 · 在线</small></div><button type="button" className="pet-close" aria-label="收起对话" onClick={() => setChatOpen(false)}>×</button></header><p className="pet-answer" aria-live="polite">{reply}</p><div className="chat-suggestions">{dailyDialogues.slice(0, 2).map((item) => <button key={item} type="button" onClick={() => sendMessage(item)}>{item}</button>)}</div><form onSubmit={submit}><input value={draft} onFocus={() => setAutoDismiss(false)} onChange={(event) => setDraft(event.target.value)} placeholder="问问纠笙…" aria-label="输入想问纠笙的问题" /><button type="submit">发送</button></form></section>}{!chatOpen && !guiding && questions.length > 0 && <button type="button" className="question-trail" onClick={openChat} aria-label="查看已问问题并再次提问"><span>已问</span><b>{questions[questions.length - 1]}</b><i>{questions.length}</i></button>}{!chatOpen && !guiding && !showInvite && <button type="button" className={`joson-chat-trigger ${questions.length > 0 ? 'compact' : ''}`} onClick={openChat} aria-label="再次向纠笙提问"><span>问</span><b>问问纠笙</b></button>}</section></Shell>
+
+  const submit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    void sendMessage(draft)
+  }
+
+  const openChat = () => {
+    setFading(false)
+    setAutoDismiss(false)
+    setShowInvite(false)
+    setChatOpen(true)
+  }
+
+  const nextGuide = () => {
+    if (guideStep === openingGuides.length - 1) {
+      setGuiding(false)
+      setShowInvite(true)
+    } else setGuideStep((current) => current + 1)
+  }
+
+  const showHistoryAboveSuggestions = conversation.length === 0 || lastInputWasSuggestion
+  useEffect(() => {
+    const history = chatHistoryRef.current
+    if (history) history.scrollTop = history.scrollHeight
+  }, [conversation, isReplying, lastInputWasSuggestion])
+
+  const chatHistory = (
+    <div ref={chatHistoryRef} className="chat-history" aria-live="polite">
+      <button type="button" className="pet-close" aria-label="收起对话" onClick={() => setChatOpen(false)}>
+        ×
+      </button>
+      {conversation.length === 0 ? (
+        <p className="pet-answer">{reply}</p>
+      ) : (
+        conversation.map((message, index) => (
+          <p key={`${message.role}-${index}`} className={`pet-message ${message.role}`}>
+            {message.content}
+          </p>
+        ))
+      )}
+      {isReplying && <p className="pet-message assistant">纠笙正在想一想…</p>}
+    </div>
+  )
+
+  return (
+    <Shell active="home" title="黔苗行">
+      <section className="dress-hero daily-hero">
+        <div className="dress-copy">
+          <p>贵州 · 黔东南</p>
+          <h1>走进苗寨<br />遇见纠笙</h1>
+          <span>让她带你认识苗乡日常</span>
+        </div>
+                <model-viewer
+          className="home-avatar-model home-avatar-entrance"
+          src="/人物/3d/MiaoGirl_1.glb"
+          alt="苗寨向导纠笙的三维形象"
+          loading="eager"
+          camera-controls
+          auto-rotate
+          auto-rotate-delay="1200"
+          rotation-per-second="18deg"
+          camera-orbit="0deg 78deg 5m"
+          camera-target="0m 0.5m 0m"
+          field-of-view="28deg"
+          shadow-intensity="0.8"
+          shadow-softness="0.9"
+          environment-image="neutral"
+          interaction-prompt="none"
+          aria-label="苗寨向导纠笙的三维形象，可拖动查看"
+        />
+        <div className="dress-seal">苗<br />乡</div>
+        {guiding && (
+          <section className="opening-guide" aria-label="开屏故事引导">
+            <p>
+              <span>蝴蝶妈妈的故事</span>
+              {openingGuides[guideStep]}
+            </p>
+            <div className="guide-actions">
+              <button type="button" onClick={nextGuide}>
+                {guideStep === openingGuides.length - 1 ? '去问问纠笙' : '继续'}{' '}
+                <i aria-hidden="true">↑</i>
+              </button>
+            </div>
+          </section>
+        )}
+        {!guiding && showInvite && (
+          <section className="question-invite" aria-label="邀请向纠笙提问">
+            <p>还有其他的问题<br />可以再问我。</p>
+            <button type="button" onClick={openChat}>问问纠笙 ›</button>
+          </section>
+        )}
+        {chatOpen && (
+          <section className={`joson-chat pet-speech ${fading ? 'is-fading' : ''}`} aria-label="纠笙的缩略回答">
+            {showHistoryAboveSuggestions && chatHistory}
+            <div className="chat-suggestions">
+              {dailyDialogues.map((item) => (
+                <button key={item} type="button" disabled={isReplying} onClick={() => void sendMessage(item, true)}>
+                  <span>{item}</span>
+                  <i aria-hidden="true">›</i>
+                </button>
+              ))}
+            </div>
+            {!showHistoryAboveSuggestions && chatHistory}
+            <form onSubmit={submit}>
+              <input
+                value={draft}
+                disabled={isReplying}
+                onFocus={() => setAutoDismiss(false)}
+                onChange={(event) => setDraft(event.target.value)}
+                placeholder="问问纠笙"
+                aria-label="输入想问纠笙的问题"
+              />
+              <button type="submit" disabled={isReplying} aria-label="发送">↑</button>
+            </form>
+          </section>
+        )}
+        {!chatOpen && !guiding && questions.length > 0 && (
+          <button type="button" className="question-trail" onClick={openChat} aria-label="查看已问问题并再次提问">
+            <span>已问</span>
+            <b>{questions[questions.length - 1]}</b>
+            <i>{questions.length}</i>
+          </button>
+        )}
+        {!chatOpen && !guiding && !showInvite && (
+          <button
+            type="button"
+            className={`joson-chat-trigger ${questions.length > 0 ? 'compact' : ''}`}
+            onClick={openChat}
+            aria-label="再次向纠笙提问"
+          >
+            <span>问</span>
+            <b>问问纠笙</b>
+          </button>
+        )}
+      </section>
+    </Shell>
+  )
 }
-const mapPlaces = [
-  { name: '观景台', note: '云端日出', detail: '站在山脊俯瞰层层叠叠的木楼，等一场云海日出。', x: 22, y: 18 },
-  { name: '风雨桥', note: '河水人家', detail: '桥上歇脚，看清水穿过寨子，也听老人讲桥的故事。', x: 65, y: 28 },
-  { name: '纠笙家', note: '苗寨日常', detail: '去找纠笙，听她讲苗绣、银饰和家门口的日常。', x: 43, y: 46 },
-  { name: '老街', note: '慢时光', detail: '石板路两旁藏着手作铺与旧时光，适合慢慢逛。', x: 18, y: 66 },
-  { name: '鼓藏堂', note: '节日之地', detail: '在鼓声里认识苗年、姊妹节与寨子的共同记忆。', x: 62, y: 70 },
-  { name: '芦笙场', note: '听见苗歌', detail: '傍晚的芦笙场，歌声与舞步会把山谷点亮。', x: 79, y: 72 },
-]
+
 function MapPage() {
-  const [selected, setSelected] = useState(2)
-  const [exploring, setExploring] = useState(false)
-  const place = mapPlaces[selected]
-  return <Shell active="map" title="西江探索"><section className="map-explore"><div className="map-heading"><p>西江千户苗寨 · 探索地图</p><h1>跟着山路，走进苗寨</h1><span>点亮一个地点，收集一段苗乡故事</span></div><div className="village-map" aria-label="可探索的苗寨地图"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M22 18 C38 22 55 21 65 28 S52 43 43 46 S25 57 18 66 S46 73 62 70 S72 75 79 72" /></svg>{mapPlaces.map((item, index) => <button type="button" key={item.name} className={`map-node ${selected === index ? 'selected' : ''}`} style={{ left: `${item.x}%`, top: `${item.y}%` }} onClick={() => { setSelected(index); setExploring(false) }}><i /><span>{item.name}</span><small>{item.note}</small></button>)}</div><section className="map-place-card" aria-live="polite"><div><p>已点亮地点</p><h2>{place.name}</h2><span>{place.detail}</span></div><button type="button" onClick={() => setExploring(true)}>开始探索 →</button></section>{exploring && <section className="map-detail" aria-label={`${place.name}详情`}><button className="map-back" type="button" onClick={() => setExploring(false)}>‹ 返回地图</button><div className="map-detail-art"><span>西江千户苗寨</span></div><div className="map-detail-copy"><p>地点探索 · {place.note}</p><h2>{place.name}</h2><span>{place.detail}</span><div className="detail-tags"><i>听故事</i><i>看纹样</i><i>收集记忆</i></div><button type="button" onClick={() => setExploring(false)}>完成探索</button></div></section>}</section></Shell>
+  const [selectedIdx, setSelectedIdx] = useState(1)
+  const [exploringPOI, setExploringPOI] = useState<LandmarkPOI | null>(null)
+  const [, setWalking] = useState(false)
+  const navigate = useNavigate()
+
+  return (
+    <Shell active="map" title="苗寨漫游">
+      <section className="map-explore map-3d-page">
+        <MiaoVillageScene
+          selected={selectedIdx}
+          onSelect={(index) => {
+            setSelectedIdx(index)
+          }}
+          onWalkingChange={setWalking}
+          onOpenExplore={(poi) => {
+            setExploringPOI(poi)
+          }}
+        />
+
+        {/* POI Detailed Exploration Modal */}
+        {exploringPOI && (
+          <section className="map-detail-modal" aria-label={`${exploringPOI.name}详情`}>
+            <div className="map-detail-card">
+              <button
+                className="map-back-btn"
+                type="button"
+                onClick={() => setExploringPOI(null)}
+                aria-label="返回苗寨"
+              >
+                ‹ 返回苗寨漫游
+              </button>
+
+              <div className={`map-detail-art ${exploringPOI.kind}`}>
+                <span className="art-badge">西江千户苗寨 · 非遗实景</span>
+                <h2>{exploringPOI.title}</h2>
+              </div>
+
+              <div className="map-detail-copy">
+                <p className="detail-subtitle">{exploringPOI.note}</p>
+                <div className="detail-description">{exploringPOI.detail}</div>
+
+                <div className="detail-lore-box">
+                  <b>苗寨文化背景：</b>
+                  <p>{exploringPOI.lore}</p>
+                </div>
+
+                <div className="detail-tags">
+                  <i>🏞️ 真实古建</i>
+                  <i>🪡 苗乡非遗</i>
+                  <i>✨ 市井烟火</i>
+                </div>
+
+                <div className="modal-actions">
+                  {(exploringPOI.kind === 'batik' || exploringPOI.kind === 'silver') && (
+                    <button
+                      type="button"
+                      className="goto-craft-btn"
+                      onClick={() => {
+                        setExploringPOI(null)
+                        void navigate({ to: '/workshop' })
+                      }}
+                    >
+                      前往体验坊手作 ›
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    className="done-explore-btn"
+                    onClick={() => setExploringPOI(null)}
+                  >
+                    漫游其他地标
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+      </section>
+    </Shell>
+  )
 }
 
 function WorkshopPage() {
@@ -103,15 +390,16 @@ const artForms = [
   { name: '苗绣纹样', note: '一针一线的记忆', className: 'art-embroidery' },
   { name: '蜡染技艺', note: '蓝白之间的山河', className: 'art-batik' },
 ]
-function CulturePage() {
+
+function HeritagePage() {
   const [viewAll, setViewAll] = useState(false)
 
   return (
-    <Shell active="culture" title={viewAll ? '苗乡非遗' : '苗乡文化'}>
+    <Shell active="heritage" title={viewAll ? '苗乡非遗' : '苗乡文化'}>
       {viewAll ? (
         <section className="view-all-view">
-          <button type="button" className="view-all-back" onClick={() => setViewAll(false)} aria-label="返回文化探索">
-            ‹ 返回文化探索
+          <button type="button" className="view-all-back" onClick={() => setViewAll(false)} aria-label="返回非遗探索">
+            ‹ 返回非遗探索
           </button>
           <section className="page-intro earth">
             <p>从一件手作，走近苗乡</p>
@@ -176,13 +464,24 @@ function CulturePage() {
 const rootRoute = createRootRoute({ component: Outlet })
 const indexRoute = createRoute({ getParentRoute: () => rootRoute, path: '/', component: HomePage })
 const mapRoute = createRoute({ getParentRoute: () => rootRoute, path: '/map', component: MapPage })
+const heritageRoute = createRoute({ getParentRoute: () => rootRoute, path: '/heritage', component: HeritagePage })
 const workshopRoute = createRoute({ getParentRoute: () => rootRoute, path: '/workshop', component: WorkshopPage })
-const heritageRoute = createRoute({ getParentRoute: () => rootRoute, path: '/heritage', component: WorkshopPage })
-const cultureRoute = createRoute({ getParentRoute: () => rootRoute, path: '/culture', component: CulturePage })
-const router = createRouter({ routeTree: rootRoute.addChildren([indexRoute, mapRoute, workshopRoute, heritageRoute, cultureRoute]) })
-declare module '@tanstack/react-router' { interface Register { router: typeof router } }
+const cultureRoute = createRoute({ getParentRoute: () => rootRoute, path: '/culture', component: HeritagePage })
+const router = createRouter({ routeTree: rootRoute.addChildren([indexRoute, mapRoute, heritageRoute, workshopRoute, cultureRoute]) })
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
+}
+
 function App() {
   const [showIntro, setShowIntro] = useState(true)
   return showIntro ? <IntroScreen onComplete={() => setShowIntro(false)} /> : <RouterProvider router={router} />
 }
-createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>)
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+)
