@@ -1,41 +1,94 @@
-import { StrictMode, type ReactNode, useState } from 'react'
+import { StrictMode, type FormEvent, type ReactNode, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Link, Outlet, RouterProvider, createRootRoute, createRoute, createRouter } from '@tanstack/react-router'
 import './styles.css'
+import './final-overrides.css'
+import './map-background.css'
+import silverStencil from './assets/silver-stencil.png'
+import batikStencil from './assets/batik-stencil.png'
+import dressStencil from './assets/dress-stencil.png'
 
-type TabKey = 'home' | 'heritage' | 'culture' | 'more'
-const tabs: { key: TabKey; label: string; to: '/' | '/heritage' | '/culture' | '/more'; icon: string }[] = [
-  { key: 'home', label: '首页', to: '/', icon: '⌂' }, { key: 'heritage', label: '非遗', to: '/heritage', icon: '✦' },
-  { key: 'culture', label: '文化', to: '/culture', icon: '◌' }, { key: 'more', label: '其他', to: '/more', icon: '···' },
+type TabKey = 'home' | 'map' | 'heritage' | 'culture'
+const tabs: { key: TabKey; label: string; to: '/' | '/map' | '/heritage' | '/culture'; iconClass: string }[] = [
+  { key: 'home', label: '首页', to: '/', iconClass: 'icon-home' }, { key: 'map', label: '地图', to: '/map', iconClass: 'icon-map' },
+  { key: 'heritage', label: '非遗', to: '/heritage', iconClass: 'icon-heritage' }, { key: 'culture', label: '文化', to: '/culture', iconClass: 'icon-culture' },
 ]
 
 function Shell({ active, title, children }: { active: TabKey; title: string; children: ReactNode }) {
-  return <main className="mini-program"><header className="navigation-bar"><span className="page-title">{title}</span><span className="capsule" aria-label="小程序胶囊按钮"><i /><b /><em /></span></header><section className="page-content">{children}</section><nav className="tab-bar" aria-label="主导航">{tabs.map((tab) => <Link key={tab.key} to={tab.to} className={`tab-item ${active === tab.key ? 'active' : ''}`} activeOptions={{ exact: true }}><span className="tab-icon">{tab.icon}</span><span>{tab.label}</span></Link>)}</nav></main>
+  return <main className={`mini-program ${active === 'home' ? 'home-shell' : ''}`}><header className="navigation-bar"><span className="page-title">{title}</span><span className="capsule" aria-label="小程序胶囊按钮"><i /><b /><em /></span></header><section className="page-content">{children}</section><nav className="tab-bar" aria-label="主导航">{tabs.map((tab) => <Link key={tab.key} to={tab.to} className={`tab-item ${active === tab.key ? 'active' : ''}`} activeOptions={{ exact: true }}><span className={`tab-icon ${tab.iconClass}`} aria-hidden="true" /><span>{tab.label}</span></Link>)}</nav></main>
 }
 
-const outfits = [{ id: 'midnight', label: '靛蓝盛装' }, { id: 'scarlet', label: '朱红节装' }, { id: 'teal', label: '山野青衣' }]
-const jewelry = [{ id: 'silver', label: '银饰' }, { id: 'gold', label: '鎏金' }, { id: 'plain', label: '素雅' }]
-const headdresses = [{ id: 'crown', label: '银冠' }, { id: 'scarf', label: '头帕' }, { id: 'flower', label: '花饰' }]
+const dailyDialogues = [
+  '想听听姊妹节的故事', '苗绣纹样有什么寓意？', '推荐一条苗寨路线',
+]
 
 function HomePage() {
-  const [outfit, setOutfit] = useState('midnight')
-  const [jewel, setJewel] = useState('silver')
-  const [headwear, setHeadwear] = useState('crown')
-  const optionRow = (title: string, selected: string, items: { id: string; label: string }[], choose: (id: string) => void) => <div className="dress-row"><span>{title}</span><div>{items.map((item) => <button type="button" key={item.id} className={selected === item.id ? 'chosen' : ''} onClick={() => choose(item.id)}>{item.label}</button>)}</div></div>
-  return <Shell active="home" title="黔苗行"><section className="dress-hero"><div className="dress-copy"><p>贵州 · 黔东南</p><h1>穿上苗装<br />走进苗寨</h1><span>挑选你的苗乡旅行造型</span></div><div className="village"><i className="building building-one" /><i className="building building-two" /><i className="building building-three" /><b /></div><div className={`dress-avatar avatar outfit-${outfit} jewel-${jewel} head-${headwear}`} aria-label="正面站立的苗族服饰人物"><div className="avatar-hair" /><div className="avatar-head"><i className="avatar-eye eye-left" /><i className="avatar-eye eye-right" /><b /></div><div className="avatar-headdress"><i /><b /><em /></div><div className="avatar-necklace"><i /><b /><em /></div><div className="avatar-torso"><i className="sleeve sleeve-left" /><i className="sleeve sleeve-right" /><b className="embroidery">✦</b></div><div className="avatar-skirt"><i /><b /></div><div className="avatar-leg leg-left" /><div className="avatar-leg leg-right" /></div><div className="dress-seal">苗<br />装</div></section><section className="dress-panel"><div className="dress-panel-title"><div><p>苗乡试穿</p><h2>定制你的旅拍造型</h2></div><span>可即时预览</span></div>{optionRow('服饰', outfit, outfits, setOutfit)}{optionRow('首饰', jewel, jewelry, setJewel)}{optionRow('头饰', headwear, headdresses, setHeadwear)}</section><Heading eyebrow="旅行灵感" title="这一站，去苗寨" action="查看目的地 →" /><section className="story-card"><div className="story-image"><span>西<br />江</span><i>黔东南 · 雷山</i></div><div className="story-copy"><small>苗寨目的地</small><h3>西江千户苗寨，住进万家灯火</h3><p>沿着吊脚楼与山间步道慢慢行走，感受苗乡晨雾、歌声与长桌宴的热闹。</p><div className="author"><b>行</b><span>苗乡旅行指南 · 雷山</span></div></div></section></Shell>
+  const [questions, setQuestions] = useState<string[]>([])
+  const [draft, setDraft] = useState('')
+  const [reply, setReply] = useState('你好，我是纠笙。想从苗乡的哪段故事开始听？')
+  const [chatOpen, setChatOpen] = useState(true)
+  const [fading, setFading] = useState(false)
+  const [autoDismiss, setAutoDismiss] = useState(false)
+  useEffect(() => {
+    if (!chatOpen || !autoDismiss) return undefined
+    setFading(false)
+    const fadeTimer = window.setTimeout(() => setFading(true), 4800)
+    const closeTimer = window.setTimeout(() => setChatOpen(false), 5250)
+    return () => { window.clearTimeout(fadeTimer); window.clearTimeout(closeTimer) }
+  }, [autoDismiss, chatOpen, reply])
+  const sendMessage = (content: string) => {
+    const text = content.trim()
+    if (!text) return
+    setQuestions((current) => [...current, text])
+    setReply('我先悄悄告诉你：苗乡的故事，常藏在一针一线和一声芦笙里。')
+    setDraft('')
+    setFading(false)
+    setChatOpen(true)
+    setAutoDismiss(true)
+  }
+  const submit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); sendMessage(draft) }
+  const openChat = () => { setFading(false); setAutoDismiss(false); setChatOpen(true) }
+  return <Shell active="home" title="黔苗行"><section className="dress-hero daily-hero"><div className="dress-copy"><p>贵州 · 黔东南</p><h1>走进苗寨<br />遇见纠笙</h1><span>让她带你认识苗乡日常</span></div><div className="dress-avatar photo-avatar outfit-silver home-avatar-entrance" aria-label="苗寨向导纠笙" /><div className="dress-seal">苗<br />乡</div>{chatOpen && <section className={`joson-chat pet-speech ${fading ? 'is-fading' : ''}`} aria-label="纠笙的缩略回答"><header><span>纠</span><div><b>纠笙</b><small>苗寨文化向导 · 在线</small></div><button type="button" className="pet-close" aria-label="收起对话" onClick={() => setChatOpen(false)}>×</button></header><p className="pet-answer" aria-live="polite">{reply}</p><div className="chat-suggestions">{dailyDialogues.slice(0, 2).map((item) => <button key={item} type="button" onClick={() => sendMessage(item)}>{item}</button>)}</div><form onSubmit={submit}><input value={draft} onFocus={() => setAutoDismiss(false)} onChange={(event) => setDraft(event.target.value)} placeholder="问问纠笙…" aria-label="输入想问纠笙的问题" /><button type="submit">发送</button></form></section>}{!chatOpen && questions.length > 0 && <button type="button" className="question-trail" onClick={openChat} aria-label="查看已问问题并再次提问"><span>已问</span><b>{questions[questions.length - 1]}</b><i>{questions.length}</i></button>}{!chatOpen && <button type="button" className="joson-chat-trigger" onClick={openChat} aria-label="再次向纠笙提问"><span>问</span><b>问问纠笙</b></button>}</section></Shell>
+}
+const mapPlaces = [
+  { name: '观景台', note: '云端日出', detail: '站在山脊俯瞰层层叠叠的木楼，等一场云海日出。', x: 22, y: 18 },
+  { name: '风雨桥', note: '河水人家', detail: '桥上歇脚，看清水穿过寨子，也听老人讲桥的故事。', x: 65, y: 28 },
+  { name: '纠笙家', note: '苗寨日常', detail: '去找纠笙，听她讲苗绣、银饰和家门口的日常。', x: 43, y: 46 },
+  { name: '老街', note: '慢时光', detail: '石板路两旁藏着手作铺与旧时光，适合慢慢逛。', x: 18, y: 66 },
+  { name: '鼓藏堂', note: '节日之地', detail: '在鼓声里认识苗年、姊妹节与寨子的共同记忆。', x: 62, y: 70 },
+  { name: '芦笙场', note: '听见苗歌', detail: '傍晚的芦笙场，歌声与舞步会把山谷点亮。', x: 79, y: 72 },
+]
+function MapPage() {
+  const [selected, setSelected] = useState(2)
+  const [exploring, setExploring] = useState(false)
+  const place = mapPlaces[selected]
+  return <Shell active="map" title="西江探索"><section className="map-explore"><div className="map-heading"><p>西江千户苗寨 · 探索地图</p><h1>跟着山路，走进苗寨</h1><span>点亮一个地点，收集一段苗乡故事</span></div><div className="village-map" aria-label="可探索的苗寨地图"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M22 18 C38 22 55 21 65 28 S52 43 43 46 S25 57 18 66 S46 73 62 70 S72 75 79 72" /></svg>{mapPlaces.map((item, index) => <button type="button" key={item.name} className={`map-node ${selected === index ? 'selected' : ''}`} style={{ left: `${item.x}%`, top: `${item.y}%` }} onClick={() => { setSelected(index); setExploring(false) }}><i /><span>{item.name}</span><small>{item.note}</small></button>)}</div><section className="map-place-card" aria-live="polite"><div><p>已点亮地点</p><h2>{place.name}</h2><span>{place.detail}</span></div><button type="button" onClick={() => setExploring(true)}>开始探索 →</button></section>{exploring && <section className="map-detail" aria-label={`${place.name}详情`}><button className="map-back" type="button" onClick={() => setExploring(false)}>‹ 返回地图</button><div className="map-detail-art"><span>西江千户苗寨</span></div><div className="map-detail-copy"><p>地点探索 · {place.note}</p><h2>{place.name}</h2><span>{place.detail}</span><div className="detail-tags"><i>听故事</i><i>看纹样</i><i>收集记忆</i></div><button type="button" onClick={() => setExploring(false)}>完成探索</button></div></section>}</section></Shell>
 }
 function Heading({ eyebrow, title, action }: { eyebrow: string; title: string; action?: string }) { return <section className="section-heading"><div><p>{eyebrow}</p><h2>{title}</h2></div>{action && <a>{action}</a>}</section> }
 
-const heritageItems = [['苗绣蜡染', '把苗家纹样带回旅行记忆'], ['苗族歌舞', '在村寨聆听飞歌与芦笙'], ['传统村落', '西江、郎德、丹寨等地的故事'], ['苗家风味', '酸汤、糯米与长桌宴的热情']]
-function HeritagePage() { return <Shell active="heritage" title="苗乡体验"><section className="page-intro earth"><p>旅行不止抵达，更要走近</p><h1>在贵州，读懂苗族文化</h1><span>用一场有温度的旅行，认识苗乡的手艺、歌声与日常。</span></section><div className="search">⌕ <span>搜索苗寨、文化体验或旅行路线</span></div><section className="category-list">{heritageItems.map(([name, detail], index) => <article key={name}><span className={`category-symbol symbol-${index}`}>✦</span><div><h2>{name}</h2><p>{detail}</p></div><b>›</b></article>)}</section></Shell> }
-function CulturePage() { return <Shell active="culture" title="苗乡文化"><section className="page-intro red"><p>从一套衣裳，到一场节日</p><h1>苗族文化，正在发生</h1><span>旅行前先听懂苗乡的礼俗、节庆与山地生活。</span></section><section className="calendar-card"><small>苗乡节庆 · 春日相约</small><h2>姊妹节</h2><p>盛装、游方、歌声与祝福，汇成苗乡最动人的春日相逢。</p><div className="calendar-art">苗乡相约 <b>春</b></div></section><Heading eyebrow="文化漫游" title="从旅行开始了解" /><section className="culture-list"><article><span>01</span><div><h3>苗族银饰</h3><p>叮当作响的祝福与家族记忆</p></div></article><article><span>02</span><div><h3>苗家服饰</h3><p>把山川、祖先与故事穿在身上</p></div></article></section></Shell> }
-function MorePage() { return <Shell active="more" title="旅行服务"><section className="profile"><div className="avatar">黔</div><div><p>欢迎来到贵州苗乡</p><h1>你的苗寨旅行小助手</h1></div></section><section className="profile-menu">{[['♡','我的旅行清单','收藏想去的苗寨与体验'],['◎','行前指南','交通、住宿与旅行礼仪'],['?','关于黔苗行','一起尊重并守护苗乡文化']].map(([icon, name, note]) => <article key={name}><span>{icon}</span><div><h3>{name}</h3><p>{note}</p></div><b>›</b></article>)}</section><p className="footer-note">黔苗行 · 走近贵州，走进苗乡</p></Shell> }
+const heritageItems = [
+  { name: '苗族银饰', detail: '银光里藏着祝福与家族记忆', image: silverStencil, className: 'silver' },
+  { name: '苗绣蜡染', detail: '把花鸟纹样留在布面与衣角', image: batikStencil, className: 'batik' },
+  { name: '苗族服饰', detail: '把山川、祖先与故事穿在身上', image: dressStencil, className: 'dress' },
+]
+function HeritagePage() { return <Shell active="heritage" title="苗乡非遗"><section className="page-intro earth"><p>从一件手作，走近苗乡</p><h1>非遗，在日常里生长</h1><span>触摸银饰、蜡染与衣裳，读懂纹样里的来处。</span></section><div className="search">⌕ <span>搜索银饰、蜡染、服饰与体验</span></div><section className="heritage-grid" aria-label="苗乡非遗分类">{heritageItems.map((item) => <button className={`heritage-tile ${item.className}`} type="button" key={item.name}><span className="heritage-stencil"><img src={item.image} alt={`${item.name}纹样`} /></span><span className="heritage-tile-copy"><b>{item.name}</b><small>{item.detail}</small></span><em>探索 ›</em></button>)}</section></Shell> }
+const festivals = [
+  { name: '姊妹节', note: '盛装相逢 · 春日游方', className: 'festival-sisters' },
+  { name: '苗年', note: '家寨团圆 · 迎新祈福', className: 'festival-newyear' },
+  { name: '四月八', note: '歌场相会 · 芦笙声起', className: 'festival-april' },
+]
+const artForms = [
+  { name: '苗族飞歌', note: '高腔穿过山谷', className: 'art-song' },
+  { name: '苗绣纹样', note: '一针一线的记忆', className: 'art-embroidery' },
+  { name: '蜡染技艺', note: '蓝白之间的山河', className: 'art-batik' },
+]
+function CulturePage() { return <Shell active="culture" title="苗乡文化"><section className="culture-explore"><div className="culture-intro"><p>探索苗乡 · 节日与艺术</p><h1>从「节日」开始探索</h1><span>留出想象的位置，慢慢走近苗族文化。</span></div><div className="culture-search">⌕ <span>搜索节日、歌舞、纹样与故事</span></div><section className="explore-section"><div className="explore-heading"><h2>从「节日」开始探索</h2><button type="button">查看全部</button></div><div className="explore-rail">{festivals.map((item) => <button className={`explore-card ${item.className}`} type="button" key={item.name}><span className="art-placeholder">图片位</span><b>{item.name}</b><small>{item.note}</small></button>)}</div></section><section className="explore-section"><div className="explore-heading"><h2>从「艺术形式」开始探索</h2><button type="button">查看全部</button></div><div className="explore-rail">{artForms.map((item) => <button className={`explore-card ${item.className}`} type="button" key={item.name}><span className="art-placeholder">图片位</span><b>{item.name}</b><small>{item.note}</small></button>)}</div></section></section></Shell> }
 
 const rootRoute = createRootRoute({ component: Outlet })
 const indexRoute = createRoute({ getParentRoute: () => rootRoute, path: '/', component: HomePage })
+const mapRoute = createRoute({ getParentRoute: () => rootRoute, path: '/map', component: MapPage })
 const heritageRoute = createRoute({ getParentRoute: () => rootRoute, path: '/heritage', component: HeritagePage })
 const cultureRoute = createRoute({ getParentRoute: () => rootRoute, path: '/culture', component: CulturePage })
-const moreRoute = createRoute({ getParentRoute: () => rootRoute, path: '/more', component: MorePage })
-const router = createRouter({ routeTree: rootRoute.addChildren([indexRoute, heritageRoute, cultureRoute, moreRoute]) })
+const router = createRouter({ routeTree: rootRoute.addChildren([indexRoute, mapRoute, heritageRoute, cultureRoute]) })
 declare module '@tanstack/react-router' { interface Register { router: typeof router } }
 createRoot(document.getElementById('root')!).render(<StrictMode><RouterProvider router={router} /></StrictMode>)
