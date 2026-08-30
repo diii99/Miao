@@ -35,13 +35,13 @@ export const LANDMARK_POIS: LandmarkPOI[] = [
   },
   {
     id: 'lusheng',
-    name: '铜鼓芦笙坪',
-    title: '中央广场 · 芦笙欢歌',
+    name: '芦笙场',
+    title: '芦笙场 · 苗寨中心广场',
     note: '铜鼓声声 · 踩堂欢舞',
-    detail: '铺满太阳纹与翔鹭纹的巨型铜鼓广场，是整座苗寨的节庆心脏。阿哥吹起芦笙，姑娘们摇曳银铃翩翩起舞。',
+    detail: '以石阶围合的芦笙场位于寨子正中，中心陈列一支可近观的芦笙。这里是节庆踩堂、对歌与舞蹈的共同舞台。',
     kind: 'lusheng',
-    position: [0, 0.4, 1.2],
-    actionPrompt: '加入芦笙踩堂欢舞',
+    position: [0, 0.4, 0],
+    actionPrompt: '近观广场中央的芦笙',
     lore: '芦笙是苗族文化的灵魂乐器，相传能与祖先神灵对话。',
   },
   {
@@ -51,52 +51,52 @@ export const LANDMARK_POIS: LandmarkPOI[] = [
     note: '重檐飞阁 · 溪水欢歌',
     detail: '横跨白水河的传统木构廊桥，檐角高翘，内设美人靠。既遮风避雨，也是村民休憩闲谈、青年对歌的胜地。',
     kind: 'bridge',
-    position: [-2.5, 0.3, -2.5],
+    position: [-5.5, 0.3, 4.1],
     actionPrompt: '在廊桥美人靠凭栏观景',
     lore: '风雨桥亦称“接龙桥”，寓意锁住村寨风水，护佑风调雨顺。',
   },
   {
     id: 'batik',
-    name: '百米晒布蜡染坊',
+    name: '蜡染坊',
     title: '非遗工坊 · 蓝靛白花',
     note: '青出于蓝 · 冰裂成画',
     detail: '依山而建的染坊外耸立着高大木架，数十匹深蓝蜡染长布在山风中随风飘扬。铜刀点蜡，板蓝根大缸深浸岁月。',
     kind: 'batik',
-    position: [-10.5, 1.2, 5.5],
+    position: [-10.5, 1.2, -1.5],
     actionPrompt: '体验执刀点蜡与蓝靛浸染',
     lore: '苗族蜡染以蜂蜡为防染剂，自然冰裂纹使得每匹布都独一无二。',
   },
   {
     id: 'silver',
-    name: '银匠锻打铺',
+    name: '银饰坊',
     title: '非遗工坊 · 叮当万锤',
     note: '炉火纯青 · 银花绽放',
     detail: '火塘炭火熊熊，铁砧上锤声清脆。老银匠正手持錾刀，在银片上一锤一凿錾刻出栩栩如生的展翅银凤与蝴蝶。',
     kind: 'silver',
-    position: [10.2, 1.1, 4.8],
-    actionPrompt: '观摩老银匠錾刻大银冠',
+    position: [-9.5, 1.1, -7.2],
+    actionPrompt: '开始千锤成银体验',
     lore: '苗族银饰锻制技艺需经化银、锻打、拉丝、錾刻等多道工序，无图纸全凭匠心。',
   },
   {
     id: 'embroidery',
-    name: '苗绣传习楼',
+    name: '刺绣坊',
     title: '非遗阁楼 · 指尖山河',
     note: '一针一线 · 穿引古歌',
     detail: '二层吊脚木楼上，彩丝如瀑。绣娘们手持绣绷，以平绣、乱针绣将蝴蝶妈妈孕育万物的创世神话绣入锦缎。',
     kind: 'embroidery',
-    position: [9.8, 2.2, -6.5],
-    actionPrompt: '欣赏蝴蝶妈妈双面绣卷',
+    position: [9.5, 2.2, -7.2],
+    actionPrompt: '打开苗绣展览',
     lore: '苗绣被称为“穿在身上的史诗”，以针线记录迁徙历史与自然崇拜。',
   },
   {
     id: 'banquet',
-    name: '西江长桌宴',
+    name: '长桌宴',
     title: '市井长街 · 盛筵欢歌',
     note: '酸汤飘香 · 高山流水',
-    detail: '沿着青石古巷绵延数十米的木桌，摆满了热气腾腾的红酸汤鱼、鼓藏肉和五彩糯米饭，展现《烽火与炊烟》般的市井烟火。',
+    detail: '沿着青石古巷绵延数十米的木桌，摆满了热气腾腾的红酸汤鱼、鼓藏肉和五彩糯米饭，呈现热闹的苗寨长桌宴。',
     kind: 'banquet',
-    position: [-8.8, 1.8, -7.2],
-    actionPrompt: '入席品尝苗寨酸汤鱼与米酒',
+    position: [0, 1.8, 11.8],
+    actionPrompt: '入席开始长桌宴体验',
     lore: '长桌宴是苗族最高规格的宴席，象征家寨团圆与兴旺。',
   },
   {
@@ -106,19 +106,19 @@ export const LANDMARK_POIS: LandmarkPOI[] = [
     note: '水碾吱呀 · 乌篷泊岸',
     detail: '巨大的古法木制水车在急流中悠悠旋转，激起串串白浪。水渠边停靠着轻舟木船，宛如世外桃源。',
     kind: 'waterwheel',
-    position: [4.2, 0.2, -4.2],
+    position: [7.8, 0.2, 4.2],
     actionPrompt: '驻足倾听古水车转动回响',
     lore: '传统水车利用水流势能灌溉与舂米，是苗乡农耕智慧的结晶。',
   },
   {
     id: 'lookout',
-    name: '瞰寨云顶观景台',
-    title: '千户全景 · 云雾缭绕',
-    note: '群山环抱 · 梯田层叠',
-    detail: '耸立在东侧高崖上的八角观景亭，登高远眺，千座吊脚楼如星罗棋布密布山坡，炊烟袅袅，尽收眼底。',
+    name: '西江苗族博物馆',
+    title: '西江苗族博物馆 · 非遗全览',
+    note: '苗族历史 · 非遗记忆',
+    detail: '一座以木构吊脚楼为灵感的博物馆，集中呈现苗绣、银饰、蜡染、服饰与古歌等西江苗族非遗内容。',
     kind: 'lookout',
-    position: [13.2, 4.6, -11.5],
-    actionPrompt: '俯瞰千户苗寨全景与炊烟',
+    position: [0, 4.6, -12.5],
+    actionPrompt: '查看完整非遗内容',
     lore: '西江千户苗寨是世界最大的苗族聚居村寨，被誉为“露天的苗族历史博物馆”。',
   },
 ]
@@ -127,22 +127,27 @@ export const LANDMARK_POIS: LandmarkPOI[] = [
  * Natural Terrain Height Map with Mountain Terraces & River Canyon
  */
 export function getTerrainHeight(x: number, z: number): number {
-  // River Valley Channel cutting from SW to NE
-  const riverDist = Math.abs(x * 0.707 - z * 0.707)
-  const riverBed = Math.exp(-Math.pow(riverDist / 3.2, 2)) * -1.25
+  // White Water River runs east-west along the south side of Lusheng Square.
+  const riverDist = Math.abs(z - 4.2 - Math.sin(x * 0.28) * 0.32)
+  const riverChannel = Math.exp(-Math.pow(riverDist / 2.15, 2))
 
-  // Terraced mountain slopes on sides
-  const mountainWest = Math.max(0, -x - 2) * 0.28 + Math.pow(Math.max(0, -x - 6) * 0.2, 1.6)
-  const mountainEast = Math.max(0, x - 2) * 0.32 + Math.pow(Math.max(0, x - 5) * 0.22, 1.7)
-  const mountainNorth = Math.max(0, -z - 1) * 0.3 + Math.pow(Math.max(0, -z - 6) * 0.22, 1.6)
+  // Keep the village gently terraced rather than steep, so plaza floors and
+  // landmark models sit cleanly on the ground.
+  const mountainWest = Math.max(0, -x - 2) * 0.10 + Math.pow(Math.max(0, -x - 6) * 0.10, 1.45)
+  const mountainEast = Math.max(0, x - 2) * 0.11 + Math.pow(Math.max(0, x - 5) * 0.11, 1.45)
+  const mountainNorth = Math.max(0, -z - 2) * 0.11 + Math.pow(Math.max(0, -z - 6) * 0.11, 1.45)
 
-  // Gentle central plateau for plaza and gate
-  const centerFlatten = Math.exp(-(x * x + (z - 2) * (z - 2)) / 32) * 0.25
+  const micro = Math.sin(x * 0.35) * 0.05 + Math.cos(z * 0.3) * 0.04 + Math.sin((x + z) * 0.22) * 0.03
+  const openGround = mountainWest + mountainEast + mountainNorth + micro
 
-  // Natural undulating micro-hills
-  const micro = Math.sin(x * 0.35) * 0.18 + Math.cos(z * 0.3) * 0.16 + Math.sin((x + z) * 0.22) * 0.12
+  // A level river channel prevents the water plane and waterwheel from being
+  // swallowed by side-slope terrain.
+  const withRiver = openGround * (1 - riverChannel) + (-0.42) * riverChannel
 
-  return riverBed + mountainWest + mountainEast + mountainNorth + micro + centerFlatten
+  // The centre of the map is a true hardstanding for 芦笙场.
+  const plazaDistance = Math.hypot(x, z)
+  const plazaWeight = 1 - THREE.MathUtils.smoothstep(plazaDistance, 3.2, 5.2)
+  return withRiver * (1 - plazaWeight) + 0.06 * plazaWeight
 }
 
 export interface VillageSceneObjects {
@@ -269,7 +274,7 @@ export function buildMiaoVillage(): VillageSceneObjects {
   root.add(terrain)
 
   // Animated Clear Mountain River
-  const riverGeo = new THREE.PlaneGeometry(36, 9, 48, 16)
+  const riverGeo = new THREE.PlaneGeometry(40, 5.4, 48, 16)
   const riverMat = new THREE.MeshStandardMaterial({
     color: 0x489aa8,
     emissive: 0x0a3340,
@@ -281,8 +286,7 @@ export function buildMiaoVillage(): VillageSceneObjects {
   })
   const riverMesh = new THREE.Mesh(riverGeo, riverMat)
   riverMesh.rotation.x = -Math.PI / 2
-  riverMesh.rotation.z = Math.PI / 4
-  riverMesh.position.set(0, -0.22, 0)
+  riverMesh.position.set(0, -0.22, 4.2)
   riverMesh.receiveShadow = true
   root.add(riverMesh)
 
@@ -290,7 +294,7 @@ export function buildMiaoVillage(): VillageSceneObjects {
   // 2. CENTRAL BRONZE DRUM & LUSHENG PLAZA
   // ==========================================
   const plazaGroup = new THREE.Group()
-  plazaGroup.position.set(0, getTerrainHeight(0, 1.2) + 0.04, 1.2)
+  plazaGroup.position.set(0, getTerrainHeight(0, 0) + 0.04, 0)
 
   const drumFloor = new THREE.Mesh(new THREE.CylinderGeometry(4.2, 4.4, 0.14, 32), bronzeDrumMat)
   drumFloor.receiveShadow = true
@@ -342,8 +346,8 @@ export function buildMiaoVillage(): VillageSceneObjects {
   // 3. GRAND VILLAGE ENTRANCE GATE (迎宾寨门)
   // ==========================================
   const gateGroup = new THREE.Group()
-  const gx = 0
-  const gz = 14.5
+  const gx = -11.5
+  const gz = 12.5
   gateGroup.position.set(gx, getTerrainHeight(gx, gz), gz)
 
   for (const sx of [-2.2, 2.2]) {
@@ -405,10 +409,10 @@ export function buildMiaoVillage(): VillageSceneObjects {
   // 4. COVERED WIND AND RAIN BRIDGE (风雨廊桥)
   // ==========================================
   const bridgeGroup = new THREE.Group()
-  const bx = -2.5
-  const bz = -2.5
+  const bx = -5.5
+  const bz = 4.2
   bridgeGroup.position.set(bx, 0.25, bz)
-  bridgeGroup.rotation.y = -Math.PI / 4
+  bridgeGroup.rotation.y = 0
 
   for (const px of [-3.5, 0, 3.5]) {
     const pier = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.8, 2.6), stoneMat)
@@ -479,9 +483,9 @@ export function buildMiaoVillage(): VillageSceneObjects {
   // 5. ROTATING WATERWHEEL & RIVER DOCK
   // ==========================================
   const waterwheelGroup = new THREE.Group()
-  const wx = 4.2
-  const wz = -4.2
-  waterwheelGroup.position.set(wx, 0.1, wz)
+  const wx = 7.8
+  const wz = 4.2
+  waterwheelGroup.position.set(wx, getTerrainHeight(wx, wz) + 0.1, wz)
 
   const dock = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.25, 4.2), woodMat)
   dock.position.set(-1.2, 0.1, 0)
@@ -779,46 +783,9 @@ export function buildMiaoVillage(): VillageSceneObjects {
     return house
   }
 
-  // ==========================================
-  // 7. PLACE ALL VILLAGE WORKSHOPS & HOMESTEADS
-  // ==========================================
-  buildStiltHouse(-10.5, 5.5, 0.35, 2, false, false, true) // Batik
-  buildStiltHouse(10.2, 4.8, -0.4, 2, true, false, false)  // Silver
-  buildStiltHouse(9.8, -6.5, -0.75, 3, false, false, false) // Embroidery
-  buildStiltHouse(-8.8, -7.2, 0.8, 2, false, true, false)  // Long Table
-
-  buildStiltHouse(-12.8, -1.5, 0.55, 2)
-  buildStiltHouse(-6.5, 9.8, 0.15, 2)
-  buildStiltHouse(-11.2, 10.5, 0.45, 2)
-  buildStiltHouse(6.8, 8.5, -0.25, 2)
-  buildStiltHouse(12.5, 0.5, -0.65, 2)
-  buildStiltHouse(7.2, -11.5, -0.85, 2)
-  buildStiltHouse(-4.5, -12.5, 0.95, 2)
-  buildStiltHouse(11.5, -12.8, -0.9, 2)
-
-  // Lookout Gazebo on Mountain Peak
-  const lookoutGazebo = new THREE.Group()
-  const lox = 13.2
-  const loz = -11.5
-  lookoutGazebo.position.set(lox, getTerrainHeight(lox, loz), loz)
-
-  const gazBase = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 2.6, 0.4, 8), stoneMat)
-  gazBase.position.y = 0.2
-  lookoutGazebo.add(gazBase)
-
-  for (let i = 0; i < 8; i++) {
-    const angle = (i * Math.PI * 2) / 8
-    const col = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.1, 2.4, 6), redClothMat)
-    col.position.set(Math.sin(angle) * 2.1, 1.4, Math.cos(angle) * 2.1)
-    col.castShadow = true
-    lookoutGazebo.add(col)
-  }
-
-  const gazRoof = new THREE.Mesh(new THREE.ConeGeometry(3.1, 1.6, 8), roofMat)
-  gazRoof.position.y = 3.2
-  gazRoof.castShadow = true
-  lookoutGazebo.add(gazRoof)
-  root.add(lookoutGazebo)
+  // Building landmarks are loaded as Lux3D ancient-village assets in
+  // MiaoVillageScene. The old procedural stilt houses are intentionally not
+  // instantiated, so no simplified duplicate houses remain in the village.
 
   // ==========================================
   // 8. COBBLESTONE & FLAGSTONE PATHWAYS
@@ -833,13 +800,13 @@ export function buildMiaoVillage(): VillageSceneObjects {
     root.add(pathMesh)
   }
 
-  makePath([[0, 14.5], [0, 9.5], [0, 4.5], [0, 1.2]])
-  makePath([[0, 1.2], [-1.2, -0.6], [-2.5, -2.5]])
-  makePath([[-2.5, -2.5], [-5.5, -4.8], [-8.8, -7.2]])
-  makePath([[0, 1.2], [-4.5, 3.2], [-10.5, 5.5]])
-  makePath([[0, 1.2], [4.8, 2.8], [10.2, 4.8]])
-  makePath([[-2.5, -2.5], [2.0, -3.2], [4.2, -4.2], [7.5, -5.2], [9.8, -6.5]])
-  makePath([[9.8, -6.5], [11.5, -9.0], [13.2, -11.5]])
+  makePath([[0, 0], [-3.5, -3.5], [-9.5, -7.2]])
+  makePath([[0, 0], [3.5, -3.5], [9.5, -7.2]])
+  makePath([[0, 0], [0, -5.5], [0, -12.5]])
+  makePath([[0, 0], [-5.5, -0.5], [-10.5, -1.5]])
+  makePath([[0, 0], [-5.5, 2.4], [-5.5, 4.2]])
+  makePath([[-5.5, 4.2], [0, 5.8], [0, 11.8]])
+  makePath([[0, 11.8], [-5.5, 12.2], [-11.5, 12.5]])
 
   // ==========================================
   // 9. LUSH FLORA: BAMBOO & PEACH TREES

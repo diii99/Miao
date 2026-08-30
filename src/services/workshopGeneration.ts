@@ -1,4 +1,4 @@
-export type WorkshopCraft = 'batik' | 'embroidery' | 'silver'
+export type WorkshopCraft = 'batik' | 'embroidery' | 'silver' | 'doll'
 
 type GenerationInput = {
   image: File
@@ -12,7 +12,7 @@ type GenerationResponse = {
   error?: string
 }
 
-type GenerationSkill = 'miao-embroidery-imagegen' | 'miao-silver-imagegen'
+type GenerationSkill = 'miao-embroidery-imagegen' | 'miao-silver-imagegen' | 'miao-doll-3d'
 
 type GenerationProfile = {
   skill: GenerationSkill
@@ -27,6 +27,11 @@ const embroideryStyleGuidance: Record<string, string> = {
 const silverStyleGuidance: Record<string, string> = {
   'silver-dragon': '以较粗银片轮廓和两级錾刻浮雕组织对称的大形。',
   'silver-flower': '以花瓣般的银片层次、盘丝边缘和少量颗粒细节组织构图。',
+}
+
+const dollStyleGuidance: Record<string, string> = {
+  'doll-silver-crown': '保留银冠、银项圈与靛蓝盛装的层次，让造型适合做成收藏级玩偶。',
+  'doll-pleated-dress': '保留百褶裙、彩色绣片与舞动姿态的层次，让造型适合做成收藏级玩偶。',
 }
 
 /**
@@ -45,6 +50,13 @@ export function getWorkshopGenerationProfile(craft: WorkshopCraft, style: string
     return {
       skill: 'miao-silver-imagegen',
       prompt: `Use case: style-transfer. 输入图是唯一的构图参考：保留主体轮廓、方向、层次、疏密和关键位置，只转译银工语言。将主体转为受黔东南苗族银饰视觉语言启发的当代银片浮雕纹样；使用柔和冷银高光、锤击细纹、凹部轻氧化、边缘磨损与可信厚度。用明确银片外轮廓或较粗银丝建立大形，以錾刻、锤揲浮雕、盘丝、颗粒或镂空中的一至两种工艺组织前后层级。${silverStyleGuidance[style] || '以錾刻和锤揲浮雕表现主轮廓。'} 不加入输入图中没有的具象母题；不要金色、彩色宝石、钻石、镜面铬、电镀塑料感、科幻机械、文字或水印。`,
+    }
+  }
+
+  if (craft === 'doll') {
+    return {
+      skill: 'miao-doll-3d',
+      prompt: `Use case: 3D character-to-physical-figurine. 输入图用于人物气质与配色参考；生成一位受黔东南苗族服饰启发的完整立体人物玩偶，正面站姿、比例自然、轮廓清晰，适合树脂或全彩 3D 打印。${dollStyleGuidance[style] || '以银饰和苗绣服饰层次呈现人物。'} 服装、银饰和发饰须与身体清晰分层，同时避免过薄悬空部件，底部须有稳定圆形底座。不要文字、水印、背景或额外人物。`,
     }
   }
 

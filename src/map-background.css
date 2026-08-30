@@ -33,10 +33,99 @@
   outline: none;
 }
 
+.lusheng-viewer-modal {
+  position: absolute;
+  z-index: 30;
+  inset: 9% 13%;
+  display: grid;
+  grid-template-columns: minmax(180px, 0.72fr) minmax(280px, 1.28fr);
+  overflow: hidden;
+  border: 1px solid rgba(255, 222, 147, 0.7);
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(20, 27, 38, 0.97), rgba(68, 37, 20, 0.96));
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.55);
+}
+
+.lusheng-viewer-modal.copy-collapsed {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.lusheng-viewer-copy {
+  position: relative;
+  align-self: center;
+  padding: 28px;
+  color: #fff4dc;
+}
+
+.lusheng-copy-toggle {
+  border: 1px solid rgba(255, 232, 179, 0.48);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff1cf;
+  font: inherit;
+  font-size: 11px;
+  line-height: 1;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.lusheng-viewer-copy .lusheng-copy-toggle {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+}
+
+.lusheng-copy-reopen {
+  position: absolute;
+  z-index: 1;
+  top: 14px;
+  left: 16px;
+}
+
+.lusheng-viewer-copy span {
+  color: #f4c968;
+  font-size: 12px;
+  letter-spacing: .12em;
+}
+
+.lusheng-viewer-copy h2 {
+  margin: 10px 0;
+  font-size: 28px;
+}
+
+.lusheng-viewer-copy p {
+  margin: 0;
+  color: #e6d8bd;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.lusheng-viewer-modal model-viewer {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  background: radial-gradient(circle, #57606a 0, #232932 62%, #14191f 100%);
+}
+
+.lusheng-viewer-close {
+  position: absolute;
+  z-index: 1;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.42);
+  color: white;
+  font-size: 23px;
+  cursor: pointer;
+}
+
 /* --- Top HUD: Title & Time of Day Switcher --- */
 .scene-top-hud {
   position: absolute;
-  top: 14px;
+  top: 7px;
   left: 14px;
   right: 14px;
   z-index: 10;
@@ -48,19 +137,6 @@
 
 .scene-brand {
   text-shadow: 0 2px 10px rgba(4, 15, 30, 0.9);
-}
-
-.badge-flame {
-  display: inline-block;
-  padding: 2px 8px;
-  margin-bottom: 3px;
-  border-radius: 6px;
-  background: linear-gradient(135deg, #c94a29, #9c2e17);
-  color: #fff8e8;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  box-shadow: 0 2px 8px rgba(180, 50, 20, 0.5);
 }
 
 .scene-brand h1 {
@@ -148,38 +224,10 @@
   font-weight: 700;
 }
 
-.zoom-btn-group {
-  display: flex;
-  gap: 4px;
-}
-
-.zoom-btn {
-  font-weight: 700;
-  background: rgba(20, 50, 90, 0.88);
-  border-color: #88b7e8;
-  color: #fff;
-}
-
-.zoom-btn:hover {
-  background: #2060b0;
-  border-color: #bcd9ff;
-}
-
 .cam-mode-group {
   display: flex;
   flex-direction: column;
   gap: 4px;
-}
-
-.dance-btn {
-  background: linear-gradient(135deg, #c73859, #8c1d38);
-  border-color: #f7a8b8;
-  color: #fff;
-}
-
-.sprint-btn {
-  background: linear-gradient(135deg, #2b7a78, #17252a);
-  color: #eef7f6;
 }
 
 /* --- Avatar Outfit Switcher Bar --- */
@@ -273,13 +321,30 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  width: 100%;
+  min-width: 0;
   overflow-x: auto;
+  overflow-y: hidden;
   padding: 4px 2px;
-  scrollbar-width: none;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 230, 166, 0.6) rgba(8, 27, 49, 0.45);
 }
 
 .nav-scroll::-webkit-scrollbar {
-  display: none;
+  height: 5px;
+}
+
+.nav-scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(255, 230, 166, 0.6);
+}
+
+.nav-scroll::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: rgba(8, 27, 49, 0.45);
 }
 
 .landmark-pill {
@@ -319,9 +384,10 @@
 /* --- POI Proximity Interaction Floating Card --- */
 .poi-interaction-bubble {
   position: absolute;
-  bottom: 24px;
-  left: 12px;
-  right: 12px;
+  bottom: 28px;
+  left: 102px;
+  right: auto;
+  width: min(300px, calc(100% - 114px));
   z-index: 12;
   display: flex;
   align-items: center;
@@ -440,28 +506,6 @@
   color: rgba(255, 255, 255, 0.7);
   font-size: 8px;
   letter-spacing: 0.04em;
-}
-
-/* --- Bottom Hint Bar --- */
-.controls-hint-bar {
-  position: absolute;
-  bottom: 6px;
-  left: 0;
-  right: 0;
-  z-index: 8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  pointer-events: none;
-}
-
-.controls-hint-bar span {
-  padding: 2px 6px;
-  border-radius: 8px;
-  background: rgba(6, 18, 34, 0.65);
-  color: rgba(230, 242, 255, 0.75);
-  font-size: 8px;
 }
 
 /* --- POI Detailed Exploration Modal --- */
@@ -644,6 +688,105 @@
   cursor: pointer;
 }
 
+.map-game-modal {
+  position: absolute;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(4, 14, 28, 0.82);
+  backdrop-filter: blur(12px);
+  animation: modal-fade-in 0.28s ease-out both;
+}
+
+.map-game-card {
+  width: min(960px, 100%);
+  height: min(720px, 88vh);
+  overflow: hidden;
+  border: 1px solid rgba(255, 221, 140, .52);
+  border-radius: 20px;
+  background: #0f1d2b;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .55);
+}
+
+.map-game-card header {
+  height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  color: #fff0cc;
+  background: linear-gradient(90deg, #21364d, #70421d);
+}
+
+.map-game-card header span { color: #f6ce7b; font-size: 11px; }
+.map-game-card header b { flex: 1; font-size: 15px; }
+
+.map-game-card header button {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, .25);
+  color: white;
+  font-size: 21px;
+  cursor: pointer;
+}
+
+.map-game-frame {
+  display: block;
+  width: 100%;
+  height: calc(100% - 46px);
+  border: 0;
+  background: #fff;
+}
+
+.map-heritage-exhibit {
+  padding: 12px;
+  border: 1px solid #d8e4ef;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #f9fcff, #edf5fa);
+}
+
+.map-heritage-exhibit > span {
+  color: #9a6019;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .05em;
+}
+
+.map-heritage-exhibit h3 { margin: 5px 0; color: #193c61; font-size: 14px; }
+.map-heritage-exhibit p { margin: 0; color: #496176; font-size: 11px; line-height: 1.6; }
+
+.exhibit-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.exhibit-tags i {
+  padding: 3px 7px;
+  border-radius: 99px;
+  background: #dceaf5;
+  color: #315b80;
+  font-size: 10px;
+  font-style: normal;
+}
+
+.museum-story-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 9px;
+}
+
+.museum-story-grid article { padding: 7px; border-radius: 9px; background: rgba(255, 255, 255, .76); }
+.museum-story-grid b, .museum-story-grid small { display: block; }
+.museum-story-grid b { color: #24486d; font-size: 10px; }
+.museum-story-grid small { margin-top: 2px; color: #71879a; font-size: 9px; line-height: 1.35; }
+
 /* Responsive tweaks */
 @media (max-width: 420px) {
   .avatar-selector-bar {
@@ -660,7 +803,39 @@
   .landmarks-quick-nav {
     bottom: 106px;
   }
-  .controls-hint-bar {
-    display: none;
+
+  .poi-interaction-bubble {
+    left: 98px;
+    width: calc(100% - 108px);
+    max-width: 260px;
+    gap: 7px;
+    padding: 9px 10px;
+  }
+
+  .bubble-content p {
+    -webkit-line-clamp: 1;
+  }
+
+  .bubble-action-btn {
+    padding: 7px 9px;
+    font-size: 10px;
+  }
+
+  .lusheng-viewer-modal {
+    inset: 6% 5%;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .lusheng-viewer-copy {
+    padding: 48px 20px 16px;
+  }
+
+  .lusheng-viewer-copy h2 {
+    font-size: 23px;
+  }
+
+  .lusheng-viewer-modal model-viewer {
+    min-height: 300px;
   }
 }

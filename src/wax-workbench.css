@@ -924,6 +924,97 @@
   animation: clothExpand 0.45s cubic-bezier(0.18, 0.89, 0.32, 1.15);
 }
 
+/* Workshop page integration */
+.wax-game-page {
+  background: #06161d;
+}
+
+.wax-game-content {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 64px 12px 12px;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #0b2630, #07151c 34%, #061116);
+}
+
+.wax-game-intro {
+  margin: 0 4px 12px;
+  color: #d3e0d9;
+}
+
+.wax-game-intro p {
+  margin: 0 0 4px;
+  color: #dfa95c;
+  font-size: 11px;
+  letter-spacing: .12em;
+}
+
+.wax-game-intro h1 {
+  margin: 0 0 6px;
+  color: #fff3d8;
+  font: 700 22px "Noto Serif SC", serif;
+}
+
+.wax-game-intro span {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.wax-game-draw-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 26;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px 14px;
+  overflow-y: auto;
+  background: rgba(6, 18, 24, .7);
+  backdrop-filter: blur(5px);
+}
+
+.wax-game-next {
+  flex: 0 0 auto;
+  padding: 11px 14px;
+  border: 1px solid #f5cf7b;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f5d48f, #dfa65d);
+  color: #172427;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.wax-game-next:disabled {
+  border-color: rgba(240, 216, 157, .25);
+  background: rgba(9, 29, 35, .9);
+  color: #9aada8;
+  cursor: not-allowed;
+}
+
+.wax-game-finish-card {
+  position: absolute;
+  right: 10px;
+  bottom: 12px;
+  left: 10px;
+  z-index: 28;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 16px;
+  border: 1px solid rgba(229, 202, 145, .55);
+  border-radius: 16px;
+  background: rgba(8, 22, 28, .96);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .75);
+  color: #c9dbd5;
+  text-align: center;
+}
+
+.wax-game-finish-card span { color: #dfa95c; font-size: 12px; }
+.wax-game-finish-card h2 { margin: 0; color: #fff9eb; font: 700 20px "Noto Serif SC", serif; }
+.wax-game-finish-card p { margin: 0; font-size: 12px; line-height: 1.55; }
+.wax-game-finish-card button { padding: 9px 16px; border: 0; border-radius: 9px; background: #dfa65d; color: #172427; font-weight: 800; cursor: pointer; }
+
 @keyframes clothExpand {
   0% {
     opacity: 0;

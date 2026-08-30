@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { createMiaoAvatar, OUTFIT_PRESETS, type AvatarRig } from './avatar'
 import { buildMiaoVillage, getTerrainHeight, LANDMARK_POIS, type LandmarkPOI } from './villageBuilder'
 import { miaoSound } from './audioAmbiance'
@@ -101,7 +102,7 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
 
   // Interactive UI States
   const [timeOfDay, setTimeOfDay] = useState<TimeOfDay>('day')
-  const [cameraMode, setCameraMode] = useState<CameraMode>('follow')
+  const [cameraMode, setCameraMode] = useState<CameraMode>('panoramic')
   const [outfitIndex, setOutfitIndex] = useState(0)
   const [isAudioOn, setIsAudioOn] = useState(false)
   const [isDancing, setIsDancing] = useState(false)
@@ -109,6 +110,8 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
   const [nearbyPOI, setNearbyPOI] = useState<LandmarkPOI | null>(null)
   const [currentSelectedIdx, setCurrentSelectedIdx] = useState(selected)
   const [isSprinting, setIsSprinting] = useState(false)
+  const [isLushengViewerOpen, setIsLushengViewerOpen] = useState(false)
+  const [isLushengCopyOpen, setIsLushengCopyOpen] = useState(true)
 
   // Joystick state
   const joystickRef = useRef<{ x: number; y: number; active: boolean }>({ x: 0, y: 0, active: false })
@@ -135,26 +138,14 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
   const callbacksRef = useRef({ onWalkingChange, onOpenExplore })
   callbacksRef.current = { onWalkingChange, onOpenExplore }
 
-  // Zoom control helper
-  const handleZoomInOut = useCallback((zoomOut: boolean) => {
-    if (!sceneContext.current) return
-    const { camera, controls } = sceneContext.current
-    const dir = camera.position.clone().sub(controls.target)
-    const factor = zoomOut ? 1.35 : 0.74
-    dir.multiplyScalar(factor)
-    const newLen = THREE.MathUtils.clamp(dir.length(), controls.minDistance, controls.maxDistance)
-    dir.setLength(newLen)
-    camera.position.copy(controls.target).add(dir)
-  }, [])
-
   // Camera presets
   const handleSetCameraPreset = useCallback((preset: 'overview' | 'follow' | 'photo') => {
     if (!sceneContext.current) return
     const { camera, controls, avatar } = sceneContext.current
     if (preset === 'overview') {
       setCameraMode('panoramic')
-      controls.target.set(0, 1.2, 1.2)
-      camera.position.set(0, 32, 40)
+      controls.target.set(0, 1.2, 0)
+      camera.position.set(0, 34, 0.6)
     } else if (preset === 'follow') {
       setCameraMode('follow')
       const aPos = avatar.group.position
@@ -197,7 +188,8 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
 
     // Camera with large far clipping plane for deep zooming out
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 400)
-    camera.position.set(0, 8, 12)
+    // Start in the same overhead composition as “宏观全景”, centred on 芦笙场.
+    camera.position.set(0, 34, 0.6)
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' })
     renderer.setSize(width, height)
@@ -238,11 +230,45 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
     controls.minPolarAngle = 0.02
     controls.zoomSpeed = 1.25
     controls.enableZoom = true
-    controls.target.set(0, 1.2, 1.2)
+    controls.target.set(0, 1.2, 0)
 
     // 4. Build Real 3D Miao Village Scene
     const village = buildMiaoVillage()
     scene.add(village.group)
+
+    // Lux3D landmarks sit on top of the hand-built village so the map keeps its
+    // authored terrain, paths, and fallbacks while the signature places gain detail.
+    const gltfLoader = new GLTFLoader()
+    const luxModels = [
+      { id: 'silver', url: '/map-assets/models/silver-workshop.glb', size: 4.4 },
+      { id: 'embroidery', url: '/map-assets/models/embroidery-workshop.glb', size: 4.8 },
+      { id: 'lookout', url: '/map-assets/models/museum.glb', size: 5.8 },
+      { id: 'batik', url: '/map-assets/models/batik-workshop.glb', size: 4.8 },
+      { id: 'banquet', url: '/map-assets/models/long-table-pavilion.glb', size: 5.6 },
+      { id: 'lusheng', url: '/map-assets/models/lusheng.glb', size: 3.4 },
+    ] as const
+
+    luxModels.forEach(({ id, url, size }) => {
+      const poi = LANDMARK_POIS.find((item) => item.id === id)
+      if (!poi) return
+      gltfLoader.load(url, (gltf) => {
+        const model = gltf.scene
+        const initialBounds = new THREE.Box3().setFromObject(model)
+        const initialSize = initialBounds.getSize(new THREE.Vector3())
+        const largestAxis = Math.max(initialSize.x, initialSize.z, 0.001)
+        model.scale.setScalar(size / largestAxis)
+        const scaledBounds = new THREE.Box3().setFromObject(model)
+        model.position.set(poi.position[0], getTerrainHeight(poi.position[0], poi.position[2]) - scaledBounds.min.y, poi.position[2])
+        model.traverse((child) => {
+          child.userData.poiId = id
+          if (child instanceof THREE.Mesh) {
+            child.castShadow = true
+            child.receiveShadow = true
+          }
+        })
+        village.group.add(model)
+      })
+    })
 
     // 5. Create 3D Animated Miao Girl Avatar
     const avatar = createMiaoAvatar(outfitIndex)
@@ -295,6 +321,29 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
       const hits = raycaster.intersectObjects(scene.children, true)
       if (hits.length > 0) {
         const hit = hits[0]
+        let landmarkObject: THREE.Object3D | null = hit.object
+        while (landmarkObject && !landmarkObject.userData.poiId) landmarkObject = landmarkObject.parent
+        const landmarkId = landmarkObject?.userData.poiId as string | undefined
+        const landmark = landmarkId ? LANDMARK_POIS.find((poi) => poi.id === landmarkId) : undefined
+
+        if (landmark) {
+          const [lx, , lz] = landmark.position
+          const distanceToLandmark = Math.hypot(avatar.group.position.x - lx, avatar.group.position.z - lz)
+          if (distanceToLandmark < 4) {
+            if (landmark.id === 'lusheng') {
+              setIsLushengCopyOpen(true)
+              setIsLushengViewerOpen(true)
+            }
+            else callbacksRef.current.onOpenExplore?.(landmark)
+          } else {
+            targetPos.set(lx, getTerrainHeight(lx, lz), lz)
+            beaconMesh.position.set(lx, getTerrainHeight(lx, lz) + 0.1, lz)
+            beaconMesh.visible = true
+            sceneContext.current!.isMoving = true
+            callbacksRef.current.onWalkingChange?.(true)
+          }
+          return
+        }
         const hx = THREE.MathUtils.clamp(hit.point.x, -18, 18)
         const hz = THREE.MathUtils.clamp(hit.point.z, -18, 18)
         const hy = getTerrainHeight(hx, hz)
@@ -471,7 +520,7 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
           camera.position.add(step)
         }
       } else if (cameraMode === 'panoramic') {
-        const centerPos = new THREE.Vector3(0, 1.2, 1.2)
+        const centerPos = new THREE.Vector3(0, 1.2, 0)
         const deltaTarget = centerPos.clone().sub(controls.target)
         if (deltaTarget.lengthSq() > 0.00001) {
           controls.target.add(deltaTarget.multiplyScalar(0.08))
@@ -573,8 +622,7 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
       {/* Top HUD: Title & Weather/Time of Day Switcher */}
       <header className="scene-top-hud">
         <div className="scene-brand">
-          <span className="badge-flame">《烽火与炊烟》式市井实景</span>
-          <h1>西江千户苗寨 · 实时三维大地图</h1>
+          <h1>西江千户苗寨 模拟地图</h1>
           <p>滚轮/双指自由缩放 · 俯瞰苗乡山水市井</p>
         </div>
 
@@ -598,26 +646,6 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
 
       {/* Camera Mode & Action Floating Toolbar */}
       <aside className="scene-float-tools">
-        {/* Zoom In & Zoom Out Quick Controls */}
-        <div className="zoom-btn-group" aria-label="地图缩放控制">
-          <button
-            type="button"
-            className="tool-btn zoom-btn"
-            onClick={() => handleZoomInOut(false)}
-            title="放大地图视角 (更近)"
-          >
-            ➕ 放大
-          </button>
-          <button
-            type="button"
-            className="tool-btn zoom-btn"
-            onClick={() => handleZoomInOut(true)}
-            title="缩小地图视角 (看全局/更小)"
-          >
-            ➖ 缩小
-          </button>
-        </div>
-
         {/* Camera Perspective Mode */}
         <div className="cam-mode-group">
           <button
@@ -656,25 +684,6 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
           {isAudioOn ? '🔊 声音开' : '🔇 声音关'}
         </button>
 
-        {/* Dance & Action Triggers */}
-        <button
-          type="button"
-          className={`tool-btn dance-btn ${isDancing ? 'active' : ''}`}
-          onClick={() => {
-            setIsDancing((prev) => !prev)
-            miaoSound.playLushengNote()
-          }}
-        >
-          {isDancing ? '🎵 欢舞中...' : '💃 跳芦笙舞'}
-        </button>
-
-        <button
-          type="button"
-          className={`tool-btn sprint-btn ${isSprinting ? 'active' : ''}`}
-          onClick={() => setIsSprinting((prev) => !prev)}
-        >
-          {isSprinting ? '⚡ 疾步快跑' : '🚶 悠然漫步'}
-        </button>
       </aside>
 
       {/* Avatar Outfit Selector (Model Selection from @public/人物/images/) */}
@@ -737,7 +746,13 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
           <button
             type="button"
             className="bubble-action-btn"
-            onClick={() => callbacksRef.current.onOpenExplore?.(nearbyPOI)}
+            onClick={() => {
+              if (nearbyPOI.id === 'lusheng') {
+                setIsLushengCopyOpen(true)
+                setIsLushengViewerOpen(true)
+              }
+              else callbacksRef.current.onOpenExplore?.(nearbyPOI)
+            }}
           >
             {nearbyPOI.actionPrompt} ›
           </button>
@@ -771,14 +786,29 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
         <span className="joystick-tip">摇杆移动</span>
       </div>
 
-      {/* Bottom Operation Keyboard Hints */}
-      <footer className="controls-hint-bar">
-        <span>🔍 滚轮/双指 缩放大小</span>
-        <span>⌨️ WASD/方向键 移动</span>
-        <span>🖱️ 拖拽转动视角</span>
-        <span>⚡ Shift 快跑</span>
-        <span>💃 空格 芦笙舞</span>
-      </footer>
+      {isLushengViewerOpen && (
+        <section className={`lusheng-viewer-modal${isLushengCopyOpen ? '' : ' copy-collapsed'}`} role="dialog" aria-modal="true" aria-label="芦笙细节查看">
+          <button type="button" className="lusheng-viewer-close" onClick={() => setIsLushengViewerOpen(false)}>×</button>
+          {isLushengCopyOpen ? (
+            <div className="lusheng-viewer-copy">
+              <button type="button" className="lusheng-copy-toggle" onClick={() => setIsLushengCopyOpen(false)} aria-label="收起芦笙说明">收起说明 ‹</button>
+              <span>芦笙场 · 中央陈列</span>
+              <h2>近观苗族芦笙</h2>
+              <p>拖动模型查看竹管、簧片与吹口的细节。芦笙是苗族礼俗、歌舞和节庆中不可或缺的乐器。</p>
+            </div>
+          ) : (
+            <button type="button" className="lusheng-copy-toggle lusheng-copy-reopen" onClick={() => setIsLushengCopyOpen(true)} aria-label="展开芦笙说明">展开说明 ›</button>
+          )}
+          <model-viewer
+            src="/map-assets/models/lusheng.glb"
+            alt="Lux3D 生成的苗族芦笙模型"
+            camera-controls
+            auto-rotate
+            shadow-intensity="1"
+            environment-image="neutral"
+          />
+        </section>
+      )}
     </div>
   )
 }

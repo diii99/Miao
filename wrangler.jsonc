@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "miao-heritage",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-08-29",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/models/*", "/api/*"]
+  },
+  "r2_buckets": [
+    {
+      "binding": "MODELS",
+      "bucket_name": "miao-heritage-models"
+    }
+  ]
+}
