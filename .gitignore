@@ -33,4 +33,7 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 
 # Finder (MacOS) folder config
 .DS_Store
+<<<<<<< HEAD
 .dev.vars
+=======
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2

@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 import { StrictMode, type ChangeEvent, type FormEvent, type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Link, Outlet, RouterProvider, createRootRoute, createRoute, createRouter } from '@tanstack/react-router'
 import { ModelViewerElement } from '@google/model-viewer'
+=======
+import { StrictMode, type ChangeEvent, type FormEvent, type ReactNode, useEffect, useRef, useState } from 'react'
+import { createRoot } from 'react-dom/client'
+import { Link, Outlet, RouterProvider, createRootRoute, createRoute, createRouter } from '@tanstack/react-router'
+import '@google/model-viewer'
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 import './styles.css'
 import './final-overrides.css'
 import './map-background.css'
@@ -18,6 +25,7 @@ import generatedBatikStencil from './assets/batik-flower-bird-generated.png'
 import sistersFestivalImage from './assets/heritage/sisters-festival.jpg'
 import batikArtisanImage from './assets/heritage/batik-artisan.jpg'
 import xijiangStiltHousesImage from './assets/heritage/xijiang-stilt-houses.jpg'
+<<<<<<< HEAD
 import guzangFestivalImage from './assets/heritage/guzang-festival.jpg'
 import miaoNewYearImage from './assets/heritage/miao-new-year.jpg'
 import aprilEightImage from './assets/heritage/april-eight.jpg'
@@ -32,12 +40,15 @@ import miaoDressImage from './assets/heritage/miao-dress.jpg'
 import lushengDanceImage from './assets/heritage/lusheng-dance.jpg'
 import flyingSongImage from './assets/heritage/flying-song.jpg'
 import xijiangDawnImage from './assets/heritage/xijiang-dawn.jpg'
+=======
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 import { generateWorkshopArtwork, type WorkshopCraft } from './services/workshopGeneration'
 import { WaxWorkbench3D } from './wax-3d/WaxWorkbench3D'
 import { WaxDrawingCanvas } from './wax-3d/WaxDrawingCanvas'
 import { waxAudio } from './wax-3d/WaxAudio'
 import type { CraftMetrics, WaxPhase } from './wax-3d/types'
 
+<<<<<<< HEAD
 // Reduced avatars require Meshopt decoding before the first model loads.
 ModelViewerElement.meshoptDecoderLocation = '/vendor/meshopt_decoder-1.1.js'
 
@@ -45,6 +56,9 @@ type TabKey = 'home' | 'map' | 'heritage' | 'workshop'
 const avatarModelUrl = (modelName: string) =>
   import.meta.env.DEV ? `/人物/3d/${modelName}?v=reduced-20260905` : `/models/${modelName}?v=reduced-20260905`
 
+=======
+type TabKey = 'home' | 'map' | 'heritage' | 'workshop'
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 const tabs: { key: TabKey; label: string; to: '/' | '/map' | '/heritage' | '/workshop'; iconClass: string }[] = [
   { key: 'home', label: '首页', to: '/', iconClass: 'icon-home' },
   { key: 'map', label: '地图', to: '/map', iconClass: 'icon-map' },
@@ -52,19 +66,32 @@ const tabs: { key: TabKey; label: string; to: '/' | '/map' | '/heritage' | '/wor
   { key: 'workshop', label: '体验坊', to: '/workshop', iconClass: 'icon-workshop' },
 ]
 
+<<<<<<< HEAD
 function Shell({ active, title, children, embedded = false }: { active: TabKey; title: string; children: ReactNode; embedded?: boolean }) {
   return (
     <main className={`mini-program ${active === 'home' ? 'home-shell' : ''}`}>
       {!embedded && <header className="navigation-bar">
+=======
+function Shell({ active, title, children }: { active: TabKey; title: string; children: ReactNode }) {
+  return (
+    <main className={`mini-program ${active === 'home' ? 'home-shell' : ''}`}>
+      <header className="navigation-bar">
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
         <span className="page-title">{title}</span>
         <span className="capsule" aria-label="小程序胶囊按钮">
           <i />
           <b />
           <em />
         </span>
+<<<<<<< HEAD
       </header>}
       <section className={embedded ? 'page-content miniapp-embedded-content' : 'page-content'}>{children}</section>
       {!embedded && <nav className="tab-bar" aria-label="主导航">
+=======
+      </header>
+      <section className="page-content">{children}</section>
+      <nav className="tab-bar" aria-label="主导航">
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
         {tabs.map((tab) => (
           <Link
             key={tab.key}
@@ -76,10 +103,18 @@ function Shell({ active, title, children, embedded = false }: { active: TabKey; 
             <span>{tab.label}</span>
           </Link>
         ))}
+<<<<<<< HEAD
       </nav>}
     </main>
   )
 }
+=======
+      </nav>
+    </main>
+  )
+}
+
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 function IntroScreen({ onComplete }: { onComplete: () => void }) {
   return (
     <main className="intro-screen" aria-label="苗家亲开屏">
@@ -116,7 +151,11 @@ const localGuideReply = (question: string) => {
 }
 type ChatMessage = { role: 'user' | 'assistant'; content: string }
 
+<<<<<<< HEAD
 function HomePage({ embedded = false }: { embedded?: boolean } = {}) {
+=======
+function HomePage() {
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
   const [questions, setQuestions] = useState<string[]>([])
   const [draft, setDraft] = useState('')
   const [reply, setReply] = useState('你好，我是纠笙。想从苗乡的哪段故事开始听？')
@@ -215,7 +254,11 @@ function HomePage({ embedded = false }: { embedded?: boolean } = {}) {
   )
 
   return (
+<<<<<<< HEAD
     <Shell active="home" title="苗家亲" embedded={embedded}>
+=======
+    <Shell active="home" title="苗家亲">
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
       <section className="dress-hero daily-hero">
         <div className="dress-copy">
           <p>贵州 · 黔东南</p>
@@ -224,7 +267,11 @@ function HomePage({ embedded = false }: { embedded?: boolean } = {}) {
         </div>
                 <model-viewer
           className="home-avatar-model home-avatar-entrance"
+<<<<<<< HEAD
           src={avatarModelUrl('MiaoGirl_1.glb')}
+=======
+          src="/人物/3d/MiaoGirl_1.glb"
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
           alt="苗寨向导纠笙的三维形象"
           loading="eager"
           camera-controls
@@ -350,7 +397,11 @@ function MapPage() {
               </button>
 
               <div className={`map-detail-art ${exploringPOI.kind}`}>
+<<<<<<< HEAD
                 <span className="art-badge">{exploringPOI.evidence}</span>
+=======
+                <span className="art-badge">西江千户苗寨 · 非遗实景</span>
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
                 <h2>{exploringPOI.title}</h2>
               </div>
 
@@ -361,11 +412,18 @@ function MapPage() {
                 <div className="detail-lore-box">
                   <b>苗寨文化背景：</b>
                   <p>{exploringPOI.lore}</p>
+<<<<<<< HEAD
                   {exploringPOI.sources.map((url, i) => <a key={url} href={url} target="_blank" rel="noreferrer">研究来源 {i + 1} ↗ </a>)}
                 </div>
 
                 <div className="detail-tags">
                   <i>🏞️ 空间示意</i>
+=======
+                </div>
+
+                <div className="detail-tags">
+                  <i>🏞️ 真实古建</i>
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
                   <i>🪡 苗乡非遗</i>
                   <i>✨ 市井烟火</i>
                 </div>
@@ -379,7 +437,11 @@ function MapPage() {
                   </section>
                 )}
 
+<<<<<<< HEAD
                 {exploringPOI.kind === 'museum' && (
+=======
+                {exploringPOI.kind === 'lookout' && (
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
                   <section className="map-heritage-exhibit museum-exhibit" aria-label="苗族非遗全览">
                     <span>西江苗族博物馆 · 非遗全览</span>
                     <h3>从节日、匠作到歌舞与村寨</h3>
@@ -429,15 +491,23 @@ const heritageStories: HeritageStory[] = [
       '苗族姊妹节历史悠久，是集民俗、婚恋与社交于一体的传统节日。五彩姊妹饭既是重要礼仪，也是姑娘赠予心上人的情意信物。',
       '节日里，青年男女相约下田撮鱼捞虾，在劳作与游戏中相识；鼓场上，姑娘们身着盛装踩鼓，以华美服饰与银饰展示苗族的审美与手艺。',
       '夜晚游方对歌，男方向女方讨姊妹饭，饭中的信物含蓄传递心意。节日也让亲友相聚，成为社区团结与文化传承的舞台。',
+<<<<<<< HEAD
       '台江老屯、施洞一带通常在农历三月十五至十七日过节；红、黄、蓝、白、黑等颜色由植物染料浸染而来，五彩饭既可食用，也是一份郑重的节日礼物。',
     ],
   },
   {
     name: '鼓藏节', group: '民族节日', note: '十二年一祭 · 鼓社共祀', image: guzangFestivalImage, tag: '以鼓为祖先神灵的象征',
+=======
+    ],
+  },
+  {
+    name: '鼓藏节', group: '民族节日', note: '十二年一祭 · 鼓社共祀', image: xijiangStiltHousesImage, tag: '以鼓为祖先神灵的象征',
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     body: [
       '鼓藏节，苗语称“牯哝江略”，意为鼓社节，是以血缘宗族为单位的祭鼓活动。苗族古歌记述，人们以此祭祀创世的蝴蝶妈妈与生命始祖枫树。',
       '传说祖先的老家在枫树心里，枫木制成的木鼓便成为祖先安息之处，因此祭祖也成为祭鼓。雷山苗族以“鼓社”为单位维系社区，仪式由选举产生的“鼓藏头”主持。',
       '传统上鼓藏节十二年举行一次，仪程贯穿数年，围绕招龙、醒鼓、迎鼓、审牛与白鼓等环节展开，鼓声连起家族的记忆与信仰。',
+<<<<<<< HEAD
       '不同支系的周期与程序略有差异。雷山一带传统上约十二年举行一次，仪程可跨数年；榕江都柳江流域则保留接鼓、凿鼓、换鼓、送鼓等程序。',
     ],
   },
@@ -507,11 +577,76 @@ const heritageStories: HeritageStory[] = [
   },
   {
     name: '银饰锻制', group: '匠作与服饰', note: '三十余道工序 · 千锤成银', image: silverSmithImage, tag: '头饰、颈饰与胸饰的银光',
+=======
+    ],
+  },
+  {
+    name: '苗年', group: '民族节日', note: '祭祖团圆 · 迎新祈福', image: sistersFestivalImage, tag: '苗族最隆重的岁时节庆之一',
+    body: [
+      '苗年是黔东南及广西融水等地苗族的重要新年节日，各地日期随历法与习俗不同，常在农历九至十一月间举行。',
+      '节前，家家准备丰盛食物并祭祀祖先；节日期间，人们走亲访友、踩鼓、跳芦笙、赛马、斗牛、游方，以歌舞迎接新岁、庆贺收成。',
+    ],
+  },
+  {
+    name: '四月八', group: '民族节日', note: '亚努节 · 歌场相会', image: dressStencil, tag: '苗族重要的春日聚会',
+    body: [
+      '“四月八”又称“亚努节”，是苗族广泛流传的传统节日。它源于祭祖、祭天地与纪念英雄等习俗，在不同地区有各自的传说与仪程。',
+      '这一天，苗族群众穿上盛装，从四面八方来到歌场；苗歌对唱、芦笙、花鼓与踏青游乐，让节日成为文化展示与人际交往的场合。',
+    ],
+  },
+  {
+    name: '吃新节', group: '民族节日', note: '稻禾初熟 · 开仓尝新', image: sistersFestivalImage, tag: '也称“新禾节”',
+    body: [
+      '吃新节又称新禾节，常在夏秋稻谷初熟时按寨子习俗择日举行，用最先成熟的新米感谢土地、祖先与一年劳作。',
+      '节日里，封存已久的芦笙重新吹响，人们着盛装跳舞、唱苗歌，有些地区还举行斗牛等活动，共庆丰收在望。',
+    ],
+  },
+  {
+    name: '跳花节', group: '民族节日', note: '春日花场 · 对歌游方', image: batikReference, tag: '也称跳月、踩花山',
+    body: [
+      '跳花节是苗族地区富有春天气息的传统节日，各地日期不同，多在正月或春季举行。节日场地会竖起花杆，村寨的人们汇聚到“花场”。',
+      '吹芦笙、爬花杆、赛马、斗牛与对歌交织在一起，青年男女也借游方相识、表达情意，长者则在节日中叙旧交友。',
+    ],
+  },
+  {
+    name: '芦笙节', group: '民族节日', note: '笙歌踩堂 · 盛装赴会', image: xijiangStiltHousesImage, tag: '以芦笙与舞蹈为主的节会',
+    body: [
+      '芦笙节的日期因地区而异，是苗族群众预祝来年风调雨顺、农业丰收的重要节会。',
+      '节日里，来自四方的芦笙队汇聚场坝，男子吹奏芦笙，姑娘穿绣衣、佩银饰起舞；赛马、斗牛、斗鸟与游方等活动也常融入其中。',
+    ],
+  },
+  {
+    name: '赶秋节', group: '民族节日', note: '立秋赶场 · 欢庆丰收', image: xijiangStiltHousesImage, tag: '湘西苗族的秋日盛会',
+    body: [
+      '苗族赶秋，苗语称“交秋”，在立秋时节举行，是欢庆收获在望、祝愿丰年的节日，也为青年男女提供相识交往的机会。',
+      '人们穿着华丽服装赶赴秋场，歌舞、祭祀、体育与娱乐活动同场展开。打秋千、打苗鼓、唱苗歌等，让秋场充满欢声。',
+    ],
+  },
+  {
+    name: '招龙节', group: '民族节日', note: '祭祖招龙 · 祈愿丰年', image: xijiangStiltHousesImage, tag: '雷山苗寨的祈福节日',
+    body: [
+      '招龙节是雷山部分苗寨隆重的祭祖祈福节日。苗族古歌中记述水龙与旱龙的传说，村民希望迎回“水牛龙”，祈愿人畜兴旺、五谷丰登。',
+      '仪式中，人们携带祭品登山祭祀、撒招龙米，再到迎龙坪与芦笙场完成后续仪程；节日也伴随拦门酒、芦笙舞和寨中欢聚。',
+    ],
+  },
+  {
+    name: '龙船节', group: '民族节日', note: '竞渡求雨 · 预祝丰年', image: xijiangStiltHousesImage, tag: '黔东南苗族的端午节俗',
+    body: [
+      '在贵州部分苗寨，农历五月初五会过苗族龙船节。龙舟竞渡寄托着驱旱求雨、庆祝插秧完成和预祝五谷丰登的心愿。',
+      '河面上的鼓点与岸上的盛装相映成趣，节日把农耕愿望、村寨协作与水上竞渡结合在一起。',
+    ],
+  },
+  {
+    name: '银饰锻制', group: '匠作与服饰', note: '三十余道工序 · 千锤成银', image: silverStencil, tag: '头饰、颈饰与胸饰的银光',
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     body: [
       '银饰是苗族最喜爱的传统饰物，主要用于妇女盛装。头、面、颈、肩、胸、腰、臂、脚、手饰彼此配合，形成完整而华美的整体装饰。',
       '银凤冠和银花帽尤为复杂，一套常由百余件小饰件组成。雷山西江一带的银匠世代以手工打造，银饰也是节庆、婚嫁与人生礼仪中的祝福。',
       '从绘图、铸炼、捶打到焊接、编结与洗涤，一件银饰往往要经过三十余道工序，凝结着匠师的耐心与技艺。',
+<<<<<<< HEAD
       '银片经捶揲、錾刻、拉丝、焊接后，可变成蝴蝶、鸟、花、龙等立体纹样；它们常被理解为护佑、吉祥与家族审美的可见表达。',
+=======
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     ],
   },
   {
@@ -520,6 +655,7 @@ const heritageStories: HeritageStory[] = [
       '苗族蜡染源于生活所需，常用于服装、床单、包袱布、头巾、背带等日用织物。图案可分为几何纹与自然纹，花鸟、蝶纹与山水都能在蓝白之间生长。',
       '制作时先用草木灰滤水处理土布，再以铜刀蘸熔蜡点画。蜡膜阻隔染料，成为留白图案的边界。',
       '点好蜡花的布反复浸入蓝靛染缸，漂洗、煮沸脱蜡后，纹样便显现出来。丹寨蜡染还会拼涂茜草红与栀子黄，让色彩更丰富。',
+<<<<<<< HEAD
       '在丹寨，许多女性从栽靛、种棉、纺线、织布到画蜡、浸染、剪裁都能参与其中；蜡染是一套串联植物、纺织、衣饰与家庭传承的生活技艺。',
     ],
   },
@@ -545,6 +681,29 @@ const heritageStories: HeritageStory[] = [
       '苗族飞歌是雷山苗族特有的民歌形式，过去人们以嘹亮歌声抒发感情、传递信息。起腔多用真声，正腔转入高昂的假声，声音仿佛穿越山谷而去。',
       '飞歌将词、曲、真声与假声融为一体，节奏有急有缓，体现诗、乐、舞合一的境界。它是理解苗族音乐与情感表达的一扇窗口，也需要更多传唱与守护。',
       '雷山飞歌曲调高亢、旋律起伏大，长音拖得很远；剑河革东一带则以真嗓高唱、隔山传声著称，劳动、婚嫁、建房与节庆都能成为即兴编唱题材。',
+=======
+    ],
+  },
+  {
+    name: '苗族服饰', group: '匠作与服饰', note: '穿在身上的史书', image: dressStencil, tag: '台江苗族服饰',
+    body: [
+      '贵州台江的苗族服饰以造型古朴、色彩大胆、款式丰富著称，按当地苗语方言可分为九大类型、百余种款式。',
+      '平绣、锦上绣、破线绣、辫绣、盘绣等二十多种针法，让衣饰中的构图成为故事。其图案常以对称、中心等方式呈现，浓缩着祖先、自然与迁徙记忆，因此被称为“穿在身上的史书”。',
+    ],
+  },
+  {
+    name: '芦笙舞', group: '歌舞与村寨', note: '笙声起舞 · 祭祖庆丰', image: xijiangStiltHousesImage, imagePosition: 'center 68%', tag: '贵州苗族的传统民间舞蹈',
+    body: [
+      '芦笙舞是苗族在祭祖、节日与喜庆活动中跳的传统民间舞蹈，源于播种前祈求丰收、收获后感谢神灵与祭祀祖先的仪式性舞蹈。',
+      '在贵州，芦笙舞广泛流传于雷山、关岭、榕江、水城等地。稻谷收获后到来年春播前，寨子里的鼓场与坡地常会响起芦笙，舞步热烈欢快。',
+    ],
+  },
+  {
+    name: '苗族飞歌', group: '歌舞与村寨', note: '高腔入云 · 声振山谷', image: batikReference, tag: '雷山苗族的山野歌声',
+    body: [
+      '苗族飞歌是雷山苗族特有的民歌形式，过去人们以嘹亮歌声抒发感情、传递信息。起腔多用真声，正腔转入高昂的假声，声音仿佛穿越山谷而去。',
+      '飞歌将词、曲、真声与假声融为一体，节奏有急有缓，体现诗、乐、舞合一的境界。它是理解苗族音乐与情感表达的一扇窗口，也需要更多传唱与守护。',
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     ],
   },
   {
@@ -552,6 +711,7 @@ const heritageStories: HeritageStory[] = [
     body: [
       '西江千户苗寨坐落在黔东南雷山县东北部的雷公山麓，由十余个村寨连片组成。吊脚楼依山而上，白水河穿寨而过，山水与村落彼此相依。',
       '这里仍保留着拦门酒、“高山流水”、银饰、歌舞与手作技艺等鲜活日常。沿着寨中石阶行走，能看见苗族文化如何被生活继续书写。',
+<<<<<<< HEAD
       '村寨由十余个自然村寨连片而成，白水河穿行其间，风雨桥与石阶把河谷两岸的生活串接起来；它既是居民家园，也是观察苗族文化如何在日常中延续的窗口。',
     ],
   },
@@ -561,10 +721,20 @@ const heritageStories: HeritageStory[] = [
       '苗族吊脚楼多建在有坡度的山地上：下方以较长木柱支撑，上方以较短木柱落在坡地，上铺楼板、覆以屋顶，顺着山势形成层次。',
       '楼下通常用来堆放杂物或饲养家畜，居住空间在楼上。苗寨周围常有茂林修竹与保寨树，木结构房屋与山地环境相互适应，构成独特的村寨景观。',
       '常见的三层格局中，底层较通透，二层是起居与待客空间，顶层用于贮藏或晾晒。穿斗式木构、斜屋顶、挑檐与“美人靠”等做法回应了湿润多雨的山地气候。',
+=======
+    ],
+  },
+  {
+    name: '吊脚楼', group: '歌舞与村寨', note: '顺山而建 · 木构成家', image: xijiangStiltHousesImage, tag: '顺应山地的居住智慧',
+    body: [
+      '苗族吊脚楼多建在有坡度的山地上：下方以较长木柱支撑，上方以较短木柱落在坡地，上铺楼板、覆以屋顶，顺着山势形成层次。',
+      '楼下通常用来堆放杂物或饲养家畜，居住空间在楼上。苗寨周围常有茂林修竹与保寨树，木结构房屋与山地环境相互适应，构成独特的村寨景观。',
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     ],
   },
 ]
 
+<<<<<<< HEAD
 function MiniappHomeSurface() {
   return <HomePage embedded />
 }
@@ -613,6 +783,8 @@ function MiniappAvatarSurface() {
     />
   </main>
 }
+=======
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 function HeritagePage() {
   const [viewAllGroup, setViewAllGroup] = useState<HeritageStory['group'] | null>(null)
   const [selectedStory, setSelectedStory] = useState<HeritageStory | null>(null)
@@ -692,7 +864,11 @@ function HeritagePage() {
             <div className="story-cover" style={{ backgroundImage: `linear-gradient(180deg, transparent 30%, rgba(5, 27, 51, .78)), url(${selectedStory.image})`, backgroundPosition: selectedStory.imagePosition ?? 'center' }}>
               <span>{selectedStory.group}</span><h2>{selectedStory.name}</h2>
             </div>
+<<<<<<< HEAD
             <div className="story-body"><p className="story-tag">{selectedStory.tag}</p>{selectedStory.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<p className="story-source">封面图片取自公开报道或景区资料；正文参考中国非物质文化遗产网等公开资料。</p></div>
+=======
+            <div className="story-body"><p className="story-tag">{selectedStory.tag}</p>{selectedStory.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<p className="story-source">图片来源：人民网、光明网及西江千户苗寨官网。</p></div>
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
           </div>
         </section>
       )}
@@ -914,7 +1090,11 @@ function WorkshopPage() {
                 {craft === 'doll' ? (
                   <model-viewer
                     className="doll-model-preview"
+<<<<<<< HEAD
                     src={avatarModelUrl(style === 'doll-pleated-dress' ? 'MiaoGirl_2.glb' : 'MiaoGirl_1.glb')}
+=======
+                    src={style === 'doll-pleated-dress' ? '/人物/3d/MiaoGirl_2.glb' : '/人物/3d/MiaoGirl_1.glb'}
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
                     alt="可旋转查看的 3D 苗族人物玩偶模型"
                     camera-controls
                     auto-rotate
@@ -1006,6 +1186,7 @@ type MiaoQuestion = {
   note: string
 }
 
+<<<<<<< HEAD
 const miaoVocabularySource = {
   title: '《贵州民族语言学习简本·苗语（东部方言）》',
   url: 'https://www.yuncunzhai.com/book/274243.jhtml',
@@ -1021,6 +1202,12 @@ const miaoQuestionSets: Record<'入门' | '进阶' | '挑战', MiaoQuestion[]> =
   入门: [
     { term: 'ad', pronunciation: '啊', answer: '一', options: ['一', '三', '五', '十'], note: '数字是听辨苗语声调与节奏的好起点。' },
     { term: 'oub jix', pronunciation: '欧（及）', answer: '二（两）', options: ['二（两）', '四', '六', '八'], note: '“oub jix”在资料中对应数字“二（两）”。' },
+=======
+const miaoQuestionSets: Record<'入门' | '进阶' | '挑战', MiaoQuestion[]> = {
+  入门: [
+    { term: 'ad', pronunciation: '啊', answer: '一', options: ['一', '三', '五', '十'], note: '数字是听辨苗语声调与节奏的好起点。' },
+    { term: 'oub jix', pronunciation: '欧及', answer: '二（两）', options: ['二（两）', '四', '六', '八'], note: '“oub jix”在资料中对应数字“二（两）”。' },
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     { term: 'bub', pronunciation: '部', answer: '三', options: ['三', '七', '九', '百'], note: '短词也有自己的音高与收尾。' },
     { term: 'bleib', pronunciation: '背', answer: '四', options: ['四', '八', '千', '万'], note: '试着先听整体，再判断词尾。' },
   ],
@@ -1037,6 +1224,7 @@ const miaoQuestionSets: Record<'入门' | '进阶' | '挑战', MiaoQuestion[]> =
     { term: 'Yol jid zead!', pronunciation: '邀及栽！', answer: '再见！', options: ['再见！', '早上好！', '请进！', '没关系！'], note: '离开时，不妨用这一句为一局游戏收尾。' },
   ],
 }
+<<<<<<< HEAD
 const shuffleOptions = (options: string[], answer: string) => {
   const shuffled = [...options]
   for (let index = shuffled.length - 1; index > 0; index -= 1) {
@@ -1052,15 +1240,24 @@ const shuffleOptions = (options: string[], answer: string) => {
 }
 
 function MiaoLanguageGamePage({ embedded = false }: { embedded?: boolean } = {}) {
+=======
+
+function MiaoLanguageGamePage() {
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
   const [level, setLevel] = useState<'入门' | '进阶' | '挑战'>('入门')
   const [questionIndex, setQuestionIndex] = useState(0)
   const [selected, setSelected] = useState<string | null>(null)
   const [score, setScore] = useState(0)
   const questions = miaoQuestionSets[level]
+<<<<<<< HEAD
   const [round, setRound] = useState(0)
   const question = questions[questionIndex]
   const isLast = questionIndex === questions.length - 1
   const displayedOptions = useMemo(() => shuffleOptions(question.options, question.answer), [question, round])
+=======
+  const question = questions[questionIndex]
+  const isLast = questionIndex === questions.length - 1
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
   const isCorrect = selected === question.answer
 
   const chooseLevel = (nextLevel: '入门' | '进阶' | '挑战') => {
@@ -1068,7 +1265,10 @@ function MiaoLanguageGamePage({ embedded = false }: { embedded?: boolean } = {})
     setQuestionIndex(0)
     setSelected(null)
     setScore(0)
+<<<<<<< HEAD
     setRound((current) => current + 1)
+=======
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
   }
 
   const playAudio = () => {
@@ -1092,7 +1292,10 @@ function MiaoLanguageGamePage({ embedded = false }: { embedded?: boolean } = {})
       setQuestionIndex(0)
       setSelected(null)
       setScore(0)
+<<<<<<< HEAD
       setRound((current) => current + 1)
+=======
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
       return
     }
     setQuestionIndex((current) => current + 1)
@@ -1100,7 +1303,11 @@ function MiaoLanguageGamePage({ embedded = false }: { embedded?: boolean } = {})
   }
 
   return <main className="miao-language-game" aria-label="苗语听音猜义小游戏">
+<<<<<<< HEAD
     {!embedded && <header className="miao-language-header"><Link to="/workshop">‹ 返回体验坊</Link><span>语 · 苗语</span><b>东部方言</b></header>}
+=======
+    <header className="miao-language-header"><Link to="/workshop">‹ 返回体验坊</Link><span>语 · 苗语</span><b>东部方言</b></header>
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     <section className="miao-language-content">
       <div className="miao-language-hero">
         <p>苗乡游戏 · 听音猜义</p>
@@ -1122,9 +1329,15 @@ function MiaoLanguageGamePage({ embedded = false }: { embedded?: boolean } = {})
         <button type="button" className="miao-audio-button" onClick={playAudio} aria-label={`播放“${question.term}”的练习音频`}>
           <i>▶</i><span>播放音频</span><small>再听一次</small>
         </button>
+<<<<<<< HEAD
         <p className="miao-listening-tip">按原资料所列的汉字注音朗读，不是田野录音；请以文末原始条目为准。</p>
         <div className="miao-options" role="group" aria-label="选择普通话意思">
           {displayedOptions.map((option, index) => {
+=======
+        <p className="miao-listening-tip">练习音频按资料注音合成，请留意节奏和声调。</p>
+        <div className="miao-options" role="group" aria-label="选择普通话意思">
+          {question.options.map((option, index) => {
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
             const state = selected ? (option === question.answer ? 'correct' : option === selected ? 'wrong' : '') : ''
             return <button type="button" key={option} className={state} disabled={Boolean(selected)} onClick={() => selectAnswer(option)}>
               <i>{String.fromCharCode(65 + index)}</i><span>{option}</span>{state === 'correct' && <b>✓</b>}{state === 'wrong' && <b>×</b>}
@@ -1141,8 +1354,13 @@ function MiaoLanguageGamePage({ embedded = false }: { embedded?: boolean } = {})
 
       <aside className="miao-source-note">
         <b>词汇小档案</b>
+<<<<<<< HEAD
         <p>本题对应 {miaoSourceEntries[question.term]}。资料提供苗文、汉语释义与汉字注音，但未附可核验的逐条录音；因此本页不把设备合成音标为真实苗语录音。</p>
         <a href={miaoVocabularySource.url} target="_blank" rel="noreferrer">查看本题的详细原始资料：{miaoVocabularySource.title} ↗</a>
+=======
+        <p>题目取自《贵州民族语言学习简本·苗语（东部方言）》；东部方言分布于贵州东南部等地。不同苗语方言的读音与用词会有差异。</p>
+        <a href="https://www.yuncunzhai.com/book/274243.jhtml" target="_blank" rel="noreferrer">查看原始词表资料 ↗</a>
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
       </aside>
     </section>
   </main>
@@ -1160,7 +1378,11 @@ const emptyWaxMetrics = (): CraftMetrics => ({
   score: 0,
 })
 
+<<<<<<< HEAD
 function WaxDyeGamePage({ embedded = false }: { embedded?: boolean } = {}) {
+=======
+function WaxDyeGamePage() {
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
   const [phase, setPhase] = useState<WaxPhase>('intro')
   const [metrics, setMetrics] = useState<CraftMetrics>(emptyWaxMetrics)
   const [templateId, setTemplateId] = useState('butterfly')
@@ -1197,7 +1419,11 @@ function WaxDyeGamePage({ embedded = false }: { embedded?: boolean } = {}) {
   }
 
   return <main className="game-embed-page wax-game-page" aria-label="苗族蜡染互动体验">
+<<<<<<< HEAD
     {!embedded && <header className="game-embed-header"><Link to="/workshop">‹ 返回体验坊</Link><span>染 · 苗族蜡染工坊</span></header>}
+=======
+    <header className="game-embed-header"><Link to="/workshop">‹ 返回体验坊</Link><span>染 · 苗族蜡染工坊</span></header>
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     <section className="wax-game-content">
       <div className="wax-game-intro">
         <p>丹寨蜡染 · 3D 手作体验</p>
@@ -1249,6 +1475,7 @@ function WaxDyeGamePage({ embedded = false }: { embedded?: boolean } = {}) {
 const rootRoute = createRootRoute({ component: Outlet })
 const indexRoute = createRoute({ getParentRoute: () => rootRoute, path: '/', component: HomePage })
 const mapRoute = createRoute({ getParentRoute: () => rootRoute, path: '/map', component: MapPage })
+<<<<<<< HEAD
 const miniappHomeRoute = createRoute({ getParentRoute: () => rootRoute, path: '/miniapp/home', component: MiniappHomeSurface })
 const miniappMapRoute = createRoute({ getParentRoute: () => rootRoute, path: '/miniapp/map', component: MiniappMapSurface })
 const miniappHongsuantangGameRoute = createRoute({ getParentRoute: () => rootRoute, path: '/miniapp/games/hongsuantang', component: () => <MiniappGameFrame title="苗家红酸汤发酵小游戏" src="/games/hongsuantang/index.html" /> })
@@ -1258,6 +1485,8 @@ const miniappXiaoxiaoleGameRoute = createRoute({ getParentRoute: () => rootRoute
 const miniappMiaoLanguageGameRoute = createRoute({ getParentRoute: () => rootRoute, path: '/miniapp/games/miao-language', component: MiniappMiaoLanguageGameSurface })
 const miniappWaxDyeGameRoute = createRoute({ getParentRoute: () => rootRoute, path: '/miniapp/games/batik', component: MiniappWaxDyeGameSurface })
 const miniappAvatarRoute = createRoute({ getParentRoute: () => rootRoute, path: '/miniapp/avatar', component: MiniappAvatarSurface })
+=======
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 const heritageRoute = createRoute({ getParentRoute: () => rootRoute, path: '/heritage', component: HeritagePage })
 const workshopRoute = createRoute({ getParentRoute: () => rootRoute, path: '/workshop', component: WorkshopPage })
 const cultureRoute = createRoute({ getParentRoute: () => rootRoute, path: '/culture', component: HeritagePage })
@@ -1267,10 +1496,17 @@ const silverGameRoute = createRoute({ getParentRoute: () => rootRoute, path: '/g
 const xiaoxiaoleGameRoute = createRoute({ getParentRoute: () => rootRoute, path: '/games/xiaoxiaole', component: XiaoxiaoleGamePage })
 const miaoLanguageGameRoute = createRoute({ getParentRoute: () => rootRoute, path: '/games/miao-language', component: MiaoLanguageGamePage })
 const waxDyeGameRoute = createRoute({ getParentRoute: () => rootRoute, path: '/games/wax-dye', component: WaxDyeGamePage })
+<<<<<<< HEAD
 const router = createRouter({ routeTree: rootRoute.addChildren([indexRoute, mapRoute, miniappHomeRoute, miniappMapRoute, miniappAvatarRoute, miniappHongsuantangGameRoute, miniappMiaoFeastGameRoute, miniappSilverGameRoute, miniappXiaoxiaoleGameRoute, miniappMiaoLanguageGameRoute, miniappWaxDyeGameRoute, heritageRoute, workshopRoute, cultureRoute, hongsuantangGameRoute, miaoFeastGameRoute, silverGameRoute, xiaoxiaoleGameRoute, miaoLanguageGameRoute, waxDyeGameRoute]) })
 declare module '@tanstack/react-router' { interface Register { router: typeof router } }
 function App() {
   const [showIntro, setShowIntro] = useState(() => !window.location.pathname.startsWith("/games/") && !window.location.pathname.startsWith("/miniapp/"))
+=======
+const router = createRouter({ routeTree: rootRoute.addChildren([indexRoute, mapRoute, heritageRoute, workshopRoute, cultureRoute, hongsuantangGameRoute, miaoFeastGameRoute, silverGameRoute, xiaoxiaoleGameRoute, miaoLanguageGameRoute, waxDyeGameRoute]) })
+declare module '@tanstack/react-router' { interface Register { router: typeof router } }
+function App() {
+  const [showIntro, setShowIntro] = useState(() => !window.location.pathname.startsWith("/games/"))
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
   const finishIntro = async () => {
     await router.navigate({ to: '/' })
     setShowIntro(false)

@@ -839,6 +839,7 @@
     min-height: 300px;
   }
 }
+<<<<<<< HEAD
 
 .map-model-status {position:absolute;inset:0;z-index:30;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:16px;background:#152e30;color:#f3eddc;font-size:15px}
 .map-model-status button {padding:10px 20px;border:1px solid #b6bc9d;border-radius:20px;cursor:pointer}
@@ -872,3 +873,5 @@
 
 
 .map-access-toggle {position:absolute;top:98px;right:12px;z-index:11;border:1px solid #c9d8c5;background:#23443ded;color:#f5edd7;border-radius:12px;padding:5px 9px;font-size:10px;cursor:pointer}
+=======
+>>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
