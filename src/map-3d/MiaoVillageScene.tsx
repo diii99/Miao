@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-<<<<<<< HEAD
 import { routeTo, snapToWalkway, walkableStep } from './navigation'
 import { createMiaoAvatar, OUTFIT_PRESETS, type AvatarRig } from './avatar'
 import { buildMiaoVillage, LANDMARK_POIS, type LandmarkPOI } from './villageBuilder'
@@ -9,15 +8,6 @@ import { miaoSound } from './audioAmbiance'
 
 export type TimeOfDay = 'morning' | 'day' | 'sunset' | 'night'
 export type CameraMode = 'follow' | 'panoramic' | 'photo' | 'lookout' | 'landmark'
-=======
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { createMiaoAvatar, OUTFIT_PRESETS, type AvatarRig } from './avatar'
-import { buildMiaoVillage, getTerrainHeight, LANDMARK_POIS, type LandmarkPOI } from './villageBuilder'
-import { miaoSound } from './audioAmbiance'
-
-export type TimeOfDay = 'morning' | 'day' | 'sunset' | 'night'
-export type CameraMode = 'follow' | 'panoramic' | 'photo'
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 
 export interface VillagePlace {
   name: string
@@ -33,10 +23,7 @@ type Props = {
   onSelect?: (index: number) => void
   onWalkingChange?: (walking: boolean) => void
   onOpenExplore?: (poi: LandmarkPOI) => void
-<<<<<<< HEAD
   onReady?: () => void
-=======
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 }
 
 const TIME_CONFIGS: Record<TimeOfDay, {
@@ -69,7 +56,6 @@ const TIME_CONFIGS: Record<TimeOfDay, {
   },
   day: {
     name: '晴空丽日',
-<<<<<<< HEAD
     sky: 0xdce4e8,
     fog: 0xdce4e8,
     sunColor: 0xfffaf2,
@@ -79,17 +65,6 @@ const TIME_CONFIGS: Record<TimeOfDay, {
     hemiGround: 0x2e4726,
     hemiIntensity: 1.15,
     windowEmissive: 0,
-=======
-    sky: 0x76b5d9,
-    fog: 0x92cce5,
-    sunColor: 0xfff3d6,
-    sunIntensity: 3.6,
-    sunPos: [-10, 22, 10],
-    hemiSky: 0xe5f5ff,
-    hemiGround: 0x2e4726,
-    hemiIntensity: 2.2,
-    windowEmissive: 0.2,
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     windowEmissiveColor: 0xffbb55,
     lanternIntensity: 0.2,
   },
@@ -114,29 +89,19 @@ const TIME_CONFIGS: Record<TimeOfDay, {
     sunColor: 0x5a7ca8,
     sunIntensity: 0.8,
     sunPos: [-12, 16, 8],
-<<<<<<< HEAD
     hemiSky: 0x536b8b,
     hemiGround: 0x24382e,
     hemiIntensity: 1.5,
-=======
-    hemiSky: 0x1a2e4a,
-    hemiGround: 0x08120c,
-    hemiIntensity: 0.9,
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     windowEmissive: 2.4,
     windowEmissiveColor: 0xff8800,
     lanternIntensity: 2.2,
   },
 }
 
-<<<<<<< HEAD
 export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore, onReady }: Props) {
   const labelRefs = useRef(new Map<string, HTMLButtonElement>())
   const [showAccess, setShowAccess] = useState(false)
   const [focusedPOI, setFocusedPOI] = useState<LandmarkPOI | null>(null)
-=======
-export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore }: Props) {
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
   const containerRef = useRef<HTMLDivElement>(null)
 
   // Interactive UI States
@@ -152,7 +117,6 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
   const [isLushengViewerOpen, setIsLushengViewerOpen] = useState(false)
   const [isLushengCopyOpen, setIsLushengCopyOpen] = useState(true)
 
-<<<<<<< HEAD
   const [localPOI, setLocalPOI] = useState<LandmarkPOI | null>(null)
   const [loadState, setLoadState] = useState<'loading' | 'ready' | 'error'>('loading')
   const [loadAttempt, setLoadAttempt] = useState(0)
@@ -160,8 +124,6 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
   stateRef.current = { cameraMode, isSprinting, isDancing, nearbyPOI, timeOfDay }
   const routeRef = useRef<Array<{ x: number; y: number; z: number }>>([])
 
-=======
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
   // Joystick state
   const joystickRef = useRef<{ x: number; y: number; active: boolean }>({ x: 0, y: 0, active: false })
   const [joystickPos, setJoystickPos] = useState({ x: 0, y: 0 })
@@ -184,24 +146,15 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
   } | null>(null)
 
   // Keep latest callbacks
-<<<<<<< HEAD
   const callbacksRef = useRef({ onWalkingChange, onOpenExplore: onOpenExplore ?? setLocalPOI, onReady })
   callbacksRef.current = { onWalkingChange, onOpenExplore: onOpenExplore ?? setLocalPOI, onReady }
 
   // Camera presets
   const handleSetCameraPreset = useCallback((preset: 'overview' | 'follow' | 'photo' | 'lookout') => {
-=======
-  const callbacksRef = useRef({ onWalkingChange, onOpenExplore })
-  callbacksRef.current = { onWalkingChange, onOpenExplore }
-
-  // Camera presets
-  const handleSetCameraPreset = useCallback((preset: 'overview' | 'follow' | 'photo') => {
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     if (!sceneContext.current) return
     const { camera, controls, avatar } = sceneContext.current
     if (preset === 'overview') {
       setCameraMode('panoramic')
-<<<<<<< HEAD
       controls.target.set(0, 2, -2)
       camera.position.set(42, 48, 65).multiplyScalar(camera.aspect < .8 ? 1.8 : 1)
     } else if (preset === 'lookout') {
@@ -209,10 +162,6 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
       const p = LANDMARK_POIS.find(p => p.id === 'lookout')!.position
       camera.position.set(p[0], p[1] + 2.8, p[2] - 2)
       controls.target.set(0, 1, 7)
-=======
-      controls.target.set(0, 1.2, 0)
-      camera.position.set(0, 34, 0.6)
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     } else if (preset === 'follow') {
       setCameraMode('follow')
       const aPos = avatar.group.position
@@ -226,7 +175,6 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
     }
   }, [])
 
-<<<<<<< HEAD
   const focusLandmark = useCallback((poi: LandmarkPOI) => {
     const context = sceneContext.current
     if (!context) return
@@ -239,21 +187,14 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
     context.camera.position.set(x + 9 * distance, y + 14 * distance, z + 19 * distance)
   }, [])
 
-=======
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
   // Navigate to a specific landmark
   const navigateToLandmark = useCallback((poi: LandmarkPOI) => {
     if (!sceneContext.current) return
     const [tx, , tz] = poi.position
-<<<<<<< HEAD
     const target = snapToWalkway(tx, tz)
     const targetY = target.y
     routeRef.current = routeTo(sceneContext.current.avatar.group.position, target)
     sceneContext.current.targetPos.set(target.x, target.y, target.z)
-=======
-    const targetY = getTerrainHeight(tx, tz)
-    sceneContext.current.targetPos.set(tx, targetY, tz)
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     sceneContext.current.beaconMesh.position.set(tx, targetY + 0.12, tz)
     sceneContext.current.beaconMesh.visible = true
     sceneContext.current.isMoving = true
@@ -266,12 +207,9 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
     const container = containerRef.current
     if (!container) return
 
-<<<<<<< HEAD
     let disposed = false
     setLoadState('loading')
     document.documentElement.classList.remove('miniapp-map-booting')
-=======
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     const width = container.clientWidth || window.innerWidth
     const height = container.clientHeight || window.innerHeight
 
@@ -279,37 +217,21 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
     const scene = new THREE.Scene()
     const timeConf = TIME_CONFIGS[timeOfDay]
     scene.background = new THREE.Color(timeConf.sky)
-<<<<<<< HEAD
     scene.fog = new THREE.FogExp2(timeConf.fog, 0.002)
-=======
-    scene.fog = new THREE.FogExp2(timeConf.fog, 0.018)
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 
     // Camera with large far clipping plane for deep zooming out
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 400)
     // Start in the same overhead composition as “宏观全景”, centred on 芦笙场.
-<<<<<<< HEAD
     camera.position.set(42, 48, 65).multiplyScalar(camera.aspect < .8 ? 1.8 : 1)
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' })
     renderer.setSize(width, height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
-=======
-    camera.position.set(0, 34, 0.6)
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' })
-    renderer.setSize(width, height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     renderer.shadowMap.enabled = true
     renderer.shadowMap.type = THREE.PCFSoftShadowMap
     renderer.outputColorSpace = THREE.SRGBColorSpace
     renderer.toneMapping = THREE.ACESFilmicToneMapping
-<<<<<<< HEAD
     renderer.toneMappingExposure = .95
-=======
-    renderer.toneMappingExposure = 1.15
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 
     container.innerHTML = ''
     container.appendChild(renderer.domElement)
@@ -322,17 +244,10 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
     sunLight.position.set(...timeConf.sunPos)
     sunLight.castShadow = true
     sunLight.shadow.mapSize.set(2048, 2048)
-<<<<<<< HEAD
     sunLight.shadow.camera.left = -45
     sunLight.shadow.camera.right = 45
     sunLight.shadow.camera.top = 45
     sunLight.shadow.camera.bottom = -45
-=======
-    sunLight.shadow.camera.left = -28
-    sunLight.shadow.camera.right = 28
-    sunLight.shadow.camera.top = 28
-    sunLight.shadow.camera.bottom = -28
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     sunLight.shadow.camera.near = 0.5
     sunLight.shadow.camera.far = 100
     sunLight.shadow.bias = -0.0004
@@ -343,26 +258,17 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
     controls.enableDamping = true
     controls.dampingFactor = 0.08
     controls.minDistance = 1.0
-<<<<<<< HEAD
     controls.maxDistance = 200.0
-=======
-    controls.maxDistance = 120.0
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     controls.maxPolarAngle = Math.PI * 0.485
     controls.minPolarAngle = 0.02
     controls.zoomSpeed = 1.25
     controls.enableZoom = true
-<<<<<<< HEAD
     controls.target.set(0, 2, -2)
-=======
-    controls.target.set(0, 1.2, 0)
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 
     // 4. Build Real 3D Miao Village Scene
     const village = buildMiaoVillage()
     scene.add(village.group)
 
-<<<<<<< HEAD
     let modelReady = false
     village.ready.then(() => {
       if (disposed) return
@@ -371,51 +277,12 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
       modelReady = true
       setLoadState('ready')
     }).catch(error => { if (!disposed) { console.error('Map model failed to load', error); setLoadState('error') } })
-=======
-    // Lux3D landmarks sit on top of the hand-built village so the map keeps its
-    // authored terrain, paths, and fallbacks while the signature places gain detail.
-    const gltfLoader = new GLTFLoader()
-    const luxModels = [
-      { id: 'silver', url: '/map-assets/models/silver-workshop.glb', size: 4.4 },
-      { id: 'embroidery', url: '/map-assets/models/embroidery-workshop.glb', size: 4.8 },
-      { id: 'lookout', url: '/map-assets/models/museum.glb', size: 5.8 },
-      { id: 'batik', url: '/map-assets/models/batik-workshop.glb', size: 4.8 },
-      { id: 'banquet', url: '/map-assets/models/long-table-pavilion.glb', size: 5.6 },
-      { id: 'lusheng', url: '/map-assets/models/lusheng.glb', size: 3.4 },
-    ] as const
-
-    luxModels.forEach(({ id, url, size }) => {
-      const poi = LANDMARK_POIS.find((item) => item.id === id)
-      if (!poi) return
-      gltfLoader.load(url, (gltf) => {
-        const model = gltf.scene
-        const initialBounds = new THREE.Box3().setFromObject(model)
-        const initialSize = initialBounds.getSize(new THREE.Vector3())
-        const largestAxis = Math.max(initialSize.x, initialSize.z, 0.001)
-        model.scale.setScalar(size / largestAxis)
-        const scaledBounds = new THREE.Box3().setFromObject(model)
-        model.position.set(poi.position[0], getTerrainHeight(poi.position[0], poi.position[2]) - scaledBounds.min.y, poi.position[2])
-        model.traverse((child) => {
-          child.userData.poiId = id
-          if (child instanceof THREE.Mesh) {
-            child.castShadow = true
-            child.receiveShadow = true
-          }
-        })
-        village.group.add(model)
-      })
-    })
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 
     // 5. Create 3D Animated Miao Girl Avatar
     const avatar = createMiaoAvatar(outfitIndex)
     const startPOI = LANDMARK_POIS[1] // Lusheng Plaza
-<<<<<<< HEAD
     const startY = startPOI.position[1]
     avatar.group.scale.setScalar(.48)
-=======
-    const startY = getTerrainHeight(startPOI.position[0], startPOI.position[2])
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     avatar.group.position.set(startPOI.position[0], startY, startPOI.position[2])
     scene.add(avatar.group)
 
@@ -453,26 +320,17 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
     const raycaster = new THREE.Raycaster()
     const mousePointer = new THREE.Vector2()
 
-<<<<<<< HEAD
     let pointerStart = { x: 0, y: 0 }
     const handlePointerDown = (e: PointerEvent) => { pointerStart = { x: e.clientX, y: e.clientY } }
     renderer.domElement.addEventListener('pointerdown', handlePointerDown)
     const handlePointerUp = (e: PointerEvent) => {
       if (!modelReady || Math.hypot(e.clientX - pointerStart.x, e.clientY - pointerStart.y) > 6) return
-=======
-    const handlePointerUp = (e: PointerEvent) => {
-      if (Math.abs(e.movementX) > 5 || Math.abs(e.movementY) > 5) return
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
       const rect = renderer.domElement.getBoundingClientRect()
       mousePointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1
       mousePointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1
 
       raycaster.setFromCamera(mousePointer, camera)
-<<<<<<< HEAD
       const hits = raycaster.intersectObjects(village.group.children, true)
-=======
-      const hits = raycaster.intersectObjects(scene.children, true)
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
       if (hits.length > 0) {
         const hit = hits[0]
         let landmarkObject: THREE.Object3D | null = hit.object
@@ -483,45 +341,27 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
         if (landmark) {
           const [lx, , lz] = landmark.position
           const distanceToLandmark = Math.hypot(avatar.group.position.x - lx, avatar.group.position.z - lz)
-<<<<<<< HEAD
           if (distanceToLandmark < 1.6) {
-=======
-          if (distanceToLandmark < 4) {
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
             if (landmark.id === 'lusheng') {
               setIsLushengCopyOpen(true)
               setIsLushengViewerOpen(true)
             }
             else callbacksRef.current.onOpenExplore?.(landmark)
           } else {
-<<<<<<< HEAD
             const target = snapToWalkway(lx, lz)
             routeRef.current = routeTo(avatar.group.position, target)
             targetPos.copy(target)
             beaconMesh.position.set(target.x, target.y + .1, target.z)
-=======
-            targetPos.set(lx, getTerrainHeight(lx, lz), lz)
-            beaconMesh.position.set(lx, getTerrainHeight(lx, lz) + 0.1, lz)
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
             beaconMesh.visible = true
             sceneContext.current!.isMoving = true
             callbacksRef.current.onWalkingChange?.(true)
           }
           return
         }
-<<<<<<< HEAD
         const target = snapToWalkway(hit.point.x, hit.point.z)
         routeRef.current = routeTo(avatar.group.position, target)
         targetPos.copy(target)
         beaconMesh.position.set(target.x, target.y + .1, target.z)
-=======
-        const hx = THREE.MathUtils.clamp(hit.point.x, -18, 18)
-        const hz = THREE.MathUtils.clamp(hit.point.z, -18, 18)
-        const hy = getTerrainHeight(hx, hz)
-
-        targetPos.set(hx, hy, hz)
-        beaconMesh.position.set(hx, hy + 0.1, hz)
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
         beaconMesh.visible = true
         sceneContext.current!.isMoving = true
         callbacksRef.current.onWalkingChange?.(true)
@@ -532,11 +372,8 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
     // 7. Keyboard Navigation (WASD / Arrow Keys)
     const keysDown = new Set<string>()
     const handleKeyDown = (e: KeyboardEvent) => {
-<<<<<<< HEAD
       if ((e.target as HTMLElement)?.closest('input, textarea, select')) return
       if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) e.preventDefault()
-=======
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
       keysDown.add(e.key.toLowerCase())
       if (e.key === 'Shift') setIsSprinting(true)
       if (e.key === ' ' || e.code === 'Space') {
@@ -545,14 +382,9 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
         miaoSound.playLushengNote()
       }
       if (e.key.toLowerCase() === 'e') {
-<<<<<<< HEAD
         if (stateRef.current.nearbyPOI) {
           if (stateRef.current.nearbyPOI.id === 'lusheng') { setIsLushengViewerOpen(true); setIsLushengCopyOpen(true) }
           else callbacksRef.current.onOpenExplore?.(stateRef.current.nearbyPOI)
-=======
-        if (nearbyPOI) {
-          callbacksRef.current.onOpenExplore?.(nearbyPOI)
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
         }
       }
     }
@@ -562,11 +394,8 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
     }
     window.addEventListener('keydown', handleKeyDown)
     window.addEventListener('keyup', handleKeyUp)
-<<<<<<< HEAD
     const handleBlur = () => { keysDown.clear(); setIsSprinting(false); joystickRef.current.active = false }
     window.addEventListener('blur', handleBlur)
-=======
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 
     // Resize Handler
     const handleResize = () => {
@@ -578,28 +407,19 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
       renderer.setSize(w, h)
     }
     window.addEventListener('resize', handleResize)
-<<<<<<< HEAD
     const resizeObserver = new ResizeObserver(handleResize)
     resizeObserver.observe(container)
-=======
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 
     // 8. Main Animation Loop
     const clock = new THREE.Clock()
     let animId = 0
-<<<<<<< HEAD
     let hasRendered = false
-=======
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 
     const animate = () => {
       animId = requestAnimationFrame(animate)
       const delta = Math.min(clock.getDelta(), 0.1)
       const elapsed = clock.getElapsedTime()
-<<<<<<< HEAD
       const { cameraMode, isSprinting, isDancing } = stateRef.current
-=======
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 
       // Update Village Scene (waterwheel, smoke particles, petals, cloths, NPCs)
       village.updateScene(delta, elapsed)
@@ -626,11 +446,7 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
 
       const hasManualInput = Math.abs(moveX) > 0.05 || Math.abs(moveZ) > 0.05
 
-<<<<<<< HEAD
       if (hasManualInput && modelReady) {
-=======
-      if (hasManualInput) {
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
         // Camera-relative movement
         const camEuler = new THREE.Euler(0, camera.rotation.y, 0, 'YXZ')
         const forward = new THREE.Vector3(0, 0, -1).applyEuler(camEuler).normalize()
@@ -642,17 +458,10 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
           .normalize()
 
         const moveSpeed = (isSprinting ? 5.2 : 3.0) * delta
-<<<<<<< HEAD
         const candidate = avatar.group.position.clone().addScaledVector(moveDir, moveSpeed)
         const next = walkableStep(candidate.x, candidate.z)
         if (next) avatar.group.position.copy(next)
         routeRef.current = []
-=======
-        avatar.group.position.addScaledVector(moveDir, moveSpeed)
-        avatar.group.position.x = THREE.MathUtils.clamp(avatar.group.position.x, -18, 18)
-        avatar.group.position.z = THREE.MathUtils.clamp(avatar.group.position.z, -18, 18)
-        avatar.group.position.y = getTerrainHeight(avatar.group.position.x, avatar.group.position.z)
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 
         // Turn towards movement direction
         const targetAngle = Math.atan2(moveDir.x, moveDir.z)
@@ -671,7 +480,6 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
       } else {
         // Target-following movement (Click to Move)
         const curPos = avatar.group.position
-<<<<<<< HEAD
         while (routeRef.current.length && Math.hypot(routeRef.current[0].x - curPos.x, routeRef.current[0].z - curPos.z) < .09) routeRef.current.shift()
         const waypoint = routeRef.current[0]
         const dist = waypoint ? Math.hypot(waypoint.x - curPos.x, waypoint.z - curPos.z) : 0
@@ -681,15 +489,6 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
           const nextDir = new THREE.Vector3(waypoint.x - curPos.x, 0, waypoint.z - curPos.z).normalize()
           curPos.addScaledVector(nextDir, Math.min(dist, moveSpeed))
           curPos.y = waypoint.y
-=======
-        const dist = Math.hypot(targetPos.x - curPos.x, targetPos.z - curPos.z)
-
-        if (dist > 0.12) {
-          const moveSpeed = (isSprinting ? 4.8 : 2.8) * delta
-          const nextDir = new THREE.Vector3(targetPos.x - curPos.x, 0, targetPos.z - curPos.z).normalize()
-          curPos.addScaledVector(nextDir, Math.min(dist, moveSpeed))
-          curPos.y = getTerrainHeight(curPos.x, curPos.z)
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 
           const targetAngle = Math.atan2(nextDir.x, nextDir.z)
           avatar.group.rotation.y = THREE.MathUtils.lerp(avatar.group.rotation.y, targetAngle, 0.18)
@@ -722,11 +521,7 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
 
       // Check Proximity to Landmark POIs
       let closest: LandmarkPOI | null = null
-<<<<<<< HEAD
       let minDist = 1.6
-=======
-      let minDist = 4.0
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
       for (const poi of LANDMARK_POIS) {
         const [px, , pz] = poi.position
         const d = Math.hypot(avatar.group.position.x - px, avatar.group.position.z - pz)
@@ -748,11 +543,7 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
           camera.position.add(step)
         }
       } else if (cameraMode === 'panoramic') {
-<<<<<<< HEAD
         const centerPos = new THREE.Vector3(0, 2, -2)
-=======
-        const centerPos = new THREE.Vector3(0, 1.2, 0)
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
         const deltaTarget = centerPos.clone().sub(controls.target)
         if (deltaTarget.lengthSq() > 0.00001) {
           controls.target.add(deltaTarget.multiplyScalar(0.08))
@@ -766,7 +557,6 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
       }
 
       controls.update()
-<<<<<<< HEAD
       // Project DOM labels without a React render per animation frame.
       const labelBounds: Array<{ x: number; y: number; w: number; h: number }> = []
       for (const poi of [...LANDMARK_POIS].sort((a, b) => Number(b.id === 'lusheng') - Number(a.id === 'lusheng'))) {
@@ -789,14 +579,10 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
         hasRendered = true
         callbacksRef.current.onReady?.()
       }
-=======
-      renderer.render(scene, camera)
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
     }
     animate()
 
     return () => {
-<<<<<<< HEAD
       disposed = true
       routeRef.current = []
       resizeObserver.disconnect()
@@ -805,14 +591,10 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
       cancelAnimationFrame(animId)
       renderer.domElement.removeEventListener('pointerdown', handlePointerDown)
       window.removeEventListener('blur', handleBlur)
-=======
-      cancelAnimationFrame(animId)
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
       renderer.domElement.removeEventListener('pointerup', handlePointerUp)
       window.removeEventListener('keydown', handleKeyDown)
       window.removeEventListener('keyup', handleKeyUp)
       window.removeEventListener('resize', handleResize)
-<<<<<<< HEAD
       const geometries = new Set<THREE.BufferGeometry>()
       const materials = new Set<THREE.Material>()
       avatar.group.traverse(child => {
@@ -823,19 +605,13 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
       })
       geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose())
       beaconGeo.dispose(); beaconMat.dispose()
-=======
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
       controls.dispose()
       renderer.dispose()
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement)
       }
     }
-<<<<<<< HEAD
   }, [loadAttempt])
-=======
-  }, [])
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 
   // Apply Time of Day Lighting & Atmosphere
   useEffect(() => {
@@ -844,11 +620,7 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
     const conf = TIME_CONFIGS[timeOfDay]
 
     scene.background = new THREE.Color(conf.sky)
-<<<<<<< HEAD
     scene.fog = new THREE.FogExp2(conf.fog, timeOfDay === 'night' ? 0.0045 : 0.002)
-=======
-    scene.fog = new THREE.FogExp2(conf.fog, timeOfDay === 'night' ? 0.024 : 0.016)
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
 
     sunLight.color.setHex(conf.sunColor)
     sunLight.intensity = conf.sunIntensity
@@ -908,7 +680,6 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
       {/* 3D WebGL Canvas Viewport */}
       <div ref={containerRef} className="miao-3d-canvas-viewport" />
 
-<<<<<<< HEAD
       {loadState !== 'ready' && <div className="map-model-status" role="status">
         <strong>{loadState === 'loading' ? '正在展开河谷与千户屋顶…' : '地图模型加载失败'}</strong>
         {loadState === 'error' && <button type="button" onClick={() => setLoadAttempt(n => n + 1)}>重新加载</button>}
@@ -940,13 +711,6 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
         <div className="scene-brand">
           <h1>西江 · 河谷千户</h1>
           <button type="button" className="find-lusheng" disabled={loadState !== 'ready'} onClick={() => focusLandmark(LANDMARK_POIS.find(p => p.id === 'lusheng')!)}>⌖ 芦笙广场在哪里</button>
-=======
-      {/* Top HUD: Title & Weather/Time of Day Switcher */}
-      <header className="scene-top-hud">
-        <div className="scene-brand">
-          <h1>西江千户苗寨 模拟地图</h1>
-          <p>滚轮/双指自由缩放 · 俯瞰苗乡山水市井</p>
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
         </div>
 
         {/* Time of Day Switcher */}
@@ -1035,7 +799,6 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
             <button
               key={poi.id}
               type="button"
-<<<<<<< HEAD
               disabled={loadState !== 'ready'}
               className={`landmark-pill ${currentSelectedIdx === idx ? 'active' : ''}`}
               onClick={() => {
@@ -1045,15 +808,6 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
             >
               <span className="poi-icon">
                 {!['gate','lusheng','bridge','batik','silver','embroidery','banquet','museum','lookout'].includes(poi.kind) && '⌖'}
-=======
-              className={`landmark-pill ${currentSelectedIdx === idx ? 'active' : ''}`}
-              onClick={() => {
-                setCurrentSelectedIdx(idx)
-                navigateToLandmark(poi)
-              }}
-            >
-              <span className="poi-icon">
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
                 {poi.kind === 'gate' && '⛩️'}
                 {poi.kind === 'lusheng' && '🥁'}
                 {poi.kind === 'bridge' && '🌉'}
@@ -1061,11 +815,7 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
                 {poi.kind === 'silver' && '🔨'}
                 {poi.kind === 'embroidery' && '🪡'}
                 {poi.kind === 'banquet' && '🍲'}
-<<<<<<< HEAD
                 {poi.kind === 'museum' && '🏛️'}
-=======
-                {poi.kind === 'waterwheel' && '🌊'}
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
                 {poi.kind === 'lookout' && '⛰️'}
               </span>
               <b>{poi.name}</b>
@@ -1080,11 +830,7 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
           <div className="bubble-content">
             <span className="bubble-tag">🌟 已抵达 · {nearbyPOI.title}</span>
             <h3>{nearbyPOI.name}</h3>
-<<<<<<< HEAD
             <p>{nearbyPOI.evidence}</p>
-=======
-            <p>{nearbyPOI.detail}</p>
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
           </div>
           <button
             type="button"
@@ -1094,10 +840,7 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
                 setIsLushengCopyOpen(true)
                 setIsLushengViewerOpen(true)
               }
-<<<<<<< HEAD
               else if (nearbyPOI.id === 'lookout') handleSetCameraPreset('lookout')
-=======
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
               else callbacksRef.current.onOpenExplore?.(nearbyPOI)
             }}
           >
@@ -1133,7 +876,6 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
         <span className="joystick-tip">摇杆移动</span>
       </div>
 
-<<<<<<< HEAD
       {localPOI && <section className="map-local-detail" role="dialog" aria-modal="true" aria-label={`${localPOI.name}详情`}>
         <button className="map-local-close" type="button" onClick={() => setLocalPOI(null)} aria-label="返回苗寨">×</button>
         <small>{localPOI.evidence}</small><h2>{localPOI.name}</h2><p>{localPOI.detail}</p><p>{localPOI.lore}</p>
@@ -1141,8 +883,6 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore 
         {['silver', 'batik', 'banquet'].includes(localPOI.id) && <iframe title={localPOI.name} src={localPOI.id === 'silver' ? '/games/silver/index.html' : localPOI.id === 'batik' ? '/games/wax-dye' : '/games/miao-feast/index.html'} />}
       </section>}
 
-=======
->>>>>>> 9a5c53ba36c3dbf5088f1904f6fe2e4503bbb2e2
       {isLushengViewerOpen && (
         <section className={`lusheng-viewer-modal${isLushengCopyOpen ? '' : ' copy-collapsed'}`} role="dialog" aria-modal="true" aria-label="芦笙细节查看">
           <button type="button" className="lusheng-viewer-close" onClick={() => setIsLushengViewerOpen(false)}>×</button>
