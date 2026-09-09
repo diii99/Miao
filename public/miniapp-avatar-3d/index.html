@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#08192e" />
+    <title>纠笙 · 3D 形象</title>
+    <style>
+      * { box-sizing:border-box; }
+      html, body { width:100%; height:100%; margin:0; overflow:hidden; background:#08192e; }
+      body { color:#f4fbff; font-family:"Noto Serif SC","PingFang SC",serif; }
+      model-viewer { display:block; width:100%; height:100%; --poster-color:transparent; background:radial-gradient(circle at 50% 28%,#466f91 0,#163b62 45%,#07192e 100%); }
+      #loading, #error { position:fixed; z-index:2; inset:0; display:grid; place-content:center; justify-items:center; gap:12px; padding:32px; text-align:center; background:radial-gradient(circle at 50% 35%,#285d7c 0,#0c2a45 48%,#06192c 100%); }
+      #loading[hidden], #error[hidden] { display:none; }
+      .spinner { width:36px; height:36px; border:3px solid #dbeeff45; border-top-color:#dbeeff; border-radius:50%; animation:spin .85s linear infinite; }
+      strong { font-size:17px; letter-spacing:.04em; }
+      p { margin:0; color:#c0d9e9; font-size:12px; letter-spacing:.05em; }
+      #error { background:radial-gradient(circle at 50% 35%,#6b3f47 0,#2e2030 55%,#141827 100%); }
+      @keyframes spin { to { transform:rotate(360deg); } }
+    </style>
+    <script type="module" src="./model-viewer.min.js"></script>
+  </head>
+  <body>
+    <model-viewer id="avatar" src="/models/MiaoGirl_1.glb" alt="苗寨向导纠笙的三维形象" loading="eager" camera-controls auto-rotate auto-rotate-delay="1200" rotation-per-second="18deg" camera-orbit="0deg 78deg 5m" camera-target="0m 0.5m 0m" field-of-view="28deg" shadow-intensity="0.8" shadow-softness="0.9" environment-image="neutral" exposure="1.05"></model-viewer>
+    <section id="loading" role="status" aria-live="polite"><span class="spinner" aria-hidden="true"></span><strong id="loading-title">正在加载纠笙 3D 形象…</strong><p id="loading-copy">仅从服务器获取人物模型</p></section>
+    <section id="error" hidden><strong>3D 形象暂时未能打开</strong><p>请检查网络后返回首页重试。</p></section>
+    <script>
+      const avatar = document.getElementById('avatar')
+      const loading = document.getElementById('loading')
+      const error = document.getElementById('error')
+      const title = document.getElementById('loading-title')
+      const copy = document.getElementById('loading-copy')
+      const waitTimer = window.setTimeout(() => {
+        title.textContent = '3D 形象仍在加载…'
+        copy.textContent = '模型资源较大，请稍候'
+      }, 8000)
+      avatar.addEventListener('load', () => { window.clearTimeout(waitTimer); loading.hidden = true })
+      avatar.addEventListener('error', () => { window.clearTimeout(waitTimer); loading.hidden = true; error.hidden = false })
+    </script>
+  </body>
+</html>

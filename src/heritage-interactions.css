@@ -1,0 +1,150 @@
+.wax-game-entry {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 10px 14px;
+  border: 1px solid #caa36b99;
+  border-radius: 12px;
+  color: #f8e1ad;
+  background: linear-gradient(110deg, #13373d, #31554b);
+  box-shadow: 0 9px 18px #07191a33;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 800;
+  max-width: 100%;
+  box-sizing: border-box;
+  word-break: break-word;
+}
+.wax-game-entry b {
+  font:
+    18px Georgia,
+    serif;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+.wax-game-entry:hover b {
+  transform: translateX(3px);
+}
+
+/* Interaction layer for the immersive heritage archive. */
+.hero-scroll-hint {
+  position: absolute;
+  z-index: 2;
+  bottom: 19px;
+  left: 25px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #f8e4bb;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  max-width: calc(100% - 50px);
+  word-break: break-word;
+}
+.hero-scroll-hint i {
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: #efcc88;
+  position: relative;
+  flex-shrink: 0;
+}
+.hero-scroll-hint i:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -3px;
+  width: 6px;
+  height: 6px;
+  border-right: 1px solid #efcc88;
+  border-bottom: 1px solid #efcc88;
+  transform: rotate(-45deg);
+}
+.archive-navigation {
+  margin: 0 -4px 17px;
+  padding: 0 4px 1px;
+}
+.archive-navigation-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 0 2px 7px;
+  color: #756f64;
+  font-size: 11px;
+}
+.archive-navigation-top b {
+  color: #9b6649;
+  font:
+    600 13px Georgia,
+    serif;
+}
+.archive-navigation-top b i {
+  color: #aaa397;
+  font-style: normal;
+  font-size: 10px;
+}
+.archive-navigation .heritage-picker {
+  margin: 0 -16px 8px;
+}
+.archive-stepper {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 2px;
+}
+.archive-stepper button {
+  display: grid;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  padding: 0;
+  border: 1px solid #ddd6ca;
+  border-radius: 50%;
+  color: #766d61;
+  background: #fffaf1;
+  font:
+    17px/1 Georgia,
+    serif;
+}
+.archive-progress {
+  height: 3px;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 99px;
+  background: #e5ded1;
+}
+.archive-progress i {
+  display: block;
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #b86c49, #e0aa75);
+  transition: width 0.35s ease;
+}
+.stage-object {
+  touch-action: none;
+  cursor: grab;
+}
+.stage-object:active {
+  cursor: grabbing;
+}
+.object-core {
+  transform: translateX(-50%) rotateX(var(--object-x, 8deg))
+    rotateY(var(--object-y, -13deg));
+}
+.heritage-stage.is-3d .object-core {
+  animation: object-rotate 5s ease-in-out infinite;
+}
+.heritage-stage.is-3d .stage-object:active .object-core {
+  animation-play-state: paused;
+}
+.heritage-stage.is-3d .object-tag {
+  color: #f6dfad;
+  background: #ffffff28;
+}
+.heritage-stage.is-3d .object-tag:before {
+  content: "✦ ";
+  color: #eac166;
+}

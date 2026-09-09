@@ -1,0 +1,1028 @@
+/* ==========================================================================
+   MIAO BATIK 3D IMMERSIVE WORKBENCH & IN-MAP GAMEPLAY STYLES
+   ========================================================================== */
+
+.wax-3d-scene-container {
+  position: relative;
+  width: 100%;
+  height: 560px;
+  min-height: 520px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(229, 202, 145, 0.45);
+  background: radial-gradient(circle at 75% 20%, #153b3d 0%, #08191f 65%, #040e12 100%);
+  box-shadow: inset 0 1px 1px rgba(255, 244, 220, 0.15), 0 20px 40px rgba(0, 0, 0, 0.6);
+  isolation: isolate;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 640px) {
+  .wax-3d-scene-container,
+  .full-3d-map-container {
+    height: 620px;
+  }
+}
+
+.three-canvas-root {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  cursor: grab;
+}
+
+.three-canvas-root:active {
+  cursor: grabbing;
+}
+
+/* Loading Overlay */
+.scene-loader-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  background: rgba(6, 20, 26, 0.94);
+  backdrop-filter: blur(10px);
+}
+
+.loader-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  max-width: 290px;
+}
+
+.spinner-symbol {
+  font-size: 26px;
+  color: #dfaa5e;
+  animation: spin 3s linear infinite;
+}
+
+.loader-box b {
+  color: #f7ebd4;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.progress-track {
+  width: 220px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 99px;
+  overflow: hidden;
+  margin: 4px 0;
+}
+
+.progress-track i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #d69846, #f3cf8c);
+  border-radius: inherit;
+  transition: width 0.3s ease;
+}
+
+.loader-box small {
+  color: #a4bebe;
+  font-size: 10px;
+}
+
+/* Top Preset Camera Bar (Clean in-map view switcher) */
+.in-map-camera-bar {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.hud-view-presets {
+  display: flex;
+  gap: 6px;
+  pointer-events: auto;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.hud-view-presets button {
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(235, 210, 150, 0.35);
+  background: rgba(8, 26, 32, 0.82);
+  backdrop-filter: blur(6px);
+  color: #dbe4e0;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.hud-view-presets button:hover,
+.hud-view-presets button.is-active {
+  background: #dfaa5e;
+  border-color: #f7e0aa;
+  color: #172428;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Step 1 Interactive Knife Pickup Callout */
+.knife-pickup-callout {
+  position: absolute;
+  top: 50%;
+  right: 16%;
+  z-index: 22;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 90%;
+  animation: floatBounce 2.4s ease-in-out infinite;
+}
+
+.callout-pulse {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(223, 170, 94, 0.4);
+  animation: pulseScale 1.8s ease-out infinite;
+  pointer-events: none;
+}
+
+.callout-btn {
+  position: relative;
+  z-index: 2;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1.5px solid #f5cf7b;
+  background: linear-gradient(135deg, #f5d48f, #dfa65d);
+  color: #172427;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(245, 212, 143, 0.4);
+  cursor: pointer;
+  white-space: normal;
+  word-break: break-word;
+  text-align: center;
+  line-height: 1.35;
+  transition: transform 0.15s;
+}
+
+.callout-btn:hover {
+  transform: scale(1.06);
+}
+
+/* Step 2 In-Map Workstation Panel */
+.in-map-workstation-panel {
+  position: absolute;
+  bottom: 12px;
+  left: 8px;
+  right: 8px;
+  z-index: 22;
+  background: rgba(8, 24, 30, 0.94);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(240, 216, 157, 0.45);
+  border-radius: 14px;
+  padding: 10px 14px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 520px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.workstation-info h3 {
+  margin: 0 0 3px;
+  color: #f7ebd4;
+  font-size: 13px;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.workstation-info p {
+  margin: 0;
+  color: #c9dbd5;
+  font-size: 11px;
+  line-height: 1.35;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.workstation-meters {
+  display: grid;
+  gap: 5px;
+}
+
+.workstation-meters label {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 8px;
+  color: #b9c9c1;
+  font-size: 10px;
+  min-width: 0;
+}
+
+.workstation-meters b {
+  color: #f3d191;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.workstation-meters i {
+  height: 5px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.workstation-meters em {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #dfa15b, #f5d28c);
+  transition: width 0.35s ease;
+}
+
+.workstation-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.btn-group {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.in-map-btn {
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: normal;
+  word-break: break-word;
+  text-align: center;
+  line-height: 1.35;
+  transition: transform 0.15s;
+  min-width: 0;
+}
+
+.in-map-btn.primary {
+  flex: 1 1 140px;
+  border: 0;
+  background: linear-gradient(135deg, #f2d48f, #dfa65d);
+  color: #172427;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.in-map-btn.secondary {
+  border: 1px solid rgba(240, 216, 157, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f5ebd4;
+}
+
+.in-map-btn:hover {
+  transform: scale(1.02);
+}
+
+/* Tool Inspector Card */
+.tool-inspector-card {
+  position: absolute;
+  bottom: 60px;
+  left: 10px;
+  right: 10px;
+  max-width: 380px;
+  max-height: 75%;
+  overflow-y: auto;
+  margin: 0 auto;
+  z-index: 25;
+  background: rgba(10, 27, 34, 0.96);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(240, 216, 157, 0.65);
+  border-radius: 14px;
+  padding: 10px 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.75);
+  animation: slideUp 0.3s ease;
+  box-sizing: border-box;
+}
+
+.inspector-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.inspector-icon {
+  font-size: 20px;
+}
+
+.inspector-head div {
+  flex: 1;
+  min-width: 0;
+}
+
+.inspector-head h3 {
+  margin: 0;
+  color: #fbeed5;
+  font-size: 13px;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.inspector-head small {
+  color: #d5a359;
+  font-size: 10px;
+  word-break: break-word;
+}
+
+.close-btn {
+  background: transparent;
+  border: 0;
+  color: #a4bebe;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 6px;
+  flex-shrink: 0;
+}
+
+.inspector-desc {
+  margin: 0 0 8px;
+  color: #d9e4de;
+  font-size: 11px;
+  line-height: 1.45;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.inspector-tip {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  background: rgba(223, 170, 94, 0.15);
+  border-left: 3px solid #dfaa5e;
+  border-radius: 4px;
+  padding: 6px 8px;
+}
+
+.inspector-tip span {
+  color: #f0cf8b;
+  font-size: 9px;
+  font-weight: 800;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.inspector-tip p {
+  margin: 0;
+  color: #c9dbd5;
+  font-size: 10px;
+  line-height: 1.4;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  min-width: 0;
+  flex: 1;
+}
+
+/* Phase Quick Controls in 3D Scene */
+.scene-phase-controls {
+  position: absolute;
+  bottom: 10px;
+  left: 8px;
+  right: 8px;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.phase-action-banner {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: rgba(7, 21, 27, 0.94);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(230, 200, 140, 0.45);
+  border-radius: 12px;
+  padding: 8px 12px;
+  width: 100%;
+  max-width: 520px;
+  box-sizing: border-box;
+}
+
+.phase-action-banner > div:first-child {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.phase-action-banner p {
+  margin: 0;
+  color: #e5ece8;
+  font-size: 11px;
+  line-height: 1.35;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.mini-progress-bar {
+  width: 100%;
+  max-width: 160px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.mini-progress-bar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #dfa65d, #f2d48f);
+  border-radius: inherit;
+  transition: width 0.2s ease;
+}
+
+.btn-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.action-btn {
+  border: 0;
+  border-radius: 10px;
+  padding: 7px 12px;
+  font-weight: 700;
+  font-size: 11px;
+  cursor: pointer;
+  white-space: normal;
+  word-break: break-word;
+  text-align: center;
+  line-height: 1.3;
+  transition: transform 0.15s;
+  min-width: 0;
+}
+
+.action-btn.primary {
+  background: linear-gradient(135deg, #f2d48f, #dfa65d);
+  color: #172427;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.action-btn.secondary {
+  border: 1px solid rgba(240, 216, 157, 0.45);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f7ebd4;
+}
+
+.action-btn:hover {
+  transform: scale(1.03);
+}
+
+@media (max-width: 480px) {
+  .phase-action-banner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 8px 10px;
+  }
+
+  .phase-action-banner > div:first-child {
+    width: 100%;
+  }
+
+  .phase-action-banner .mini-progress-bar {
+    max-width: 100%;
+  }
+
+  .phase-action-banner .btn-row {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .phase-action-banner .btn-row .action-btn,
+  .phase-action-banner > .action-btn {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   IN-MAP DRAWING OVERLAY & 12 PATTERNS (Completely Inside 3D Map Viewport)
+   ========================================================================== */
+
+.in-map-drawer-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 26;
+  background: rgba(6, 18, 24, 0.55);
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 12px 14px;
+  overflow-y: auto;
+}
+
+.in-map-draw-panel {
+  margin-top: 0;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.pattern-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(8, 24, 30, 0.85);
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(240, 216, 157, 0.35);
+  min-width: 0;
+}
+
+.pattern-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.pattern-label {
+  color: #dfaa5e;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.pattern-count {
+  color: #a4bebe;
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+.pattern-chips {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.pattern-chip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(240, 216, 157, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  color: #e5ece8;
+  font-size: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.pattern-chip span {
+  font-size: 12px;
+}
+
+.pattern-chip small {
+  padding: 1px 3px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  color: #e6b86e;
+  font-size: 8px;
+}
+
+.pattern-chip.is-selected {
+  background: rgba(223, 170, 94, 0.3);
+  border-color: #f2d48f;
+  color: #fff6de;
+  box-shadow: 0 0 8px rgba(223, 170, 94, 0.4);
+}
+
+.pattern-desc {
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 6px;
+  padding: 4px 8px;
+  min-width: 0;
+}
+
+.pattern-desc p {
+  margin: 0;
+  color: #c9dbd5;
+  font-size: 10px;
+  line-height: 1.35;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.pattern-desc b {
+  color: #f7d286;
+}
+
+.pattern-subname {
+  color: #dfaa5e;
+  font-size: 9px;
+}
+
+/* Cloth Canvas Wrapper (Centered directly inside the 3D map) */
+.cloth-canvas-wrapper {
+  position: relative;
+  width: min(78vw, 320px);
+  height: min(78vw, 320px);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  border: 6px solid #c9bca4;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+  background: #eee5d4;
+}
+
+@media (min-width: 640px) {
+  .cloth-canvas-wrapper {
+    width: 360px;
+    height: 360px;
+  }
+}
+
+.wax-interactive-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.canvas-guide-overlay-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.canvas-badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  display: flex;
+  gap: 6px;
+  background: rgba(30, 20, 10, 0.8);
+  border: 1px solid rgba(220, 180, 120, 0.45);
+  border-radius: 6px;
+  padding: 2px 7px;
+  color: #fff2d4;
+  font-size: 9px;
+  font-weight: 700;
+  pointer-events: none;
+  max-width: calc(100% - 12px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.canvas-badge b {
+  color: #f5cf7b;
+}
+
+/* Toolbar */
+.draw-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  background: rgba(8, 24, 30, 0.85);
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(240, 216, 157, 0.3);
+}
+
+.brush-size-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.brush-size-group span {
+  color: #adc4be;
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.brush-size-group button {
+  padding: 4px 7px;
+  border-radius: 6px;
+  border: 1px solid rgba(240, 216, 157, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  color: #dbe4e0;
+  font-size: 9px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.brush-size-group button.is-active {
+  background: #dfaa5e;
+  border-color: #f5d48f;
+  color: #1a2528;
+  font-weight: 700;
+}
+
+.canvas-action-group {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.tool-btn {
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(240, 216, 157, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  color: #dbe4e0;
+  font-size: 9px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tool-btn.is-active {
+  background: rgba(223, 170, 94, 0.3);
+  border-color: #dfaa5e;
+  color: #fbeed5;
+}
+
+.tool-btn.danger {
+  color: #f3a89e;
+  border-color: rgba(243, 168, 158, 0.4);
+}
+
+/* Stats Bar */
+.draw-stats-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.stat-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 6px;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  min-width: 0;
+  overflow: hidden;
+}
+
+.stat-pill span {
+  color: #a4bebe;
+  font-size: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.stat-pill b {
+  color: #f5d288;
+  font-size: 10px;
+  font-weight: 700;
+  text-align: center;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.25;
+  max-width: 100%;
+}
+
+.draw-submit-area {
+  margin-top: 4px;
+  width: 100%;
+}
+
+/* Step 6 In-Map Finish Showcase Overlay */
+.in-map-finish-overlay {
+  position: absolute;
+  bottom: 12px;
+  left: 10px;
+  right: 10px;
+  z-index: 25;
+  background: rgba(8, 22, 28, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(229, 202, 145, 0.45);
+  border-radius: 16px;
+  padding: 12px 14px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-width: 480px;
+  max-height: 85%;
+  overflow-y: auto;
+  margin: 0 auto;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.75);
+  animation: slideUp 0.4s ease;
+  box-sizing: border-box;
+}
+
+.in-map-finish-overlay h2 {
+  margin: 0;
+  color: #fff9eb;
+  font-size: 18px;
+  font-family: "Noto Serif SC", serif;
+  word-break: break-word;
+}
+
+.in-map-finish-overlay p {
+  margin: 0;
+  color: #c9dbd5;
+  font-size: 11px;
+  max-width: 360px;
+  line-height: 1.45;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulseScale {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.is-phase-draw .in-map-drawer-overlay {
+  animation: clothExpand 0.45s cubic-bezier(0.18, 0.89, 0.32, 1.15);
+}
+
+/* Workshop page integration */
+.wax-game-page {
+  background: #06161d;
+}
+
+.wax-game-content {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 64px 12px 12px;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #0b2630, #07151c 34%, #061116);
+}
+
+.wax-game-intro {
+  margin: 0 4px 12px;
+  color: #d3e0d9;
+}
+
+.wax-game-intro p {
+  margin: 0 0 4px;
+  color: #dfa95c;
+  font-size: 11px;
+  letter-spacing: .12em;
+}
+
+.wax-game-intro h1 {
+  margin: 0 0 6px;
+  color: #fff3d8;
+  font: 700 22px "Noto Serif SC", serif;
+}
+
+.wax-game-intro span {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.wax-game-draw-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 26;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px 14px;
+  overflow-y: auto;
+  background: rgba(6, 18, 24, .7);
+  backdrop-filter: blur(5px);
+}
+
+.wax-game-next {
+  flex: 0 0 auto;
+  padding: 11px 14px;
+  border: 1px solid #f5cf7b;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f5d48f, #dfa65d);
+  color: #172427;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.wax-game-next:disabled {
+  border-color: rgba(240, 216, 157, .25);
+  background: rgba(9, 29, 35, .9);
+  color: #9aada8;
+  cursor: not-allowed;
+}
+
+.wax-game-finish-card {
+  position: absolute;
+  right: 10px;
+  bottom: 12px;
+  left: 10px;
+  z-index: 28;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 16px;
+  border: 1px solid rgba(229, 202, 145, .55);
+  border-radius: 16px;
+  background: rgba(8, 22, 28, .96);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .75);
+  color: #c9dbd5;
+  text-align: center;
+}
+
+.wax-game-finish-card span { color: #dfa95c; font-size: 12px; }
+.wax-game-finish-card h2 { margin: 0; color: #fff9eb; font: 700 20px "Noto Serif SC", serif; }
+.wax-game-finish-card p { margin: 0; font-size: 12px; line-height: 1.55; }
+.wax-game-finish-card button { padding: 9px 16px; border: 0; border-radius: 9px; background: #dfa65d; color: #172427; font-weight: 800; cursor: pointer; }
+
+@keyframes clothExpand {
+  0% {
+    opacity: 0;
+    transform: scale(0.88) translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+

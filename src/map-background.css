@@ -1,0 +1,874 @@
+/* =========================================================
+   REAL 3D MIAO VILLAGE SCENE & THE BUSTLING WORLD STYLING
+   ========================================================= */
+
+.map-3d-page {
+  position: relative;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: #08162b !important;
+  height: 100%;
+}
+
+.miao-real-scene-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.miao-3d-canvas-viewport {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  touch-action: none;
+  background: #76b5d9;
+}
+
+.miao-3d-canvas-viewport canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+}
+
+.lusheng-viewer-modal {
+  position: absolute;
+  z-index: 30;
+  inset: 9% 13%;
+  display: grid;
+  grid-template-columns: minmax(180px, 0.72fr) minmax(280px, 1.28fr);
+  overflow: hidden;
+  border: 1px solid rgba(255, 222, 147, 0.7);
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(20, 27, 38, 0.97), rgba(68, 37, 20, 0.96));
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.55);
+}
+
+.lusheng-viewer-modal.copy-collapsed {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.lusheng-viewer-copy {
+  position: relative;
+  align-self: center;
+  padding: 28px;
+  color: #fff4dc;
+}
+
+.lusheng-copy-toggle {
+  border: 1px solid rgba(255, 232, 179, 0.48);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff1cf;
+  font: inherit;
+  font-size: 11px;
+  line-height: 1;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.lusheng-viewer-copy .lusheng-copy-toggle {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+}
+
+.lusheng-copy-reopen {
+  position: absolute;
+  z-index: 1;
+  top: 14px;
+  left: 16px;
+}
+
+.lusheng-viewer-copy span {
+  color: #f4c968;
+  font-size: 12px;
+  letter-spacing: .12em;
+}
+
+.lusheng-viewer-copy h2 {
+  margin: 10px 0;
+  font-size: 28px;
+}
+
+.lusheng-viewer-copy p {
+  margin: 0;
+  color: #e6d8bd;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.lusheng-viewer-modal model-viewer {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  background: radial-gradient(circle, #57606a 0, #232932 62%, #14191f 100%);
+}
+
+.lusheng-viewer-close {
+  position: absolute;
+  z-index: 1;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.42);
+  color: white;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+/* --- Top HUD: Title & Time of Day Switcher --- */
+.scene-top-hud {
+  position: absolute;
+  top: 7px;
+  left: 14px;
+  right: 14px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.scene-brand {
+  text-shadow: 0 2px 10px rgba(4, 15, 30, 0.9);
+}
+
+.scene-brand h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
+}
+
+.scene-brand p {
+  margin: 2px 0 0;
+  color: #d6e8f7;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+.tod-switcher {
+  display: flex;
+  gap: 5px;
+  pointer-events: auto;
+}
+
+.tod-btn {
+  padding: 4px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  background: rgba(12, 32, 58, 0.75);
+  color: #e5f1fc;
+  font-size: 10px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.tod-btn:hover {
+  background: rgba(25, 60, 100, 0.9);
+}
+
+.tod-btn.active {
+  background: linear-gradient(135deg, #e6a73c, #bf7a19);
+  color: #1a0f05;
+  border-color: #ffe094;
+  font-weight: 700;
+  box-shadow: 0 2px 12px rgba(230, 160, 50, 0.6);
+}
+
+/* --- Floating Side Tools --- */
+.scene-float-tools {
+  position: absolute;
+  top: 96px;
+  right: 12px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  pointer-events: auto;
+}
+
+.tool-btn {
+  padding: 5px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 14px;
+  background: rgba(14, 35, 62, 0.82);
+  color: #e9f4ff;
+  font-size: 10px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+  transition: all 0.2s ease;
+}
+
+.tool-btn:hover {
+  background: rgba(28, 65, 110, 0.9);
+  transform: translateY(-1px);
+}
+
+.tool-btn.active, .tool-btn.on {
+  background: #e6a73c;
+  color: #180e04;
+  border-color: #fff0c2;
+  font-weight: 700;
+}
+
+.cam-mode-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* --- Avatar Outfit Switcher Bar --- */
+.avatar-selector-bar {
+  position: absolute;
+  top: 96px;
+  left: 12px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  pointer-events: auto;
+}
+
+.bar-label {
+  color: #f0f7ff;
+  font-size: 10px;
+  font-weight: 700;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+}
+
+.outfit-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 180px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.outfit-pills::-webkit-scrollbar {
+  display: none;
+}
+
+.outfit-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px 3px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  background: rgba(14, 35, 62, 0.85);
+  color: #dceaf7;
+  font-size: 9px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+.pill-avatar-img {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ffd166;
+}
+
+.outfit-pill:hover {
+  background: rgba(30, 70, 120, 0.95);
+}
+
+.outfit-pill.selected {
+  background: linear-gradient(135deg, #ffd166, #e09f24);
+  color: #241402;
+  font-weight: 700;
+  border-color: #fff5db;
+  box-shadow: 0 2px 10px rgba(240, 170, 40, 0.5);
+}
+
+/* --- Landmarks Quick Nav --- */
+.landmarks-quick-nav {
+  position: absolute;
+  bottom: 128px;
+  left: 12px;
+  right: 12px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  pointer-events: auto;
+}
+
+.nav-title {
+  color: #fff9eb;
+  font-size: 10px;
+  font-weight: 700;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+}
+
+.nav-scroll {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 2px;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 230, 166, 0.6) rgba(8, 27, 49, 0.45);
+}
+
+.nav-scroll::-webkit-scrollbar {
+  height: 5px;
+}
+
+.nav-scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(255, 230, 166, 0.6);
+}
+
+.nav-scroll::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: rgba(8, 27, 49, 0.45);
+}
+
+.landmark-pill {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 14px;
+  background: rgba(16, 40, 70, 0.86);
+  color: #eff6ff;
+  font-size: 10px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+}
+
+.landmark-pill b {
+  font-weight: 600;
+}
+
+.landmark-pill:hover {
+  background: rgba(30, 75, 125, 0.95);
+  transform: translateY(-1px);
+}
+
+.landmark-pill.active {
+  background: linear-gradient(135deg, #ffd166, #d48b19);
+  color: #1e1003;
+  border-color: #fff7d6;
+  font-weight: 700;
+  box-shadow: 0 3px 12px rgba(230, 160, 40, 0.6);
+}
+
+/* --- POI Proximity Interaction Floating Card --- */
+.poi-interaction-bubble {
+  position: absolute;
+  bottom: 28px;
+  left: 102px;
+  right: auto;
+  width: min(300px, calc(100% - 114px));
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 230, 160, 0.7);
+  border-radius: 16px;
+  background: rgba(12, 30, 54, 0.94);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  animation: poi-pop 0.35s cubic-bezier(0.18, 0.85, 0.25, 1.15) both;
+}
+
+@keyframes poi-pop {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.bubble-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.bubble-tag {
+  display: inline-block;
+  margin-bottom: 2px;
+  color: #ffd166;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.bubble-content h3 {
+  margin: 0 0 3px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.bubble-content p {
+  margin: 0;
+  color: #c7dbe8;
+  font-size: 10px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.bubble-action-btn {
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  border: 1px solid #ffe194;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #e6a73c, #b86e10);
+  color: #1a0e02;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(220, 140, 20, 0.5);
+  transition: transform 0.15s ease;
+}
+
+.bubble-action-btn:hover {
+  transform: scale(1.04);
+}
+
+/* --- Virtual Joystick --- */
+.virtual-joystick-zone {
+  position: absolute;
+  bottom: 28px;
+  left: 18px;
+  z-index: 11;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  touch-action: none;
+}
+
+.joystick-base {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  background: rgba(10, 28, 50, 0.65);
+  box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.5), 0 4px 14px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+}
+
+.joystick-thumb {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffffff, #ffd166 60%, #cc8810);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  transition: transform 0.05s ease-out;
+}
+
+.joystick-tip {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+}
+
+/* --- POI Detailed Exploration Modal --- */
+.map-detail-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(4, 14, 28, 0.82);
+  backdrop-filter: blur(12px);
+  animation: modal-fade-in 0.28s ease-out both;
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.map-detail-card {
+  width: 100%;
+  max-width: 380px;
+  max-height: 85vh;
+  overflow-y: auto;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.map-back-btn {
+  align-self: flex-start;
+  margin: 12px 14px 6px;
+  padding: 4px 10px;
+  border: 1px solid #c9d8e8;
+  border-radius: 12px;
+  background: #f0f5fa;
+  color: #1a4270;
+  font-size: 11px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.map-detail-art {
+  padding: 20px 18px;
+  color: #fff;
+  background: linear-gradient(135deg, #103058, #18487e);
+  position: relative;
+}
+
+.map-detail-art.batik {
+  background: linear-gradient(135deg, #0c274b, #1b497c);
+}
+
+.map-detail-art.silver {
+  background: linear-gradient(135deg, #3d3b48, #69687e);
+}
+
+.map-detail-art.banquet {
+  background: linear-gradient(135deg, #6b2818, #963d27);
+}
+
+.map-detail-art.lusheng {
+  background: linear-gradient(135deg, #784918, #aa6e2b);
+}
+
+.art-badge {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffd875;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.map-detail-art h2 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 900;
+  font-family: 'Noto Serif SC', serif;
+}
+
+.map-detail-copy {
+  padding: 16px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detail-subtitle {
+  margin: 0;
+  color: #bf7a19;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.detail-description {
+  margin: 0;
+  color: #334455;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.detail-lore-box {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #f7f9fc;
+  border-left: 3px solid #e6a73c;
+}
+
+.detail-lore-box b {
+  display: block;
+  color: #1a3960;
+  font-size: 11px;
+  margin-bottom: 2px;
+}
+
+.detail-lore-box p {
+  margin: 0;
+  color: #556677;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.detail-tags {
+  display: flex;
+  gap: 6px;
+}
+
+.detail-tags i {
+  font-style: normal;
+  padding: 3px 8px;
+  border-radius: 8px;
+  background: #edf3fa;
+  color: #2b5585;
+  font-size: 10px;
+}
+
+.modal-actions {
+  margin-top: 6px;
+  display: flex;
+  gap: 8px;
+}
+
+.goto-craft-btn {
+  flex: 1;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #e6a73c, #be7412);
+  color: #1f1102;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(220, 140, 20, 0.4);
+}
+
+.done-explore-btn {
+  flex: 1;
+  padding: 9px 12px;
+  border: 1px solid #cad9ea;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #224b78;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.map-game-modal {
+  position: absolute;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(4, 14, 28, 0.82);
+  backdrop-filter: blur(12px);
+  animation: modal-fade-in 0.28s ease-out both;
+}
+
+.map-game-card {
+  width: min(960px, 100%);
+  height: min(720px, 88vh);
+  overflow: hidden;
+  border: 1px solid rgba(255, 221, 140, .52);
+  border-radius: 20px;
+  background: #0f1d2b;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .55);
+}
+
+.map-game-card header {
+  height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  color: #fff0cc;
+  background: linear-gradient(90deg, #21364d, #70421d);
+}
+
+.map-game-card header span { color: #f6ce7b; font-size: 11px; }
+.map-game-card header b { flex: 1; font-size: 15px; }
+
+.map-game-card header button {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, .25);
+  color: white;
+  font-size: 21px;
+  cursor: pointer;
+}
+
+.map-game-frame {
+  display: block;
+  width: 100%;
+  height: calc(100% - 46px);
+  border: 0;
+  background: #fff;
+}
+
+.map-heritage-exhibit {
+  padding: 12px;
+  border: 1px solid #d8e4ef;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #f9fcff, #edf5fa);
+}
+
+.map-heritage-exhibit > span {
+  color: #9a6019;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .05em;
+}
+
+.map-heritage-exhibit h3 { margin: 5px 0; color: #193c61; font-size: 14px; }
+.map-heritage-exhibit p { margin: 0; color: #496176; font-size: 11px; line-height: 1.6; }
+
+.exhibit-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.exhibit-tags i {
+  padding: 3px 7px;
+  border-radius: 99px;
+  background: #dceaf5;
+  color: #315b80;
+  font-size: 10px;
+  font-style: normal;
+}
+
+.museum-story-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 9px;
+}
+
+.museum-story-grid article { padding: 7px; border-radius: 9px; background: rgba(255, 255, 255, .76); }
+.museum-story-grid b, .museum-story-grid small { display: block; }
+.museum-story-grid b { color: #24486d; font-size: 10px; }
+.museum-story-grid small { margin-top: 2px; color: #71879a; font-size: 9px; line-height: 1.35; }
+
+/* Responsive tweaks */
+@media (max-width: 420px) {
+  .avatar-selector-bar {
+    top: 88px;
+    left: 8px;
+  }
+  .outfit-pills {
+    max-height: 120px;
+  }
+  .scene-float-tools {
+    top: 88px;
+    right: 8px;
+  }
+  .landmarks-quick-nav {
+    bottom: 106px;
+  }
+
+  .poi-interaction-bubble {
+    left: 98px;
+    width: calc(100% - 108px);
+    max-width: 260px;
+    gap: 7px;
+    padding: 9px 10px;
+  }
+
+  .bubble-content p {
+    -webkit-line-clamp: 1;
+  }
+
+  .bubble-action-btn {
+    padding: 7px 9px;
+    font-size: 10px;
+  }
+
+  .lusheng-viewer-modal {
+    inset: 6% 5%;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .lusheng-viewer-copy {
+    padding: 48px 20px 16px;
+  }
+
+  .lusheng-viewer-copy h2 {
+    font-size: 23px;
+  }
+
+  .lusheng-viewer-modal model-viewer {
+    min-height: 300px;
+  }
+}
+
+.map-model-status {position:absolute;inset:0;z-index:30;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:16px;background:#152e30;color:#f3eddc;font-size:15px}
+.map-model-status button {padding:10px 20px;border:1px solid #b6bc9d;border-radius:20px;cursor:pointer}
+
+.map-local-detail {position:absolute;inset:8% 5%;z-index:35;padding:24px;border:1px solid #bac6b7;border-radius:18px;background:#f5f3ea;color:#203b37;overflow:auto;box-shadow:0 20px 60px #10241f66}
+.map-local-detail h2 {margin:12px 0}.map-local-detail p {font-size:13px;line-height:1.8}.map-local-detail a {font-size:12px;color:#2b6256}
+.map-local-close {position:absolute;top:6px;right:10px;border:0;background:none;font-size:28px;cursor:pointer}
+.map-local-detail iframe {width:100%;height:65%;min-height:300px;margin-top:16px;border:0;border-radius:12px}
+
+/* Keep the map detail card in document flow; legacy absolute copy covered its back button. */
+.map-detail-card > * {flex-shrink:0}
+.map-detail-card .map-detail-art {height:auto}
+.map-detail-card .map-detail-copy {position:static;min-height:0;background:#fff}
+.map-detail-card .map-detail-copy p {color:#526677}
+.map-detail-card .map-back-btn {position:sticky;top:8px;z-index:2}
+
+/* Second revision: persistent geographic labels and explicit landmark finding. */
+.map-landmark-labels {position:absolute;inset:0;pointer-events:none;z-index:5;overflow:hidden}
+.map-world-label {position:absolute;top:0;left:0;pointer-events:auto;border:1px solid #f1ead0;border-radius:8px;background:#183c37e8;color:#fff7df;padding:5px 8px;font-size:11px;box-shadow:0 2px 8px #09282066;cursor:pointer;white-space:nowrap}
+.map-world-label.primary {background:#f2c767;color:#22342b;font-weight:800;z-index:2}
+.map-world-label[hidden] {display:none}
+.find-lusheng {pointer-events:auto;margin-top:7px;padding:5px 10px;border:1px solid #f5d588;background:#f2d390;color:#243d33;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer}
+.map-focus-card {position:absolute;z-index:24;left:12px;right:12px;bottom:185px;max-width:380px;padding:16px;border-radius:16px;background:#f4f1e5;color:#233e35;box-shadow:0 8px 30px #102c3655}
+.map-focus-card h2 {font-size:17px;margin:6px 0}.map-focus-card p {font-size:12px;line-height:1.7;margin:8px 0}.map-focus-card small {font-size:10px}
+.map-focus-card button {border:1px solid #9fae98;background:#e0e8d8;color:#233e35;border-radius:10px;padding:7px 10px;margin-right:7px;cursor:pointer}
+.map-focus-card .map-focus-close {position:absolute;right:2px;top:5px;border:0;background:none;font-size:20px;padding:0 5px}
+
+/* Allow room for the plaza locator above the time controls. */
+.miao-real-scene-container .avatar-selector-bar {top:125px}
+.miao-real-scene-container .scene-float-tools {top:125px}
+
+
+.map-access-toggle {position:absolute;top:98px;right:12px;z-index:11;border:1px solid #c9d8c5;background:#23443ded;color:#f5edd7;border-radius:12px;padding:5px 9px;font-size:10px;cursor:pointer}

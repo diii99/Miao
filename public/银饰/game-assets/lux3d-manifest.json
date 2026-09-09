@@ -1,0 +1,31 @@
+{
+  "version": "G1-Turbo",
+  "assets": {
+    "01-silver-ingot": {
+      "source": "public/银饰/game-assets/2d/01-silver-ingot.png",
+      "taskId": "3144926",
+      "generationStatus": "succeeded",
+      "modelPath": "public/银饰/game-assets/3d/01-silver-ingot.glb",
+      "glbBytes": 8682260
+    },
+    "02-charcoal-forge": {
+      "source": "public/银饰/game-assets/2d/02-charcoal-forge.png",
+      "taskId": "3144930",
+      "generationStatus": "succeeded",
+      "modelPath": "public/银饰/game-assets/3d/02-charcoal-forge.glb",
+      "glbBytes": 14231292
+    },
+    "03-anvil": {
+      "source": "public/银饰/game-assets/2d/03-anvil.png",
+      "taskId": "3144974",
+      "generationStatus": "running",
+      "modelPath": "public/银饰/game-assets/3d/03-anvil.glb"
+    },
+    "04-forging-hammer": {
+      "source": "public/银饰/game-assets/2d/04-forging-hammer.png",
+      "taskId": "3145007",
+      "generationStatus": "created",
+      "modelPath": "public/银饰/game-assets/3d/04-forging-hammer.glb"
+    }
+  }
+}

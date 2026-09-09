@@ -1,0 +1,134 @@
+/* 苗乡体验坊页面样式 */
+.workshop-page{padding-bottom:20px;background:transparent;min-height:calc(100vh - 148px);position:relative;z-index:1}
+.file-input{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+/* 手工坊沿用非遗、地图的浅色纹样底，而非另起一张白底。 */
+main.mini-program:not(.home-shell) .page-content:has(.workshop-page):before{display:block!important}
+.workshop-intro{border-radius:0 0 22px 22px;margin:0 -16px;padding:32px 24px 26px;color:#fff;position:relative;overflow:hidden;background:linear-gradient(135deg,#0e3360,#1a5a8a)}
+.workshop-intro:before{content:'';position:absolute;inset:0;opacity:.12;background:url('./assets/batik-stencil.png') center/160% auto}
+.workshop-intro:after{content:'';position:absolute;z-index:0;right:-20px;bottom:-30px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,#ffffff22,transparent 70%)}
+.workshop-intro>*{position:relative;z-index:1}
+.workshop-intro p{margin:0;font-size:11px;letter-spacing:.15em;opacity:.8}
+.workshop-intro h1{margin:8px 0 8px;font:900 26px/1.35 'Noto Serif SC',serif;letter-spacing:.04em}
+.workshop-intro span{font-size:12px;line-height:1.6;color:#d0e4f5;opacity:.88}
+.workshop-landing{display:flex;flex-direction:column;min-height:calc(100vh - 148px);padding-top:26px;background:transparent}
+.workshop-landing-copy{padding:0 4px;color:#10355f}.workshop-landing-copy p{margin:0;color:#607a99;font-size:11px;letter-spacing:.14em}.workshop-landing-copy h1{margin:8px 0 7px;font:400 31px/1.25 'Ma Shan Zheng','Noto Serif SC',serif;letter-spacing:.08em}.workshop-landing-copy span{display:block;max-width:none;color:#697e96;font-size:12px;line-height:1.65}
+
+/* 第一层为轻量游戏入口，第二层才进入可定制的手作体验。 */
+.game-experiences{margin:22px 0 24px}.experience-heading{display:flex;align-items:end;justify-content:space-between;margin:0 1px 10px}.experience-heading p{margin:0;color:#607a99;font-size:10px;letter-spacing:.13em}.experience-heading h2{margin:3px 0 0;color:#123a66;font:700 17px/1.35 'Noto Serif SC',serif}.experience-heading>span{padding:4px 7px;border-radius:10px;color:#63809f;background:#e8f0f8;font-size:9px}.game-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.game-card{position:relative;display:grid;grid-template-columns:45px minmax(0,1fr);gap:8px;min-height:113px;padding:12px;overflow:hidden;border:1px solid #cedeed;border-radius:15px;color:#fff;text-decoration:none;background:linear-gradient(135deg,#103963,#286494);box-shadow:0 6px 15px #123d671a;isolation:isolate}.game-card:before{content:'';position:absolute;z-index:-1;right:-16px;bottom:-20px;width:112px;height:112px;border:1px solid #d8efff46;border-radius:50%;box-shadow:0 0 0 12px #d8efff12,0 0 0 24px #d8efff0a}.game-card i{display:grid;place-items:center;width:43px;height:43px;border:1px solid #eff8ffb3;border-radius:50%;color:#fff;background:#ffffff1c;font:400 27px/1 'Ma Shan Zheng','Noto Serif SC',serif;font-style:normal}.game-card div{display:grid;align-content:start;gap:4px;min-width:0}.game-card b{font:700 15px 'Noto Serif SC',serif}.game-card small{font-size:10px;line-height:1.45;color:#e1edf8}.game-card em{grid-column:1/-1;align-self:end;color:#d9edff;font-size:10px;font-style:normal}.game-card.is-coming{color:#20466e;background:linear-gradient(135deg,#f8fbfe,#e2edf8)}.game-card.is-coming i{border-color:#b8cee3;color:#315f8d;background:#fff}.game-card.is-coming small{color:#607c99}.game-card.is-coming em{color:#6985a0}.game-染{background:linear-gradient(135deg,#244668,#4e7ba4)}.game-宴{background:linear-gradient(135deg,#4a363d,#9a6559)}.game-card:not(.is-coming):active{transform:scale(.98)}
+.game-语{background:linear-gradient(135deg,#194c4c,#4e8d86)}
+
+/* 苗语：以听音辨义为主的独立小程序游戏页。 */
+.miao-language-game{position:relative;width:min(100%,430px);min-height:100dvh;margin:0 auto;overflow:hidden;background:#f4f0e6;color:#173f40;box-shadow:0 0 40px #142d2d28}.miao-language-header{height:51px;padding:0 16px;display:flex;align-items:center;gap:10px;color:#f8f2e4;background:#174747}.miao-language-header a{color:#dce9df;text-decoration:none;font-size:12px}.miao-language-header span{flex:1;text-align:center;font:700 14px 'Noto Serif SC',serif;letter-spacing:.12em}.miao-language-header b{padding:4px 6px;border:1px solid #a7c8b9;border-radius:10px;color:#e4f0e7;font-size:9px;font-weight:500}.miao-language-content{min-height:calc(100dvh - 51px);padding:0 16px 30px;overflow-y:auto;background:radial-gradient(circle at 100% 1%,#b8d1bd66,transparent 29%),linear-gradient(180deg,#f5f1e5 0%,#eef2e9 100%)}.miao-language-hero{position:relative;margin:0 -16px;padding:29px 25px 22px;overflow:hidden;color:#f8f6ec;background:linear-gradient(128deg,#174747,#2f716a)}.miao-language-hero:after{content:'语';position:absolute;right:21px;bottom:-34px;color:#e8ecdb22;font:900 140px 'Noto Serif SC',serif}.miao-language-hero>*{position:relative;z-index:1}.miao-language-hero p{margin:0;color:#cce3d6;font-size:10px;letter-spacing:.16em}.miao-language-hero h1{margin:8px 0 7px;font:900 27px/1.28 'Noto Serif SC',serif;letter-spacing:.04em}.miao-language-hero span{display:block;max-width:255px;color:#dbece3;font-size:11px;line-height:1.55}.miao-level-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:16px 0 13px}.miao-level-tabs button{height:39px;border:1px solid #c7d5cb;border-radius:12px;color:#55736c;background:#faf8f0;font-size:12px}.miao-level-tabs button.active{border-color:#1e5d56;color:#fff;background:#1e5d56;box-shadow:0 4px 10px #1e5d5633}.miao-level-tabs small{margin-left:3px;color:#d9b36e;font-size:8px}.miao-quiz-card{padding:16px;border:1px solid #d6ded1;border-radius:19px;background:#fffdf7;box-shadow:0 10px 26px #244d3f13}.miao-quiz-meta{display:flex;justify-content:space-between;color:#638079;font-size:10px}.miao-quiz-meta b{color:#b77835;font-weight:700}.miao-prompt{margin:16px 0 12px;color:#254c49;font:700 18px 'Noto Serif SC',serif}.miao-audio-button{width:100%;height:70px;padding:0 15px;display:flex;align-items:center;gap:10px;border:1px solid #91b4a6;border-radius:16px;color:#f8fbf5;background:linear-gradient(120deg,#195149,#2f7a6c);box-shadow:inset 0 1px #ffffff45,0 5px 10px #18504729}.miao-audio-button i{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;color:#216052;background:#eef6ec;font-size:13px;font-style:normal}.miao-audio-button span{font:700 15px 'Noto Serif SC',serif}.miao-audio-button small{margin-left:auto;color:#d0e3d8;font-size:10px}.miao-listening-tip{margin:8px 3px 15px;color:#869b91;font-size:10px;line-height:1.4}.miao-options{display:grid;gap:8px}.miao-options button{min-height:47px;padding:8px 12px;display:flex;align-items:center;gap:10px;border:1px solid #d6e1d8;border-radius:12px;color:#365955;text-align:left;background:#fff}.miao-options button i{display:grid;place-items:center;flex:0 0 23px;width:23px;height:23px;border-radius:8px;color:#6b8c80;background:#edf3ed;font-size:10px;font-style:normal}.miao-options button span{font-size:13px}.miao-options button b{margin-left:auto;font-size:17px}.miao-options button.correct{border-color:#57a577;color:#26744b;background:#eff9ee}.miao-options button.correct i{color:#fff;background:#57a577}.miao-options button.wrong{border-color:#d99482;color:#ac5847;background:#fff2ed}.miao-options button.wrong i{color:#fff;background:#d99482}.miao-answer-reveal{margin-top:13px;padding:11px 12px;border-radius:12px;border-left:4px solid #d59466;color:#7e4b36;background:#fff3e8}.miao-answer-reveal.good{border-left-color:#58a172;color:#276e4a;background:#edf8ed}.miao-answer-reveal b{font-size:12px}.miao-answer-reveal p{margin:4px 0;color:#34554f;font:700 14px 'Noto Serif SC',serif}.miao-answer-reveal em{color:#9a633d;font-style:normal}.miao-answer-reveal small{font-size:10px;line-height:1.5}.miao-next-button{width:100%;height:41px;margin-top:15px;border:0;border-radius:12px;color:#fff;background:#1d5b54;font:700 13px 'Noto Serif SC',serif}.miao-next-button:disabled{color:#9bac9f;background:#dfe7dd}.miao-source-note{margin:17px 3px 0;padding:13px;border:1px dashed #bdcdbf;border-radius:13px;color:#657b70;background:#f9faf2}.miao-source-note b{color:#315f56;font:700 13px 'Noto Serif SC',serif}.miao-source-note p{margin:6px 0 7px;font-size:10px;line-height:1.65}.miao-source-note a{color:#2d7568;font-size:10px;text-decoration:none}@media (min-width:431px){.miao-language-game{min-height:844px;height:844px;margin-top:18px;margin-bottom:18px;border-radius:24px}.miao-language-content{min-height:793px}}
+
+/* 上传前先给出两种成品气质，点击即可预选；不增加流程层级。 */
+.craft-preview{margin:0;padding-bottom:2px}
+.craft-preview>.craft-list{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.craft-preview-card{position:relative;display:block;min-height:86px;overflow:hidden;padding:0;border:1px solid #d7e3ef;border-radius:13px;text-align:left;color:#fff;background:#12385f;box-shadow:0 5px 13px #10355b14;isolation:isolate}
+.craft-preview-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6;mix-blend-mode:screen;filter:contrast(1.1) saturate(.76)}
+.craft-preview-card.embroidery img{opacity:.55;mix-blend-mode:lighten;filter:sepia(.36) saturate(1.35) hue-rotate(328deg) contrast(1.08)}
+.craft-preview-card:after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#09284ee6 0%,#12385f90 68%,#12385f20)}
+.craft-preview-card span{position:relative;z-index:1;display:flex;flex-direction:column;gap:3px;padding:28px 7px 8px}
+.craft-preview-card b{font:700 13px 'Noto Serif SC',serif}.craft-preview-card small{font-size:8px;line-height:1.25;color:#deebf5}
+.craft-preview-card i{margin-top:auto;color:#d9edfd;font-size:9px;font-style:normal}
+.craft-preview-card.silver{color:#18385a;background:#e9eef2}.craft-preview-card.silver img{opacity:.56;mix-blend-mode:multiply;filter:none}.craft-preview-card.silver:after{background:linear-gradient(90deg,#eef3f8e6,#d3dde899)}.craft-preview-card.silver small{color:#57718a}
+.craft-preview-card.silver i{color:#315b80}
+.workshop-landing .craft-preview>.craft-list{display:flex;flex-direction:column;gap:0;margin-top:0}.workshop-landing .craft-card-wrap{flex:0 0 auto;padding-bottom:20px}.workshop-landing .craft-card-wrap:last-child{padding-bottom:0}.workshop-landing .craft-preview-card{display:block;width:100%;height:91px;min-height:91px;border:1px solid #c3d7e9;border-radius:12px;background:#12385f;box-shadow:0 5px 11px #10355b1c}.workshop-landing .craft-preview-card img{opacity:.76;mix-blend-mode:screen;filter:contrast(1.08) saturate(.82)}.workshop-landing .craft-preview-card.embroidery img{opacity:.8;mix-blend-mode:normal;filter:saturate(.92) contrast(1.04)}.workshop-landing .craft-preview-card:after{z-index:0;background:linear-gradient(90deg,#06284add 0%,#0f365c92 39%,#12385f1c 100%)}.workshop-landing .craft-preview-card span{position:relative;z-index:1;height:100%;gap:3px;padding:18px 15px 10px}.workshop-landing .craft-preview-card b{font:700 15px/1.1 'Noto Serif SC',serif;letter-spacing:.04em}.workshop-landing .craft-preview-card small{max-width:190px;font-size:11px;line-height:1.35;color:#eef6ff}.workshop-landing .craft-preview-card i{margin-top:auto;font-size:10px;color:#dcecff}.workshop-landing .craft-preview-card.batik img{opacity:.72;mix-blend-mode:screen;filter:contrast(1.08) saturate(.72)}.workshop-landing .craft-preview-card.silver{color:#163c69;background:linear-gradient(115deg,#e8edf2,#5e6c7e)}.workshop-landing .craft-preview-card.silver img{opacity:.78;mix-blend-mode:screen;filter:grayscale(1) contrast(1.18) brightness(1.2)}.workshop-landing .craft-preview-card.silver:after{background:linear-gradient(90deg,#eff4f8db 0%,#d7e0e988 42%,#50607222 100%)}.workshop-landing .craft-preview-card.silver small,.workshop-landing .craft-preview-card.silver i{color:#286298}.craft-back{display:inline-block;margin:0 0 15px;padding:0;border:0;color:#d9edfd;background:transparent;font-size:11px}.workshop-editor-intro{padding-top:17px}
+
+/* Avoid the global decorative .embroidery rule from treating the first card as an illustration layer. */
+main.mini-program .workshop-landing .craft-preview-card.embroidery{position:relative;inset:auto;top:auto;right:auto;bottom:auto;left:auto}
+.craft-preview-card.chosen{outline:2px solid #2d74ae;outline-offset:1px;box-shadow:0 0 0 3px #d7eaf98c}
+
+/* 上传区域 */
+.workshop-upload{margin:20px 0 0}
+.upload-area{display:flex;width:100%;flex-direction:column;align-items:center;justify-content:center;min-height:200px;padding:0;border:2px dashed #b7cce1;border-radius:16px;background:#f6f9fd;cursor:pointer;transition:background .2s}
+.upload-area:active{background:#e8f0f8}
+.upload-icon{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:#1c5489;color:#fff;font-size:28px;font-weight:300;margin-bottom:10px}
+.upload-area b{display:block;color:#1a4a7a;font:700 15px 'Noto Serif SC',serif;margin-bottom:4px}
+.upload-area small{color:#7a93ac;font-size:11px}
+.upload-preview{position:relative;border-radius:16px;overflow:hidden;border:1px solid #d5e2ef}
+.upload-preview img{display:block;width:100%;max-height:320px;object-fit:cover}
+.upload-replace{position:absolute;right:12px;bottom:12px;padding:7px 14px;border:1px solid #ffffffb0;border-radius:14px;color:#fff;background:#0b315f9c;backdrop-filter:blur(6px);font-size:11px}
+
+/* 风格选择 */
+.workshop-styles{margin:22px 0 0}
+.workshop-styles h3{margin:0 0 12px;color:#0c2d5a;font:700 16px 'Noto Serif SC',serif}
+.style-options{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.style-option{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 6px 12px;border:1.5px solid #d5e2ef;border-radius:14px;background:#fff;text-align:center;transition:all .2s}
+.style-option:active{transform:scale(.97)}
+.style-option.chosen{border-color:#1c5489;background:#eef4fb;box-shadow:0 2px 10px #1c548920}
+.style-swatch{position:relative;display:block;width:48px;height:48px;overflow:hidden;border-radius:12px;margin-bottom:2px;background:#163452}
+.style-swatch img{width:100%;height:100%;object-fit:cover;opacity:.78;mix-blend-mode:screen;filter:contrast(1.1) saturate(.76)}
+.style-embroidery .style-swatch img{mix-blend-mode:lighten;filter:sepia(.36) saturate(1.35) hue-rotate(328deg) contrast(1.08)}
+.style-silver .style-swatch{background:linear-gradient(135deg,#283348 50%,#f0ebd8 50%)}
+.style-option b{color:#0c2d5a;font:700 13px 'Noto Serif SC',serif}
+.style-option small{color:#7a93ac;font-size:10px;line-height:1.3}
+.style-option.chosen b{color:#1c5489}
+
+/* 生成按钮 */
+.generate-btn{display:block;width:100%;margin-top:22px;padding:14px;border:0;border-radius:14px;color:#fff;background:linear-gradient(135deg,#1c5489,#2a7ab5);font:700 15px 'Noto Serif SC',serif;letter-spacing:.08em;box-shadow:0 6px 18px #1c548935;transition:opacity .2s}
+.generate-btn:disabled{opacity:.65}
+.generate-btn:active{opacity:.85}
+
+/* 生成结果 */
+.workshop-result{margin-top:22px}
+.workshop-result h3{margin:0 0 12px;color:#0c2d5a;font:700 16px 'Noto Serif SC',serif}
+.result-frame{position:relative;width:100%;aspect-ratio:16/10;border-radius:16px;overflow:hidden;border:3px solid #1c5489;background:#eaf0f7;box-shadow:0 8px 24px #0c2d5a22}
+.result-frame .result-image{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.result-badge{position:absolute;top:12px;left:12px;padding:4px 10px;border-radius:10px;color:#fff;background:#1c5489cc;backdrop-filter:blur(4px);font-size:10px;font-weight:600}
+.result-actions{display:flex;gap:10px;margin-top:14px}
+.btn-primary,.btn-secondary{flex:1;display:block;text-align:center;padding:12px;border-radius:12px;font:700 13px 'Noto Serif SC',serif;text-decoration:none}
+.btn-primary{border:0;color:#fff;background:#1c5489}
+.btn-secondary{border:1.5px solid #1c5489;color:#1c5489;background:#fff}
+.btn-primary:active,.btn-secondary:active{opacity:.8}
+
+/* 下单弹窗 */
+.order-modal{position:fixed;z-index:100;inset:0;display:flex;align-items:flex-end;justify-content:center;background:#00000055;animation:modal-fade .25s ease-out}
+.order-card{position:relative;width:100%;max-width:430px;padding:24px 20px calc(24px + env(safe-area-inset-bottom));border-radius:20px 20px 0 0;background:#fff;animation:modal-slide .3s ease-out}
+.order-close{position:absolute;top:14px;right:14px;width:28px;height:28px;padding:0;border:0;border-radius:50%;color:#7a93ac;background:#f0f4f8;font-size:18px;line-height:1}
+.order-card h3{margin:0 0 6px;color:#0c2d5a;font:700 19px 'Noto Serif SC',serif}
+.order-sub{margin:0 0 18px;color:#7a93ac;font-size:12px;line-height:1.5}
+.product-list{display:grid;gap:8px;margin-bottom:18px}
+.product-item{display:flex;align-items:center;gap:12px;padding:13px 14px;border:1.5px solid #d5e2ef;border-radius:12px;background:#fff;text-align:left;transition:all .2s}
+.product-item.chosen{border-color:#1c5489;background:#eef4fb}
+.product-item b{flex:1;color:#0c2d5a;font:700 14px 'Noto Serif SC',serif}
+.product-item small{color:#7a93ac;font-size:11px}
+.product-price{flex:0 0 auto;color:#1c5489;font:700 15px 'Noto Serif SC',serif}
+.order-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.order-total{color:#7a93ac;font-size:12px}
+.order-total b{color:#c0392b;font:700 20px 'Noto Serif SC',serif;margin-left:4px}
+.order-bottom .btn-primary{flex:0 0 auto;min-width:120px;padding:12px 24px}
+.order-success{text-align:center;padding:30px 10px 20px}
+.success-icon{display:grid;place-items:center;width:56px;height:56px;margin:0 auto 16px;border-radius:50%;color:#fff;background:#27ae60;font-size:28px}
+.order-success h3{margin:0 0 8px;color:#0c2d5a;font:700 20px 'Noto Serif SC',serif}
+.order-success p{margin:0;color:#7a93ac;font-size:12px;line-height:1.6}
+
+/* 手工坊 tab 图标：使用苗族放射纹样；其余 tab 文案统一单行对齐。 */
+body main.mini-program .tab-bar .tab-item{min-width:0;gap:4px;line-height:1;white-space:nowrap}
+body main.mini-program .tab-bar .tab-item>span:last-child{display:block;height:12px;line-height:12px;overflow:hidden;text-overflow:ellipsis}
+body main.mini-program .tab-icon.icon-workshop{position:relative;width:27px;height:27px;border:1px solid #d1dce9!important;border-radius:50%!important;outline:0!important;background:#5d78a6 url('./assets/workshop-tab-icon.png') center/cover no-repeat!important;box-shadow:0 1px 4px #08285d2b!important;filter:none!important;overflow:hidden}
+body main.mini-program .tab-item.active .tab-icon.icon-workshop{outline:1.5px solid #08285d!important;outline-offset:2px!important;filter:drop-shadow(0 1px 3px #87a3c7)!important}
+body main.mini-program .tab-icon.icon-workshop:before,body main.mini-program .tab-icon.icon-workshop:after{display:none!important}
+
+@keyframes modal-fade{from{opacity:0}to{opacity:1}}
+@keyframes modal-slide{from{transform:translateY(100%)}to{transform:translateY(0)}}
+
+/* 简化成“上传—服务生成—定制”的单一路径：此处只展示服务返回的独立结果图。 */
+.style-options{grid-template-columns:repeat(2,1fr)}
+.generation-error{margin:10px 2px 0;color:#b4483f;font-size:11px;line-height:1.5}
+
+/* 内嵌小游戏仍是小程序内页，不跳往代码仓库。 */
+.game-embed-page{position:relative;width:min(100%,430px);height:100dvh;min-height:0;margin:0 auto;overflow:hidden;background:#edf0ee;box-shadow:0 0 40px #061d4626}.game-embed-header{position:absolute;z-index:2;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;height:48px;padding:0 15px;color:#33485b;background:#fbfaf6e8;border-bottom:1px solid #dce1df;backdrop-filter:blur(10px);font-size:12px}.game-embed-header a{color:#45657f;text-decoration:none}.game-embed-header span{font:700 13px 'Noto Serif SC',serif;letter-spacing:.08em}.game-embed-frame{display:block;width:100%;height:100%;border:0;padding-top:48px;background:#edf0ee}.game-embed-feast{background:#020814}.game-embed-feast .game-embed-header{color:#ead8ac;background:#051326e8;border-bottom-color:#554b38}.game-embed-feast .game-embed-header a{color:#e4bd71}.game-embed-silver{background:#0b0c14}.game-embed-silver .game-embed-header{color:#f3e7c7;background:#121624e8;border-bottom-color:#4a5266}.game-embed-silver .game-embed-header a{color:#d9bb78}@media (min-width:431px){.game-embed-page{height:844px;margin-top:18px;margin-bottom:18px;border-radius:24px}.game-embed-frame{height:100%}}
+
+/* 手作编辑页：与苗绣、蜡染、银饰三张参考稿保持统一的选择与上传节奏。 */
+.workshop-editor{min-height:0;padding-top:0;padding-bottom:0}.workshop-editor .workshop-intro{border-radius:0 0 20px 20px;margin:0 -16px;padding:18px 20px 24px;background:linear-gradient(135deg,#0b3766,#245c8d)}.workshop-editor .workshop-intro:before{opacity:.34;background:url('./assets/batik-stencil.png') center/cover no-repeat;mix-blend-mode:multiply}.workshop-editor .craft-back{margin:0;padding:0;color:#edf6ff;font-size:11px}.workshop-editor .workshop-intro p{margin:13px 0 0;font-size:11px;letter-spacing:.1em}.workshop-editor .workshop-intro h1{margin:11px 0 9px;font-size:27px;line-height:1.15}.workshop-editor .workshop-intro>span{display:block;font-size:11px;line-height:1.55;color:#d8eafa}.workshop-editor .workshop-styles{margin:21px 0 0}.workshop-editor .workshop-styles h3{margin:0 0 13px;color:#103966;font:700 20px/1.25 'Noto Serif SC',serif}.workshop-editor .style-options{grid-template-columns:repeat(2,1fr);gap:10px}.workshop-editor .style-option{min-height:145px;justify-content:center;gap:4px;padding:12px 6px 10px;border:2px solid #d5e2ef;border-radius:17px}.workshop-editor .style-option.chosen{border-color:#1c5489;background:#eef5ff;box-shadow:0 4px 9px #1c548918}.workshop-editor .style-swatch{width:58px;height:58px;border-radius:14px;margin-bottom:1px}.workshop-editor .style-option b{font-size:16px}.workshop-editor .style-option small{color:#7594b6;font-size:11px}.workshop-editor .workshop-upload{margin:20px 0 0}.workshop-editor .upload-area{min-height:246px;padding:0 14px;border:2px dashed #b7d0e7;border-radius:18px;background:#f7faff}.workshop-editor .upload-icon{width:62px;height:62px;margin-bottom:12px;background:#205b96;font-size:34px}.workshop-editor .upload-area b{color:#194f86;font-size:20px;margin-bottom:4px}.workshop-editor .upload-area small{color:#7898bb;font-size:11px;line-height:1.45;text-align:center}.upload-actions{display:flex;gap:10px;margin-top:17px}.upload-actions button{display:flex;align-items:center;justify-content:center;height:36px;padding:0 14px;border-radius:12px;font:700 11px 'Noto Serif SC',serif;white-space:nowrap}.upload-actions .upload-camera{border:2px solid #777b82;color:#161616;background:#b54a5d;box-shadow:inset 0 0 0 1px #d27685,0 2px 0 #777b82}.upload-actions .upload-gallery{border:1px solid #b7cfe7;color:#316296;background:#fff;box-shadow:0 1px 2px #315a8110}.upload-actions button:active{transform:translateY(1px);box-shadow:none}
+
+/* 上传完成与定制底部弹窗。 */
+.workshop-editor .upload-preview{height:181px;border:1px solid #c7d8e8;border-radius:17px;background:#111}.workshop-editor .upload-preview img{width:100%;height:100%;max-height:none;object-fit:cover}.upload-preview-actions{position:absolute;right:13px;bottom:13px;display:flex;gap:8px}.upload-preview-actions button{height:31px;padding:0 13px;border-radius:16px;color:#fff;font:700 11px 'Noto Serif SC',serif}.upload-preview-actions .upload-retake{border:1px solid #f3dce1;background:#a84355}.upload-preview-actions .upload-replace{position:static;border:1px solid #c7d9ec;background:#0e2748}.workshop-editor .generate-btn{height:50px;margin-top:22px;padding:0;border-radius:15px;background:linear-gradient(90deg,#245d96,#2d80b7);font-size:19px;box-shadow:0 10px 19px #1c54892b}.workshop-editor .workshop-result{margin-top:27px}.workshop-editor .workshop-result h3{margin:0 0 14px;color:#0d3765;font-size:22px}.workshop-editor .result-frame{aspect-ratio:1.62;border:3px solid #1e5e9d;border-radius:17px}.workshop-editor .result-badge{top:12px;left:12px;padding:5px 10px;border-radius:12px;background:#1c5a96e8;font-size:11px}.workshop-editor .result-actions{gap:10px;margin-top:14px}.workshop-editor .btn-primary,.workshop-editor .btn-secondary{height:47px;padding:0;border-radius:14px;font-size:16px;line-height:47px}.workshop-editor .btn-primary{background:#205d99}.workshop-editor .btn-secondary{border:2px solid #205d99;color:#205d99}.order-modal{align-items:flex-end}.order-card{max-width:430px;padding:28px 18px calc(18px + env(safe-area-inset-bottom));border-radius:27px 27px 0 0}.order-card h3{margin:0 0 10px;color:#0d3765;font-size:25px}.order-sub{margin:0 0 22px;color:#7794b4;font-size:13px}.order-close{top:18px;right:18px;width:34px;height:34px;color:#7b9bbb;background:#edf3fa;font-size:26px}.product-list{gap:10px;margin-bottom:18px}.product-item{min-height:59px;padding:12px 14px;border:2px solid #d5e2ef;border-radius:16px}.product-item.chosen{border-color:#1d5d9b;background:#eef5fd}.product-item b{font-size:16px}.product-item small{font-size:12px}.product-price{font-size:18px}.order-bottom .btn-primary{height:43px;padding:0 20px;line-height:43px}
+
+.workshop-landing .craft-preview-card.doll{background:#24465b}.workshop-landing .craft-preview-card.doll img{opacity:.78;mix-blend-mode:normal;filter:saturate(.92) contrast(1.05)}.workshop-landing .craft-preview-card.doll:after{background:linear-gradient(90deg,#08253ee8 0%,#1a476e99 48%,#183a5d20)}.style-doll-crown .style-swatch,.style-doll-dress .style-swatch{background:#1d405e}.style-doll-crown .style-swatch img,.style-doll-dress .style-swatch img{mix-blend-mode:normal;filter:saturate(.9) contrast(1.06)}.doll-model-preview{display:block;width:100%;height:100%;background:radial-gradient(circle at 50% 35%,#fff 0%,#dce9f6 44%,#a9c2dc 100%)}
+/* 苗语关卡：内容自然延展，避免固定画布截断末尾的资料卡。 */
+.miao-language-game{height:auto!important;overflow:visible!important}
+.miao-language-content{overflow:visible!important;padding-bottom:36px}
+.miao-source-note{overflow-wrap:anywhere}
+.miao-source-note a{display:inline;line-height:1.55}
+.miao-audio-error{margin:-8px 3px 15px;color:#9a563e;font-size:10px;line-height:1.4}

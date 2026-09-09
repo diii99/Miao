@@ -1,0 +1,78 @@
+00:00.344  blend            | Read blend: "D:\Miao\output\xijiang-map\xijiang-valley.blend"
+00:00.359  render           | Rendering single frame
+00:00.359  render           | Rendering frame 1
+00:00.359  render           | Start rendering: Xijiang • Research diorama.001, ViewLayer
+00:00.359  render           | Engine: Cycles
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | Earth • moss and soil.001
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | Afternoon sun.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | batik • Posts and balcony rails.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | batik • Grey tile 3.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | batik • Window glow.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | silver • River embankments • grey stone.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | silver • Timber • aged chestnut
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | silver • Posts and balcony rails.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | silver • Grey tile 0.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | silver • Window glow.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | embroidery • River embankments • grey stone.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | embroidery • Timber • aged chestnut
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | embroidery • Posts and balcony rails.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | embroidery • Window glow.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | banquet • Timber • warm variation.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | banquet • Posts and balcony rails.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | lookout • Posts and balcony rails.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | museum • River embankments • grey stone.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | museum • Timber • aged chestnut.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | Forest 2.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | museum • Posts and balcony rails.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | museum • Grey tile 3.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | museum • Window glow.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | Rice terraces 2.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | Forest 1.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Synchronizing object | Forest 0.001
+00:00.375  render           | Fra: 1 | Mem: 0M | Initializing
+00:00.375  render           | Fra: 1 | Mem: 0M | Waiting for render to start
+00:00.375  render           | Fra: 1 | Mem: 0M | Updating Scene
+00:00.375  render           | Fra: 1 | Mem: 0M | Updating Shaders
+00:00.375  render           | Fra: 1 | Mem: 0M | Loading render kernels (may take a few minutes the first time)
+00:00.375  render           | Fra: 1 | Mem: 1M | Updating Procedurals
+00:00.375  render           | Fra: 1 | Mem: 1M | Updating Background
+00:00.375  render           | Fra: 1 | Mem: 1M | Updating Scene Attribute
+00:00.375  render           | Fra: 1 | Mem: 1M | Updating Camera
+00:00.375  render           | Fra: 1 | Mem: 1M | Updating Meshes Flags
+00:00.375  render           | Fra: 1 | Mem: 1M | Updating Objects
+00:00.375  render           | Fra: 1 | Mem: 1M | Updating Objects | Copying Transformations to device
+00:00.375  render           | Fra: 1 | Mem: 1M | Updating Particle Systems
+00:00.375  render           | Fra: 1 | Mem: 1M | Updating Particle Systems | Copying Particles to device
+00:00.375  render           | Fra: 1 | Mem: 1M | Updating Meshes
+00:00.375  render           | Fra: 1 | Mem: 1M | Updating Objects | Applying Static Transformations
+00:00.375  render           | Fra: 1 | Mem: 1M | Updating Scene BVH | Building
+00:00.375  render           | Fra: 1 | Mem: 1M | Updating Scene BVH | Building BVH
+00:00.375  render           | Fra: 1 | Mem: 3M | Updating Scene BVH | Building BVH 0%
+00:00.375  render           | Fra: 1 | Mem: 7M | Updating Scene BVH | Copying BVH to device
+00:00.375  render           | Fra: 1 | Mem: 7M | Updating Mesh | Computing attributes
+00:00.375  render           | Fra: 1 | Mem: 7M | Updating Mesh | Copying Attributes to device
+00:00.375  render           | Fra: 1 | Mem: 8M | Updating Mesh | Computing normals
+00:00.375  render           | Fra: 1 | Mem: 8M | Updating Mesh | Copying Mesh to device
+00:00.375  render           | Fra: 1 | Mem: 10M | Updating Objects Flags
+00:00.375  render           | Fra: 1 | Mem: 10M | Updating Primitive Offsets
+00:00.375  render           | Fra: 1 | Mem: 10M | Updating Images
+00:00.375  render           | Fra: 1 | Mem: 10M | Updating Volume
+00:00.375  render           | Fra: 1 | Mem: 10M | Updating Camera Volume
+00:00.375  render           | Fra: 1 | Mem: 10M | Updating Lookup Tables
+00:00.375  render           | Fra: 1 | Mem: 10M | Updating Lights
+00:00.375  render           | Fra: 1 | Mem: 10M | Updating Lights | Computing tree
+00:00.375  render           | Fra: 1 | Mem: 10M | Updating Integrator
+00:00.375  render           | Fra: 1 | Mem: 10M | Updating Film
+00:00.375  render           | Fra: 1 | Mem: 10M | Updating Lookup Tables
+00:00.375  render           | Fra: 1 | Mem: 10M | Updating Baking
+00:00.375  render           | Fra: 1 | Mem: 10M | Updating Device | Writing constant memory
+00:00.375  render           | Fra: 1 | Mem: 10M | Loading denoising kernels (may take a few minutes the first time)
+00:00.375  render           | Fra: 1 | Mem: 10M | Sample 0/24
+00:00.516  render           | Fra: 1 | Remaining: 00:03.18 | Mem: 130M | Sample 1/24
+00:05.953  render           | Fra: 1 | Mem: 130M | Sample 24/24
+00:05.969  render           | Fra: 1 | Mem: 130M | Finished
+00:06.250  render           | Saved: 'D:\Miao\output\xijiang-map\blender-overview.png0001.png'
+00:06.266  render           | Time: 00:05.89 (Saving: 00:00.22)
+
+Blender quit

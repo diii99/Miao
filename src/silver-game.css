@@ -1,0 +1,262 @@
+.silver-game {
+  min-height: calc(100vh - 146px);
+  margin: 0 -16px;
+  padding: 16px;
+  color: #edf4f7;
+  background:
+    radial-gradient(circle at 10% 0, #a25e3d55, transparent 35%),
+    linear-gradient(145deg, #101b25, #202d35 57%, #15191d);
+  overflow-x: hidden;
+}
+
+.silver-game button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.silver-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.silver-head > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.silver-head span,
+.silver-kicker {
+  display: block;
+  color: #b8ced9;
+  font-size: 10px;
+  letter-spacing: 0.13em;
+  word-break: break-word;
+}
+
+.silver-head h1 {
+  margin: 3px 0;
+  color: #fff;
+  font: 700 20px/1.3 "Noto Serif SC", serif;
+  word-break: break-word;
+}
+
+.silver-back,
+.silver-sound {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #c9dbe066;
+  border-radius: 50%;
+  color: #fff;
+  background: #ffffff10;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.silver-stepper {
+  display: flex;
+  margin: 17px 0 12px;
+  gap: 4px;
+}
+
+.silver-stepper div {
+  flex: 1;
+  min-width: 0;
+  color: #8fa7b2;
+  font-size: 9px;
+  text-align: center;
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+.silver-stepper i {
+  display: grid;
+  place-items: center;
+  width: 19px;
+  height: 19px;
+  margin: 0 auto 5px;
+  border: 1px solid #7f99a6;
+  border-radius: 50%;
+  font-style: normal;
+}
+
+.silver-stepper .done {
+  color: #fff;
+}
+
+.silver-stepper .done i {
+  border-color: #e5be7c;
+  background: #d19051;
+  color: #182026;
+}
+
+.silver-canvas {
+  position: relative;
+  height: 285px;
+  overflow: hidden;
+  border: 1px solid #d6e5eb52;
+  border-radius: 20px;
+  background: #111b22;
+  box-shadow: 0 18px 30px #0008;
+}
+
+.silver-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.silver-canvas span {
+  position: absolute;
+  right: 11px;
+  bottom: 9px;
+  padding: 4px 7px;
+  border-radius: 6px;
+  color: #d4e0e6;
+  background: #071015ad;
+  font-size: 9px;
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: calc(100% - 22px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.silver-panel {
+  margin-top: 14px;
+  padding: 16px;
+  border: 1px solid #d8e5e83b;
+  border-radius: 18px;
+  background: #ffffff0a;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.silver-panel h2 {
+  margin: 6px 0 9px;
+  color: #fff;
+  font: 700 21px/1.35 "Noto Serif SC", serif;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.silver-panel p {
+  margin: 0;
+  color: #c5d5db;
+  font-size: 12px;
+  line-height: 1.75;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.silver-meter {
+  height: 7px;
+  margin: 14px 0;
+  overflow: hidden;
+  border-radius: 99px;
+  background: #ffffff1c;
+}
+
+.silver-meter i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #bb704c, #e4d1a0);
+  transition: width 0.25s;
+}
+
+.silver-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.silver-actions button,
+.silver-actions a {
+  flex: 1 1 130px;
+  min-width: 0;
+  border: 1px solid #dce6e766;
+  border-radius: 12px;
+  padding: 10px 12px;
+  color: #f7fbfc;
+  background: #ffffff12;
+  font-size: 12px;
+  white-space: normal;
+  word-break: break-word;
+  text-align: center;
+  line-height: 1.35;
+}
+
+.silver-actions .primary {
+  border-color: #e7c47d;
+  color: #18232a;
+  background: linear-gradient(135deg, #efd08c, #c98558);
+  font-weight: 800;
+}
+
+.motifs {
+  display: flex;
+  gap: 7px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.motifs button {
+  flex: 1 1 70px;
+  min-width: 0;
+  border: 1px solid #d7e5e750;
+  border-radius: 10px;
+  padding: 8px;
+  color: #dcebf0;
+  background: #ffffff0b;
+  font-size: 11px;
+  white-space: normal;
+  word-break: break-word;
+  text-align: center;
+}
+
+.motifs .selected {
+  border-color: #e8c57e;
+  background: #d0945c33;
+}
+
+.silver-finish {
+  text-align: center;
+}
+
+.silver-score {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.silver-score div {
+  padding: 10px 4px;
+  border: 1px solid #d5e4e642;
+  border-radius: 10px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.silver-score b,
+.silver-score span {
+  display: block;
+}
+
+.silver-score b {
+  color: #f2d598;
+  font: 700 19px Georgia;
+  word-break: break-word;
+}
+
+.silver-score span {
+  margin-top: 4px;
+  color: #b8cdd4;
+  font-size: 9px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}

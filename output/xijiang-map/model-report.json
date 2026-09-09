@@ -1,0 +1,28 @@
+{
+  "revision": 3,
+  "glbBytes": 6305016,
+  "buildings": 332,
+  "meshes": 91,
+  "triangles": 114805,
+  "walkwayPaths": 27,
+  "bridges": 3,
+  "poiTags": [
+    "ancient-street",
+    "banquet",
+    "batik",
+    "bridge",
+    "embroidery",
+    "gaga",
+    "guzang",
+    "lookout",
+    "lusheng",
+    "museum",
+    "necklace",
+    "performance",
+    "silver",
+    "terraces",
+    "yedong",
+    "youfang"
+  ],
+  "embeddedTextures": 0
+}

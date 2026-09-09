@@ -1,0 +1,9 @@
+# Kept for local Vite development and served by the Worker from R2 in production.
+人物/3d/
+
+# Excluded from the Worker static-assets upload.
+蜡染/蜡染教程.mp4
+
+# Worker source is uploaded separately by Wrangler, never as a public asset.
+worker.js
+worker.js.map

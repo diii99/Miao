@@ -1,0 +1,14 @@
+[
+  {
+    "version": "revision1",
+    "bytes": 5039456,
+    "meshes": 47,
+    "triangles": 94158
+  },
+  {
+    "version": "revision2",
+    "bytes": 3882916,
+    "meshes": 79,
+    "triangles": 73498
+  }
+]

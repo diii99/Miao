@@ -1,0 +1,83 @@
+{
+  "assets": {
+    "01-wax-knife.png": {
+      "source": "public/蜡染/game-assets/2d/01-wax-knife.png",
+      "uploadedUrl": "https://holo-cos.aholo3d.cn/resource/platform/temp/2026/08/29/NKJDWPQKQRCKGAABAAAAAEA8.png",
+      "taskId": "3139821",
+      "generationStatus": "superseded",
+      "supersededBy": "01-wax-knife-v2.png",
+      "modelPath": "public\\蜡染\\game-assets\\3d\\01-wax-knife.glb",
+      "glbUrl": "https://qhsmodel.kujiale.com/genesis3d/inference/20260829/babb0278dfae419b9ce278448ec198f1/results/tex_mesh/attempt-1/tex_mesh.glb",
+      "glbBytes": 11190604
+    },
+    "02-wax-heater.png": {
+      "source": "public/蜡染/game-assets/2d/02-wax-heater.png",
+      "uploadedUrl": "https://holo-cos.aholo3d.cn/resource/platform/temp/2026/08/29/NKJDYHYKQREZUAABAAAAAAQ8.png",
+      "taskId": "3139824",
+      "generationStatus": "succeeded",
+      "modelPath": "public\\蜡染\\game-assets\\3d\\02-wax-heater.glb",
+      "glbUrl": "https://qhsmodel.kujiale.com/genesis3d/inference/20260829/7cf176c286ee411ba81674ea0208eb3b/results/tex_mesh/attempt-1/tex_mesh.glb",
+      "glbBytes": 13920616
+    },
+    "03-guided-cloth.png": {
+      "source": "public/蜡染/game-assets/2d/03-guided-cloth.png",
+      "uploadedUrl": "https://holo-cos.aholo3d.cn/resource/platform/temp/2026/08/29/NKJDYHYKQREZUAABAAAAAAY8.png",
+      "taskId": "3139836",
+      "generationStatus": "succeeded",
+      "modelPath": "public\\蜡染\\game-assets\\3d\\03-guided-cloth.glb",
+      "glbUrl": "https://qhsmodel.kujiale.com/genesis3d/inference/20260829/270ca264709a467fb497d6a6bbe44b7c/results/tex_mesh/attempt-1/tex_mesh.glb",
+      "glbBytes": 8559340
+    },
+    "04-wax-sealed-cloth.png": {
+      "source": "public/蜡染/game-assets/2d/04-wax-sealed-cloth.png",
+      "uploadedUrl": "https://holo-cos.aholo3d.cn/resource/platform/temp/2026/08/29/NKJDY3YKQRCKGAABAAAAAAA8.png",
+      "taskId": "3139839",
+      "generationStatus": "succeeded",
+      "modelPath": "public\\蜡染\\game-assets\\3d\\04-wax-sealed-cloth.glb",
+      "glbUrl": "https://qhsmodel.kujiale.com/genesis3d/inference/20260829/2800788b8e3448bf9ff7eee3f4475b13/results/tex_mesh/attempt-1/tex_mesh.glb",
+      "glbBytes": 8032684
+    },
+    "05-indigo-vat.png": {
+      "source": "public/蜡染/game-assets/2d/05-indigo-vat.png",
+      "uploadedUrl": "https://holo-cos.aholo3d.cn/resource/platform/temp/2026/08/29/NKJDY3YKQRCKGAABAAAAAAI8.png",
+      "taskId": "3139915",
+      "generationStatus": "succeeded",
+      "modelPath": "public\\蜡染\\game-assets\\3d\\05-indigo-vat.glb",
+      "glbUrl": "https://qhsmodel.kujiale.com/genesis3d/inference/20260829/c52f1011230544bfa6a3191d68b78367/results/tex_mesh/attempt-1/tex_mesh.glb",
+      "glbBytes": 11190732
+    },
+    "06-oxidizing-textile.png": {
+      "source": "public/蜡染/game-assets/2d/06-oxidizing-textile.png",
+      "uploadedUrl": "https://holo-cos.aholo3d.cn/resource/platform/temp/2026/08/29/NKJDYHYKQREZUAABAAAAABA8.png",
+      "taskId": "3139929",
+      "generationStatus": "succeeded",
+      "modelPath": "public\\蜡染\\game-assets\\3d\\06-oxidizing-textile.glb",
+      "glbUrl": "https://qhsmodel.kujiale.com/genesis3d/inference/20260829/a0e23d611bc24d8db5db3ca247dd27e3/results/tex_mesh/attempt-1/tex_mesh.glb",
+      "glbBytes": 12701592
+    },
+    "07-finished-textile.png": {
+      "source": "public/蜡染/game-assets/2d/07-finished-textile.png",
+      "uploadedUrl": "https://holo-cos.aholo3d.cn/resource/platform/temp/2026/08/29/NKJDY3YKQRCKGAABAAAAAAY8.png",
+      "taskId": "3139956",
+      "generationStatus": "succeeded",
+      "modelPath": "public\\蜡染\\game-assets\\3d\\07-finished-textile.glb",
+      "glbUrl": "https://qhsmodel.kujiale.com/genesis3d/inference/20260829/2c6045b0452f4d70b6b9bcd82c28ed32/results/tex_mesh/attempt-1/tex_mesh.glb",
+      "glbBytes": 11324872
+    },
+    "01-wax-knife-v2.png": {
+      "source": "public/蜡染/game-assets/2d/01-wax-knife-v2.png",
+      "uploadedUrl": "https://holo-cos.aholo3d.cn/resource/platform/temp/2026/08/29/NKJD2HAKQRCKGAABAAAAACY8.png",
+      "taskId": "3139912",
+      "generationStatus": "succeeded",
+      "modelPath": "public\\蜡染\\game-assets\\3d\\01-wax-knife.glb",
+      "glbUrl": "https://qhsmodel.kujiale.com/genesis3d/inference/20260829/c02e44dfc73045e1a78870f45763d82f/results/tex_mesh/attempt-1/tex_mesh.glb",
+      "glbBytes": 9318976
+    }
+  },
+  "version": "G1-Turbo",
+  "createdBy": "generate_wax_lux3d_models.py",
+  "faceCount": 50000,
+  "outputFormat": [
+    "glb"
+  ]
+}

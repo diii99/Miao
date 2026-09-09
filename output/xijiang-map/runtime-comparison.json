@@ -1,0 +1,21 @@
+{
+  "environment": "Chrome headless software WebGL, 430x932, one 4-second overview sample per model; shared current UI; local dev server; not a physical-phone benchmark",
+  "report": [
+    {
+      "version": "revision1",
+      "readyMs": 1075,
+      "samples": 57,
+      "medianFrameMs": 66.60000000000036,
+      "p95FrameMs": 183.30000000000018,
+      "errors": []
+    },
+    {
+      "version": "revision2",
+      "readyMs": 611,
+      "samples": 64,
+      "medianFrameMs": 66.59999999999991,
+      "p95FrameMs": 116.70000000000005,
+      "errors": []
+    }
+  ]
+}

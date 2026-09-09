@@ -1,0 +1,17 @@
+
+  VITE v8.2.2  ready in 167 ms
+
+  ➜  Local:   http://127.0.0.1:5173/
+  ➜  press h + enter to show help
+12:53:51 PM [vite] (client) hmr update /src/main.tsx, /src/map-3d/MiaoVillageScene.tsx
+12:54:31 PM [vite] (client) hmr update /src/main.tsx, /src/map-3d/MiaoVillageScene.tsx
+12:54:31 PM [vite] (client) hmr update /src/map-3d/MiaoVillageScene.tsx
+12:55:34 PM [vite] (client) hmr update /src/main.tsx, /src/map-3d/MiaoVillageScene.tsx
+12:55:38 PM [vite] (client) hmr update /src/main.tsx, /src/map-3d/MiaoVillageScene.tsx
+12:56:14 PM [vite] (client) hmr update /src/map-3d/MiaoVillageScene.tsx, /src/main.tsx
+12:56:14 PM [vite] (client) hmr update /src/map-3d/MiaoVillageScene.tsx
+12:57:19 PM [vite] (client) hmr update /src/map-background.css
+12:59:54 PM [vite] (client) hmr update /src/map-3d/MiaoVillageScene.tsx
+12:59:54 PM [vite] (client) hmr update /src/map-background.css
+1:01:38 PM [vite] (client) hmr update /src/map-3d/MiaoVillageScene.tsx
+1:04:05 PM [vite] (client) hmr update /src/main.tsx, /src/map-3d/MiaoVillageScene.tsx
