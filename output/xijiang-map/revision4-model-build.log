@@ -1,0 +1,501 @@
+D:\Miao\scripts\build_xijiang_map.py:26: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m.use_nodes = True
+D:\Miao\scripts\build_xijiang_map.py:554: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  scene.world.use_nodes=True
+INFO Draco is available, use library at E:\Blender\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_draco_bridge.dll
+INFO MeshOptimizer is available, use library at E:\Blender\5.2\scripts\addons_core\io_scene_gltf2\bf_intern_meshopt_bridge.dll
+11:58:09 | INFO: Starting glTF 2.0 export
+11:58:09 | INFO: Extracting primitive: Posts and balcony rails.009
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • aged chestnut.006
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Baishui River
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Posts and balcony rails.006
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • warm variation.006
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Grey tile 3.001
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Posts and balcony rails.003
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: River embankments • grey stone.003
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • aged chestnut.003
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • warm variation.003
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Window glow.002
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Grey tile 0.001
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Grey tile 1.001
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Lantern paper.001
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Posts and balcony rails.001
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: River embankments • grey stone.001
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • aged chestnut.001
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • warm variation.001
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Cut earth • layered edge
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Earth • moss and soil
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Grey tile 1.003
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Posts and balcony rails.005
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: River embankments • grey stone.005
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • warm variation.005
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Window glow.004
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Forest 0
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Forest 1
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Forest 2
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Posts and balcony rails.011
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • aged chestnut.008
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Grey tile 0
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Grey tile 1
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Grey tile 2
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Grey tile 3
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Grey tile 1.005
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Posts and balcony rails.013
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: River embankments • grey stone.009
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • warm variation.009
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Window glow.007
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Indigo drying cloth
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Lantern paper
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Posts and balcony rails.007
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: River embankments • grey stone.006
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Grey tile 0.002
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Grey tile 1.002
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Plaza • charcoal stone inlay
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Plaza • pale limestone inlay
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Posts and balcony rails.002
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: River embankments • grey stone.002
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • aged chestnut.002
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • warm variation.002
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Walking lanes • pale stone.001
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Window glow.001
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Grey tile 0.003
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Grey tile 2.002
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Grey tile 3.002
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Indigo drying cloth.001
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Lantern paper.003
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Posts and balcony rails.008
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: River embankments • grey stone.007
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • aged chestnut.005
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • warm variation.007
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Window glow.005
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Necklace • brushed silver
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • aged chestnut.010
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Walking lanes • pale stone.002
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Grey tile 0.004
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Posts and balcony rails.014
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: River embankments • grey stone.010
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Posts and balcony rails
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Rice shoots
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Rice terraces 0
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Rice terraces 1
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Rice terraces 2
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: River embankments • grey stone
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: River gravel
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Grey tile 2.001
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Lantern paper.002
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Posts and balcony rails.004
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: River embankments • grey stone.004
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • aged chestnut.004
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • warm variation.004
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Window glow.003
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Terrace risers and exposed soil
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • aged chestnut.009
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • aged chestnut
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • warm variation
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Walking lanes • pale stone
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Window glow
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Grey tile 1.004
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Grey tile 2.003
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Posts and balcony rails.012
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: River embankments • grey stone.008
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • warm variation.008
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Window glow.006
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Posts and balcony rails.010
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Extracting primitive: Timber • aged chestnut.007
+11:58:09 | INFO: Primitives created: 1
+11:58:09 | INFO: Draco encoder: Encoding mesh ancient-street • Posts and balcony rails.
+11:58:09 | INFO: Draco encoder: Encoding mesh ancient-street • Timber • aged chestnut.
+11:58:09 | INFO: Draco encoder: Encoding mesh Baishui River.
+11:58:09 | INFO: Draco encoder: Encoding mesh banquet • Posts and balcony rails.
+11:58:09 | INFO: Draco encoder: Encoding mesh banquet • Timber • warm variation.
+11:58:09 | INFO: Draco encoder: Encoding mesh batik • Grey tile 3.
+11:58:09 | INFO: Draco encoder: Encoding mesh batik • Posts and balcony rails.
+11:58:09 | INFO: Draco encoder: Encoding mesh batik • River embankments • grey stone.
+11:58:09 | INFO: Draco encoder: Encoding mesh batik • Timber • aged chestnut.
+11:58:09 | INFO: Draco encoder: Encoding mesh batik • Timber • warm variation.
+11:58:09 | INFO: Draco encoder: Encoding mesh batik • Window glow.
+11:58:09 | INFO: Draco encoder: Encoding mesh bridge • Grey tile 0.
+11:58:09 | INFO: Draco encoder: Encoding mesh bridge • Grey tile 1.
+11:58:09 | INFO: Draco encoder: Encoding mesh bridge • Lantern paper.
+11:58:09 | INFO: Draco encoder: Encoding mesh bridge • Posts and balcony rails.
+11:58:09 | INFO: Draco encoder: Encoding mesh bridge • River embankments • grey stone.
+11:58:09 | INFO: Draco encoder: Encoding mesh bridge • Timber • aged chestnut.
+11:58:09 | INFO: Draco encoder: Encoding mesh bridge • Timber • warm variation.
+11:58:09 | INFO: Draco encoder: Encoding mesh Cut earth • layered edge.
+11:58:09 | INFO: Draco encoder: Encoding mesh Earth • moss and soil.
+11:58:09 | INFO: Draco encoder: Encoding mesh embroidery • Grey tile 1.
+11:58:09 | INFO: Draco encoder: Encoding mesh embroidery • Posts and balcony rails.
+11:58:09 | INFO: Draco encoder: Encoding mesh embroidery • River embankments • grey stone.
+11:58:09 | INFO: Draco encoder: Encoding mesh embroidery • Timber • warm variation.
+11:58:09 | INFO: Draco encoder: Encoding mesh embroidery • Window glow.
+11:58:09 | INFO: Draco encoder: Encoding mesh Forest 0.
+11:58:09 | INFO: Draco encoder: Encoding mesh Forest 1.
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 02:38:20)
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 48 vertices, 72 indices, raw size: 1296, encoded size: 292, compression ratio: 4.44
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 24 vertices, 36 indices, raw size: 840, encoded size: 326, compression ratio: 2.58
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 1194 vertices, 2874 indices, raw size: 34404, encoded size: 3100, compression ratio: 11.10
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 48 vertices, 72 indices, raw size: 1296, encoded size: 282, compression ratio: 4.60
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 24 vertices, 36 indices, raw size: 840, encoded size: 331, compression ratio: 2.54
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 70 vertices, 102 indices, raw size: 2444, encoded size: 616, compression ratio: 3.97
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 860 vertices, 1290 indices, raw size: 23220, encoded size: 1856, compression ratio: 12.51
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 192 vertices, 288 indices, raw size: 6720, encoded size: 940, compression ratio: 7.15
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 24 vertices, 36 indices, raw size: 840, encoded size: 336, compression ratio: 2.50
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 616 vertices, 924 indices, raw size: 21560, encoded size: 2474, compression ratio: 8.71
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 48 vertices, 72 indices, raw size: 1296, encoded size: 333, compression ratio: 3.89
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 70 vertices, 102 indices, raw size: 2444, encoded size: 605, compression ratio: 4.04
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 70 vertices, 102 indices, raw size: 2444, encoded size: 625, compression ratio: 3.91
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 144 vertices, 216 indices, raw size: 3888, encoded size: 566, compression ratio: 6.87
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 1920 vertices, 2880 indices, raw size: 51840, encoded size: 3156, compression ratio: 16.43
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 144 vertices, 216 indices, raw size: 5040, encoded size: 837, compression ratio: 6.02
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 24 vertices, 36 indices, raw size: 840, encoded size: 339, compression ratio: 2.48
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 408 vertices, 612 indices, raw size: 14280, encoded size: 1534, compression ratio: 9.31
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 720 vertices, 1080 indices, raw size: 19440, encoded size: 3542, compression ratio: 5.49
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 12961 vertices, 77220 indices, raw size: 465504, encoded size: 41682, compression ratio: 11.17
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 70 vertices, 102 indices, raw size: 2444, encoded size: 638, compression ratio: 3.83
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 860 vertices, 1290 indices, raw size: 23220, encoded size: 1862, compression ratio: 12.47
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 192 vertices, 288 indices, raw size: 6720, encoded size: 1033, compression ratio: 6.51
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 640 vertices, 960 indices, raw size: 22400, encoded size: 2758, compression ratio: 8.12
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 48 vertices, 72 indices, raw size: 1296, encoded size: 333, compression ratio: 3.89
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 8645 vertices, 13395 indices, raw size: 234270, encoded size: 30647, compression ratio: 7.64
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | En11:58:09 | INFO: Draco encoder: Encoding mesh Forest 2.
+11:58:09 | INFO: Draco encoder: Encoding mesh gaga • Posts and balcony rails.
+11:58:09 | INFO: Draco encoder: Encoding mesh gaga • Timber • aged chestnut.
+11:58:09 | INFO: Draco encoder: Encoding mesh Grey tile 0.
+11:58:09 | INFO: Draco encoder: Encoding mesh Grey tile 1.
+11:58:09 | INFO: Draco encoder: Encoding mesh Grey tile 2.
+11:58:09 | INFO: Draco encoder: Encoding mesh Grey tile 3.
+11:58:09 | INFO: Draco encoder: Encoding mesh guzang • Grey tile 1.
+11:58:09 | INFO: Draco encoder: Encoding mesh guzang • Posts and balcony rails.
+11:58:09 | INFO: Draco encoder: Encoding mesh guzang • River embankments • grey stone.
+11:58:09 | INFO: Draco encoder: Encoding mesh guzang • Timber • warm variation.
+11:58:09 | INFO: Draco encoder: Encoding mesh guzang • Window glow.
+11:58:09 | INFO: Draco encoder: Encoding mesh Indigo drying cloth.
+11:58:09 | INFO: Draco encoder: Encoding mesh Lantern paper.
+11:58:09 | INFO: Draco encoder: Encoding mesh lookout • Posts and balcony rails.
+11:58:09 | INFO: Draco encoder: Encoding mesh lookout • River embankments • grey stone.
+11:58:09 | INFO: Draco encoder: Encoding mesh lusheng • Grey tile 0.
+11:58:09 | INFO: Draco encoder: Encoding mesh lusheng • Grey tile 1.
+11:58:09 | INFO: Draco encoder: Encoding mesh lusheng • Plaza • charcoal stone inlay.
+11:58:09 | INFO: Draco encoder: Encoding mesh lusheng • Plaza • pale limestone inlay.
+11:58:09 | INFO: Draco encoder: Encoding mesh lusheng • Posts and balcony rails.
+11:58:09 | INFO: Draco encoder: Encoding mesh lusheng • River embankments • grey stone.
+11:58:09 | INFO: Draco encoder: Encoding mesh lusheng • Timber • aged chestnut.
+11:58:09 | INFO: Draco encoder: Encoding mesh lusheng • Timber • warm variation.
+11:58:09 | INFO: Draco encoder: Encoding mesh lusheng • Walking lanes • pale stone.
+11:58:09 | INFO: Draco encoder: Encoding mesh lusheng • Window glow.
+coded 8918 vertices, 13818 indices, raw size: 241668, encoded size: 31685, compression ratio: 7.63
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 10550 vertices, 16278 indices, raw size: 285756, encoded size: 36496, compression ratio: 7.83
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 48 vertices, 72 indices, raw size: 1296, encoded size: 292, compression ratio: 4.44
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 24 vertices, 36 indices, raw size: 840, encoded size: 330, compression ratio: 2.55
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 4270 vertices, 6222 indices, raw size: 149084, encoded size: 21066, compression ratio: 7.08
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 5810 vertices, 8466 indices, raw size: 202852, encoded size: 27905, compression ratio: 7.27
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 5320 vertices, 7752 indices, raw size: 185744, encoded size: 26034, compression ratio: 7.13
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 5670 vertices, 8262 indices, raw size: 197964, encoded size: 27552, compression ratio: 7.19
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 140 vertices, 204 indices, raw size: 4888, encoded size: 1013, compression ratio: 4.83
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 1912 vertices, 2868 indices, raw size: 51624, encoded size: 3577, compression ratio: 14.43
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 408 vertices, 612 indices, raw size: 14280, encoded size: 1673, compression ratio: 8.54
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 1424 vertices, 2136 indices, raw size: 49840, encoded size: 5196, compression ratio: 9.59
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 96 vertices, 144 indices, raw size: 2592, encoded size: 502, compression ratio: 5.16
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 132 vertices, 198 indices, raw size: 3564, encoded size: 676, compression ratio: 5.27
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 1872 vertices, 2808 indices, raw size: 50544, encoded size: 4743, compression ratio: 10.66
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 72 vertices, 108 indices, raw size: 1944, encoded size: 432, compression ratio: 4.50
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 24 vertices, 36 indices, raw size: 840, encoded size: 334, compression ratio: 2.51
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 280 vertices, 408 indices, raw size: 9776, encoded size: 1457, compression ratio: 6.71
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 70 vertices, 102 indices, raw size: 2444, encoded size: 652, compression ratio: 3.75
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 24 vertices, 36 indices, raw size: 648, encoded size: 221, compression ratio: 2.93
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 776 vertices, 2304 indices, raw size: 23232, encoded size: 2007, compression ratio: 11.58
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 3248 vertices, 4872 indices, raw size: 87696, encoded size: 5288, compression ratio: 16.58
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 936 vertices, 1404 indices, raw size: 32760, encoded size: 3062, compression ratio: 10.70
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 96 vertices, 144 indices, raw size: 3360, encoded size: 780, compression ratio: 4.31
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 2392 vertices, 3588 indices, raw size: 83720, encoded size: 7818, compression ratio: 10.71
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 24 vertices, 36 indices, raw size: 840, encoded size: 333, compression ratio: 2.52
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 192 vertices, 288 indices, raw size: 5184, encoded size: 544, compression ratio: 11:58:09 | INFO: Draco encoder: Encoding mesh museum • Grey tile 0.
+11:58:09 | INFO: Draco encoder: Encoding mesh museum • Grey tile 2.
+11:58:09 | INFO: Draco encoder: Encoding mesh museum • Grey tile 3.
+11:58:09 | INFO: Draco encoder: Encoding mesh museum • Indigo drying cloth.
+11:58:09 | INFO: Draco encoder: Encoding mesh museum • Lantern paper.
+11:58:09 | INFO: Draco encoder: Encoding mesh museum • Posts and balcony rails.
+11:58:09 | INFO: Draco encoder: Encoding mesh museum • River embankments • grey stone.
+11:58:09 | INFO: Draco encoder: Encoding mesh museum • Timber • aged chestnut.
+11:58:09 | INFO: Draco encoder: Encoding mesh museum • Timber • warm variation.
+11:58:09 | INFO: Draco encoder: Encoding mesh museum • Window glow.
+11:58:09 | INFO: Draco encoder: Encoding mesh necklace • Necklace • brushed silver.
+11:58:09 | INFO: Draco encoder: Encoding mesh necklace • Timber • aged chestnut.
+11:58:09 | INFO: Draco encoder: Encoding mesh necklace • Walking lanes • pale stone.
+11:58:09 | INFO: Draco encoder: Encoding mesh performance • Grey tile 0.
+11:58:09 | INFO: Draco encoder: Encoding mesh performance • Posts and balcony rails.
+11:58:09 | INFO: Draco encoder: Encoding mesh performance • River embankments • grey stone.
+11:58:09 | INFO: Draco encoder: Encoding mesh Posts and balcony rails.
+11:58:09 | INFO: Draco encoder: Encoding mesh Rice shoots.
+11:58:09 | INFO: Draco encoder: Encoding mesh Rice terraces 0.
+11:58:09 | INFO: Draco encoder: Encoding mesh Rice terraces 1.
+11:58:09 | INFO: Draco encoder: Encoding mesh Rice terraces 2.
+11:58:09 | INFO: Draco encoder: Encoding mesh River embankments • grey stone.
+11:58:09 | INFO: Draco encoder: Encoding mesh River gravel.
+11:58:09 | INFO: Draco encoder: Encoding mesh silver • Grey tile 2.
+11:58:09 | INFO: Draco encoder: Encoding mesh silver • Lantern paper.
+11:58:09 | INFO: Draco encoder: Encoding mesh silver • Posts and balcony rails.
+11:58:09 | INFO: Draco encoder: Encoding mesh silver • River embankments • grey stone.
+9.53
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 140 vertices, 204 indices, raw size: 4888, encoded size: 954, compression ratio: 5.12
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 140 vertices, 204 indices, raw size: 4888, encoded size: 1002, compression ratio: 4.88
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 140 vertices, 204 indices, raw size: 4888, encoded size: 989, compression ratio: 4.94
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 4 vertices, 6 indices, raw size: 108, encoded size: 123, compression ratio: 0.88
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 24 vertices, 36 indices, raw size: 648, encoded size: 232, compression ratio: 2.79
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 5472 vertices, 8208 indices, raw size: 147744, encoded size: 8645, compression ratio: 17.09
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 1176 vertices, 1764 indices, raw size: 41160, encoded size: 3537, compression ratio: 11.64
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 168 vertices, 252 indices, raw size: 5880, encoded size: 950, compression ratio: 6.19
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 3984 vertices, 5976 indices, raw size: 139440, encoded size: 12120, compression ratio: 11.50
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 288 vertices, 432 indices, raw size: 7776, encoded size: 671, compression ratio: 11.59
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 2880 vertices, 5184 indices, raw size: 79488, encoded size: 10329, compression ratio: 7.70
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 24 vertices, 36 indices, raw size: 840, encoded size: 325, compression ratio: 2.58
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 24 vertices, 36 indices, raw size: 840, encoded size: 335, compression ratio: 2.51
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 70 vertices, 102 indices, raw size: 2444, encoded size: 582, compression ratio: 4.20
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 48 vertices, 72 indices, raw size: 1296, encoded size: 331, compression ratio: 3.92
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 24 vertices, 36 indices, raw size: 840, encoded size: 334, compression ratio: 2.51
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 253244 vertices, 379866 indices, raw size: 7597320, encoded size: 552750, compression ratio: 13.74
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 1143 vertices, 1143 indices, raw size: 29718, encoded size: 2767, compression ratio: 10.74
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 318 vertices, 480 indices, raw size: 8592, encoded size: 1497, compression ratio: 5.74
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 320 vertices, 480 indices, raw size: 8640, encoded size: 1512, compression ratio: 5.71
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 344 vertices, 516 indices, raw size: 9288, encoded size: 1606, compression ratio: 5.78
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 82200 vertices, 123300 indices, raw size: 3123600, encoded size: 311273, compression ratio: 10.03
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 8330 vertices, 13134 indices, raw size: 226188, encoded size: 22687, compression ratio: 9.97
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 70 vertices, 102 indices, raw size: 2444, encoded size: 588, compression ratio: 4.16
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 24 vertices, 36 indices, raw size: 648, encoded size: 232, compression ratio: 2.79
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 884 vertices, 1326 indices, raw size: 23868, encoded size: 1948, compression ratio: 12.25
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 192 vertices, 288 indices, r11:58:09 | INFO: Draco encoder: Encoding mesh silver • Timber • aged chestnut.
+11:58:09 | INFO: Draco encoder: Encoding mesh silver • Timber • warm variation.
+11:58:09 | INFO: Draco encoder: Encoding mesh silver • Window glow.
+11:58:09 | INFO: Draco encoder: Encoding mesh Terrace risers and exposed soil.
+11:58:09 | INFO: Draco encoder: Encoding mesh terraces • Timber • aged chestnut.
+11:58:09 | INFO: Draco encoder: Encoding mesh Timber • aged chestnut.
+11:58:09 | INFO: Draco encoder: Encoding mesh Timber • warm variation.
+11:58:09 | INFO: Draco encoder: Encoding mesh Walking lanes • pale stone.
+11:58:09 | INFO: Draco encoder: Encoding mesh Window glow.
+11:58:09 | INFO: Draco encoder: Encoding mesh yedong • Grey tile 1.
+11:58:09 | INFO: Draco encoder: Encoding mesh yedong • Grey tile 2.
+11:58:09 | INFO: Draco encoder: Encoding mesh yedong • Posts and balcony rails.
+11:58:09 | INFO: Draco encoder: Encoding mesh yedong • River embankments • grey stone.
+11:58:09 | INFO: Draco encoder: Encoding mesh yedong • Timber • warm variation.
+11:58:09 | INFO: Draco encoder: Encoding mesh yedong • Window glow.
+11:58:09 | INFO: Draco encoder: Encoding mesh youfang • Posts and balcony rails.
+11:58:09 | INFO: Draco encoder: Encoding mesh youfang • Timber • aged chestnut.
+11:58:09 | INFO: Finished glTF 2.0 export in 0.49805521965026855 s
+00:02.359  reports          | WARNING Path 'E:\Blender\5.2\datafiles\assets\brushes\essentials_brushes-gp_draw.blend' cannot be made relative for Material 'Dots Stroke'
+aw size: 6720, encoded size: 979, compression ratio: 6.86
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 24 vertices, 36 indices, raw size: 840, encoded size: 326, compression ratio: 2.58
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 616 vertices, 924 indices, raw size: 21560, encoded size: 2457, compression ratio: 8.77
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 48 vertices, 72 indices, raw size: 1296, encoded size: 333, compression ratio: 3.89
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 1518 vertices, 2280 indices, raw size: 40992, encoded size: 5930, compression ratio: 6.91
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 24 vertices, 36 indices, raw size: 840, encoded size: 332, compression ratio: 2.53
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 4224 vertices, 6336 indices, raw size: 147840, encoded size: 23208, compression ratio: 6.37
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 161128 vertices, 241692 indices, raw size: 6122864, encoded size: 635394, compression ratio: 9.64
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 5726 vertices, 10092 indices, raw size: 203416, encoded size: 23006, compression ratio: 8.84
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 15816 vertices, 23724 indices, raw size: 427032, encoded size: 35235, compression ratio: 12.12
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 70 vertices, 102 indices, raw size: 2444, encoded size: 636, compression ratio: 3.84
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 70 vertices, 102 indices, raw size: 2444, encoded size: 630, compression ratio: 3.88
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 1912 vertices, 2868 indices, raw size: 51624, encoded size: 3571, compression ratio: 14.46
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 408 vertices, 612 indices, raw size: 14280, encoded size: 1725, compression ratio: 8.28
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 1424 vertices, 2136 indices, raw size: 49840, encoded size: 5280, compression ratio: 9.44
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 96 vertices, 144 indices, raw size: 2592, encoded size: 502, compression ratio: 5.16
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 48 vertices, 72 indices, raw size: 1296, encoded size: 292, compression ratio: 4.44
+DracoEncoder | Preserve triangle order: no
+DracoEncoder | Encoded 24 vertices, 36 indices, raw size: 840, encoded size: 330, compression ratio: 2.55
+00:02.359  reports          | WARNING Path 'E:\Blender\5.2\datafiles\assets\brushes\essentials_brushes-gp_draw.blend' cannot be made relative for Material 'Material'
+
+Info: Saved copy as "xijiang-valley.blend"
+{"version": "2026-09-09", "bridges": 7, "triangles": 340754, "buildings": 306, "meshes": 97, "paths": 32, "glbBytes": 2115228, "blend": "D:\\Miao\\output\\xijiang-map\\xijiang-valley.blend"}
+
+Blender quit

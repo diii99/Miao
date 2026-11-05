@@ -76,6 +76,20 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
     plugins: [react(), localDeepSeekChat(env.DEEPSEEK_API_KEY)],
-    server: { host: '127.0.0.1' },
+    // Port 5173 falls inside a Windows-reserved range on this machine.
+    server: { host: '127.0.0.1', port: 3000 },
+    build: {
+      rolldownOptions: {
+        output: {
+          codeSplitting: {
+            groups: [
+              // Split Three's core from its renderer without changing the library.
+              { name: 'three-core', test: /[\\/]three[\\/]build[\\/]three\.core\.js$/, priority: 20 },
+              { name: 'three-renderer', test: /[\\/]three[\\/]build[\\/]three\.module\.js$/, priority: 10 },
+            ],
+          },
+        },
+      },
+    },
   }
 })

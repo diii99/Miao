@@ -1,0 +1,125 @@
+/* Reading and discovery, sized independently of the phone's physical screen. */
+.heritage-shell .heritage-search {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  min-height: 46px;
+  margin: 2px 18px 16px;
+  padding: 0 12px;
+  border: 1px solid #d8e2e8;
+  border-radius: 12px;
+  background: #fff;
+  color: #466a84;
+}
+.heritage-search svg { width: 18px; height: 18px; flex: 0 0 auto; }
+.heritage-search input {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 0;
+  border: 0;
+  outline: 0;
+  color: #173b59;
+  background: transparent;
+  font: inherit;
+  font-size: 16px;
+}
+.heritage-search input::placeholder { font-size: 13px; color: #748795; }
+.heritage-search:focus-within { outline: 2px solid #3c7999; outline-offset: 2px; }
+.heritage-search button {
+  flex: 0 0 auto;
+  min-height: 44px;
+  border: 0;
+  color: #36617e;
+  background: transparent;
+  font-size: 12px;
+}
+.heritage-library-entry {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: calc(100% - 36px);
+  margin: 0 18px 22px;
+  padding: 14px;
+  border: 1px solid #d8e4e9;
+  border-radius: 12px;
+  color: #1b405d;
+  background: #f0f5f6;
+  text-align: left;
+}
+.heritage-library-entry > b { font: 28px/1 Georgia, serif; color: #346b87; }
+.heritage-library-entry > span { display: grid; gap: 4px; flex: 1; min-width: 0; }
+.heritage-library-entry strong { font-size: 13px; }
+.heritage-library-entry small { color: #687f8e; font-size: 11px; line-height: 1.5; }
+.heritage-library-entry > i { font: 23px Georgia, serif; }
+.heritage-catalog .heritage-search { margin-top: 18px; }
+.heritage-category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 0 18px 15px;
+}
+.heritage-category-filter button {
+  padding: 9px 11px;
+  min-height: 40px;
+  border: 1px solid #d6e1e7;
+  border-radius: 20px;
+  color: #4d6b80;
+  background: #fff;
+  font-size: 12px;
+}
+.heritage-category-filter button[aria-pressed="true"] { color: #fff; background: #214c6a; border-color: #214c6a; }
+.heritage-shell .heritage-results { margin-top: 14px; }
+.heritage-empty { margin: 0 18px; padding: 30px 16px; border-radius: 12px; background: #f0f5f6; text-align: center; }
+.heritage-empty h2 { margin: 0 0 10px; font-size: 17px; color: #244d67; }
+.heritage-empty p { margin: 0; color: #647b8b; font-size: 13px; line-height: 1.7; }
+.heritage-empty button { min-height: 44px; margin-top: 12px; padding: 9px 18px; border: 0; border-radius: 8px; color: white; background: #214c6a; }
+.heritage-shell .heritage-archive-note { margin: 6px 20px 0; padding: 14px 0 0; border-top: 1px solid #dbe4e8; font-size: 11px; line-height: 1.8; color: #6f8392; }
+.heritage-shell .explore-heading { gap: 12px; }
+.heritage-shell .explore-heading button { min-height: 44px; flex-shrink: 0; }
+.heritage-shell .explore-heading h2 small { margin-left: 8px; font: 12px/1 sans-serif; color: #78909e; letter-spacing: 0; }
+.heritage-shell .heritage-story-card.explore-card { flex-basis: min(210px, 67vw); min-height: 194px; }
+.heritage-shell .heritage-card-copy { padding: 28px 13px 14px; overflow-wrap: anywhere; }
+.heritage-shell .heritage-card-copy b { font-size: 19px; }
+.heritage-shell .heritage-card-copy small { font-size: 11px; line-height: 1.6; }
+.heritage-shell .heritage-list-card .heritage-card-copy b { font-size: 17px; }
+.heritage-shell .story-close { width: 44px; height: 44px; top: 8px; right: 10px; background: #082a4ecc; }
+.heritage-shell .story-body { padding: 18px 20px 25px; scroll-padding-top: 16px; overflow-wrap: anywhere; }
+.heritage-shell .story-body p { font-size: 14px; line-height: 1.95; }
+.heritage-shell .story-body .story-tag { font-size: 11px; line-height: 1.6; }
+.story-facts { display: grid; gap: 10px; margin: 0 0 18px; padding: 14px; border: 1px solid #dce6eb; border-radius: 11px; background: #f7fafb; }
+.story-facts > div { display: grid; grid-template-columns: 60px minmax(0, 1fr); gap: 10px; font-size: 12px; line-height: 1.7; }
+.story-facts dt { color: #7a8c99; }
+.story-facts dd { margin: 0; color: #335670; }
+.story-reading-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 23px; }
+.story-reading-nav button { flex: 1 1 auto; min-height: 44px; padding: 8px; border: 1px solid #d5e2e8; border-radius: 8px; background: #fff; color: #35617d; font-size: 12px; }
+.story-section { margin-top: 24px; scroll-margin-top: 16px; }
+.story-section h3, .story-source h3 { display: flex; gap: 9px; align-items: baseline; margin: 0 0 12px; color: #173e5a; font: 700 17px/1.65 'Noto Serif SC', serif; }
+.story-section h3 > span { color: #7996a7; font: 13px Georgia, serif; }
+.story-section ol, .story-section ul { display: grid; gap: 12px; padding-left: 20px; margin: 0; font-size: 13px; line-height: 1.85; }
+.story-section li::marker { color: #517f97; }
+.story-observe { padding: 16px; border-radius: 12px; background: #edf4f6; }
+.story-etiquette { padding: 16px; border-left: 3px solid #c5ad85; background: #faf7f1; }
+.heritage-shell .story-body .story-source { margin-top: 28px; padding-top: 20px; scroll-margin-top: 16px; }
+.heritage-shell .story-source p { font-size: 11px; line-height: 1.75; color: #758b99; }
+.story-source ol { display: grid; gap: 5px; margin: 0 0 16px; padding-left: 20px; }
+.story-source a { display: inline-block; padding: 10px 0; color: #2f6889; font-size: 12px; line-height: 1.7; text-underline-offset: 3px; }
+.heritage-shell .story-source .story-image-note { margin-bottom: 0; }
+.heritage-shell :is(.heritage-category-filter, .story-reading-nav, .heritage-empty) button:focus-visible,
+.heritage-library-entry:focus-visible { outline: 3px solid #357fa6; outline-offset: 3px; }
+@media (max-width: 360px) {
+  .heritage-shell .story-body { padding-inline: 16px; }
+  .story-facts { padding: 11px; }
+  .story-facts > div { grid-template-columns: 54px minmax(0, 1fr); gap: 7px; }
+  .story-section h3 { font-size: 16px; }
+  .heritage-shell .culture-intro { padding-inline: 20px; }
+  .heritage-shell .culture-intro h1 { font-size: 25px; }
+}
+
+.heritage-shell .culture-explore .explore-rail { scroll-padding-inline: 20px; }
+
+@container app-frame (max-height: 540px) {
+  .heritage-shell .story-cover { flex-basis: 76px; padding: 12px 68px 12px 16px; }
+  .heritage-shell .story-cover h2 { margin-top: 4px; font-size: 24px; }
+  .heritage-shell .story-body { padding: 14px 18px 20px; }
+}

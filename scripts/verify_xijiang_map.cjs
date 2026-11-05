@@ -22,10 +22,10 @@ const fs = require('node:fs');
    await page.locator('.poi-interaction-bubble h3').filter({hasText:'西江苗族博物馆'}).waitFor({timeout:30000});
    await page.locator('.bubble-action-btn').click();
    await page.getByRole('button',{name:'返回苗寨',exact:true}).click();
-   await page.getByRole('button',{name:'🎥 追随视角'}).click();
+   await page.getByRole('button',{name:'🎮 俯视漫游'}).click();
    await page.waitForTimeout(500);
    await page.screenshot({path:`D:/Miao/output/xijiang-map/${name}-street.png`});
-   console.log(name, 'museum arrived, details opened/closed, follow camera checked');
+   console.log(name, 'museum arrived, details opened/closed, gameplay camera checked');
    await page.close();
   }
   const retry = await browser.newPage();

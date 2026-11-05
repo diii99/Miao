@@ -1,5 +1,6 @@
-"""Research-led, schematic Xijiang diorama. Run through blender_map_bridge.py.
-All coordinates are authored scene units, not surveyed metres/geographic data.
+"""Research-led, schematic Xijiang diorama. Run with Blender --background --python.
+Terrain sectional grades use sampled GLO-30 at equal 10 m/unit scales.
+River, streets and buildings remain authored schematic geometry.
 News images are reference-only and are not embedded as textures or AI input.
 """
 import bpy
@@ -50,6 +51,11 @@ materials[silver_metal].node_tree.nodes.get('Principled BSDF').inputs['Metallic'
 materials[silver_metal].node_tree.nodes.get('Principled BSDF').inputs['Roughness'].default_value=.32
 plaza_dark = material('Plaza • charcoal stone inlay', (.075,.080,.078))
 plaza_light = material('Plaza • pale limestone inlay', (.44,.43,.39))
+soil = material('Terrace risers and exposed soil', (.15,.13,.076))
+pebbles = material('River gravel', (.33,.35,.31))
+leaf = material('Rice shoots', (.22,.38,.056))
+linen = material('Indigo drying cloth', (.026,.073,.13))
+lantern = material('Lantern paper', (.43,.21,.06))
 fields = [material('Rice terraces '+str(i), c) for i,c in enumerate([(.19,.34,.035),(.27,.43,.055),(.12,.29,.023)])]
 
 def meshpart(mat, verts, faces, tag=''):
@@ -67,30 +73,19 @@ def box(mat, x,y,z, w,h,d, angle=0, tag=''):
         verts.append((x+dx*math.cos(angle)+dz*math.sin(angle), y+b*h/2,z-dx*math.sin(angle)+dz*math.cos(angle)))
     meshpart(mat,verts,[(0,3,2,1),(4,5,6,7),(0,1,5,4),(3,7,6,2),(0,4,7,3),(1,2,6,5)],tag)
 
-def river(x): return 5 + 3.4*math.sin(x*.092) + .65*math.sin(x*.21)
-def height(x,z):
-    distance=abs(z-river(x))
-    if distance<1.85: return -.62
-    bank=.32 + max(0,distance-3.1)*(.58 if z<river(x) else .27)
-    undulation=(math.sin(x*.15)*.5+math.cos(z*.17)*.3)*min(1,max(0,distance-3.1)/5)
-    value=bank+undulation
-    # Broad, level civic core between the two streets. Dimensions are illustrative.
-    def smooth(a,b,v):
-        t=max(0,min(1,(v-a)/(b-a)))
-        return t*t*(3-2*t)
-    if z < river(x)-3.1:
-        core=(1-smooth(11,19,abs(x+2)))*(1-smooth(15,23,distance))
-        value=value*(1-core)+.48*core
-    return value
+import sys
+sys.path.insert(0,str(ROOT/'scripts'))
+from xijiang_terrain import river, height, natural_height, PADS, make_walkway_grader, DATA as TERRAIN_DATA
 
 # An oval cutaway contains a continuous valley rather than a square lawn.
 verts=[(0,height(0,0),0)]
-rings,steps=48,144
+rings,steps=180,360
 for r in range(1,rings+1):
     for i in range(steps):
         t=i*math.tau/steps
-        x=38*r/rings*math.cos(t)
-        z=33*r/rings*math.sin(t)
+        edge=1+.025*math.sin(5*t)+.018*math.sin(9*t)
+        x=46*r/rings*math.cos(t)*edge
+        z=39*r/rings*math.sin(t)*edge
         verts.append((x,height(x,z),z))
 faces=[]
 for i in range(steps): faces.append((0,1+(i+1)%steps,1+i))
@@ -112,7 +107,7 @@ def ribbon(points,width,mat,tag=''):
         vs.extend([(p[0]-dz/length*width/2,p[1],p[2]+dx/length*width/2),(p[0]+dz/length*width/2,p[1],p[2]-dx/length*width/2)])
     meshpart(mat,vs,[(i*2,i*2+1,i*2+3,i*2+2) for i in range(len(points)-1)],tag)
 
-ribbon([(x*.25,-.12,river(x*.25)) for x in range(-148,149)],3.65,water)
+ribbon([(x*.25,-.12,river(x*.25)) for x in range(-181,182)],3.65,water)
 paths=[]
 def addpath(points,width=.85,kind='lane'):
     paths.append({'points':points,'width':width,'kind':kind})
@@ -143,44 +138,103 @@ def roof(x,y,z,w,d,rise,mat,angle=0,tag=''):
                 verts.append((x+dx*math.cos(angle)+zz*math.sin(angle),yy,z-dx*math.sin(angle)+zz*math.cos(angle)))
             meshpart(mat,verts,[(0,3,2,1)],tag)
 
-houses=[]
-def house(x,z,w=1.8,d=1.5,stories=2,angle=0,tag=''):
-    h=height(x,z);floor=h+.40;wall=stories*.64
-    mat=wood if rng.random()<.6 else wood2
-    box(stone,x,h+.05,z,w,.2,d,angle,tag)
-    box(mat,x,floor+wall/2,z,w,wall,d,angle,tag)
-    for sx in [-.4,.4]:
-        for sz in [-.36,.36]:
-            xx=x+sx*w*math.cos(angle)+sz*d*math.sin(angle);zz=z-sx*w*math.sin(angle)+sz*d*math.cos(angle)
-            bottom=min(height(xx,zz)-.1,h)
-            box(dark,xx,(bottom+floor)/2,zz,.10,floor-bottom,.10,angle,tag)
-    roof(x,floor+wall+.05,z,w+.35,d+.38,.43,roofs[rng.randrange(4)],angle,tag)
-    # Balcony and lit window ribbons follow the front facade.
-    dz=d/2+.10
-    xx=x+dz*math.sin(angle);zz=z+dz*math.cos(angle)
-    box(dark,xx,floor+.62,zz,w+.15,.09,.34,angle,tag)
-    box(dark,xx,floor+.95,zz,w+.1,.065,.07,angle,tag)
-    for off in [-.32,0,.32]:
-        xx=x+off*w*math.cos(angle)+(d/2+.015)*math.sin(angle);zz=z-off*w*math.sin(angle)+(d/2+.015)*math.cos(angle)
-        box(window,xx,floor+wall-.28,zz,.21,.24,.025,angle,tag)
-        box(dark,xx,floor+.79,zz,.045,.34,.08,angle,tag)
-    for level in range(stories):
-        fy=floor+level*.64
-        for off in [-.45,-.15,.15,.45]:
-            xx=x+off*w*math.cos(angle)+(d/2+.035)*math.sin(angle)
-            zz=z-off*w*math.sin(angle)+(d/2+.035)*math.cos(angle)
-            verts=[(xx+dx*math.cos(angle),fy+dy,zz-dx*math.sin(angle)) for dx,dy in [(-.012,0),(.012,0),(.012,.60),(-.012,.60)]]
-            meshpart(dark,verts,[(0,1,2,3)],tag)
-        xx=x+(d/2+.08)*math.sin(angle);zz=z+(d/2+.08)*math.cos(angle)
-        box(wood2,xx,fy+.04,zz,w+.12,.045,.12,angle,tag)
-    houses.append({'x':x,'z':z,'radius':math.hypot(w,d)/2+.25,'tag':tag})
+def beam(mat,a,b,width=.045,tag=''):
+    direction=Vector(b)-Vector(a)
+    u=direction.cross(Vector((0,1,0)))
+    if u.length<.0001: u=direction.cross(Vector((1,0,0)))
+    u.normalize();u*=width/2
+    v=direction.normalized().cross(u)
+    vs=[tuple(Vector(p)+su*u+sv*v) for p in [a,b] for su,sv in [(-1,-1),(1,-1),(1,1),(-1,1)]]
+    meshpart(mat,vs,[(0,3,2,1),(4,5,6,7),(0,1,5,4),(1,2,6,5),(2,3,7,6),(3,0,4,7)],tag)
 
-# Back slope contour lanes and two switchback spines are all connected.
+houses=[]
+foundation_supports=[]
+def house(x,z,w=1.8,d=1.5,stories=2,angle=0,tag=''):
+    if not tag:
+        ca,sa=math.cos(angle),math.sin(angle)
+        for path in paths:
+            margin=path['width']/2+.08
+            for q in path['points'][::2]:
+                dx,dz=q[0]-x,q[2]-z
+                if abs(dx*ca-dz*sa)<w/2+margin and -d/2-margin<dx*sa+dz*ca<d/2+.37+margin: return
+    h=height(x,z)
+    footprint=[(x+a*math.cos(angle)+c*math.sin(angle),z-a*math.sin(angle)+c*math.cos(angle)) for a in [-w/2,w/2] for c in [-d/2,d/2]]
+    floor=max(h+.40,max(height(xx,zz) for xx,zz in footprint)+.16);wall=stories*.64
+    mat=wood if rng.random()<.6 else wood2
+    def pos(a,y,c): return (x+a*math.cos(angle)+c*math.sin(angle),y,z-a*math.sin(angle)+c*math.cos(angle))
+    def part(m,a,y,c,ww,hh,dd):
+        xx,_,zz=pos(a,y,c);box(m,xx,y,zz,ww,hh,dd,angle,tag)
+    def face(m,a,y,c,ww,hh):
+        meshpart(m,[pos(a-ww/2,y-hh/2,c),pos(a+ww/2,y-hh/2,c),pos(a+ww/2,y+hh/2,c),pos(a-ww/2,y+hh/2,c)],[(0,1,2,3) if c>=0 else (3,2,1,0)],tag)
+    box(dark,x,floor-.07,z,w,.14,d,angle,tag)
+    # Separate rear stone footings and variable downhill timber supports.
+    for a in [-w*.38,w*.38]:
+        xx,_,zz=pos(a,0,-d*.38);ground=height(xx,zz)
+        box(stone,xx,ground+.10,zz,.30,.20,.28,angle,tag)
+        foundation_supports.append((xx,zz,ground,.30,.28,angle,tag))
+    box(mat,x,floor+wall/2,z,w,wall,d,angle,tag)
+    # Tall downhill posts, cross-braces and exposed underside reveal the stilt structure.
+    for side in [-1,1]:
+        bases=[]
+        for a in [-w*.42,0,w*.42]:
+            xx,_,zz=pos(a,0,side*d*.41)
+            bottom=height(xx,zz)-.12
+            part(dark,a,(bottom+floor)/2,side*d*.41,.075,floor-bottom,.075)
+            part(stone,a,bottom+.06,side*d*.41,.17,.12,.17)
+            foundation_supports.append((xx,zz,bottom,.17,.17,angle,tag))
+            bases.append((a,bottom+.10))
+        beam(wood2,pos(bases[0][0],bases[0][1],side*d*.41),pos(bases[-1][0],floor-.04,side*d*.41),.045,tag)
+    roofmat=roofs[rng.randrange(4)]
+    roof(x,floor+wall+.05,z,w+.35,d+.38,.43,roofmat,angle,tag)
+    # Exposed rafters under both eaves and thick ridge/end tiles.
+    for side in [-1,1]:
+        for i in range(max(4,int(w/.27))):
+            part(wood2,-w/2+i*.27,floor+wall+.015,side*(d/2+.08),.055,.07,.27)
+        part(dark,0,floor+wall-.025,side*(d/2+.04),w+.2,.09,.095)
+    # Two long timber facades, each with floor beams, plank joints and window lattice.
+    for side in [-1,1]:
+        c=side*(d/2+.022)
+        for level in range(stories):
+            fy=floor+level*.64
+            face(wood2,0,fy+.035,c,w+.10,.07)
+            for a in [-w*.44,-w*.16,w*.16,w*.44]: face(dark,a,fy+.32,c,.042,.59)
+            for a in [-w*.30,0,w*.30]:
+                face(window,a,fy+.35,c+side*.014,.22,.29)
+                face(wood2,a,fy+.20,c+side*.025,.25,.025)
+                face(wood2,a,fy+.50,c+side*.025,.25,.025)
+                for off in [-.07,0,.07]: face(dark,a+off,fy+.35,c+side*.028,.012,.28)
+                face(dark,a,fy+.37,c+side*.029,.22,.015)
+    # Continuous upper balcony, fine upright rails and corner braces.
+    balcony=floor+.64 if stories>1 else floor+.08
+    front=d/2+.19
+    part(dark,0,balcony,front,w+.14,.075,.42)
+    part(wood2,0,balcony+.31,front+.17,w+.14,.045,.045)
+    part(wood2,0,balcony+.075,front+.17,w+.14,.03,.035)
+    for i in range(max(5,int(w/.13))+1):
+        a=-w/2+i*w/max(5,int(w/.13))
+        part(dark,a,balcony+.19,front+.17,.026,.29,.03)
+    for a in [-w*.44,w*.44]:
+        beam(wood2,pos(a,balcony-.23,d/2),pos(a,balcony-.015,front+.13),.045,tag)
+    # A recessed door, panel joints and small domestic variations at pedestrian scale.
+    face(dark,-w*.18,floor+.25,d/2+.045,.28,.5)
+    part(wood2,-w*.18,floor+.5,d/2+.05,.33,.045,.06)
+    part(stone,-w*.18,floor-.04,d/2+.14,.40,.08,.24)
+    if len(houses)%9==0:
+        face(linen,w*.18,balcony+.16,front+.195,.36,.30)
+    if len(houses)%7==0:
+        part(lantern,w*.37,floor+wall-.18,d/2+.15,.12,.17,.12)
+        part(dark,w*.37,floor+wall-.31,d/2+.15,.025,.10,.025)
+    houses.append({'x':x,'z':z,'radius':math.hypot(w,d)/2+.25,'tag':tag,'floorY':floor,'footprint':[[xx,height(xx,zz),zz] for xx,zz in footprint]})
+
+def contour(row,x):
+    return river(x)-2.75-row*3.4 + (.48*math.sin(x*.19+row*.83)+.18*math.sin(x*.37-row*.62) if row else 0)
+
+# Contour lanes follow the hillside; all share a connected path graph.
 for row in range(1,7):
     offset=-2.75-row*3.4
     pts=[]
     for j in range(109):
-        x=-27+j*.5;z=river(x)+offset
+        x=-27+j*.5;z=contour(row,x)
         pts.append([x,height(x,z)+.08,z])
     addpath(pts,.72)
 for x in [-25,-12,0,12,25]:
@@ -193,8 +247,8 @@ for x in [-25,-12,0,12,25]:
 
 # River crossings use independent flat bridge-deck heights and connect both paths.
 bridges=[]
-for index,x in enumerate([-18,0,18]):
-    z=river(x);tag='bridge' if index==1 else ''
+for index,x in enumerate([-26,-18,-9,0,9,18,26]):
+    z=river(x);tag='bridge' if x==0 else ''
     bridges.append({'x':x,'z':z,'halfLength':2.95,'halfWidth':.68,'height':.46})
     addpath([[x,.46,z-2.75],[x,.46,z+2.75]],1.15,'bridge')
     box(wood,x,.35,z,1.3,.22,5.9,tag=tag)
@@ -213,6 +267,44 @@ for index,x in enumerate([-18,0,18]):
         for dx in [-.74,.74]:
             box(stone,x+dx,.18,z+end*2.7,.25,.52,.35,tag=tag)
 
+# Stone-faced bridge piers, corridor seats and vertical balusters visible in river photos.
+for bridge in bridges:
+    x,z=bridge['x'],bridge['z']
+    tag='bridge' if x==0 else ''
+    for dz in [-1.8,1.8]: box(stone,x,-.16,z+dz,1.12,1.05,.46,tag=tag)
+    for side in [-1,1]:
+        box(wood2,x+side*.46,.70,z,.18,.11,4.9,tag=tag)
+        for j in range(26): box(dark,x+side*.56,.68,z-2.5+j*.2,.035,.48,.035,tag=tag)
+        for dz in [-2,0,2]:
+            box(lantern,x+side*.48,1.78,z+dz,.13,.23,.13,tag=tag)
+            box(dark,x+side*.48,1.6,z+dz,.025,.10,.025,tag=tag)
+
+# Jointed retaining walls, riverside rails, drainage slots and shallow gravel shoals.
+for side in [-1,1]:
+    for j in range(119):
+        x=-29.5+j*.5;zz=river(x)+side*1.96
+        if any(abs(x-b['x'])<.82 for b in bridges): continue
+        for row in range(3):
+            xx=x+(row%2)*.24
+            box(pebbles if (j+row)%4==0 else stone,xx,-.25+row*.20,river(xx)+side*1.94,.45,.17,.24)
+        if j%3==0:
+            box(stone,x,.57,river(x)+side*2.08,.12,.50,.12)
+            nxt=x+1.5
+            beam(dark,(x,.79,river(x)+side*2.08),(nxt,.79,river(nxt)+side*2.08),.065)
+        if j%11==0: box(dark,x,.12,river(x)+side*1.80,.17,.075,.025)
+    for j in range(90):
+        x=-29+j*.64;zz=river(x)+side*(1.35+.18*math.sin(x*.8))
+        if any(abs(x-b['x'])<.85 for b in bridges): continue
+        rock_rng=random.Random(j+1000*side)
+        x+=rock_rng.uniform(-.18,.18);zz+=rock_rng.uniform(-.18,.18)
+        rx=rock_rng.uniform(.13,.29);rz=rock_rng.uniform(.09,.18)
+        vs=[]
+        for yy,scale in [(-.16,1),(-.075,.78)]:
+            for k in range(7):
+                t=k*math.tau/7+j*.73;r=1+rock_rng.uniform(-.18,.18)
+                vs.append((x+math.cos(t)*rx*r*scale,yy,zz+math.sin(t)*rz*r*scale))
+        meshpart(pebbles,vs,[tuple(range(7,14))]+[(k,(k+1)%7,(k+1)%7+7,k+7) for k in range(7)])
+
 # Deliberate clearings: each interaction point has a path-side entrance.
 pois=[
  {'id':'gate','x':-28,'z':river(-28)+2.75},
@@ -222,7 +314,7 @@ pois=[
  {'id':'silver','x':-25,'z':river(-25)-9.55},
  {'id':'embroidery','x':12,'z':river(12)-12.95},
  {'id':'banquet','x':9,'z':river(9)+2.75},
- {'id':'lookout','x':0,'z':river(0)-23.15},
+ {'id':'lookout','x':-10,'z':24},
  {'id':'museum','x':3,'z':river(3)-9.55},
  {'id':'ancient-street','x':-17,'z':river(-17)-9.55},
  {'id':'youfang','x':7,'z':river(7)-2.75},
@@ -235,37 +327,56 @@ pois=[
  {'id':'baishui','x':18,'z':river(18)+2.75},
 
 ]
+# Each entrance stays on the contour path that owns it as the lanes bend.
+entrance_rows={'batik':1,'silver':2,'embroidery':3,'museum':2,'ancient-street':2,'gaga':1,'yedong':5,'guzang':5,'necklace':1,'performance':1}
+for p in pois:
+    if p['id'] in entrance_rows: p['z']=contour(entrance_rows[p['id']],p['x'])
+# Across-river lookout is reached by a continuous switchback trail above the far bank.
+lookout_turns=[(-9,river(-9)+2.75),(-9,11),(-14,14),(-9,17.5),(-14,21),(-10,24)]
+lookout_points=[]
+for a,b in zip(lookout_turns,lookout_turns[1:]):
+    count=max(2,math.ceil(math.hypot(b[0]-a[0],b[1]-a[1])/.16))
+    for i in range(count):
+        x=a[0]+(b[0]-a[0])*i/count;z=a[1]+(b[1]-a[1])*i/count
+        lookout_points.append([x,height(x,z)+.09,z])
+lookout_points.append([-10,height(-10,24)+.09,24])
+addpath(lookout_points,.85,'steps')
+for i,p in enumerate(lookout_points):
+    if i%3==0:
+        prev=lookout_points[max(0,i-1)];angle=math.atan2(p[0]-prev[0],p[2]-prev[2])
+        box(stone,p[0],p[1]-.02,p[2],.89,.09,.17,angle)
 for row in range(7):
     for col in range(24):
-        x=-27+col*2.3+rng.uniform(-.28,.28);z=river(x)-4.45-row*3.4+rng.uniform(-.17,.17)
+        x=-27+col*2.3+rng.uniform(-.55,.55);z=contour(row,x)-1.7+rng.uniform(-.26,.26)
         if (x/35)**2+(z/30)**2>.91: continue
         if -14<x<9 and river(x)-13<z<river(x)-2.3: continue
         if any(abs(x-s)<1.15 for s in [-25,-12,0,12,25]): continue
         if any(math.hypot(x-p['x'],z-p['z'])<2.65 for p in pois): continue
-        house(x,z-.54,rng.uniform(1.6,2),rng.uniform(.85,1.0),rng.choice([2,2,3]),rng.uniform(-.09,.09))
+        house(x,z-.54,rng.uniform(1.6,2),rng.uniform(.85,1.0),rng.choice([2,2,3]),-math.atan((contour(row,x+.1)-contour(row,x-.1))/.2)+rng.uniform(-.13,.13))
         if rng.random()<.84:
-            house(x+rng.uniform(-.18,.18),z+.62,rng.uniform(1.5,1.95),rng.uniform(.85,1.0),rng.choice([1,2,2]),rng.uniform(-.12,.12))
+            house(x+rng.uniform(-.18,.18),z+.62,rng.uniform(1.5,1.95),rng.uniform(.85,1.0),rng.choice([1,2,2]),rng.uniform(-.30,.30))
 for row in range(3):
     for col in range(17):
-        x=-27+col*2.45;z=river(x)+4.7+row*2.9
-        if abs(x)<1.5 or abs(x+18)<1.4 or any(math.hypot(x-p['x'],z-p['z'])<2.7 for p in pois): continue
-        house(x,z,1.8,1.5,rng.choice([1,2,2]),rng.uniform(-.12,.12))
+        x=-27+col*2.45+rng.uniform(-.35,.35);z=river(x)+4.7+row*2.9+rng.uniform(-.22,.22)
+        if any(abs(x-b['x'])<1.45 for b in bridges) or any(math.hypot(x-p['x'],z-p['z'])<2.7 for p in pois): continue
+        house(x,z,1.8,1.5,rng.choice([1,2,2]),rng.uniform(-.30,.30))
 
 # Irregular infill at the settlement edges, leaving civic spaces and all paths open.
 # A separate seed makes this deterministic without shifting landmark design choices.
 infill_rng=random.Random(92026)
 added=0
-for attempt in range(5000):
-    if added>=115: break
-    x=infill_rng.uniform(-32,31);z=infill_rng.uniform(-26,19)
-    if (x/35)**2+(z/30)**2>.90: continue
+for attempt in range(16000):
+    if added>=195: break
+    x=infill_rng.uniform(-37,36);z=infill_rng.uniform(-32,26)
+    if (x/39)**2+(z/35)**2>.93: continue
     if abs(z-river(x))<3.6 or (x>10 and z>14): continue
     if -14<x<9 and river(x)-16<z<river(x)-2.3: continue
     if any(math.hypot(x-p['x'],z-p['z'])<3.4 for p in pois): continue
     if any(math.hypot(x-h['x'],z-h['z'])<h['radius']+.58 for h in houses): continue
     if any(any(math.hypot(x-q[0],z-q[2])<1.65 for q in path['points'][::2]) for path in paths): continue
+    count_before=len(houses)
     house(x,z,infill_rng.uniform(1.1,1.65),infill_rng.uniform(.85,1.2),infill_rng.choice([2,2,3]),infill_rng.uniform(-.32,.32))
-    added+=1
+    added+=len(houses)-count_before
 
 for p in pois:
     x,z=p['x'],p['z'];tag=p['id'];y=height(x,z)+.1
@@ -293,7 +404,15 @@ for p in pois:
         for dx in [-2.85,-2.1,2.1,2.85]: box(wood2,x+dx,y+1.25,z-3.25,.13,2.25,.13,tag=tag)
         for dz in [-2,0,2]: addpath([[x-4,y,z+dz],[x+4,y,z+dz]],1.3,'plaza')
         for dx in [-3,0,3]:
-            addpath([[x+dx,.40,river(x+dx)-2.75],[x+dx,y,z],[x+dx,.56,river(x+dx)-9.55]],.9)
+            xx=x+dx
+            # Dense connector follows the graded site and joins the actual contour.
+            end_z=contour(2,xx)
+            points=[]
+            for i in range(65):
+                zz=(river(xx)-2.75)+(end_z-(river(xx)-2.75))*i/64
+                yy=y if abs(xx-x)<=4 and abs(zz-z)<=2.15 else height(xx,zz)+.08
+                points.append([xx,yy,zz])
+            addpath(points,.9)
     elif tag=='museum':
         for dx in [-2.8,0,2.8]:
             for dz in [-2.7,-5.2]: house(x+dx,z+dz,2.3,1.65,2,tag=tag)
@@ -338,7 +457,7 @@ for p in pois:
         box(stone,x,y-.07,z,3.6,.25,2.1,tag=tag)
         if tag=='lookout':
             for dx in [-1.7,1.7]: box(dark,x+dx,y+.35,z,.08,.65,2,tag=tag)
-            box(dark,x,y+.65,z-1,3.5,.07,.08,tag=tag)
+            box(dark,x,y+.65,z+1,3.5,.07,.08,tag=tag)
     elif tag=='banquet':
         box(wood2,x,y+.45,z+1.0,3,.13,.55,tag=tag)
         for dx in [-1.2,1.2]: box(dark,x+dx,y+.2,z+1,.1,.45,.45,tag=tag)
@@ -350,7 +469,17 @@ for row in range(9):
         x=12+j*.38;z=15+row*1.15+1.0*math.sin((x-12)*.16+row*.13)+.20*math.sin(x*.55+row*.3)
         if (x/37)**2+(z/32)**2<.95: pts.append([x,height(x,z)+.10,z])
     if len(pts)>2:
-        ribbon(pts,.91,water if row%4==0 else fields[row%3]);ribbon([(x,y+.03,z+.51) for x,y,z in pts],.16,greens[2])
+        ribbon(pts,.91,water if row%4==0 else fields[row%3])
+        ribbon([(x,y-.025,z+.53) for x,y,z in pts],.23,soil)
+        ribbon([(x,y+.03,z+.51) for x,y,z in pts],.13,greens[2])
+        # Water channels and regularly planted shoots within irregular field boundaries.
+        for k,(x,y,z) in enumerate(pts):
+            if k%2==0 and row%4!=0:
+                for off in [-.28,0,.28]:
+                    meshpart(leaf,[(x-.025,y,z+off),(x+.025,y,z+off),(x+.015,y+.17,z+off+.03)],[(0,1,2)])
+        for j in [13,30]:
+            if j<len(pts):
+                x,y,z=pts[j];ribbon([(x,y+.018,z-.48),(x+.15,y+.018,z+.48)],.09,soil)
 
 def tree(x,z,size):
     y=height(x,z)
@@ -366,19 +495,73 @@ def tree(x,z,size):
         for i in range(7):
             fs.append((ring*7+i,ring*7+(i+1)%7,(ring+1)*7+(i+1)%7,(ring+1)*7+i))
     meshpart(greens[rng.randrange(3)],vs,fs)
-for i in range(650):
-    x=rng.uniform(-36,36);z=rng.uniform(-31,29)
-    if (x/37)**2+(z/32)**2>.97 or abs(z-river(x))<4: continue
+for i in range(1500):
+    x=rng.uniform(-43,43);z=rng.uniform(-36,35)
+    if (x/45)**2+(z/38)**2>.97 or abs(z-river(x))<4: continue
     if x>10 and z>14: continue
     if -14<x<9 and river(x)-16<z<river(x)-2.3: continue
     if any(math.hypot(x-h['x'],z-h['z'])<h['radius']+.6 for h in houses): continue
     if any(math.hypot(x-p['x'],z-p['z'])<2.3 for p in pois): continue
     if any(any(math.hypot(x-q[0],z-q[2])<.75 for q in path['points'][::2]) for path in paths): continue
-    tree(x,z,rng.uniform(.6,1.25))
+    tree(x,z,rng.uniform(.75,1.8) if abs(x)>32 or abs(z)>27 else rng.uniform(.6,1.25))
+
+# Original procedural textures: grain, overlapping tiles and small-scale stone joints.
+# They are generated from a fixed seed; no reference photographs are distributed.
+def surface_texture(name,kind):
+    size=128;image=bpy.data.images.new(name,width=size,height=size)
+    pixels=[];noise=random.Random(410 if kind=='wood' else 420 if kind=='roof' else 430)
+    for j in range(size):
+        for i in range(size):
+            grain=noise.uniform(-.04,.04)
+            if kind=='wood':
+                value=.83+.08*math.sin(i*.55+1.2*math.sin(j*.065))+grain
+                if i%32<1: value=.48
+            elif kind=='roof':
+                value=.79+.09*math.sin((i%16)/16*math.pi)+grain
+                if j%32<2: value=.43
+                if i%16<1: value*=.73
+            else:
+                value=.78+.07*math.sin((i//32)*4+(j//24)*3)+grain
+                if j%24<2 or (i+(16 if (j//24)%2 else 0))%32<2: value=.44
+            pixels.extend((value,value,value,1))
+    image.pixels=pixels;image.pack()
+    return image
+textures={kind:surface_texture('Xijiang procedural '+kind,kind) for kind in ['wood','roof','stone']}
+for name in [wood,wood2,*roofs,stone,pathmat]:
+    m=materials[name];nodes=m.node_tree.nodes;links=m.node_tree.links
+    kind='wood' if name in [wood,wood2] else 'roof' if name in roofs else 'stone'
+    tex=nodes.new('ShaderNodeTexImage');tex.image=textures[kind]
+    # glTF exports the image plus a material tint. Restore the tint after export below.
+    links.new(tex.outputs['Color'],nodes.get('Principled BSDF').inputs['Base Color'])
+
+# Cut/fill lane benches after every path is known; same equation as runtime terrain.
+walkway_grade=make_walkway_grader(paths)
+# Extend footings down through any new road cut, maintaining ground contact.
+for xx,zz,old_bottom,ww,dd,angle,tag in foundation_supports:
+    ground=walkway_grade(xx,zz,height(xx,zz))-.04
+    if ground<old_bottom:
+        box(stone,xx,(ground+old_bottom+.03)/2,zz,ww,old_bottom+.03-ground,dd,angle,tag)
+for building in houses:
+    for point in building['footprint']: point[1]=walkway_grade(point[0],point[2],point[1])
+for terrain_material in [earth,cliff]:
+    vv,_=buckets[(terrain_material,'')]
+    for i,(xx,zz,yy) in enumerate(vv):
+        if yy>-1.9: vv[i]=(xx,zz,walkway_grade(xx,-zz,yy))
 
 for (mat,tag),(vs,fs) in buckets.items():
     mesh=bpy.data.meshes.new(mat)
     mesh.from_pydata(vs,[],fs);mesh.update()
+    if mat in [wood,wood2,*roofs,stone,pathmat]:
+        uv=mesh.uv_layers.new(name='Surface UV')
+        scale=2.6 if mat in [wood,wood2] else 1.7 if mat in roofs else .65
+        for poly in mesh.polygons:
+            axis=max(range(3),key=lambda i:abs(poly.normal[i]))
+            for li in poly.loop_indices:
+                v=mesh.vertices[mesh.loops[li].vertex_index].co
+                axes=(0,1) if axis==2 else (0,2) if axis==1 else (1,2)
+                uv.data[li].uv=(v[axes[0]]*scale,v[axes[1]]*scale)
+    if mat == earth:
+        for poly in mesh.polygons: poly.use_smooth=True
     obj=bpy.data.objects.new((tag+' • ' if tag else '')+mat,mesh)
     scene.collection.objects.link(obj);obj.data.materials.append(materials[mat])
     if tag: obj['poiId']=tag
@@ -397,8 +580,35 @@ scene.render.resolution_x=1500;scene.render.resolution_y=1100;scene.render.resol
 scene.render.image_settings.file_format='PNG'
 scene.render.filepath=str(SOURCE/'blender-overview.png')
 # Export geometry only, preserving map POI extras and shared materials.
-bpy.ops.export_scene.gltf(filepath=str(OUT/'xijiang-valley.glb'),export_format='GLB',use_active_scene=True,export_extras=True,export_cameras=False,export_lights=False)
-data={'version':'2026-09-08','status':'research-based spatial illustration','coordinateSystem':'authored x/y/z scene units; no surveyed scale or north','paths':paths,'bridges':bridges,'pois':pois,'buildings':houses}
-(ROOT/'src/map-3d/xijiang-layout.json').write_text(json.dumps(data,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
+bpy.ops.export_scene.gltf(filepath=str(SOURCE/'xijiang-valley.next.glb'),export_format='GLB',use_active_scene=True,export_extras=True,export_cameras=False,export_lights=False,export_draco_mesh_compression_enable=True,export_draco_mesh_compression_level=6)
+# Preserve authored linear material colors alongside the procedural texture.
+import struct
+export_path=SOURCE/'xijiang-valley.next.glb'
+blob=export_path.read_bytes()
+json_length=struct.unpack_from('<I',blob,12)[0]
+gltf=json.loads(blob[20:20+json_length])
+gltf['asset']['copyright']=TERRAIN_DATA['attribution']
+gltf['asset']['extras']={'terrainMethod':TERRAIN_DATA['method'],'source':TERRAIN_DATA['tileUrl'],'liabilityNotice':TERRAIN_DATA['liabilityNotice']}
+for m in gltf.get('materials',[]):
+    if m['name'] in materials:
+        m.setdefault('pbrMetallicRoughness',{})['baseColorFactor']=list(materials[m['name']].diffuse_color)
+encoded=json.dumps(gltf,separators=(',',':')).encode();encoded+=b' '*((-len(encoded))%4)
+rest=blob[20+json_length:]
+patched_path=SOURCE/'xijiang-valley.patched.glb'
+patched_path.write_bytes(struct.pack('<III',0x46546c67,2,20+len(encoded)+len(rest))+struct.pack('<II',len(encoded),0x4e4f534a)+encoded+rest)
+data={'version':'2026-09-09','status':'research-based spatial illustration','coordinateSystem':'authored x/y/z; sampled terrain profiles use 10 metres/unit horizontally and vertically; no geographic registration or surveyed building scale','terrainSource':TERRAIN_DATA['tileUrl'],'terrainPads':PADS,'paths':paths,'bridges':bridges,'pois':pois,'buildings':houses,'walkableAreas':[{'kind':'plaza','x':p['x'],'z':p['z'],'y':.60,'halfWidth':4.0,'halfDepth':2.15} for p in pois if p['id']=='lusheng']}
+import os
+def atomic_json(target,payload):
+    staging=SOURCE/(target.name+'.next')
+    staging.write_text(json.dumps(payload,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
+    os.replace(staging,target)
+atomic_json(ROOT/'src/map-3d/xijiang-terrain-pads.json',PADS)
+atomic_json(ROOT/'src/map-3d/xijiang-layout.json',data)
 bpy.ops.wm.save_as_mainfile(filepath=str(SOURCE/'xijiang-valley.blend'),copy=True)
-result={'buildings':len(houses),'meshes':len(buckets),'paths':len(paths),'glbBytes':(OUT/'xijiang-valley.glb').stat().st_size,'blend':str(SOURCE/'xijiang-valley.blend')}
+# Publish only the completed, attributed asset; avoid truncating the actively served GLB.
+import os
+os.replace(patched_path,OUT/'xijiang-valley.glb')
+result={'version':'2026-09-09','bridges':len(bridges),'triangles':sum(len(poly.vertices)-2 for obj in scene.objects if obj.type=='MESH' for poly in obj.data.polygons),'buildings':len(houses),'meshes':len(buckets),'paths':len(paths),'terrainSource':TERRAIN_DATA['tileSha256'],'terrainCalibration':'GLO-30 transects; 10 m/unit, no vertical exaggeration','glbBytes':(OUT/'xijiang-valley.glb').stat().st_size,'blend':str(SOURCE/'xijiang-valley.blend')}
+
+(SOURCE/'model-report.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
+print(json.dumps(result))

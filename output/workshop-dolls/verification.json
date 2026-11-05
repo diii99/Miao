@@ -1,0 +1,48 @@
+[
+  {
+    "device": "mobile",
+    "modelsLoaded": 6,
+    "uniqueModels": [
+      "/人物/3d/MiaoGirl_1.glb?v=reduced-20260905",
+      "/人物/3d/MiaoGirl_2.glb?v=reduced-20260905",
+      "/人物/3d/MiaoGirl_3.glb?v=reduced-20260905",
+      "/人物/3d/MiaoGirl_4.glb?v=reduced-20260905",
+      "/人物/3d/MiaoGirl_5.glb?v=reduced-20260905",
+      "/人物/3d/MiaoGirl_6.glb?v=reduced-20260905"
+    ],
+    "rotationChanged": 3.294116386043028,
+    "sixthResultMatches": true,
+    "selectionClearsResult": true,
+    "otherCraftUnchanged": true,
+    "bounds": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "navBottom": 844,
+      "viewport": 844
+    },
+    "errors": []
+  },
+  {
+    "device": "desktop",
+    "modelsLoaded": 6,
+    "uniqueModels": [
+      "/人物/3d/MiaoGirl_1.glb?v=reduced-20260905",
+      "/人物/3d/MiaoGirl_2.glb?v=reduced-20260905",
+      "/人物/3d/MiaoGirl_3.glb?v=reduced-20260905",
+      "/人物/3d/MiaoGirl_4.glb?v=reduced-20260905",
+      "/人物/3d/MiaoGirl_5.glb?v=reduced-20260905",
+      "/人物/3d/MiaoGirl_6.glb?v=reduced-20260905"
+    ],
+    "rotationChanged": 3.3848643067701345,
+    "sixthResultMatches": true,
+    "selectionClearsResult": true,
+    "otherCraftUnchanged": true,
+    "bounds": {
+      "scrollWidth": 430,
+      "clientWidth": 430,
+      "navBottom": 862,
+      "viewport": 1000
+    },
+    "errors": []
+  }
+]

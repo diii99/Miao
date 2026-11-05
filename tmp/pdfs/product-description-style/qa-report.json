@@ -1,0 +1,21 @@
+{
+  "pages": 7,
+  "missing_markdown_text": [],
+  "out_of_bounds": [],
+  "markdown_unchanged_during_export": true,
+  "reference_pdf_unchanged": true,
+  "same_page_geometry": true,
+  "same_cover_background": true,
+  "same_overview_font_sizes": true,
+  "font_sizes": [
+    8.0,
+    8.5,
+    9.0,
+    10.0,
+    11.5,
+    22.0
+  ],
+  "chapter_locations_match": true,
+  "text_reduction_percent": 48.4,
+  "visual_review": "All 7 final pages inspected"
+}

@@ -1,0 +1,162 @@
+{
+  "startedAt": "2026-09-09T17:01:02.565Z",
+  "url": "http://127.0.0.1:5173",
+  "environment": "Chrome headless software WebGL; actual buttons, wheel and CDP touch; read-only diagnostics",
+  "devices": [
+    {
+      "device": "desktop",
+      "checks": [
+        {
+          "action": "default",
+          "zoom": 0.3,
+          "effectiveFov": 129.56797568154977,
+          "fixedEyes": true
+        },
+        {
+          "action": "button-out .2",
+          "zoom": 0.2,
+          "effectiveFov": 145.14198223577102,
+          "fixedEyes": true
+        },
+        {
+          "action": "minimum",
+          "zoom": 0.1,
+          "effectiveFov": 162.15831223264777,
+          "fixedEyes": true
+        },
+        {
+          "action": "button-in 0.2",
+          "zoom": 0.2,
+          "effectiveFov": 145.14198223577102,
+          "fixedEyes": true
+        },
+        {
+          "action": "button-in 0.3",
+          "zoom": 0.3,
+          "effectiveFov": 129.56797568154977,
+          "fixedEyes": true
+        },
+        {
+          "action": "button-in 0.4",
+          "zoom": 0.4,
+          "effectiveFov": 115.75269446764418,
+          "fixedEyes": true
+        },
+        {
+          "action": "button-in 0.5",
+          "zoom": 0.5,
+          "effectiveFov": 103.74731990848355,
+          "fixedEyes": true
+        },
+        {
+          "action": "wheel minimum",
+          "zoom": 0.1,
+          "effectiveFov": 162.15831223264777,
+          "fixedEyes": true
+        },
+        {
+          "action": "wheel maximum",
+          "zoom": 0.5,
+          "effectiveFov": 103.74731990848355,
+          "fixedEyes": true
+        },
+        {
+          "action": "reentry default",
+          "zoom": 0.3,
+          "effectiveFov": 129.56797568154977,
+          "fixedEyes": true
+        },
+        {
+          "action": "map-forward after zoom",
+          "alignment": 0.9999999999999999,
+          "stopped": true
+        }
+      ],
+      "screenshots": [
+        "D:\\Miao\\output\\xijiang-map\\desktop-zoom-0.3x.png",
+        "D:\\Miao\\output\\xijiang-map\\desktop-zoom-0.1x.png",
+        "D:\\Miao\\output\\xijiang-map\\desktop-zoom-0.5x.png"
+      ],
+      "status": "passed"
+    },
+    {
+      "device": "mobile",
+      "checks": [
+        {
+          "action": "default",
+          "zoom": 0.3,
+          "effectiveFov": 129.56797568154977,
+          "fixedEyes": true
+        },
+        {
+          "action": "button-out .2",
+          "zoom": 0.2,
+          "effectiveFov": 145.14198223577102,
+          "fixedEyes": true
+        },
+        {
+          "action": "minimum",
+          "zoom": 0.1,
+          "effectiveFov": 162.15831223264777,
+          "fixedEyes": true
+        },
+        {
+          "action": "button-in 0.2",
+          "zoom": 0.2,
+          "effectiveFov": 145.14198223577102,
+          "fixedEyes": true
+        },
+        {
+          "action": "button-in 0.3",
+          "zoom": 0.3,
+          "effectiveFov": 129.56797568154977,
+          "fixedEyes": true
+        },
+        {
+          "action": "button-in 0.4",
+          "zoom": 0.4,
+          "effectiveFov": 115.75269446764418,
+          "fixedEyes": true
+        },
+        {
+          "action": "button-in 0.5",
+          "zoom": 0.5,
+          "effectiveFov": 103.74731990848355,
+          "fixedEyes": true
+        },
+        {
+          "action": "pinch minimum",
+          "zoom": 0.1,
+          "effectiveFov": 162.15831223264777,
+          "fixedEyes": true
+        },
+        {
+          "action": "spread maximum",
+          "zoom": 0.5,
+          "effectiveFov": 103.74731990848355,
+          "fixedEyes": true
+        },
+        {
+          "action": "reentry default",
+          "zoom": 0.3,
+          "effectiveFov": 129.56797568154977,
+          "fixedEyes": true
+        },
+        {
+          "action": "map-forward after zoom",
+          "alignment": 1,
+          "stopped": true
+        }
+      ],
+      "screenshots": [
+        "D:\\Miao\\output\\xijiang-map\\mobile-zoom-0.3x.png",
+        "D:\\Miao\\output\\xijiang-map\\mobile-zoom-0.1x.png",
+        "D:\\Miao\\output\\xijiang-map\\mobile-zoom-0.5x.png"
+      ],
+      "status": "passed"
+    }
+  ],
+  "errors": [],
+  "status": "passed",
+  "finishedAt": "2026-09-09T17:01:55.607Z"
+}

@@ -8,6 +8,10 @@ type ModelViewerAttributes = HTMLAttributes<HTMLElement> & {
   loading?: "auto" | "lazy" | "eager";
   exposure?: string;
   "camera-controls"?: boolean;
+  "touch-action"?: "none" | "pan-x" | "pan-y";
+  "disable-pan"?: boolean;
+  "disable-tap"?: boolean;
+  "interpolation-decay"?: string;
   "auto-rotate"?: boolean;
   "auto-rotate-delay"?: string;
   "rotation-per-second"?: string;

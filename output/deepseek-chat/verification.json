@@ -1,0 +1,18 @@
+{
+  "url": "http://127.0.0.1:3000/",
+  "results": [
+    {
+      "question": "苗绣纹样有什么寓意？",
+      "status": 200,
+      "reply": "苗绣纹样多寓意吉祥，如蝴蝶妈妈象征祖先，鱼纹",
+      "historyMessages": 1
+    },
+    {
+      "question": "苗族蜡染为什么是蓝白色？",
+      "status": 200,
+      "reply": "苗族蜡染用蓝靛染色，防染处留白，故成蓝白。",
+      "historyMessages": 3
+    }
+  ],
+  "errors": []
+}

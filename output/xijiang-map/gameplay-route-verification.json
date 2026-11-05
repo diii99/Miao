@@ -1,0 +1,33 @@
+{
+  "devices": [
+    {
+      "device": "desktop",
+      "route": "/miniapp/map",
+      "samples": 8,
+      "status": "passed",
+      "initialMode": "gameplay",
+      "finalRouteLength": 0,
+      "finalProjection": {
+        "x": 0.0023285025316172347,
+        "y": -0.0011069118740448846,
+        "z": 0.9834177477078825
+      }
+    },
+    {
+      "device": "mobile-shell",
+      "route": "/map",
+      "samples": 7,
+      "status": "passed",
+      "initialMode": "gameplay",
+      "finalRouteLength": 0,
+      "finalProjection": {
+        "x": 0.003727863248454297,
+        "y": -0.0006247859582703719,
+        "z": 0.9852505396983721
+      }
+    }
+  ],
+  "errors": [],
+  "status": "passed",
+  "sourceSha256": "d390bd6efd6ca756ffb4b280545fc43807c116b859d16574a5a475d88e18f488"
+}

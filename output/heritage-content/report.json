@@ -1,0 +1,582 @@
+{
+  "checks": [
+    {
+      "name": "Keyword search returns embroidery",
+      "pass": true
+    },
+    {
+      "name": "Empty results explain how to recover",
+      "pass": true
+    },
+    {
+      "name": "Archive contains all 21 stories",
+      "pass": true,
+      "detail": 21
+    },
+    {
+      "name": "Category filter narrows archive to craft stories",
+      "pass": true
+    },
+    {
+      "name": "Selected category is exposed accessibly",
+      "pass": true
+    },
+    {
+      "name": "Search also finds regions within category",
+      "pass": true
+    },
+    {
+      "name": "姊妹节: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "姊妹节: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "姊妹节: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "姊妹节: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "姊妹节: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "姊妹节: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "鼓藏节: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "鼓藏节: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "鼓藏节: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "鼓藏节: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "鼓藏节: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "鼓藏节: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "苗年: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "苗年: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "苗年: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "苗年: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "苗年: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "苗年: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "四月八: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "四月八: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "四月八: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "四月八: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "四月八: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "四月八: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "吃新节: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "吃新节: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "吃新节: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "吃新节: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "吃新节: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "吃新节: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "跳花节: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "跳花节: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "跳花节: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "跳花节: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "跳花节: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "跳花节: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "芦笙节: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "芦笙节: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "芦笙节: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "芦笙节: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "芦笙节: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "芦笙节: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "赶秋节: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "赶秋节: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "赶秋节: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "赶秋节: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "赶秋节: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "赶秋节: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "招龙节: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "招龙节: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "招龙节: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "招龙节: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "招龙节: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "招龙节: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "龙船节: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "龙船节: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "龙船节: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "龙船节: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "龙船节: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "Dragon boat story uses locally correct lunar dates",
+      "pass": true
+    },
+    {
+      "name": "龙船节: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "银饰锻制: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "银饰锻制: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "银饰锻制: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "银饰锻制: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "银饰锻制: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "银饰锻制: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "苗族蜡染: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "苗族蜡染: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "苗族蜡染: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "苗族蜡染: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "苗族蜡染: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "苗族蜡染: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "苗族服饰: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "苗族服饰: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "苗族服饰: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "苗族服饰: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "苗族服饰: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "苗族服饰: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "芦笙舞: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "芦笙舞: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "芦笙舞: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "芦笙舞: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "芦笙舞: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "芦笙舞: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "苗族飞歌: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "苗族飞歌: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "苗族飞歌: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "苗族飞歌: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "苗族飞歌: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "苗族飞歌: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "西江千户苗寨: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "西江千户苗寨: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "西江千户苗寨: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "西江千户苗寨: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "西江千户苗寨: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "西江千户苗寨: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "吊脚楼: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "吊脚楼: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "吊脚楼: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "吊脚楼: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "吊脚楼: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "吊脚楼: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "苗族古歌: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "苗族古歌: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "苗族古歌: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "苗族古歌: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "苗族古歌: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "苗族古歌: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "苗绣: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "苗绣: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "苗绣: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "苗绣: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "苗绣: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "苗绣: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "苗族剪纸: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "苗族剪纸: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "苗族剪纸: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "苗族剪纸: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "苗族剪纸: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "苗族剪纸: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "芦笙制作: regional facts, narrative sections, observations and sources",
+      "pass": true
+    },
+    {
+      "name": "芦笙制作: no horizontal reading overflow",
+      "pass": true
+    },
+    {
+      "name": "芦笙制作: source links reachable inside story scroller",
+      "pass": true
+    },
+    {
+      "name": "芦笙制作: final reading note is reachable",
+      "pass": true
+    },
+    {
+      "name": "芦笙制作: modal scrolling leaves outer page fixed",
+      "pass": true
+    },
+    {
+      "name": "芦笙制作: closing restores card focus",
+      "pass": true
+    },
+    {
+      "name": "Reverse tab stays within dialog",
+      "pass": true
+    },
+    {
+      "name": "Forward tab stays within dialog",
+      "pass": true
+    },
+    {
+      "name": "Story fits 320×568 with close and scrolling available",
+      "pass": true
+    },
+    {
+      "name": "Story fits 932×430 with close and scrolling available",
+      "pass": true
+    },
+    {
+      "name": "No browser runtime errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "seen": [
+    "姊妹节",
+    "鼓藏节",
+    "苗年",
+    "四月八",
+    "吃新节",
+    "跳花节",
+    "芦笙节",
+    "赶秋节",
+    "招龙节",
+    "龙船节",
+    "银饰锻制",
+    "苗族蜡染",
+    "苗族服饰",
+    "芦笙舞",
+    "苗族飞歌",
+    "西江千户苗寨",
+    "吊脚楼",
+    "苗族古歌",
+    "苗绣",
+    "苗族剪纸",
+    "芦笙制作"
+  ],
+  "errors": []
+}

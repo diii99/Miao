@@ -1,0 +1,1458 @@
+[
+  {
+    "size": {
+      "name": "small",
+      "width": 320,
+      "height": 480
+    },
+    "checks": [
+      {
+        "name": "Guide renders visible avatar",
+        "pass": true,
+        "detail": {
+          "left": 31,
+          "right": 129,
+          "top": 15,
+          "bottom": 233,
+          "pixels": 12720,
+          "width": 141,
+          "height": 244,
+          "orbit": {
+            "theta": 0,
+            "phi": 1.361356816555577,
+            "radius": 2.2210101743821786
+          },
+          "target": {
+            "x": -0.04268561958159231,
+            "y": 0.5,
+            "z": 0
+          },
+          "turntable": 0,
+          "fov": 27.999999999999996
+        }
+      },
+      {
+        "name": "Open conversation has 12px viewer gap",
+        "pass": true
+      },
+      {
+        "name": "Avatar sits in right part of container",
+        "pass": true,
+        "detail": {
+          "initial": {
+            "left": 84.57286432160804,
+            "right": 183.0753768844221,
+            "top": 14.924623115577889,
+            "bottom": 231.8291457286432,
+            "pixels": 12751,
+            "width": 198,
+            "height": 244,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.15736805268109114,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 27.999999999999996
+          }
+        }
+      },
+      {
+        "name": "Native wheel enlarges avatar toward left",
+        "pass": true,
+        "detail": {
+          "initial": {
+            "left": 84.57286432160804,
+            "right": 183.0753768844221,
+            "top": 14.924623115577889,
+            "bottom": 231.8291457286432,
+            "pixels": 12751,
+            "width": 198,
+            "height": 244,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.15736805268109114,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 27.999999999999996
+          },
+          "zoomed": {
+            "left": 68.65326633165829,
+            "right": 182.08040201005025,
+            "top": 0,
+            "bottom": 242.77386934673368,
+            "pixels": 16842,
+            "width": 198,
+            "height": 244,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.108984994314497
+            },
+            "target": {
+              "x": -0.10486228880089807,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 25.675515756721442
+          }
+        }
+      },
+      {
+        "name": "Zoom keeps right edge inside container",
+        "pass": true,
+        "detail": {
+          "initial": {
+            "left": 84.57286432160804,
+            "right": 183.0753768844221,
+            "top": 14.924623115577889,
+            "bottom": 231.8291457286432,
+            "pixels": 12751,
+            "width": 198,
+            "height": 244,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.15736805268109114,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 27.999999999999996
+          },
+          "zoomed": {
+            "left": 68.65326633165829,
+            "right": 182.08040201005025,
+            "top": 0,
+            "bottom": 242.77386934673368,
+            "pixels": 16842,
+            "width": 198,
+            "height": 244,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.108984994314497
+            },
+            "target": {
+              "x": -0.10486228880089807,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 25.675515756721442
+          }
+        }
+      },
+      {
+        "name": "Zoom out moves left edge back right",
+        "pass": true,
+        "detail": {
+          "zoomed": {
+            "left": 68.65326633165829,
+            "right": 182.08040201005025,
+            "top": 0,
+            "bottom": 242.77386934673368,
+            "pixels": 16842,
+            "width": 198,
+            "height": 244,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.108984994314497
+            },
+            "target": {
+              "x": -0.10486228880089807,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 25.675515756721442
+          },
+          "zoomOut": {
+            "left": 82.58291457286433,
+            "right": 183.0753768844221,
+            "top": 11.93969849246231,
+            "bottom": 234.8140703517588,
+            "pixels": 13374,
+            "width": 198,
+            "height": 244,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.1713573298254603
+            },
+            "target": {
+              "x": -0.14771560796193692,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 28.00000000000001
+          }
+        }
+      },
+      {
+        "name": "Native drag rotates avatar and retains right framing",
+        "pass": true,
+        "detail": {
+          "left": 86.56281407035176,
+          "right": 177.10552763819095,
+          "top": 11.93969849246231,
+          "bottom": 234.8140703517588,
+          "pixels": 10968,
+          "width": 198,
+          "height": 244,
+          "orbit": {
+            "theta": 1.020957069842459,
+            "phi": 1.361356816555577,
+            "radius": 2.1713573298254603
+          },
+          "target": {
+            "x": -0.06214248942773957,
+            "y": 0.5,
+            "z": 0.10139354662102394
+          },
+          "turntable": 0,
+          "fov": 28.00000000000001
+        }
+      },
+      {
+        "name": "Auto rotation continues with right framing",
+        "pass": true,
+        "detail": {
+          "beforeTurn": {
+            "left": 83.57788944723617,
+            "right": 182.08040201005025,
+            "top": 14.924623115577889,
+            "bottom": 232.82412060301507,
+            "pixels": 12718,
+            "width": 198,
+            "height": 244,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.1527028020788283,
+              "y": 0.5,
+              "z": -0.005428030768238889
+            },
+            "turntable": 0.04077787264365401,
+            "fov": 28.00000000000001
+          },
+          "turning": {
+            "left": 78.60301507537689,
+            "right": 174.12060301507537,
+            "top": 14.924623115577889,
+            "bottom": 232.82412060301507,
+            "pixels": 12312,
+            "width": 198,
+            "height": 244,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.12118808441883085,
+              "y": 0.5,
+              "z": -0.04133463735757964
+            },
+            "turntable": 0.3339827150031895,
+            "fov": 28.00000000000001
+          }
+        }
+      },
+      {
+        "name": "Zoomed conversation stays clear and page fits",
+        "pass": true
+      },
+      {
+        "name": "No runtime errors",
+        "pass": true,
+        "detail": []
+      }
+    ]
+  },
+  {
+    "size": {
+      "name": "standard",
+      "width": 390,
+      "height": 844
+    },
+    "checks": [
+      {
+        "name": "Guide renders visible avatar",
+        "pass": true,
+        "detail": {
+          "left": 23,
+          "right": 158,
+          "top": 44,
+          "bottom": 343,
+          "pixels": 23941,
+          "width": 172,
+          "height": 382,
+          "orbit": {
+            "theta": 0,
+            "phi": 1.361356816555577,
+            "radius": 2.2210101743821786
+          },
+          "target": {
+            "x": -0.016562799727739524,
+            "y": 0.5,
+            "z": 0
+          },
+          "turntable": 0,
+          "fov": 31.850838325791493
+        }
+      },
+      {
+        "name": "Open conversation has 12px viewer gap",
+        "pass": true
+      },
+      {
+        "name": "Avatar sits in right part of container",
+        "pass": true,
+        "detail": {
+          "initial": {
+            "left": 70,
+            "right": 225,
+            "top": 22,
+            "bottom": 365,
+            "pixels": 31483,
+            "width": 242,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.07584778212049534,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 27.999999999999996
+          }
+        }
+      },
+      {
+        "name": "Native wheel enlarges avatar toward left",
+        "pass": true,
+        "detail": {
+          "initial": {
+            "left": 70,
+            "right": 225,
+            "top": 22,
+            "bottom": 365,
+            "pixels": 31483,
+            "width": 242,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.07584778212049534,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 27.999999999999996
+          },
+          "zoomed": {
+            "left": 45,
+            "right": 224,
+            "top": 0,
+            "bottom": 381,
+            "pixels": 41567,
+            "width": 242,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.108984994314497
+            },
+            "target": {
+              "x": -0.03463231851783985,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 25.675515756721442
+          }
+        }
+      },
+      {
+        "name": "Zoom keeps right edge inside container",
+        "pass": true,
+        "detail": {
+          "initial": {
+            "left": 70,
+            "right": 225,
+            "top": 22,
+            "bottom": 365,
+            "pixels": 31483,
+            "width": 242,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.07584778212049534,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 27.999999999999996
+          },
+          "zoomed": {
+            "left": 45,
+            "right": 224,
+            "top": 0,
+            "bottom": 381,
+            "pixels": 41567,
+            "width": 242,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.108984994314497
+            },
+            "target": {
+              "x": -0.03463231851783985,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 25.675515756721442
+          }
+        }
+      },
+      {
+        "name": "Zoom out moves left edge back right",
+        "pass": true,
+        "detail": {
+          "zoomed": {
+            "left": 45,
+            "right": 224,
+            "top": 0,
+            "bottom": 381,
+            "pixels": 41567,
+            "width": 242,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.108984994314497
+            },
+            "target": {
+              "x": -0.03463231851783985,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 25.675515756721442
+          },
+          "zoomOut": {
+            "left": 66,
+            "right": 224,
+            "top": 18,
+            "bottom": 369,
+            "pixels": 32964,
+            "width": 242,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.1713573298254603
+            },
+            "target": {
+              "x": -0.06827089999176936,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 28.00000000000001
+          }
+        }
+      },
+      {
+        "name": "Native drag rotates avatar and retains right framing",
+        "pass": true,
+        "detail": {
+          "left": 70,
+          "right": 210,
+          "top": 18,
+          "bottom": 370,
+          "pixels": 28594,
+          "width": 242,
+          "height": 382,
+          "orbit": {
+            "theta": 0.7954212420533713,
+            "phi": 1.361356816555577,
+            "radius": 2.1713573298254603
+          },
+          "target": {
+            "x": -0.0213113813594856,
+            "y": 0.5,
+            "z": 0.02174293258625231
+          },
+          "turntable": 0,
+          "fov": 28.00000000000001
+        }
+      },
+      {
+        "name": "Auto rotation continues with right framing",
+        "pass": true,
+        "detail": {
+          "beforeTurn": {
+            "left": 68,
+            "right": 222,
+            "top": 23,
+            "bottom": 365,
+            "pixels": 31421,
+            "width": 242,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.07094597381924579,
+              "y": 0.5,
+              "z": -0.0025017874053992286
+            },
+            "turntable": 0.04046371337826573,
+            "fov": 28.00000000000001
+          },
+          "turning": {
+            "left": 58,
+            "right": 209,
+            "top": 22,
+            "bottom": 366,
+            "pixels": 30549,
+            "width": 242,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.04091747039419277,
+              "y": 0.5,
+              "z": -0.013943151352726467
+            },
+            "turntable": 0.33366855573780135,
+            "fov": 28.00000000000001
+          }
+        }
+      },
+      {
+        "name": "Zoomed conversation stays clear and page fits",
+        "pass": true
+      },
+      {
+        "name": "No runtime errors",
+        "pass": true,
+        "detail": []
+      }
+    ]
+  },
+  {
+    "size": {
+      "name": "large",
+      "width": 440,
+      "height": 956
+    },
+    "checks": [
+      {
+        "name": "Guide renders visible avatar",
+        "pass": true,
+        "detail": {
+          "left": 26,
+          "right": 179,
+          "top": 25,
+          "bottom": 362,
+          "pixels": 30579,
+          "width": 194,
+          "height": 382,
+          "orbit": {
+            "theta": 0,
+            "phi": 1.361356816555577,
+            "radius": 2.2210101743821786
+          },
+          "target": {
+            "x": -0.01788711162781581,
+            "y": 0.5,
+            "z": 0
+          },
+          "turntable": 0,
+          "fov": 28.38627606889056
+        }
+      },
+      {
+        "name": "Open conversation has 12px viewer gap",
+        "pass": true
+      },
+      {
+        "name": "Avatar sits in right part of container",
+        "pass": true,
+        "detail": {
+          "initial": {
+            "left": 99,
+            "right": 254,
+            "top": 23,
+            "bottom": 365,
+            "pixels": 31478,
+            "width": 273,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.11530653009205319,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 27.999999999999996
+          }
+        }
+      },
+      {
+        "name": "Native wheel enlarges avatar toward left",
+        "pass": true,
+        "detail": {
+          "initial": {
+            "left": 99,
+            "right": 254,
+            "top": 23,
+            "bottom": 365,
+            "pixels": 31478,
+            "width": 273,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.11530653009205319,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 27.999999999999996
+          },
+          "zoomed": {
+            "left": 75,
+            "right": 253,
+            "top": 0,
+            "bottom": 381,
+            "pixels": 41555,
+            "width": 273,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.108984994314497
+            },
+            "target": {
+              "x": -0.06862615438703398,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 25.675515756721442
+          }
+        }
+      },
+      {
+        "name": "Zoom keeps right edge inside container",
+        "pass": true,
+        "detail": {
+          "initial": {
+            "left": 99,
+            "right": 254,
+            "top": 23,
+            "bottom": 365,
+            "pixels": 31478,
+            "width": 273,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.11530653009205319,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 27.999999999999996
+          },
+          "zoomed": {
+            "left": 75,
+            "right": 253,
+            "top": 0,
+            "bottom": 381,
+            "pixels": 41555,
+            "width": 273,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.108984994314497
+            },
+            "target": {
+              "x": -0.06862615438703398,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 25.675515756721442
+          }
+        }
+      },
+      {
+        "name": "Zoom out moves left edge back right",
+        "pass": true,
+        "detail": {
+          "zoomed": {
+            "left": 75,
+            "right": 253,
+            "top": 0,
+            "bottom": 381,
+            "pixels": 41555,
+            "width": 273,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.108984994314497
+            },
+            "target": {
+              "x": -0.06862615438703398,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 25.675515756721442
+          },
+          "zoomOut": {
+            "left": 95,
+            "right": 254,
+            "top": 19,
+            "bottom": 369,
+            "pixels": 32978,
+            "width": 273,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.1713573298254603
+            },
+            "target": {
+              "x": -0.10672500089098927,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 28.00000000000001
+          }
+        }
+      },
+      {
+        "name": "Native drag rotates avatar and retains right framing",
+        "pass": true,
+        "detail": {
+          "left": 100,
+          "right": 242,
+          "top": 18,
+          "bottom": 370,
+          "pixels": 27869,
+          "width": 273,
+          "height": 382,
+          "orbit": {
+            "theta": 0.897399341152728,
+            "phi": 1.361356816555577,
+            "radius": 2.1713573298254603
+          },
+          "target": {
+            "x": -0.04487426316749617,
+            "y": 0.5,
+            "z": 0.056247631081364956
+          },
+          "turntable": 0,
+          "fov": 28.00000000000001
+        }
+      },
+      {
+        "name": "Auto rotation continues with right framing",
+        "pass": true,
+        "detail": {
+          "beforeTurn": {
+            "left": 98,
+            "right": 252,
+            "top": 23,
+            "bottom": 365,
+            "pixels": 31382,
+            "width": 273,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.11106758472404962,
+              "y": 0.5,
+              "z": -0.0034729758666959955
+            },
+            "turntable": 0.03647389070826533,
+            "fov": 28.00000000000001
+          },
+          "turning": {
+            "left": 88,
+            "right": 239,
+            "top": 22,
+            "bottom": 366,
+            "pixels": 30491,
+            "width": 273,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.08007933697838122,
+              "y": 0.5,
+              "z": -0.026931937802520668
+            },
+            "turntable": 0.3296473171412649,
+            "fov": 28.00000000000001
+          }
+        }
+      },
+      {
+        "name": "Zoomed conversation stays clear and page fits",
+        "pass": true
+      },
+      {
+        "name": "No runtime errors",
+        "pass": true,
+        "detail": []
+      }
+    ]
+  },
+  {
+    "size": {
+      "name": "landscape",
+      "width": 844,
+      "height": 390
+    },
+    "checks": [
+      {
+        "name": "Guide renders visible avatar",
+        "pass": true,
+        "detail": {
+          "left": 145.46125461254613,
+          "right": 252.06642066420665,
+          "top": 15.940959409594097,
+          "bottom": 251.070110701107,
+          "pixels": 14880,
+          "width": 270,
+          "height": 263,
+          "orbit": {
+            "theta": 0,
+            "phi": 1.361356816555577,
+            "radius": 2.2210101743821786
+          },
+          "target": {
+            "x": -0.26244048441479484,
+            "y": 0.5,
+            "z": 0
+          },
+          "turntable": 0,
+          "fov": 27.999999999999996
+        }
+      },
+      {
+        "name": "Open conversation has 12px viewer gap",
+        "pass": true
+      },
+      {
+        "name": "Avatar sits in right part of container",
+        "pass": true,
+        "detail": {
+          "initial": {
+            "left": 145.46125461254613,
+            "right": 252.06642066420665,
+            "top": 15.940959409594097,
+            "bottom": 251.070110701107,
+            "pixels": 14880,
+            "width": 270,
+            "height": 263,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.26244048441479484,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 27.999999999999996
+          }
+        }
+      },
+      {
+        "name": "Native wheel enlarges avatar toward left",
+        "pass": true,
+        "detail": {
+          "initial": {
+            "left": 145.46125461254613,
+            "right": 252.06642066420665,
+            "top": 15.940959409594097,
+            "bottom": 251.070110701107,
+            "pixels": 14880,
+            "width": 270,
+            "height": 263,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.26244048441479484,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 27.999999999999996
+          },
+          "zoomed": {
+            "left": 127.52767527675277,
+            "right": 251.070110701107,
+            "top": 0,
+            "bottom": 262.029520295203,
+            "pixels": 19685,
+            "width": 270,
+            "height": 263,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.108984994314497
+            },
+            "target": {
+              "x": -0.1953825202412676,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 25.675515756721442
+          }
+        }
+      },
+      {
+        "name": "Zoom keeps right edge inside container",
+        "pass": true,
+        "detail": {
+          "initial": {
+            "left": 145.46125461254613,
+            "right": 252.06642066420665,
+            "top": 15.940959409594097,
+            "bottom": 251.070110701107,
+            "pixels": 14880,
+            "width": 270,
+            "height": 263,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.26244048441479484,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 27.999999999999996
+          },
+          "zoomed": {
+            "left": 127.52767527675277,
+            "right": 251.070110701107,
+            "top": 0,
+            "bottom": 262.029520295203,
+            "pixels": 19685,
+            "width": 270,
+            "height": 263,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.108984994314497
+            },
+            "target": {
+              "x": -0.1953825202412676,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 25.675515756721442
+          }
+        }
+      },
+      {
+        "name": "Zoom out moves left edge back right",
+        "pass": true,
+        "detail": {
+          "zoomed": {
+            "left": 127.52767527675277,
+            "right": 251.070110701107,
+            "top": 0,
+            "bottom": 262.029520295203,
+            "pixels": 19685,
+            "width": 270,
+            "height": 263,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.108984994314497
+            },
+            "target": {
+              "x": -0.1953825202412676,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 25.675515756721442
+          },
+          "zoomOut": {
+            "left": 142.47232472324723,
+            "right": 252.06642066420665,
+            "top": 12.952029520295204,
+            "bottom": 253.06273062730628,
+            "pixels": 15627,
+            "width": 270,
+            "height": 263,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.1713573298254603
+            },
+            "target": {
+              "x": -0.25011282275766833,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 28.00000000000001
+          }
+        }
+      },
+      {
+        "name": "Native drag rotates avatar and retains right framing",
+        "pass": true,
+        "detail": {
+          "left": 152.43542435424354,
+          "right": 250.0738007380074,
+          "top": 12.952029520295204,
+          "bottom": 252.06642066420665,
+          "pixels": 11953,
+          "width": 270,
+          "height": 263,
+          "orbit": {
+            "theta": 1.2895376161790448,
+            "phi": 1.361356816555577,
+            "radius": 2.1713573298254603
+          },
+          "target": {
+            "x": -0.06787687795831704,
+            "y": 0.5,
+            "z": 0.23493506652668777
+          },
+          "turntable": 0,
+          "fov": 28.00000000000001
+        }
+      },
+      {
+        "name": "Auto rotation continues with right framing",
+        "pass": true,
+        "detail": {
+          "beforeTurn": {
+            "left": 144.4649446494465,
+            "right": 251.070110701107,
+            "top": 15.940959409594097,
+            "bottom": 251.070110701107,
+            "pixels": 14826,
+            "width": 270,
+            "height": 263,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.25806114177601314,
+              "y": 0.5,
+              "z": -0.009319255094461134
+            },
+            "turntable": 0.041311943394618064,
+            "fov": 28.00000000000001
+          },
+          "turning": {
+            "left": 140.479704797048,
+            "right": 242.10332103321034,
+            "top": 15.940959409594097,
+            "bottom": 252.06642066420665,
+            "pixels": 14294,
+            "width": 270,
+            "height": 263,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.22461126956217228,
+              "y": 0.5,
+              "z": -0.07675975001009061
+            },
+            "turntable": 0.3345167857541534,
+            "fov": 28.00000000000001
+          }
+        }
+      },
+      {
+        "name": "Zoomed conversation stays clear and page fits",
+        "pass": true
+      },
+      {
+        "name": "No runtime errors",
+        "pass": true,
+        "detail": []
+      }
+    ]
+  },
+  {
+    "size": {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "desktop": true
+    },
+    "checks": [
+      {
+        "name": "Guide renders visible avatar",
+        "pass": true,
+        "detail": {
+          "left": 25.86315789473684,
+          "right": 174.07894736842104,
+          "top": 28.847368421052632,
+          "bottom": 356.11578947368423,
+          "pixels": 29231,
+          "width": 189,
+          "height": 382,
+          "orbit": {
+            "theta": 0,
+            "phi": 1.361356816555577,
+            "radius": 2.2210101743821786
+          },
+          "target": {
+            "x": -0.01764653924922613,
+            "y": 0.5,
+            "z": 0
+          },
+          "turntable": 0,
+          "fov": 29.01979374982838
+        }
+      },
+      {
+        "name": "Open conversation has 12px viewer gap",
+        "pass": true
+      },
+      {
+        "name": "Avatar sits in right part of container",
+        "pass": true,
+        "detail": {
+          "initial": {
+            "left": 94,
+            "right": 249,
+            "top": 23,
+            "bottom": 365,
+            "pixels": 31488,
+            "width": 267,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.10741080280137369,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 28.00000000000001
+          }
+        }
+      },
+      {
+        "name": "Native wheel enlarges avatar toward left",
+        "pass": true,
+        "detail": {
+          "initial": {
+            "left": 94,
+            "right": 249,
+            "top": 23,
+            "bottom": 365,
+            "pixels": 31488,
+            "width": 267,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.10741080280137369,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 28.00000000000001
+          },
+          "zoomed": {
+            "left": 69,
+            "right": 248,
+            "top": 0,
+            "bottom": 381,
+            "pixels": 41590,
+            "width": 267,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.1089849943144974
+            },
+            "target": {
+              "x": -0.06182396041522456,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 25.675515756721442
+          }
+        }
+      },
+      {
+        "name": "Zoom keeps right edge inside container",
+        "pass": true,
+        "detail": {
+          "initial": {
+            "left": 94,
+            "right": 249,
+            "top": 23,
+            "bottom": 365,
+            "pixels": 31488,
+            "width": 267,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.10741080280137369,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 28.00000000000001
+          },
+          "zoomed": {
+            "left": 69,
+            "right": 248,
+            "top": 0,
+            "bottom": 381,
+            "pixels": 41590,
+            "width": 267,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.1089849943144974
+            },
+            "target": {
+              "x": -0.06182396041522456,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 25.675515756721442
+          }
+        }
+      },
+      {
+        "name": "Zoom out moves left edge back right",
+        "pass": true,
+        "detail": {
+          "zoomed": {
+            "left": 69,
+            "right": 248,
+            "top": 0,
+            "bottom": 381,
+            "pixels": 41590,
+            "width": 267,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.1089849943144974
+            },
+            "target": {
+              "x": -0.06182396041522456,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 25.675515756721442
+          },
+          "zoomOut": {
+            "left": 90,
+            "right": 248,
+            "top": 19,
+            "bottom": 369,
+            "pixels": 32979,
+            "width": 267,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.1713573298254607
+            },
+            "target": {
+              "x": -0.09903030428968376,
+              "y": 0.5,
+              "z": 0
+            },
+            "turntable": 0,
+            "fov": 28.00000000000001
+          }
+        }
+      },
+      {
+        "name": "Native drag rotates avatar and retains right framing",
+        "pass": true,
+        "detail": {
+          "left": 94,
+          "right": 236,
+          "top": 18,
+          "bottom": 370,
+          "pixels": 28026,
+          "width": 267,
+          "height": 382,
+          "orbit": {
+            "theta": 0.8769942845400516,
+            "phi": 1.361356816555577,
+            "radius": 2.1713573298254607
+          },
+          "target": {
+            "x": -0.040606217331773664,
+            "y": 0.5,
+            "z": 0.04882032644017724
+          },
+          "turntable": 0,
+          "fov": 28.00000000000001
+        }
+      },
+      {
+        "name": "Auto rotation continues with right framing",
+        "pass": true,
+        "detail": {
+          "beforeTurn": {
+            "left": 92,
+            "right": 246,
+            "top": 22,
+            "bottom": 365,
+            "pixels": 31404,
+            "width": 267,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.10303857680361685,
+              "y": 0.5,
+              "z": -0.0033061643834619587
+            },
+            "turntable": 0.037290704798227936,
+            "fov": 28.00000000000001
+          },
+          "turning": {
+            "left": 82,
+            "right": 234,
+            "top": 22,
+            "bottom": 366,
+            "pixels": 30532,
+            "width": 267,
+            "height": 382,
+            "orbit": {
+              "theta": 0,
+              "phi": 1.361356816555577,
+              "radius": 2.2210101743821786
+            },
+            "target": {
+              "x": -0.07223386779319346,
+              "y": 0.5,
+              "z": -0.02436160404834475
+            },
+            "turntable": 0.33049554715776314,
+            "fov": 28.00000000000001
+          }
+        }
+      },
+      {
+        "name": "Zoomed conversation stays clear and page fits",
+        "pass": true
+      },
+      {
+        "name": "No runtime errors",
+        "pass": true,
+        "detail": []
+      }
+    ]
+  }
+]

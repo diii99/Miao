@@ -41,13 +41,17 @@ function nearest(x: number, z: number) {
 }
 export function snapToWalkway(x: number, z: number): Point { return nearest(x, z).node }
 export function walkableStep(x: number, z: number): Point | null {
+  // The paved plaza is continuous ground, not only the route graph's center lines.
+  // Exported bounds leave clearance from the surrounding buildings and steps.
+  const area = layout.walkableAreas.find(a => Math.abs(x - a.x) <= a.halfWidth && Math.abs(z - a.z) <= a.halfDepth)
+  if (area) return { x, z, y: area.y }
   // Manual movement uses local spatial cells, not a full 3,600-node scan each frame.
   const cx = Math.floor(x / cellSize), cz = Math.floor(z / cellSize)
   let best: Node | undefined, distance = Infinity
   for (let dx = -3; dx <= 3; dx++) for (let dz = -3; dz <= 3; dz++) {
     for (const id of cells.get(`${cx + dx},${cz + dz}`) ?? []) {
       const n = nodes[id], d = Math.hypot(x - n.x, z - n.z)
-      if (d < distance) { best = n; distance = d }
+      if (d <= n.width / 2 - .06 && d < distance) { best = n; distance = d }
     }
   }
   return best && distance <= best.width / 2 - .06 ? { x, z, y: best.y } : null

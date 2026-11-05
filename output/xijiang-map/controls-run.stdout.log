@@ -1,0 +1,59 @@
+mobile navigation http://127.0.0.1:5173/miniapp/map
+mobile navigation http://127.0.0.1:5173/miniapp/map
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } -120.4 0
+drag { x: 288.1, y: 531.24, width: 430, height: 932 } -120.4 0
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } -120.4 0
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } -44.51262830468641 0
+mobile panoramic 0° up: requested=1 actual=1
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } 120.4 0
+drag { x: 240.8, y: 531.24, width: 430, height: 932 } 120.4 0
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } 120.4 0
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } 87.47913101758108 0
+mobile panoramic 45° up: requested=1 actual=1
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } 120.4 0
+drag { x: 240.8, y: 531.24, width: 430, height: 932 } 120.4 0
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } 91.37218496284785 0
+mobile panoramic 90° up: requested=1 actual=1
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } 120.4 0
+drag { x: 240.8, y: 531.24, width: 430, height: 932 } 94.95052541424486 0
+mobile panoramic 135° up: requested=1 actual=1
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } 83.95133682238871 0
+mobile panoramic 180° up: requested=1 actual=1
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } -32.54866317761128 0
+mobile panoramic 225° up: requested=1 actual=1
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } -120.4 0
+drag { x: 288.1, y: 531.24, width: 430, height: 932 } -43.54784620371817 0
+mobile panoramic 270° up: requested=1 actual=1
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } -120.4 0
+drag { x: 288.1, y: 531.24, width: 430, height: 932 } -120.4 0
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } -39.96950150838396 0
+mobile panoramic 315° up: requested=1 actual=1
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } -120.4 0
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } -120.4 0
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } -120.4 0
+mobile first-person 0° up: requested=1 actual=1
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } 120.4 0
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } 120.4 0
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } 120.4 0
+mobile first-person 45° up: requested=1 actual=1
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } 120.4 0
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } 120.4 0
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } 34.74921029057061 0
+mobile first-person 90° up: requested=1 actual=1
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } 120.4 0
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } 47.649204187055 0
+mobile first-person 135° up: requested=1 actual=1
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } 60.549198083539316 0
+mobile first-person 180° up: requested=1 actual=1
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } -46.95080191646068 0
+mobile first-person 225° up: requested=1 actual=1
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } -120.4 0
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } -34.05080039058173 0
+mobile first-person 270° up: requested=1 actual=1
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } -120.4 0
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } -120.4 0
+mobile first-person 315° up: requested=1 actual=1
+mobile navigation http://127.0.0.1:5173/miniapp/map
+drag { x: 193.5, y: 531.24, width: 430, height: 932 } 0 -90
+mobile navigation http://127.0.0.1:5173/miniapp/map
+mobile functional, zoom, cancellation, and mode-transition checks passed

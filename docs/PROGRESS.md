@@ -57,7 +57,7 @@ For each checkpoint capture: current objective, completed changes, files/artifac
 1. Read this checkpoint, then `docs/research/xijiang-map/05-revision2-delivery.md` and `04-landmark-research.md`; `03-implementation.md` describes the historical first revision; use `01-sources-and-visual-evidence.md` and `02-redesign-plan.md` for research. Their older “research only / do not implement” wording describes the preceding research session and does not override the user's subsequent implementation request.
 2. Inspect the current files and any new user direction before changing anything. The previous task is complete; do not regenerate or redeploy merely to resume the session.
 3. If a new map iteration is requested, append its objective and immediate next action here before editing. Preserve `/map`, `/miniapp/map`, the shared Shell, the four bottom tabs, and unrelated culture/experience pages.
-4. Check live services; these are volatile: local preview was `http://127.0.0.1:5173/miniapp/map`, Blender addon was listening at `127.0.0.1:9876`. If needed start the app with `bun run dev --host 127.0.0.1 --port 5173`.
+4. Check live services; these are volatile: local preview was `http://127.0.0.1:5173/miniapp/map`, Blender addon was listening at `127.0.0.1:9876`. Start the app with `bun run dev`; the configured default is now `http://127.0.0.1:3000/` because Windows reserves port 5173 on this machine.
 5. For model changes edit `scripts/build_xijiang_map.py`, then run `python scripts/blender_map_bridge.py scripts/build_xijiang_map.py` with Blender open and its addon enabled. This generates a new scene and overwrites the GLB, layout JSON and saved Blender copy. Inspect the current Blender scene first if the user may have made manual edits. The terrain sampler in `villageBuilder.ts` must remain consistent if the height formula changes.
 6. Re-run the relevant navigation/browser checks after geometry or scene changes; finish with `bun run build`. Update this checkpoint with outcomes and actual artifacts.
 
@@ -136,3 +136,26 @@ Confirmed paused panorama captures: confirmed-pano-0.png shows Lusheng courtyard
 ### Third revision — final validation complete
 
 Final unmodified-source regression session 15816 exited 0: desktop /miniapp/map and mobile /map, day/night, museum arrival, details, follow camera, failed GLB retry and onReady. browser-errors.json is empty. Final build passed; 18-node navigation passed; revision3 screenshot/removed-subtitle verification passed. No live verification/generation handles remain. The intermediate HMR failure was reproduced only during concurrent editing; the final stable run passed.
+
+
+### 2026-09-11 — Chinese product operation manual completed
+
+Delivered `output/pdf/苗家亲_产品操作手册_V1.0.pdf` (26 pages) and matching Markdown, with live browser screenshots in `output/pdf/manual-assets/`. Covers home guide, map controls and landmarks, 21 heritage stories, four craft previews, six games, demo-order boundaries, state retention, FAQ and route appendix. Browser walkthroughs included wax and fermentation completion. Recorded the observed mobile demo-submit overlap; no product code changed. PDF text/boundaries, 26 bookmarks, 24 internal links and all-page visual rendering reviewed. Builder and QA: `tmp/pdfs/build_manual.py`, `tmp/pdfs/qa-report.json`. No pending work for this manual; not deployed.
+
+## 2026-09-15 - Homepage DeepSeek model repair
+
+- Fixed `src/chat.js` to request the supported API ID `deepseek-flash` (DeepSeek V4.1 Flash). The previous working-copy value `deepseek-v4.1-flash` returned HTTP 400 with an explicit unsupported-model error; the homepage silently displayed canned fallback replies.
+- Verified existing local credentials work without exposing or changing them. Direct DeepSeek, the Worker handler executed locally, and the running Vite `/api/chat` endpoint returned HTTP 200 with real replies.
+- Real browser verification at `http://127.0.0.1:3000/`: initial suggestion and typed follow-up both returned HTTP 200 and appeared in the conversation; the second request included three history messages; no browser runtime errors. Evidence: `output/deepseek-chat/verification.json` and `home-success.png`. An initial test incorrectly attempted a suggestion after suggestions had disappeared; corrected the test order and reran successfully.
+- `bun run build` and `git diff --check -- src/chat.js` passed. Only the model ID changed in application code. Existing 20-word reply limit and fallback behavior remain. Not deployed; a production deployment is needed to update the hosted Worker.
+
+## 2026-09-15 - Homepage conversation height
+
+- Anchored the conversation top 12px below the measured heading block ending with 让她带你认识苗乡日常. ResizeObserver keeps this aligned when the viewport or text dimensions change. Expanded scrollable history to the available height, with 64px minimum history on short screens; the outer panel remains scrollable when needed. Avatar styles and height remain unchanged.
+- Changed `src/main.tsx` and `src/app-shell.css`. Browser checks at 390x844, 320x480, 1440x1000, and 844x390 confirmed unchanged avatar heights, aligned panel top, and accessible history; a follow-up check verified the short-screen 64px history minimum. Screenshot visually inspected at 390x844. Evidence: `output/home-chat-height/` (after.json records the initial measurements before adding the short-screen minimum). Chat responses were mocked for layout verification.
+- Final build and targeted diff checks passed. Local only; not deployed.
+
+## 2026-09-15 - Guide reply length
+
+- Updated src/chat.js prompt to request around 30 words, maximum 30, and raised the enforced limiter from 20 to 30. Preserved existing Chinese character counting and made the 30-character Chinese limit explicit in the prompt.
+- English and Chinese boundary checks, short-reply preservation, build, and targeted diff checks passed. Local change only; not deployed.

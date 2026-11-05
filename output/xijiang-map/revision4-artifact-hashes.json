@@ -1,0 +1,7 @@
+{
+  "public/map-assets/models/xijiang-valley.glb": "b528220fb277a1acc9fd0e8fb6a13c190212d57738337dfd4569b561241a4a29",
+  "src/map-3d/MiaoVillageScene.tsx": "88e26113f56fb09658bdded6d8226e74a110f5c52d15fd29ca7a2af9a189fbce",
+  "src/map-3d/cameraNavigation.ts": "5cb247614becca907042a659112e6b21d71730219488c24a1518f82d20c70b96",
+  "src/map-3d/navigation.ts": "072e84b1aa479036e1a0761a2c967b4371ba47d978c0d5418d3a38dc52de3dc0",
+  "src/map-3d/xijiang-layout.json": "8e19998d31a0cea35eff9450e0b5f7d09ad0bb6ca0cbde24419bd1afe51d6593"
+}

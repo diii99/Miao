@@ -15,6 +15,8 @@ bun install
 bun run dev
 ```
 
+开发地址为 [http://127.0.0.1:3000/](http://127.0.0.1:3000/)。端口 5173 在此 Windows 环境中被系统保留。
+
 构建命令为 `bun run build`。具体脚本以 [package.json](package.json) 为准。
 
 ## 主要目录

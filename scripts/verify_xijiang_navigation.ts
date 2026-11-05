@@ -18,3 +18,22 @@ for (const poi of layout.pois) {
 }
 assert.equal(walkableStep(8, 5 + 3.4 * Math.sin(8 * .092) + .65 * Math.sin(8 * .21)), null)
 console.log(navigationStats)
+
+for (const bridge of layout.bridges) {
+  const bankA = snapToWalkway(bridge.x, bridge.z - 2.75)
+  const bankB = snapToWalkway(bridge.x, bridge.z + 2.75)
+  const crossing = routeTo(bankA, bankB)
+  assert(crossing.length > 2, `Bridge at ${bridge.x} does not connect both banks`)
+  assert(crossing.some(p => Math.abs(p.x - bridge.x) < .15 && Math.abs(p.z - bridge.z) < .18), `Route avoids bridge at ${bridge.x}`)
+  assert(crossing.every(p => p.y >= .4), `Bridge at ${bridge.x} crosses below its deck`)
+}
+console.log(`${layout.bridges.length} bridge crossings connect both banks`)
+
+for (const area of layout.walkableAreas) {
+  for (let dx = -area.halfWidth + .1; dx < area.halfWidth; dx += .2) {
+    for (let dz = -area.halfDepth + .1; dz < area.halfDepth; dz += .2) {
+      assert(walkableStep(area.x + dx, area.z + dz), 'Visible plaza contains an invisible walking gap')
+    }
+  }
+}
+console.log('Continuous plaza ground has no gaps between route lines')

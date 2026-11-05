@@ -34,3 +34,14 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 # Finder (MacOS) folder config
 .DS_Store
 .dev.vars
+
+# Re-downloadable public elevation source and decoding cache
+output/xijiang-map/elevation/*.tif
+output/xijiang-map/elevation/*.npy
+output/xijiang-map/elevation/python-deps/
+scripts/__pycache__/
+
+# Temporary model export staging
+output/xijiang-map/*.next.glb
+output/xijiang-map/*.patched.glb
+output/xijiang-map/*.json.next

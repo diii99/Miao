@@ -132,3 +132,24 @@ body main.mini-program .tab-icon.icon-workshop:before,body main.mini-program .ta
 .miao-source-note{overflow-wrap:anywhere}
 .miao-source-note a{display:inline;line-height:1.55}
 .miao-audio-error{margin:-8px 3px 15px;color:#9a563e;font-size:10px;line-height:1.4}
+
+/* Six live, reduced GLB models in the doll editor. */
+.workshop-doll-gallery { margin: 22px 0; }
+.doll-gallery-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.doll-gallery-heading h3 { margin: 0; color: #123a66; font: 700 17px/1.4 'Noto Serif SC', serif; }
+.doll-gallery-heading > span { color: #63809f; font-size: 11px; }
+.doll-gallery-hint { margin: 6px 0 13px; color: #697e96; font-size: 11px; line-height: 1.6; }
+.doll-style-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.doll-style-card { min-width: 0; overflow: hidden; border: 1px solid #d3e0eb; border-radius: 16px; background: #f4f8fa; }
+.doll-style-card.is-selected { border-color: #276494; box-shadow: 0 0 0 1px #276494; }
+.doll-style-stage { position: relative; }
+.doll-style-model { display: block; width: 100%; height: clamp(155px, 46vw, 195px); touch-action: pan-y; --poster-color: transparent; --progress-bar-height: 0px; }
+.doll-style-select { display: flex; width: 100%; min-height: 90px; flex-direction: column; align-items: center; gap: 5px; padding: 10px 5px; border: 0; border-top: 1px solid #e2ebf2; color: #21496b; background: #fff; cursor: pointer; }
+.doll-style-select b { font-size: 13px; }
+.doll-style-select small { font-size: 10px; color: #6a8195; }
+.doll-style-select > span { padding: 4px 12px; border-radius: 20px; background: #edf3f8; color: #53738d; font-size: 10px; }
+.is-selected .doll-style-select > span { color: #fff; background: #276494; }
+.doll-style-select:focus-visible, .doll-model-error button:focus-visible { outline: 2px solid #276494; outline-offset: -3px; }
+.doll-model-status { position: absolute; bottom: 8px; left: 0; right: 0; text-align: center; font-size: 10px; color: #698196; pointer-events: none; }
+.doll-model-error { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 9px; background: #f4f8fa; color: #63798b; font-size: 11px; }
+.doll-model-error button { max-width: 90%; padding: 8px; border: 1px solid #c8d8e5; border-radius: 8px; background: white; color: #21496b; }

@@ -1,45 +1,32 @@
-import { StrictMode, type ChangeEvent, type FormEvent, type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
+import { StrictMode, Suspense, lazy, type ChangeEvent, type FormEvent, type ReactNode, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Link, Outlet, RouterProvider, createRootRoute, createRoute, createRouter } from '@tanstack/react-router'
-import { ModelViewerElement } from '@google/model-viewer'
+import { ModelViewer } from './components/ModelViewer'
 import './styles.css'
 import './final-overrides.css'
 import './map-background.css'
 import './workshop.css'
+import { dollStyles, type DollStyleKey } from './workshop/dollStyles'
 import './wax-workbench.css'
-import { MiaoVillageScene } from './map-3d/MiaoVillageScene'
-import { type LandmarkPOI } from './map-3d/villageBuilder'
+import './app-shell.css'
+import './heritage-content.css'
+import { heritageStories, type HeritageStory } from './data/heritage'
+import { HeritageStoryDetail } from './heritage/HeritageStoryDetail'
+import type { LandmarkPOI } from './map-3d/villageBuilder'
 import silverStencil from './assets/silver-stencil.png'
 import batikStencil from './assets/batik-stencil.png'
 import dressStencil from './assets/dress-stencil.png'
 import introVideo from './assets/intro.mp4'
 import batikReference from './assets/batik-reference.png'
 import generatedBatikStencil from './assets/batik-flower-bird-generated.png'
-import sistersFestivalImage from './assets/heritage/sisters-festival.jpg'
-import batikArtisanImage from './assets/heritage/batik-artisan.jpg'
-import xijiangStiltHousesImage from './assets/heritage/xijiang-stilt-houses.jpg'
-import guzangFestivalImage from './assets/heritage/guzang-festival.jpg'
-import miaoNewYearImage from './assets/heritage/miao-new-year.jpg'
-import aprilEightImage from './assets/heritage/april-eight.jpg'
-import newRiceFestivalImage from './assets/heritage/new-rice-festival.jpg'
-import flowerJumpingImage from './assets/heritage/flower-jumping.jpg'
-import lushengFestivalImage from './assets/heritage/lusheng-festival.jpg'
-import ganqiuFestivalImage from './assets/heritage/ganqiu-festival.jpg'
-import dragonRitualImage from './assets/heritage/dragon-ritual.jpg'
-import miaoDragonBoatImage from './assets/heritage/miao-dragon-boat.jpg'
-import silverSmithImage from './assets/heritage/silver-smith.jpg'
-import miaoDressImage from './assets/heritage/miao-dress.jpg'
-import lushengDanceImage from './assets/heritage/lusheng-dance.jpg'
-import flyingSongImage from './assets/heritage/flying-song.jpg'
-import xijiangDawnImage from './assets/heritage/xijiang-dawn.jpg'
 import { generateWorkshopArtwork, type WorkshopCraft } from './services/workshopGeneration'
-import { WaxWorkbench3D } from './wax-3d/WaxWorkbench3D'
 import { WaxDrawingCanvas } from './wax-3d/WaxDrawingCanvas'
 import { waxAudio } from './wax-3d/WaxAudio'
 import type { CraftMetrics, WaxPhase } from './wax-3d/types'
 
-// Reduced avatars require Meshopt decoding before the first model loads.
-ModelViewerElement.meshoptDecoderLocation = '/vendor/meshopt_decoder-1.1.js'
+const MiaoVillageScene = lazy(() => import('./map-3d/MiaoVillageScene').then(module => ({ default: module.MiaoVillageScene })))
+const WaxWorkbench3D = lazy(() => import('./wax-3d/WaxWorkbench3D').then(module => ({ default: module.WaxWorkbench3D })))
+const DollModelCard = lazy(() => import('./workshop/DollModelCard').then(module => ({ default: module.DollModelCard })))
 
 type TabKey = 'home' | 'map' | 'heritage' | 'workshop'
 const avatarModelUrl = (modelName: string) =>
@@ -52,10 +39,10 @@ const tabs: { key: TabKey; label: string; to: '/' | '/map' | '/heritage' | '/wor
   { key: 'workshop', label: '体验坊', to: '/workshop', iconClass: 'icon-workshop' },
 ]
 
-function Shell({ active, title, children, embedded = false }: { active: TabKey; title: string; children: ReactNode; embedded?: boolean }) {
+function Shell({ active, title, children, embedded = false, overlay }: { active: TabKey; title: string; children: ReactNode; embedded?: boolean; overlay?: ReactNode }) {
   return (
-    <main className={`mini-program ${active === 'home' ? 'home-shell' : ''}`}>
-      {!embedded && <header className="navigation-bar">
+    <main className={`mini-program ${embedded ? 'miniapp-embedded-shell' : 'app-frame'} ${active}-shell`}>
+      {!embedded && <header className="navigation-bar" inert={!!overlay}>
         <span className="page-title">{title}</span>
         <span className="capsule" aria-label="小程序胶囊按钮">
           <i />
@@ -63,8 +50,9 @@ function Shell({ active, title, children, embedded = false }: { active: TabKey; 
           <em />
         </span>
       </header>}
-      <section className={embedded ? 'page-content miniapp-embedded-content' : 'page-content'}>{children}</section>
-      {!embedded && <nav className="tab-bar" aria-label="主导航">
+      <section className={embedded ? 'page-content miniapp-embedded-content' : 'page-content'} inert={!!overlay}>{children}</section>
+      {overlay}
+      {!embedded && <nav className="tab-bar" aria-label="主导航" inert={!!overlay}>
         {tabs.map((tab) => (
           <Link
             key={tab.key}
@@ -82,7 +70,7 @@ function Shell({ active, title, children, embedded = false }: { active: TabKey; 
 }
 function IntroScreen({ onComplete }: { onComplete: () => void }) {
   return (
-    <main className="intro-screen" aria-label="苗家亲开屏">
+    <main className="intro-screen app-frame" aria-label="苗家亲开屏">
       <video
         className="intro-video"
         src={introVideo}
@@ -129,6 +117,22 @@ function HomePage({ embedded = false }: { embedded?: boolean } = {}) {
   const [guideStep, setGuideStep] = useState(0)
   const [guiding, setGuiding] = useState(true)
   const chatHistoryRef = useRef<HTMLDivElement>(null)
+  const heroRef = useRef<HTMLElement>(null)
+  const homeCopyRef = useRef<HTMLDivElement>(null)
+
+  useLayoutEffect(() => {
+    const hero = heroRef.current
+    const copy = homeCopyRef.current
+    if (!hero || !copy) return undefined
+    const updateChatTop = () => {
+      hero.style.setProperty('--home-chat-top', `${copy.offsetTop + copy.offsetHeight + 12}px`)
+    }
+    updateChatTop()
+    const observer = new ResizeObserver(updateChatTop)
+    observer.observe(hero)
+    observer.observe(copy)
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
     if (!chatOpen || !autoDismiss) return undefined
@@ -216,13 +220,13 @@ function HomePage({ embedded = false }: { embedded?: boolean } = {}) {
 
   return (
     <Shell active="home" title="苗家亲" embedded={embedded}>
-      <section className="dress-hero daily-hero">
-        <div className="dress-copy">
+      <section ref={heroRef} className="dress-hero daily-hero">
+        <div ref={homeCopyRef} className="dress-copy">
           <p>贵州 · 黔东南</p>
           <h1>走进苗寨<br />遇见纠笙</h1>
           <span>让她带你认识苗乡日常</span>
         </div>
-                <model-viewer
+        <ModelViewer
           className="home-avatar-model home-avatar-entrance"
           src={avatarModelUrl('MiaoGirl_1.glb')}
           alt="苗寨向导纠笙的三维形象"
@@ -231,8 +235,11 @@ function HomePage({ embedded = false }: { embedded?: boolean } = {}) {
           auto-rotate
           auto-rotate-delay="1200"
           rotation-per-second="18deg"
-          camera-orbit="0deg 78deg 5m"
-          camera-target="0m 0.5m 0m"
+          camera-orbit="0deg 78deg 105%"
+          camera-target="auto auto auto"
+          disable-pan
+          disable-tap
+          interpolation-decay="0"
           field-of-view="28deg"
           shadow-intensity="0.8"
           shadow-softness="0.9"
@@ -315,16 +322,18 @@ function MapPage() {
   return (
     <Shell active="map" title="苗寨漫游">
       <section className="map-explore map-3d-page">
-        <MiaoVillageScene
-          selected={selectedIdx}
-          onSelect={(index) => {
-            setSelectedIdx(index)
-          }}
-          onWalkingChange={setWalking}
-          onOpenExplore={(poi) => {
-            setExploringPOI(poi)
-          }}
-        />
+        <Suspense fallback={<div className="full-3d-map-container" role="status">正在加载苗寨 3D 地图…</div>}>
+          <MiaoVillageScene
+            selected={selectedIdx}
+            onSelect={(index) => {
+              setSelectedIdx(index)
+            }}
+            onWalkingChange={setWalking}
+            onOpenExplore={(poi) => {
+              setExploringPOI(poi)
+            }}
+          />
+        </Suspense>
 
         {exploringPOI && gameEmbed ? (
           <section className="map-game-modal" role="dialog" aria-modal="true" aria-label={`${exploringPOI.name}${gameEmbed.title}`}>
@@ -412,159 +421,6 @@ function MapPage() {
   )
 }
 
-type HeritageStory = {
-  name: string
-  group: '民族节日' | '匠作与服饰' | '歌舞与村寨'
-  note: string
-  image: string
-  imagePosition?: string
-  tag: string
-  body: string[]
-}
-
-const heritageStories: HeritageStory[] = [
-  {
-    name: '姊妹节', group: '民族节日', note: '五彩姊妹饭 · 春日游方', image: sistersFestivalImage, tag: '苗族的“女儿节”',
-    body: [
-      '苗族姊妹节历史悠久，是集民俗、婚恋与社交于一体的传统节日。五彩姊妹饭既是重要礼仪，也是姑娘赠予心上人的情意信物。',
-      '节日里，青年男女相约下田撮鱼捞虾，在劳作与游戏中相识；鼓场上，姑娘们身着盛装踩鼓，以华美服饰与银饰展示苗族的审美与手艺。',
-      '夜晚游方对歌，男方向女方讨姊妹饭，饭中的信物含蓄传递心意。节日也让亲友相聚，成为社区团结与文化传承的舞台。',
-      '台江老屯、施洞一带通常在农历三月十五至十七日过节；红、黄、蓝、白、黑等颜色由植物染料浸染而来，五彩饭既可食用，也是一份郑重的节日礼物。',
-    ],
-  },
-  {
-    name: '鼓藏节', group: '民族节日', note: '十二年一祭 · 鼓社共祀', image: guzangFestivalImage, tag: '以鼓为祖先神灵的象征',
-    body: [
-      '鼓藏节，苗语称“牯哝江略”，意为鼓社节，是以血缘宗族为单位的祭鼓活动。苗族古歌记述，人们以此祭祀创世的蝴蝶妈妈与生命始祖枫树。',
-      '传说祖先的老家在枫树心里，枫木制成的木鼓便成为祖先安息之处，因此祭祖也成为祭鼓。雷山苗族以“鼓社”为单位维系社区，仪式由选举产生的“鼓藏头”主持。',
-      '传统上鼓藏节十二年举行一次，仪程贯穿数年，围绕招龙、醒鼓、迎鼓、审牛与白鼓等环节展开，鼓声连起家族的记忆与信仰。',
-      '不同支系的周期与程序略有差异。雷山一带传统上约十二年举行一次，仪程可跨数年；榕江都柳江流域则保留接鼓、凿鼓、换鼓、送鼓等程序。',
-    ],
-  },
-  {
-    name: '苗年', group: '民族节日', note: '祭祖团圆 · 迎新祈福', image: miaoNewYearImage, tag: '苗族最隆重的岁时节庆之一',
-    body: [
-      '苗年是黔东南及广西融水等地苗族的重要新年节日，各地日期随历法与习俗不同，常在农历九至十一月间举行。',
-      '节前，家家准备丰盛食物并祭祀祖先；节日期间，人们走亲访友、踩鼓、跳芦笙、赛马、斗牛、游方，以歌舞迎接新岁、庆贺收成。',
-      '苗年的日期并不完全相同，常由寨中传统历法和农事节律决定。盛装、银饰、芦笙队与长桌宴让“过年”不只属于一家一户，也成为村寨重新确认亲缘、邻里的时刻。',
-    ],
-  },
-  {
-    name: '四月八', group: '民族节日', note: '亚努节 · 歌场相会', image: aprilEightImage, tag: '苗族重要的春日聚会',
-    body: [
-      '“四月八”又称“亚努节”，是苗族广泛流传的传统节日。它源于祭祖、祭天地与纪念英雄等习俗，在不同地区有各自的传说与仪程。',
-      '这一天，苗族群众穿上盛装，从四面八方来到歌场；苗歌对唱、芦笙、花鼓与踏青游乐，让节日成为文化展示与人际交往的场合。',
-      '“四月八”不是单一、固定的仪式：有的地方以纪念英雄为核心，有的地区保留祭女祖、吃黑饭、接出嫁女回娘家等习俗。',
-    ],
-  },
-  {
-    name: '吃新节', group: '民族节日', note: '稻禾初熟 · 开仓尝新', image: newRiceFestivalImage, tag: '也称“新禾节”',
-    body: [
-      '吃新节又称新禾节，常在夏秋稻谷初熟时按寨子习俗择日举行，用最先成熟的新米感谢土地、祖先与一年劳作。',
-      '节日里，封存已久的芦笙重新吹响，人们着盛装跳舞、唱苗歌，有些地区还举行斗牛等活动，共庆丰收在望。',
-      '“先敬后尝”是这类节俗的重要观念：新米先敬土地、祖先或寨中长者，再由全家分享，把稻作知识、感恩观念与邻里互助放进同一餐饭里。',
-    ],
-  },
-  {
-    name: '跳花节', group: '民族节日', note: '春日花场 · 对歌游方', image: flowerJumpingImage, tag: '也称跳月、踩花山',
-    body: [
-      '跳花节是苗族地区富有春天气息的传统节日，各地日期不同，多在正月或春季举行。节日场地会竖起花杆，村寨的人们汇聚到“花场”。',
-      '吹芦笙、爬花杆、赛马、斗牛与对歌交织在一起，青年男女也借游方相识、表达情意，长者则在节日中叙旧交友。',
-      '花杆是花场最醒目的信号：它把分散村寨的人引到同一处，也为爬杆、对歌与芦笙舞划出仪式中心。',
-    ],
-  },
-  {
-    name: '芦笙节', group: '民族节日', note: '笙歌踩堂 · 盛装赴会', image: lushengFestivalImage, tag: '以芦笙与舞蹈为主的节会',
-    body: [
-      '芦笙节的日期因地区而异，是苗族群众预祝来年风调雨顺、农业丰收的重要节会。',
-      '节日里，来自四方的芦笙队汇聚场坝，男子吹奏芦笙，姑娘穿绣衣、佩银饰起舞；赛马、斗牛、斗鸟与游方等活动也常融入其中。',
-      '芦笙由笙斗、笙管与簧片构成，既是吹奏乐器，也是舞蹈队形的节拍核心；各地的音乐、服饰和舞步各有差别。',
-    ],
-  },
-  {
-    name: '赶秋节', group: '民族节日', note: '立秋赶场 · 欢庆丰收', image: ganqiuFestivalImage, tag: '湘西苗族的秋日盛会',
-    body: [
-      '苗族赶秋，苗语称“交秋”，在立秋时节举行，是欢庆收获在望、祝愿丰年的节日，也为青年男女提供相识交往的机会。',
-      '人们穿着华丽服装赶赴秋场，歌舞、祭祀、体育与娱乐活动同场展开。打秋千、打苗鼓、唱苗歌等，让秋场充满欢声。',
-      '在湘西花垣等地，赶秋与二十四节气中的立秋相连。秋场中央常设高秋千，围绕“秋公”“秋婆”等象征性人物展开礼俗。',
-    ],
-  },
-  {
-    name: '招龙节', group: '民族节日', note: '祭祖招龙 · 祈愿丰年', image: dragonRitualImage, tag: '雷山苗寨的祈福节日',
-    body: [
-      '招龙节是雷山部分苗寨隆重的祭祖祈福节日。苗族古歌中记述水龙与旱龙的传说，村民希望迎回“水牛龙”，祈愿人畜兴旺、五谷丰登。',
-      '仪式中，人们携带祭品登山祭祀、撒招龙米，再到迎龙坪与芦笙场完成后续仪程；节日也伴随拦门酒、芦笙舞和寨中欢聚。',
-      '在部分雷山苗寨，招龙是鼓藏节长周期仪程中的开端：寨人向神树与祖灵祈告，把水、牲畜、庄稼和家族兴旺纳入同一份愿望。',
-    ],
-  },
-  {
-    name: '龙船节', group: '民族节日', note: '竞渡求雨 · 预祝丰年', image: miaoDragonBoatImage, tag: '黔东南苗族的端午节俗',
-    body: [
-      '在贵州部分苗寨，农历五月初五会过苗族龙船节。龙舟竞渡寄托着驱旱求雨、庆祝插秧完成和预祝五谷丰登的心愿。',
-      '河面上的鼓点与岸上的盛装相映成趣，节日把农耕愿望、村寨协作与水上竞渡结合在一起。',
-      '台江施洞一带以杉木凿成的独木龙舟尤具特色：祭舟、下水、迎舟与赛舟共同构成节期，背后是村寨协作与对平安丰年的祈望。',
-    ],
-  },
-  {
-    name: '银饰锻制', group: '匠作与服饰', note: '三十余道工序 · 千锤成银', image: silverSmithImage, tag: '头饰、颈饰与胸饰的银光',
-    body: [
-      '银饰是苗族最喜爱的传统饰物，主要用于妇女盛装。头、面、颈、肩、胸、腰、臂、脚、手饰彼此配合，形成完整而华美的整体装饰。',
-      '银凤冠和银花帽尤为复杂，一套常由百余件小饰件组成。雷山西江一带的银匠世代以手工打造，银饰也是节庆、婚嫁与人生礼仪中的祝福。',
-      '从绘图、铸炼、捶打到焊接、编结与洗涤，一件银饰往往要经过三十余道工序，凝结着匠师的耐心与技艺。',
-      '银片经捶揲、錾刻、拉丝、焊接后，可变成蝴蝶、鸟、花、龙等立体纹样；它们常被理解为护佑、吉祥与家族审美的可见表达。',
-    ],
-  },
-  {
-    name: '苗族蜡染', group: '匠作与服饰', note: '铜刀点蜡 · 蓝靛留白', image: batikArtisanImage, tag: '布上的自然万象',
-    body: [
-      '苗族蜡染源于生活所需，常用于服装、床单、包袱布、头巾、背带等日用织物。图案可分为几何纹与自然纹，花鸟、蝶纹与山水都能在蓝白之间生长。',
-      '制作时先用草木灰滤水处理土布，再以铜刀蘸熔蜡点画。蜡膜阻隔染料，成为留白图案的边界。',
-      '点好蜡花的布反复浸入蓝靛染缸，漂洗、煮沸脱蜡后，纹样便显现出来。丹寨蜡染还会拼涂茜草红与栀子黄，让色彩更丰富。',
-      '在丹寨，许多女性从栽靛、种棉、纺线、织布到画蜡、浸染、剪裁都能参与其中；蜡染是一套串联植物、纺织、衣饰与家庭传承的生活技艺。',
-    ],
-  },
-  {
-    name: '苗族服饰', group: '匠作与服饰', note: '穿在身上的史书', image: miaoDressImage, tag: '台江苗族服饰',
-    body: [
-      '贵州台江的苗族服饰以造型古朴、色彩大胆、款式丰富著称，按当地苗语方言可分为九大类型、百余种款式。',
-      '平绣、锦上绣、破线绣、辫绣、盘绣等二十多种针法，让衣饰中的构图成为故事。其图案常以对称、中心等方式呈现，浓缩着祖先、自然与迁徙记忆，因此被称为“穿在身上的史书”。',
-      '苗族服饰不存在一套“标准样式”。头饰、上衣、百褶裙、围腰、绑腿和银饰会随支系、居住地、年龄与节日变化，一件衣裳常综合刺绣、织锦、蜡染与银饰。',
-    ],
-  },
-  {
-    name: '芦笙舞', group: '歌舞与村寨', note: '笙声起舞 · 祭祖庆丰', image: lushengDanceImage, imagePosition: 'center 68%', tag: '贵州苗族的传统民间舞蹈',
-    body: [
-      '芦笙舞是苗族在祭祖、节日与喜庆活动中跳的传统民间舞蹈，源于播种前祈求丰收、收获后感谢神灵与祭祀祖先的仪式性舞蹈。',
-      '在贵州，芦笙舞广泛流传于雷山、关岭、榕江、水城等地。稻谷收获后到来年春播前，寨子里的鼓场与坡地常会响起芦笙，舞步热烈欢快。',
-      '舞者一边吹奏一边踏步、转身、屈膝或跳跃，对肺活量、步法与队形默契都有要求；不同地区发展出长衫、短裙、鼓龙鼓虎等不同舞型。',
-    ],
-  },
-  {
-    name: '苗族飞歌', group: '歌舞与村寨', note: '高腔入云 · 声振山谷', image: flyingSongImage, tag: '雷山苗族的山野歌声',
-    body: [
-      '苗族飞歌是雷山苗族特有的民歌形式，过去人们以嘹亮歌声抒发感情、传递信息。起腔多用真声，正腔转入高昂的假声，声音仿佛穿越山谷而去。',
-      '飞歌将词、曲、真声与假声融为一体，节奏有急有缓，体现诗、乐、舞合一的境界。它是理解苗族音乐与情感表达的一扇窗口，也需要更多传唱与守护。',
-      '雷山飞歌曲调高亢、旋律起伏大，长音拖得很远；剑河革东一带则以真嗓高唱、隔山传声著称，劳动、婚嫁、建房与节庆都能成为即兴编唱题材。',
-    ],
-  },
-  {
-    name: '西江千户苗寨', group: '歌舞与村寨', note: '雷公山麓 · 千户苗寨', image: xijiangStiltHousesImage, tag: '山谷里的苗族聚居村寨',
-    body: [
-      '西江千户苗寨坐落在黔东南雷山县东北部的雷公山麓，由十余个村寨连片组成。吊脚楼依山而上，白水河穿寨而过，山水与村落彼此相依。',
-      '这里仍保留着拦门酒、“高山流水”、银饰、歌舞与手作技艺等鲜活日常。沿着寨中石阶行走，能看见苗族文化如何被生活继续书写。',
-      '村寨由十余个自然村寨连片而成，白水河穿行其间，风雨桥与石阶把河谷两岸的生活串接起来；它既是居民家园，也是观察苗族文化如何在日常中延续的窗口。',
-    ],
-  },
-  {
-    name: '吊脚楼', group: '歌舞与村寨', note: '顺山而建 · 木构成家', image: xijiangDawnImage, tag: '顺应山地的居住智慧',
-    body: [
-      '苗族吊脚楼多建在有坡度的山地上：下方以较长木柱支撑，上方以较短木柱落在坡地，上铺楼板、覆以屋顶，顺着山势形成层次。',
-      '楼下通常用来堆放杂物或饲养家畜，居住空间在楼上。苗寨周围常有茂林修竹与保寨树，木结构房屋与山地环境相互适应，构成独特的村寨景观。',
-      '常见的三层格局中，底层较通透，二层是起居与待客空间，顶层用于贮藏或晾晒。穿斗式木构、斜屋顶、挑檐与“美人靠”等做法回应了湿润多雨的山地气候。',
-    ],
-  },
-]
-
 function MiniappHomeSurface() {
   return <HomePage embedded />
 }
@@ -589,13 +445,15 @@ function MiniappMapSurface() {
     document.documentElement.classList.remove('miniapp-map-booting')
   }
   return <main className="miniapp-webview-surface miniapp-map-surface" aria-label="苗寨三维地图" aria-busy={!mapReady}>
-    <MiaoVillageScene onReady={handleMapReady} />
+    <Suspense fallback={<div role="status">正在加载苗寨 3D 地图…</div>}>
+      <MiaoVillageScene onReady={handleMapReady} />
+    </Suspense>
   </main>
 }
 
 function MiniappAvatarSurface() {
   return <main className="miniapp-webview-surface miniapp-avatar-surface" aria-label="纠笙三维形象">
-    <model-viewer
+    <ModelViewer
       src={avatarModelUrl('MiaoGirl_1.glb')}
       alt="苗寨向导纠笙的三维形象"
       loading="eager"
@@ -613,42 +471,97 @@ function MiniappAvatarSurface() {
     />
   </main>
 }
+const heritageGroups: HeritageStory['group'][] = ['民族节日', '匠作与服饰', '歌舞与村寨']
+type HeritageFilter = HeritageStory['group'] | '全部'
+
 function HeritagePage() {
-  const [viewAllGroup, setViewAllGroup] = useState<HeritageStory['group'] | null>(null)
+  const [viewAllGroup, setViewAllGroup] = useState<HeritageFilter | null>(null)
+  const [search, setSearch] = useState('')
   const [selectedStory, setSelectedStory] = useState<HeritageStory | null>(null)
+  const storyDialogRef = useRef<HTMLElement>(null)
+  const storyTriggerRef = useRef<HTMLElement | null>(null)
+  const openStory = (story: HeritageStory) => {
+    storyTriggerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    setSelectedStory(story)
+  }
+  const openCatalog = (group: HeritageFilter) => {
+    setSearch('')
+    setViewAllGroup(group)
+  }
+  useEffect(() => {
+    if (!selectedStory) return
+    const dialog = storyDialogRef.current
+    if (!dialog) return
+    const focusables = () => Array.from(dialog.querySelectorAll<HTMLElement>('button, a[href], input, select, textarea, [tabindex="0"]'))
+    dialog.querySelector<HTMLElement>('.story-close')?.focus({ preventScroll: true })
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') { event.preventDefault(); setSelectedStory(null) }
+      if (event.key !== 'Tab') return
+      const elements = focusables(), first = elements[0], last = elements.at(-1)
+      if (!first || !last) { event.preventDefault(); dialog.focus(); return }
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus() }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus() }
+    }
+    dialog.addEventListener('keydown', onKeyDown)
+    return () => {
+      dialog.removeEventListener('keydown', onKeyDown)
+      storyTriggerRef.current?.focus({ preventScroll: true })
+    }
+  }, [selectedStory])
 
   useEffect(() => {
-    document.querySelector('.page-content')?.scrollTo({ top: 0 })
+    document.querySelector('.heritage-shell > .page-content')?.scrollTo({ top: 0 })
   }, [viewAllGroup])
 
+  const query = search.trim().toLocaleLowerCase()
+  const visibleStories = heritageStories.filter((story) => {
+    const matchesGroup = !viewAllGroup || viewAllGroup === '全部' || story.group === viewAllGroup
+    const searchableText = [story.name, story.note, story.region, story.category, story.officialName, story.tag, ...story.body, ...story.sections.map((section) => section.text)].join(' ').toLocaleLowerCase()
+    return matchesGroup && (!query || searchableText.includes(query))
+  })
   const storyCard = (story: HeritageStory, compact = false) => (
-    <button
-      className={compact ? 'heritage-list-card' : 'explore-card heritage-story-card'}
-      type="button"
-      key={story.name}
-      onClick={() => setSelectedStory(story)}
-    >
+    <button className={compact ? 'heritage-list-card' : 'explore-card heritage-story-card'} type="button" key={story.id} onClick={() => openStory(story)}>
       <span className="heritage-card-image" style={{ backgroundImage: `linear-gradient(180deg, transparent 28%, rgba(6, 31, 56, .72)), url(${story.image})`, backgroundPosition: story.imagePosition ?? 'center' }} />
       <span className="heritage-card-copy"><i>{story.group}</i><b>{story.name}</b><small>{story.note}</small></span>
       {!compact && <em>读故事 ›</em>}
     </button>
   )
+  const searchControl = <div className="heritage-search" role="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg>
+    <input type="search" aria-label="搜索非遗故事" placeholder="搜索手艺、节日或地区" value={search} onChange={(event) => setSearch(event.target.value)} />
+    {search && <button type="button" onClick={() => setSearch('')}>清除</button>}
+  </div>
+  const results = <section className="heritage-results" aria-label="非遗故事列表">
+    <p className="catalog-lead" role="status">{query ? `找到 ${visibleStories.length} 个相关故事` : `共 ${visibleStories.length} 个故事，点开慢慢读。`}</p>
+    {visibleStories.length ? <div className="catalog-group"><div className="heritage-list">{visibleStories.map((story) => storyCard(story, true))}</div></div> : <div className="heritage-empty">
+      <h2>还没有找到这个故事</h2><p>试试“苗绣”“芦笙”或“台江”，也可以回到全部故事继续探索。</p><button type="button" onClick={() => openCatalog('全部')}>浏览全部故事</button>
+    </div>}
+  </section>
 
   return (
-    <Shell active="heritage" title={viewAllGroup ? viewAllGroup : '苗乡文化'}>
+    <Shell active="heritage" title={viewAllGroup ? (viewAllGroup === '全部' ? '苗乡文化档案' : viewAllGroup) : '苗乡文化'} overlay={selectedStory && (
+      <section className="heritage-story-modal" ref={storyDialogRef} role="dialog" tabIndex={-1} aria-modal="true" aria-label={selectedStory.name}>
+        <div className="heritage-story-sheet">
+          <button type="button" className="story-close" onClick={() => setSelectedStory(null)} aria-label="关闭">×</button>
+          <div className="story-cover" style={{ backgroundImage: `linear-gradient(180deg, transparent 30%, rgba(5, 27, 51, .78)), url(${selectedStory.image})`, backgroundPosition: selectedStory.imagePosition ?? 'center' }}>
+            <span>{selectedStory.group} · {selectedStory.category}</span><h2>{selectedStory.name}</h2>
+          </div>
+          <div className="story-body" tabIndex={0} role="region" aria-label="故事正文"><HeritageStoryDetail story={selectedStory} /></div>
+        </div>
+      </section>
+    )}>
       {viewAllGroup ? (
         <section className="view-all-view heritage-catalog">
           <section className="page-intro earth">
-            <button type="button" className="heritage-back" onClick={() => setViewAllGroup(null)} aria-label={`返回${viewAllGroup}`}>
-              &lt;
-            </button>
-            <h1>{viewAllGroup}</h1>
-            <span>收录这片土地上的节庆、歌舞与生活记忆。</span>
+            <button type="button" className="heritage-back" onClick={() => { setViewAllGroup(null); setSearch('') }} aria-label="返回非遗首页">&lt;</button>
+            <h1>{viewAllGroup === '全部' ? '苗乡文化档案' : viewAllGroup}</h1>
+            <span>带着好奇出发，读懂一方土地的记忆。</span>
           </section>
-          <p className="catalog-lead">共 {heritageStories.filter((story) => story.group === viewAllGroup).length} 个故事，点开慢慢读。</p>
-          <section className="catalog-group" aria-label={viewAllGroup}>
-            <div className="heritage-list">{heritageStories.filter((story) => story.group === viewAllGroup).map((story) => storyCard(story, true))}</div>
-          </section>
+          {searchControl}
+          <div className="heritage-category-filter" role="group" aria-label="按文化类别筛选">
+            {(['全部', ...heritageGroups] as HeritageFilter[]).map((group) => <button type="button" key={group} aria-pressed={viewAllGroup === group} onClick={() => setViewAllGroup(group)}>{group}</button>)}
+          </div>
+          {results}
         </section>
       ) : (
         <section className="culture-explore">
@@ -657,51 +570,28 @@ function HeritagePage() {
             <h1>从一段故事，走进苗乡</h1>
             <span>听见节日的鼓点，也看见手艺与日常。</span>
           </div>
-          <section className="heritage-hero-story" onClick={() => setSelectedStory(heritageStories[0])} role="button" tabIndex={0} onKeyDown={(event) => event.key === 'Enter' && setSelectedStory(heritageStories[0])}>
-            <img src={sistersFestivalImage} alt="姊妹节上的五彩姊妹饭" />
-            <div><span>今日推荐 · 民族节日</span><h2>一篮五彩饭，藏着春日的心意</h2><p>从姊妹节开始，认识苗乡的相会与传情。</p></div>
-          </section>
-          <section className="explore-section">
-            <div className="explore-heading">
-              <h2>民族节日</h2>
-              <button type="button" onClick={() => setViewAllGroup('民族节日')}>查看全部</button>
-            </div>
-            <div className="explore-rail">
-              {heritageStories.filter((story) => story.group === '民族节日').map((story) => storyCard(story))}
-            </div>
-          </section>
-          <section className="explore-section">
-            <div className="explore-heading">
-              <h2>匠作与服饰</h2>
-              <button type="button" onClick={() => setViewAllGroup('匠作与服饰')}>查看全部</button>
-            </div>
-            <div className="explore-rail">
-              {heritageStories.filter((story) => story.group === '匠作与服饰').map((story) => storyCard(story))}
-            </div>
-          </section>
-          <section className="explore-section">
-            <div className="explore-heading"><h2>歌舞与村寨</h2><button type="button" onClick={() => setViewAllGroup('歌舞与村寨')}>查看全部</button></div>
-            <div className="explore-rail">{heritageStories.filter((story) => story.group === '歌舞与村寨').map((story) => storyCard(story))}</div>
-          </section>
-        </section>
-      )}
-      {selectedStory && (
-        <section className="heritage-story-modal" role="dialog" aria-modal="true" aria-label={selectedStory.name}>
-          <div className="heritage-story-sheet">
-            <button type="button" className="story-close" onClick={() => setSelectedStory(null)} aria-label="关闭">×</button>
-            <div className="story-cover" style={{ backgroundImage: `linear-gradient(180deg, transparent 30%, rgba(5, 27, 51, .78)), url(${selectedStory.image})`, backgroundPosition: selectedStory.imagePosition ?? 'center' }}>
-              <span>{selectedStory.group}</span><h2>{selectedStory.name}</h2>
-            </div>
-            <div className="story-body"><p className="story-tag">{selectedStory.tag}</p>{selectedStory.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}<p className="story-source">封面图片取自公开报道或景区资料；正文参考中国非物质文化遗产网等公开资料。</p></div>
-          </div>
+          {searchControl}
+          {query ? results : <>
+            <button type="button" className="heritage-hero-story" onClick={() => openStory(heritageStories[0])}>
+              <img src={heritageStories[0].image} alt="姊妹节主题配图" />
+              <div><span>今日推荐 · 民族节日</span><h2>一篮五彩饭，藏着春日的心意</h2><p>从姊妹节开始，认识苗乡的相会与传情。</p></div>
+            </button>
+            <button type="button" className="heritage-library-entry" onClick={() => openCatalog('全部')}>
+              <b>{heritageStories.length}</b><span><strong>打开苗乡文化档案</strong><small>地域、来历、技艺细节与资料出处</small></span><i aria-hidden="true">›</i>
+            </button>
+            {heritageGroups.map((group) => <section className="explore-section" key={group}>
+              <div className="explore-heading"><h2>{group}<small>{heritageStories.filter((story) => story.group === group).length}</small></h2><button type="button" onClick={() => openCatalog(group)}>查看全部</button></div>
+              <div className="explore-rail">{heritageStories.filter((story) => story.group === group).map((story) => storyCard(story))}</div>
+            </section>)}
+            <p className="heritage-archive-note">以贵州苗族文化为主线，标明各地习俗差异；湘西赶秋作为苗族文化延伸阅读。名录项目与村寨生活背景分别说明，节庆日期请以当地当年安排为准。</p>
+          </>}
         </section>
       )}
     </Shell>
   )
 }
-
 type CraftKind = WorkshopCraft
-type CraftStyle = 'batik-indigo' | 'batik-ice' | 'embroidery-flower' | 'embroidery-pick' | 'silver-dragon' | 'silver-flower' | 'doll-silver-crown' | 'doll-pleated-dress'
+type CraftStyle = 'batik-indigo' | 'batik-ice' | 'embroidery-flower' | 'embroidery-pick' | 'silver-dragon' | 'silver-flower' | DollStyleKey
 const craftTypes: { key: CraftKind; name: string; desc: string; image: string }[] = [
   { key: 'embroidery', name: '苗绣', desc: '让图案在线里生长', image: batikReference },
   { key: 'batik', name: '蜡染', desc: '把图案留在蓝靛布面', image: generatedBatikStencil },
@@ -715,8 +605,7 @@ const craftStyles: { key: CraftStyle; craft: CraftKind; name: string; desc: stri
   { key: 'batik-ice', craft: 'batik', name: '冰纹留白', desc: '蜡刀留白 · 自然冰纹', className: 'style-batik-ice' },
   { key: 'silver-dragon', craft: 'silver', name: '双龙纹', desc: '银光錾刻 · 对称守护', className: 'style-silver' },
   { key: 'silver-flower', craft: 'silver', name: '花鸟錾刻', desc: '花鸟相生 · 祝福入饰', className: 'style-silver-flower' },
-  { key: 'doll-silver-crown', craft: 'doll', name: '银冠盛装', desc: '银冠层叠 · 靛蓝盛服', className: 'style-doll-crown' },
-  { key: 'doll-pleated-dress', craft: 'doll', name: '百褶舞装', desc: '彩绣百褶 · 轻盈起舞', className: 'style-doll-dress' },
+  ...dollStyles.map(item => ({ ...item, craft: 'doll' as const, className: 'style-doll' })),
 ]
 const productOptions = [
   { name: '蜡染方巾', price: 68, size: '35×35cm' },
@@ -807,6 +696,7 @@ function WorkshopPage() {
   const availableProducts = craft === 'doll' ? dollProductOptions : productOptions
   const selectCraft = (nextCraft: CraftKind) => {
     setCraft(nextCraft)
+    document.querySelector('.workshop-shell > .page-content')?.scrollTo({ top: 0 })
     setStyle(craftStyles.find((item) => item.craft === nextCraft)!.key)
     setSelectedProduct(0)
     setResultReady(false)
@@ -853,10 +743,25 @@ function WorkshopPage() {
         <button type="button" className="craft-back" onClick={resetWorkshop}>‹ 返回选择</button>
         <p>{`${activeCraft!.name}体验 · 匠人定制`}</p>
         <h1>做一件属于你的{activeCraft!.name}</h1>
-        <span>{craft === 'doll' ? '上传一张正面人像，生成可下单打印的 3D 苗族人物实体模型。' : '风格可选；上传一张图片后，将生成一张独立的苗乡手作效果图。'}</span>
+        <span>{craft === 'doll' ? '先看看六款 3D 玩偶，拖动欣赏服饰细节，再选择喜欢的造型。' : '风格可选；上传一张图片后，将生成一张独立的苗乡手作效果图。'}</span>
       </div>
 
-      <section className="workshop-styles" aria-label="选择纹样风格">
+      {craft === 'doll' ? <section className="workshop-doll-gallery" aria-label="选择三维玩偶造型">
+        <div className="doll-gallery-heading"><h3>选择你的玩偶</h3><span>6 款造型</span></div>
+        <p className="doll-gallery-hint">左右拖动看细节，上下滑动继续浏览。</p>
+        <Suspense fallback={<p role="status">正在加载三维玩偶…</p>}>
+          <div className="doll-style-grid">
+            {dollStyles.map(item => <DollModelCard
+              key={item.key}
+              src={avatarModelUrl(item.model)}
+              name={item.name}
+              desc={item.desc}
+              selected={style === item.key}
+              onSelect={() => { setStyle(item.key); setResultReady(false); setResultImg(null); setShowOrder(false); setGenerationError('') }}
+            />)}
+          </div>
+        </Suspense>
+      </section> : <section className="workshop-styles" aria-label="选择纹样风格">
         <h3>选择 {activeCraft!.name} 风格</h3>
         <div className="style-options">
           {stylesForCraft.map((item) => (
@@ -867,7 +772,7 @@ function WorkshopPage() {
             </button>
           ))}
         </div>
-      </section>
+      </section>}
 
       <section className="workshop-upload" aria-label="上传图片">
         <input className="file-input" ref={editorFileRef} type="file" accept="image/*" onChange={handleFile} />
@@ -912,9 +817,9 @@ function WorkshopPage() {
               <h3>{craft === 'doll' ? '你的 3D 玩偶预览' : '你的纹样效果'}</h3>
               <div className="result-frame">
                 {craft === 'doll' ? (
-                  <model-viewer
+                  <ModelViewer
                     className="doll-model-preview"
-                    src={avatarModelUrl(style === 'doll-pleated-dress' ? 'MiaoGirl_2.glb' : 'MiaoGirl_1.glb')}
+                    src={avatarModelUrl(dollStyles.find(item => item.key === style)?.model ?? dollStyles[0].model)}
                     alt="可旋转查看的 3D 苗族人物玩偶模型"
                     camera-controls
                     auto-rotate
@@ -1204,44 +1109,46 @@ function WaxDyeGamePage({ embedded = false }: { embedded?: boolean } = {}) {
         <h1>{phase === 'finish' ? '你的蓝靛纹样已完成' : '以蜡留白，把山野染进布里'}</h1>
         <span>依次温刀、蘸蜡、描绘、入染与氧化，完成一方独一无二的苗家蜡染。</span>
       </div>
-      <WaxWorkbench3D
-        phase={phase}
-        metrics={metrics}
-        drawingCanvas={drawingCanvas}
-        onPickKnife={() => { waxAudio.playWaxScrape(); setPhase('warm') }}
-        onHeatKnife={() => { waxAudio.playHeatSizzle(); setMetrics((current) => ({ ...current, knifeTemp: Math.min(3, current.knifeTemp + 1) })) }}
-        onDipWax={() => { waxAudio.playWaxDip(); setMetrics((current) => ({ ...current, waxLoad: 2 })) }}
-        onScrapeWax={() => { waxAudio.playWaxScrape(); setMetrics((current) => ({ ...current, waxLoad: 1 })) }}
-        onStartDrawing={() => setPhase('draw')}
-        onHangOnRack={() => { waxAudio.playClothRustle(); setPhase('oxidize') }}
-        onRepeatDye={beginDye}
-        onFinishMasterpiece={() => setPhase('finish')}
-        onRestart={restart}
-      >
-        {phase === 'draw' && <div className="wax-game-draw-overlay">
-          <WaxDrawingCanvas
-            key={session}
-            selectedTemplateId={templateId}
-            onSelectTemplate={setTemplateId}
-            onCanvasTextureUpdate={setDrawingCanvas}
-            onStrokeAdd={(waxStrokes, coverageRatio) => setMetrics((current) => ({
-              ...current,
-              waxStrokes,
-              coverageRatio,
-              sealedStatus: waxStrokes >= 6 ? 'sealed' : 'drawing',
-            }))}
-          />
-          <button type="button" className="wax-game-next" disabled={metrics.waxStrokes < 6} onClick={beginDye}>
-            {metrics.waxStrokes < 6 ? `再描绘 ${6 - metrics.waxStrokes} 笔，完成封蜡` : '封蜡完成 · 入靛蓝染缸 →'}
-          </button>
-        </div>}
-        {phase === 'finish' && <div className="wax-game-finish-card">
-          <span>✦ 蜡染成品</span>
-          <h2>一浸一晒，蓝白相生</h2>
-          <p>你完成了 {metrics.dyePasses} 次浸染、{metrics.waxStrokes} 笔落蜡的 {templateId === 'freehand' ? '自由创作' : '传统纹样'}。</p>
-          <button type="button" onClick={restart}>再做一方蜡染</button>
-        </div>}
-      </WaxWorkbench3D>
+      <Suspense fallback={<div className="wax-3d-scene-container" role="status">正在加载蜡染工坊…</div>}>
+        <WaxWorkbench3D
+          phase={phase}
+          metrics={metrics}
+          drawingCanvas={drawingCanvas}
+          onPickKnife={() => { waxAudio.playWaxScrape(); setPhase('warm') }}
+          onHeatKnife={() => { waxAudio.playHeatSizzle(); setMetrics((current) => ({ ...current, knifeTemp: Math.min(3, current.knifeTemp + 1) })) }}
+          onDipWax={() => { waxAudio.playWaxDip(); setMetrics((current) => ({ ...current, waxLoad: 2 })) }}
+          onScrapeWax={() => { waxAudio.playWaxScrape(); setMetrics((current) => ({ ...current, waxLoad: 1 })) }}
+          onStartDrawing={() => setPhase('draw')}
+          onHangOnRack={() => { waxAudio.playClothRustle(); setPhase('oxidize') }}
+          onRepeatDye={beginDye}
+          onFinishMasterpiece={() => setPhase('finish')}
+          onRestart={restart}
+        >
+          {phase === 'draw' && <div className="wax-game-draw-overlay">
+            <WaxDrawingCanvas
+              key={session}
+              selectedTemplateId={templateId}
+              onSelectTemplate={setTemplateId}
+              onCanvasTextureUpdate={setDrawingCanvas}
+              onStrokeAdd={(waxStrokes, coverageRatio) => setMetrics((current) => ({
+                ...current,
+                waxStrokes,
+                coverageRatio,
+                sealedStatus: waxStrokes >= 6 ? 'sealed' : 'drawing',
+              }))}
+            />
+            <button type="button" className="wax-game-next" disabled={metrics.waxStrokes < 6} onClick={beginDye}>
+              {metrics.waxStrokes < 6 ? `再描绘 ${6 - metrics.waxStrokes} 笔，完成封蜡` : '封蜡完成 · 入靛蓝染缸 →'}
+            </button>
+          </div>}
+          {phase === 'finish' && <div className="wax-game-finish-card">
+            <span>✦ 蜡染成品</span>
+            <h2>一浸一晒，蓝白相生</h2>
+            <p>你完成了 {metrics.dyePasses} 次浸染、{metrics.waxStrokes} 笔落蜡的 {templateId === 'freehand' ? '自由创作' : '传统纹样'}。</p>
+            <button type="button" onClick={restart}>再做一方蜡染</button>
+          </div>}
+        </WaxWorkbench3D>
+      </Suspense>
     </section>
   </main>
 }

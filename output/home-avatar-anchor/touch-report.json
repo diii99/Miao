@@ -1,0 +1,164 @@
+[
+  {
+    "name": "Native two-finger pinch enlarges toward left",
+    "pass": true,
+    "detail": {
+      "initial": {
+        "left": 99,
+        "right": 254,
+        "width": 273,
+        "orbit": {
+          "theta": 0,
+          "phi": 1.361356816555577,
+          "radius": 2.2210101743821786
+        },
+        "target": {
+          "x": -0.11530653009205319,
+          "y": 0.5,
+          "z": 0
+        },
+        "fov": 27.999999999999996
+      },
+      "pinched": {
+        "left": 51,
+        "right": 253,
+        "width": 273,
+        "orbit": {
+          "theta": 0,
+          "phi": 1.361356816555577,
+          "radius": 2.0179842741386977
+        },
+        "target": {
+          "x": -0.03491136821829052,
+          "y": 0.5,
+          "z": 0
+        },
+        "fov": 23.930084842235168
+      }
+    }
+  },
+  {
+    "name": "Pinch keeps right edge visible",
+    "pass": true,
+    "detail": {
+      "initial": {
+        "left": 99,
+        "right": 254,
+        "width": 273,
+        "orbit": {
+          "theta": 0,
+          "phi": 1.361356816555577,
+          "radius": 2.2210101743821786
+        },
+        "target": {
+          "x": -0.11530653009205319,
+          "y": 0.5,
+          "z": 0
+        },
+        "fov": 27.999999999999996
+      },
+      "pinched": {
+        "left": 51,
+        "right": 253,
+        "width": 273,
+        "orbit": {
+          "theta": 0,
+          "phi": 1.361356816555577,
+          "radius": 2.0179842741386977
+        },
+        "target": {
+          "x": -0.03491136821829052,
+          "y": 0.5,
+          "z": 0
+        },
+        "fov": 23.930084842235168
+      }
+    }
+  },
+  {
+    "name": "Pinch controls model without zooming whole page",
+    "pass": true
+  },
+  {
+    "name": "Resize 844x390 keeps avatar toward right",
+    "pass": true,
+    "detail": {
+      "frame": {
+        "left": 145.46125461254613,
+        "right": 252.06642066420665,
+        "width": 270,
+        "orbit": {
+          "theta": 0,
+          "phi": 1.361356816555577,
+          "radius": 2.2210101743821786
+        },
+        "target": {
+          "x": -0.26244048441479484,
+          "y": 0.5,
+          "z": 0
+        },
+        "fov": 27.999999999999996
+      }
+    }
+  },
+  {
+    "name": "Resize 844x390 keeps full page in viewport",
+    "pass": true
+  },
+  {
+    "name": "Resize 320x480 keeps avatar toward right",
+    "pass": true,
+    "detail": {
+      "frame": {
+        "left": 84.57286432160804,
+        "right": 183.0753768844221,
+        "width": 198,
+        "orbit": {
+          "theta": 0,
+          "phi": 1.361356816555577,
+          "radius": 2.2210101743821786
+        },
+        "target": {
+          "x": -0.15736805268109114,
+          "y": 0.5,
+          "z": 0
+        },
+        "fov": 27.999999999999996
+      }
+    }
+  },
+  {
+    "name": "Resize 320x480 keeps full page in viewport",
+    "pass": true
+  },
+  {
+    "name": "Resize 440x956 keeps avatar toward right",
+    "pass": true,
+    "detail": {
+      "frame": {
+        "left": 99,
+        "right": 254,
+        "width": 273,
+        "orbit": {
+          "theta": 0,
+          "phi": 1.361356816555577,
+          "radius": 2.2210101743821786
+        },
+        "target": {
+          "x": -0.11530653009205319,
+          "y": 0.5,
+          "z": 0
+        },
+        "fov": 27.999999999999996
+      }
+    }
+  },
+  {
+    "name": "Resize 440x956 keeps full page in viewport",
+    "pass": true
+  },
+  {
+    "name": "Conversation reopens clear after pinch and resize",
+    "pass": true
+  }
+]

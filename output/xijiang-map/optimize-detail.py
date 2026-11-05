@@ -1,0 +1,12 @@
+from pathlib import Path
+p=Path('D:/Miao/scripts/build_xijiang_map.py')
+s=p.read_text(encoding='utf-8')
+s=s.replace("part(wood2,0,fy+.035,c,w+.10,.07,.05)","face(wood2,0,fy+.035,c,w+.10,.07)")
+s=s.replace("for a in [-w*.44,-w*.16,w*.16,w*.44]: part(dark,a,fy+.32,c,.042,.59,.03)","for a in [-w*.44,-w*.16,w*.16,w*.44]: face(dark,a,fy+.32,c,.042,.59)")
+s=s.replace("part(wood2,a,fy+.20,c+side*.025,.25,.025,.035)","face(wood2,a,fy+.20,c+side*.025,.25,.025)")
+s=s.replace("part(wood2,a,fy+.50,c+side*.025,.25,.025,.035)","face(wood2,a,fy+.50,c+side*.025,.25,.025)")
+s=s.replace("for off in [-.07,0,.07]: part(dark,a+off,fy+.35,c+side*.028,.012,.28,.025)","for off in [-.07,0,.07]: face(dark,a+off,fy+.35,c+side*.028,.012,.28)")
+s=s.replace("part(dark,a,fy+.37,c+side*.029,.22,.015,.025)","face(dark,a,fy+.37,c+side*.029,.22,.015)")
+s=s.replace("int(w/.18)","int(w/.27)").replace("i*.18,floor+wall", "i*.27,floor+wall")
+s=s.replace("export_lights=False)","export_lights=False,export_draco_mesh_compression_enable=True,export_draco_mesh_compression_level=6)")
+p.write_text(s,encoding='utf-8')

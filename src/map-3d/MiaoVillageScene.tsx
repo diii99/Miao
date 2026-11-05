@@ -1,3 +1,4 @@
+import { ModelViewer } from '../components/ModelViewer'
 import { useEffect, useRef, useState, useCallback } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
@@ -5,9 +6,10 @@ import { routeTo, snapToWalkway, walkableStep } from './navigation'
 import { createMiaoAvatar, OUTFIT_PRESETS, type AvatarRig } from './avatar'
 import { buildMiaoVillage, LANDMARK_POIS, type LandmarkPOI } from './villageBuilder'
 import { miaoSound } from './audioAmbiance'
+import { GAMEPLAY_FOV, GAMEPLAY_ZOOM, gameplayCameraOffset, mapGroundAxes, mapRelativeMovement, magnifyGameplayZoom } from './cameraNavigation'
 
 export type TimeOfDay = 'morning' | 'day' | 'sunset' | 'night'
-export type CameraMode = 'follow' | 'panoramic' | 'photo' | 'lookout' | 'landmark'
+export type CameraMode = 'gameplay' | 'panoramic' | 'photo' | 'lookout' | 'landmark'
 
 export interface VillagePlace {
   name: string
@@ -106,7 +108,7 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
 
   // Interactive UI States
   const [timeOfDay, setTimeOfDay] = useState<TimeOfDay>('day')
-  const [cameraMode, setCameraMode] = useState<CameraMode>('panoramic')
+  const [cameraMode, setCameraMode] = useState<CameraMode>('gameplay')
   const [outfitIndex, setOutfitIndex] = useState(0)
   const [isAudioOn, setIsAudioOn] = useState(false)
   const [isDancing, setIsDancing] = useState(false)
@@ -128,6 +130,15 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
   const joystickRef = useRef<{ x: number; y: number; active: boolean }>({ x: 0, y: 0, active: false })
   const [joystickPos, setJoystickPos] = useState({ x: 0, y: 0 })
   const [joystickActive, setJoystickActive] = useState(false)
+  const joystickPointerRef = useRef<{ id: number; element: HTMLDivElement } | null>(null)
+  const handleJoystickEnd = useCallback(() => {
+    const pointer = joystickPointerRef.current
+    joystickPointerRef.current = null
+    if (pointer?.element.hasPointerCapture(pointer.id)) pointer.element.releasePointerCapture(pointer.id)
+    joystickRef.current = { x: 0, y: 0, active: false }
+    setJoystickPos({ x: 0, y: 0 })
+    setJoystickActive(false)
+  }, [])
 
   // Internal references to 3D scene objects
   const sceneContext = useRef<{
@@ -143,36 +154,65 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
     beaconMesh: THREE.Mesh
     isMoving: boolean
     chimeTimer: number
+    gameplay: { zoom: number; yaw: number; target: THREE.Vector3; peek: THREE.Vector3; peekActive: boolean }
+    cancelInput: () => void
   } | null>(null)
 
   // Keep latest callbacks
   const callbacksRef = useRef({ onWalkingChange, onOpenExplore: onOpenExplore ?? setLocalPOI, onReady })
   callbacksRef.current = { onWalkingChange, onOpenExplore: onOpenExplore ?? setLocalPOI, onReady }
 
+  const handleGameplayZoom = useCallback((magnification: number) => {
+    const context = sceneContext.current
+    if (!context || stateRef.current.cameraMode !== 'gameplay') return
+    context.gameplay.zoom = magnifyGameplayZoom(context.gameplay.zoom, magnification)
+  }, [])
+
   // Camera presets
-  const handleSetCameraPreset = useCallback((preset: 'overview' | 'follow' | 'photo' | 'lookout') => {
+  const handleSetCameraPreset = useCallback((preset: 'overview' | 'gameplay' | 'photo' | 'lookout') => {
     if (!sceneContext.current) return
-    const { camera, controls, avatar } = sceneContext.current
+    const { camera, controls, avatar, gameplay, cancelInput } = sceneContext.current
+    cancelInput()
+    // Flush orbit inertia before switching controllers, so it cannot reappear later.
+    if (controls.enabled) {
+      controls.enableDamping = false
+      controls.update()
+      controls.enableDamping = true
+    }
+    const nextMode = preset === 'overview' ? 'panoramic' : preset
+    stateRef.current.cameraMode = nextMode
+    setCameraMode(nextMode)
+    controls.enabled = preset !== 'gameplay'
+    avatar.group.visible = true
+    camera.near = 0.1
+    camera.fov = preset === 'gameplay' ? GAMEPLAY_FOV : 45
+    camera.zoom = 1
+    if (preset === 'gameplay') gameplay.zoom = GAMEPLAY_ZOOM.default
+    camera.updateProjectionMatrix()
     if (preset === 'overview') {
-      setCameraMode('panoramic')
       controls.target.set(0, 2, -2)
-      camera.position.set(42, 48, 65).multiplyScalar(camera.aspect < .8 ? 1.8 : 1)
+      camera.position.set(42, 48, 65).multiplyScalar(camera.aspect < .8 ? 1.8 : 1.2)
     } else if (preset === 'lookout') {
-      setCameraMode('lookout')
       const p = LANDMARK_POIS.find(p => p.id === 'lookout')!.position
       camera.position.set(p[0], p[1] + 2.8, p[2] - 2)
       controls.target.set(0, 1, 7)
-    } else if (preset === 'follow') {
-      setCameraMode('follow')
-      const aPos = avatar.group.position
-      controls.target.set(aPos.x, aPos.y + 1.2, aPos.z)
-      camera.position.set(aPos.x, aPos.y + 3.2, aPos.z + 5.5)
+    } else if (preset === 'gameplay') {
+      // Stable map bearing: avatar turns independently under an overhead camera.
+      gameplay.yaw = 0
+      gameplay.peek.set(0, 0, 0)
+      gameplay.peekActive = false
+      gameplay.target.copy(avatar.group.position).add(new THREE.Vector3(0, .45, 0))
+      const offset = gameplayCameraOffset(gameplay.zoom, camera.aspect, gameplay.yaw)
+      camera.position.copy(gameplay.target).add(new THREE.Vector3(offset.x, offset.y, offset.z))
+      camera.lookAt(gameplay.target)
+      controls.target.copy(gameplay.target)
     } else if (preset === 'photo') {
-      setCameraMode('photo')
       const aPos = avatar.group.position
       controls.target.set(aPos.x, aPos.y + 1.2, aPos.z)
       camera.position.set(aPos.x + 1.2, aPos.y + 1.3, aPos.z + 2.0)
     }
+    sceneContext.current.renderer.domElement.style.cursor = preset === 'gameplay' ? 'grab' : ''
+    if (controls.enabled) controls.update()
   }, [])
 
   const focusLandmark = useCallback((poi: LandmarkPOI) => {
@@ -180,16 +220,32 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
     if (!context) return
     setFocusedPOI(poi)
     setCurrentSelectedIdx(LANDMARK_POIS.findIndex(p => p.id === poi.id))
+    context.cancelInput()
+    if (context.controls.enabled) {
+      context.controls.enableDamping = false
+      context.controls.update()
+      context.controls.enableDamping = true
+    }
+    stateRef.current.cameraMode = 'landmark'
     setCameraMode('landmark')
+    context.controls.enabled = true
+    context.avatar.group.visible = true
+    context.camera.near = 0.1
+    context.camera.fov = 45
+    context.camera.zoom = 1
+    context.camera.updateProjectionMatrix()
+    context.renderer.domElement.style.cursor = ''
     const [x, y, z] = poi.position
     context.controls.target.set(x, y, z)
     const distance = context.camera.aspect < .8 ? 1.35 : 1
     context.camera.position.set(x + 9 * distance, y + 14 * distance, z + 19 * distance)
+    context.controls.update()
   }, [])
 
   // Navigate to a specific landmark
   const navigateToLandmark = useCallback((poi: LandmarkPOI) => {
     if (!sceneContext.current) return
+    handleSetCameraPreset('gameplay')
     const [tx, , tz] = poi.position
     const target = snapToWalkway(tx, tz)
     const targetY = target.y
@@ -200,7 +256,7 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
     sceneContext.current.isMoving = true
     setActivePOI(poi)
     callbacksRef.current.onWalkingChange?.(true)
-  }, [])
+  }, [handleSetCameraPreset])
 
   // Initialize WebGL Scene
   useEffect(() => {
@@ -221,8 +277,8 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
 
     // Camera with large far clipping plane for deep zooming out
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 400)
-    // Start in the same overhead composition as “宏观全景”, centred on 芦笙场.
-    camera.position.set(42, 48, 65).multiplyScalar(camera.aspect < .8 ? 1.8 : 1)
+    // Gameplay framing is initialized around the avatar below.
+    camera.position.set(42, 48, 65).multiplyScalar(camera.aspect < .8 ? 1.8 : 1.2)
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' })
     renderer.setSize(width, height)
@@ -300,6 +356,23 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
     scene.add(beaconMesh)
 
     const targetPos = new THREE.Vector3(startPOI.position[0], startY, startPOI.position[2])
+    const gameplay = { zoom: GAMEPLAY_ZOOM.default as number, yaw: 0, target: avatar.group.position.clone().add(new THREE.Vector3(0, .45, 0)), peek: new THREE.Vector3(), peekActive: false }
+    const initialOffset = gameplayCameraOffset(gameplay.zoom, camera.aspect)
+    camera.position.copy(gameplay.target).add(new THREE.Vector3(initialOffset.x, initialOffset.y, initialOffset.z))
+    camera.lookAt(gameplay.target)
+    controls.target.copy(gameplay.target)
+    controls.enabled = false
+    stateRef.current.cameraMode = 'gameplay'
+    setCameraMode('gameplay')
+    renderer.domElement.style.cursor = 'grab'
+
+    // A quiet ground marker helps identify the controlled character among dense roofs.
+    const avatarMarkerGeo = new THREE.RingGeometry(.29, .36, 48)
+    const avatarMarkerMat = new THREE.MeshBasicMaterial({ color: 0xf4cc65, transparent: true, opacity: .8, depthWrite: false, depthTest: false, side: THREE.DoubleSide })
+    const avatarMarker = new THREE.Mesh(avatarMarkerGeo, avatarMarkerMat)
+    avatarMarker.rotation.x = -Math.PI / 2
+    avatarMarker.renderOrder = 5
+    scene.add(avatarMarker)
 
     sceneContext.current = {
       scene,
@@ -314,17 +387,104 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
       beaconMesh,
       isMoving: false,
       chimeTimer: 0,
+      gameplay,
+      cancelInput: () => {},
     }
 
     // 6. Raycast Navigation (Click / Tap to Move)
     const raycaster = new THREE.Raycaster()
     const mousePointer = new THREE.Vector2()
 
-    let pointerStart = { x: 0, y: 0 }
-    const handlePointerDown = (e: PointerEvent) => { pointerStart = { x: e.clientX, y: e.clientY } }
+    let pointerGesture: { id: number; startX: number; startY: number; x: number; y: number; dragged: boolean } | null = null
+    const gameplayPointers = new Map<number, { x: number; y: number }>()
+    let pinchDistance: number | null = null
+    const distanceBetweenPointers = () => {
+      const [a, b] = [...gameplayPointers.values()]
+      return a && b ? Math.hypot(a.x - b.x, a.y - b.y) : null
+    }
+    const cancelLook = () => {
+      const pointerIds = [...gameplayPointers.keys()]
+      if (pointerGesture) pointerIds.push(pointerGesture.id)
+      pointerGesture = null
+      gameplayPointers.clear()
+      pinchDistance = null
+      gameplay.peekActive = false
+      for (const id of pointerIds) {
+        if (renderer.domElement.hasPointerCapture(id)) renderer.domElement.releasePointerCapture(id)
+      }
+      renderer.domElement.style.cursor = stateRef.current.cameraMode === 'gameplay' ? 'grab' : ''
+    }
+    const handlePointerDown = (e: PointerEvent) => {
+      if (e.button !== 0) return
+      if (stateRef.current.cameraMode === 'gameplay') {
+        e.preventDefault()
+        if (gameplayPointers.size >= 2) return
+        gameplayPointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+        renderer.domElement.setPointerCapture(e.pointerId)
+        renderer.domElement.style.cursor = 'grabbing'
+        gameplay.peekActive = true
+        if (gameplayPointers.size === 2) {
+          if (pointerGesture) pointerGesture.dragged = true
+          pinchDistance = distanceBetweenPointers()
+          return
+        }
+      }
+      if (pointerGesture) { pointerGesture.dragged = true; return }
+      pointerGesture = { id: e.pointerId, startX: e.clientX, startY: e.clientY, x: e.clientX, y: e.clientY, dragged: false }
+    }
+    const handlePointerMove = (e: PointerEvent) => {
+      if (gameplayPointers.has(e.pointerId)) {
+        gameplayPointers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+        if (gameplayPointers.size === 2) {
+          const distance = distanceBetweenPointers()!
+          if (pinchDistance !== null && pinchDistance > 1 && distance > 1) handleGameplayZoom(distance / pinchDistance)
+          pinchDistance = distance
+          return
+        }
+      }
+      const gesture = pointerGesture
+      if (!gesture || gesture.id !== e.pointerId) return
+      if (Math.hypot(e.clientX - gesture.startX, e.clientY - gesture.startY) > 6) gesture.dragged = true
+      if (stateRef.current.cameraMode === 'gameplay' && gesture.dragged) {
+        // Drag the map under a fixed camera angle; release to resume centered following.
+        const axes = mapGroundAxes(camera.quaternion)
+        const distance = camera.position.distanceTo(gameplay.target)
+        const perPixel = 2 * distance * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) / Math.max(1, container.clientHeight)
+        const dx = e.clientX - gesture.x, dy = e.clientY - gesture.y
+        gameplay.peek.x += (-axes.right.x * dx + axes.forward.x * dy) * perPixel
+        gameplay.peek.z += (-axes.right.z * dx + axes.forward.z * dy) * perPixel
+        gameplay.peek.clampLength(0, 8)
+      }
+      gesture.x = e.clientX
+      gesture.y = e.clientY
+    }
+    const handlePointerCancel = (e: PointerEvent) => {
+      if (gameplayPointers.has(e.pointerId) || pointerGesture?.id === e.pointerId) cancelLook()
+    }
+    const handleWheel = (e: WheelEvent) => {
+      if (stateRef.current.cameraMode !== 'gameplay') return
+      e.preventDefault()
+      const pixelDelta = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? container.clientHeight : 1)
+      handleGameplayZoom(Math.exp(-THREE.MathUtils.clamp(pixelDelta, -600, 600) * .0015))
+    }
     renderer.domElement.addEventListener('pointerdown', handlePointerDown)
+    renderer.domElement.addEventListener('pointermove', handlePointerMove)
+    renderer.domElement.addEventListener('pointercancel', handlePointerCancel)
+    renderer.domElement.addEventListener('lostpointercapture', handlePointerCancel)
+    renderer.domElement.addEventListener('wheel', handleWheel, { passive: false })
     const handlePointerUp = (e: PointerEvent) => {
-      if (!modelReady || Math.hypot(e.clientX - pointerStart.x, e.clientY - pointerStart.y) > 6) return
+      if (gameplayPointers.size > 1 && gameplayPointers.has(e.pointerId)) {
+        gameplayPointers.delete(e.pointerId)
+        const [id, position] = [...gameplayPointers.entries()][0]
+        pointerGesture = { id, startX: position.x, startY: position.y, ...position, dragged: true }
+        pinchDistance = null
+        if (renderer.domElement.hasPointerCapture(e.pointerId)) renderer.domElement.releasePointerCapture(e.pointerId)
+        return
+      }
+      const gesture = pointerGesture
+      if (!gesture || gesture.id !== e.pointerId) return
+      cancelLook()
+      if (!modelReady || gesture.dragged || Math.hypot(e.clientX - gesture.startX, e.clientY - gesture.startY) > 6) return
       const rect = renderer.domElement.getBoundingClientRect()
       mousePointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1
       mousePointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1
@@ -372,11 +532,13 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
     // 7. Keyboard Navigation (WASD / Arrow Keys)
     const keysDown = new Set<string>()
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.target as HTMLElement)?.closest('input, textarea, select')) return
+      const keyboardTarget = e.target as HTMLElement | null
+      if (keyboardTarget?.closest('input, textarea, select, [contenteditable="true"]')) return
+      if ((e.key === ' ' || e.code === 'Space') && keyboardTarget?.closest('button, a')) return
       if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) e.preventDefault()
       keysDown.add(e.key.toLowerCase())
       if (e.key === 'Shift') setIsSprinting(true)
-      if (e.key === ' ' || e.code === 'Space') {
+      if (!e.repeat && (e.key === ' ' || e.code === 'Space')) {
         e.preventDefault()
         setIsDancing((prev) => !prev)
         miaoSound.playLushengNote()
@@ -394,8 +556,11 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
     }
     window.addEventListener('keydown', handleKeyDown)
     window.addEventListener('keyup', handleKeyUp)
-    const handleBlur = () => { keysDown.clear(); setIsSprinting(false); joystickRef.current.active = false }
+    const handleBlur = () => { keysDown.clear(); setIsSprinting(false); handleJoystickEnd(); cancelLook() }
+    sceneContext.current.cancelInput = handleBlur
+    const handleVisibilityChange = () => { if (document.hidden) handleBlur() }
     window.addEventListener('blur', handleBlur)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
 
     // Resize Handler
     const handleResize = () => {
@@ -414,12 +579,41 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
     const clock = new THREE.Clock()
     let animId = 0
     let hasRendered = false
+    let frame = 0
+    let requestedMovement = { x: 0, z: 0 }
+    let appliedMovement = { x: 0, z: 0 }
+    // Read-only development diagnostics for empirical camera/input checks.
+    const diagnostics = () => ({
+      frame,
+      time: performance.now(),
+      modelReady,
+      mode: stateRef.current.cameraMode,
+      camera: { fov: camera.fov, zoom: camera.zoom, effectiveFov: camera.getEffectiveFOV(), position: { x: camera.position.x, y: camera.position.y, z: camera.position.z }, quaternion: { x: camera.quaternion.x, y: camera.quaternion.y, z: camera.quaternion.z, w: camera.quaternion.w } },
+      avatar: { position: { x: avatar.group.position.x, y: avatar.group.position.y, z: avatar.group.position.z }, rotationY: avatar.group.rotation.y, visible: avatar.group.visible, screen: (() => { const p = avatar.group.position.clone().add(new THREE.Vector3(0, .45, 0)).project(camera); return { x: p.x, y: p.y, z: p.z } })() },
+      input: { ...joystickRef.current },
+      requestedMovement: { ...requestedMovement },
+      appliedMovement: { ...appliedMovement },
+      gameplay: { zoom: gameplay.zoom, yaw: gameplay.yaw, peek: { x: gameplay.peek.x, z: gameplay.peek.z }, target: { x: gameplay.target.x, y: gameplay.target.y, z: gameplay.target.z } },
+      routeLength: routeRef.current.length,
+    })
+    const diagnosticWindow = window as Window & { __miaoMapDiagnostics?: typeof diagnostics }
+    if (import.meta.env.DEV) diagnosticWindow.__miaoMapDiagnostics = diagnostics
 
     const animate = () => {
       animId = requestAnimationFrame(animate)
       const delta = Math.min(clock.getDelta(), 0.1)
       const elapsed = clock.getElapsedTime()
       const { cameraMode, isSprinting, isDancing } = stateRef.current
+      frame++
+      requestedMovement = { x: 0, z: 0 }
+      appliedMovement = { x: 0, z: 0 }
+
+      // Resolve the rendered map orientation before mapping input onto its ground plane.
+      if (cameraMode !== 'gameplay') {
+        if (cameraMode === 'panoramic') controls.target.lerp(new THREE.Vector3(0, 2, -2), 0.08)
+        else if (cameraMode === 'photo') controls.target.lerp(avatar.group.position.clone().add(new THREE.Vector3(0, 1.2, 0)), 0.1)
+        controls.update()
+      }
 
       // Update Village Scene (waterwheel, smoke particles, petals, cloths, NPCs)
       village.updateScene(delta, elapsed)
@@ -447,35 +641,36 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
       const hasManualInput = Math.abs(moveX) > 0.05 || Math.abs(moveZ) > 0.05
 
       if (hasManualInput && modelReady) {
-        // Camera-relative movement
-        const camEuler = new THREE.Euler(0, camera.rotation.y, 0, 'YXZ')
-        const forward = new THREE.Vector3(0, 0, -1).applyEuler(camEuler).normalize()
-        const right = new THREE.Vector3(1, 0, 0).applyEuler(camEuler).normalize()
-
-        const moveDir = new THREE.Vector3()
-          .addScaledVector(right, moveX)
-          .addScaledVector(forward, -moveZ)
-          .normalize()
-
+        // Use the full rendered camera orientation, never the avatar heading or XYZ Euler yaw.
+        const mapMovement = mapRelativeMovement(camera.quaternion, moveX, moveZ)
+        const moveDir = new THREE.Vector3(mapMovement.x, 0, mapMovement.z)
         const moveSpeed = (isSprinting ? 5.2 : 3.0) * delta
+        requestedMovement = { x: moveDir.x * moveSpeed, z: moveDir.z * moveSpeed }
         const candidate = avatar.group.position.clone().addScaledVector(moveDir, moveSpeed)
         const next = walkableStep(candidate.x, candidate.z)
-        if (next) avatar.group.position.copy(next)
+        if (next) {
+          appliedMovement = { x: next.x - avatar.group.position.x, z: next.z - avatar.group.position.z }
+          avatar.group.position.copy(next)
+        }
         routeRef.current = []
 
-        // Turn towards movement direction
+        // Turn the visible avatar along the shortest arc; movement does not depend on this pose.
         const targetAngle = Math.atan2(moveDir.x, moveDir.z)
-        avatar.group.rotation.y = THREE.MathUtils.lerp(avatar.group.rotation.y, targetAngle, 0.2)
+        const angleDelta = Math.atan2(Math.sin(targetAngle - avatar.group.rotation.y), Math.cos(targetAngle - avatar.group.rotation.y))
+        avatar.group.rotation.y += angleDelta * (1 - Math.exp(-12 * delta))
 
         targetPos.copy(avatar.group.position)
         beaconMesh.visible = false
-        sceneContext.current!.isMoving = true
+        const walking = next !== null
+        if (sceneContext.current!.isMoving !== walking) callbacksRef.current.onWalkingChange?.(walking)
+        sceneContext.current!.isMoving = walking
 
-        // Silver chime step sound
-        sceneContext.current!.chimeTimer += delta
-        if (sceneContext.current!.chimeTimer > (isSprinting ? 0.28 : 0.45)) {
-          miaoSound.playSilverChime()
-          sceneContext.current!.chimeTimer = 0
+        if (walking) {
+          sceneContext.current!.chimeTimer += delta
+          if (sceneContext.current!.chimeTimer > (isSprinting ? 0.28 : 0.45)) {
+            miaoSound.playSilverChime()
+            sceneContext.current!.chimeTimer = 0
+          }
         }
       } else {
         // Target-following movement (Click to Move)
@@ -532,31 +727,18 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
       }
       setNearbyPOI(closest)
 
-      // Seamless Camera Controller:
-      // Preserves user's zoom distance and angle while smoothly translating with the target
-      if (cameraMode === 'follow') {
-        const avatarHeadPos = avatar.group.position.clone().add(new THREE.Vector3(0, 1.2, 0))
-        const deltaTarget = avatarHeadPos.clone().sub(controls.target)
-        if (deltaTarget.lengthSq() > 0.00001) {
-          const step = deltaTarget.multiplyScalar(0.12)
-          controls.target.add(step)
-          camera.position.add(step)
-        }
-      } else if (cameraMode === 'panoramic') {
-        const centerPos = new THREE.Vector3(0, 2, -2)
-        const deltaTarget = centerPos.clone().sub(controls.target)
-        if (deltaTarget.lengthSq() > 0.00001) {
-          controls.target.add(deltaTarget.multiplyScalar(0.08))
-        }
-      } else if (cameraMode === 'photo') {
-        const photoTarget = avatar.group.position.clone().add(new THREE.Vector3(0, 1.2, 0))
-        const deltaTarget = photoTarget.clone().sub(controls.target)
-        if (deltaTarget.lengthSq() > 0.00001) {
-          controls.target.add(deltaTarget.multiplyScalar(0.1))
-        }
+      if (cameraMode === 'gameplay') {
+        if (!gameplay.peekActive) gameplay.peek.multiplyScalar(Math.exp(-12 * delta))
+        const desiredTarget = avatar.group.position.clone().add(new THREE.Vector3(0, .45, 0)).add(gameplay.peek)
+        gameplay.target.lerp(desiredTarget, 1 - Math.exp(-14 * delta))
+        const offset = gameplayCameraOffset(gameplay.zoom, camera.aspect, gameplay.yaw)
+        camera.position.copy(gameplay.target).add(new THREE.Vector3(offset.x, offset.y, offset.z))
+        camera.lookAt(gameplay.target)
+        controls.target.copy(gameplay.target)
       }
+      avatarMarker.visible = cameraMode === 'gameplay'
+      avatarMarker.position.copy(avatar.group.position).add(new THREE.Vector3(0, .025, 0))
 
-      controls.update()
       // Project DOM labels without a React render per animation frame.
       const labelBounds: Array<{ x: number; y: number; w: number; h: number }> = []
       for (const poi of [...LANDMARK_POIS].sort((a, b) => Number(b.id === 'lusheng') - Number(a.id === 'lusheng'))) {
@@ -584,13 +766,20 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
 
     return () => {
       disposed = true
+      handleBlur()
+      if (diagnosticWindow.__miaoMapDiagnostics === diagnostics) delete diagnosticWindow.__miaoMapDiagnostics
       routeRef.current = []
       resizeObserver.disconnect()
       village.dispose()
       sceneContext.current = null
       cancelAnimationFrame(animId)
       renderer.domElement.removeEventListener('pointerdown', handlePointerDown)
+      renderer.domElement.removeEventListener('pointermove', handlePointerMove)
+      renderer.domElement.removeEventListener('pointercancel', handlePointerCancel)
+      renderer.domElement.removeEventListener('lostpointercapture', handlePointerCancel)
+      renderer.domElement.removeEventListener('wheel', handleWheel)
       window.removeEventListener('blur', handleBlur)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
       renderer.domElement.removeEventListener('pointerup', handlePointerUp)
       window.removeEventListener('keydown', handleKeyDown)
       window.removeEventListener('keyup', handleKeyUp)
@@ -605,6 +794,7 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
       })
       geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose())
       beaconGeo.dispose(); beaconMat.dispose()
+      avatarMarkerGeo.dispose(); avatarMarkerMat.dispose()
       controls.dispose()
       renderer.dispose()
       if (container.contains(renderer.domElement)) {
@@ -669,12 +859,6 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
     setJoystickActive(true)
   }
 
-  const handleJoystickEnd = () => {
-    joystickRef.current = { x: 0, y: 0, active: false }
-    setJoystickPos({ x: 0, y: 0 })
-    setJoystickActive(false)
-  }
-
   return (
     <div className="miao-real-scene-container" aria-label="西江千户苗寨三维漫游场景">
       {/* 3D WebGL Canvas Viewport */}
@@ -705,6 +889,7 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
         <h3>索道与观光车</h3><p>历史官方游线包含西门与大北门间的索道，以及部分摆渡车段。这些节点关系不是逐段步行路线；运行区间、停运和班次请以景区当日公告为准。</p>
         <p>地图中的“河谷入口”是虚拟漫游起点，不代表西门或北门。外围入口没有被压缩放进核心村寨模型。</p>
         <a href="https://www.xjqhmz.com/news/detail?id=663340855012204545" target="_blank" rel="noreferrer">景区官方历史游线（2023） ↗</a>
+        <a href="/map-assets/terrain-sources.html" target="_blank" rel="noreferrer">地形依据与数据署名 ↗</a>
       </section>}
       {/* Top HUD: Title & Weather/Time of Day Switcher */}
       <header className="scene-top-hud">
@@ -737,11 +922,11 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
         <div className="cam-mode-group">
           <button
             type="button"
-            className={`tool-btn ${cameraMode === 'follow' ? 'active' : ''}`}
-            onClick={() => handleSetCameraPreset('follow')}
-            title="追随向导纠笙漫步"
+            className={`tool-btn ${cameraMode === 'gameplay' ? 'active' : ''}`}
+            onClick={() => handleSetCameraPreset('gameplay')}
+            title="斜俯视跟随角色：拖动画面查看周边，松手回正；滚轮或双指拉近拉远"
           >
-            🎥 追随视角
+            🎮 俯视漫游
           </button>
           <button
             type="button"
@@ -852,18 +1037,26 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
       {/* On-Screen Virtual Joystick for Touch / Mouse Dragging */}
       <div
         className={`virtual-joystick-zone ${joystickActive ? 'active' : ''}`}
+        role="group"
+        aria-label="移动摇杆：向上始终沿当前画面前方移动"
+        style={{ touchAction: 'none' }}
         onPointerDown={(e) => {
-          const rect = e.currentTarget.getBoundingClientRect()
+          if (joystickPointerRef.current || e.button !== 0) return
+          e.preventDefault()
+          e.stopPropagation()
+          joystickPointerRef.current = { id: e.pointerId, element: e.currentTarget }
+          e.currentTarget.setPointerCapture(e.pointerId)
+          const rect = e.currentTarget.querySelector('.joystick-base')!.getBoundingClientRect()
           handleJoystickMove(e.clientX, e.clientY, rect)
-          const onMove = (moveEvt: PointerEvent) => handleJoystickMove(moveEvt.clientX, moveEvt.clientY, rect)
-          const onUp = () => {
-            handleJoystickEnd()
-            window.removeEventListener('pointermove', onMove)
-            window.removeEventListener('pointerup', onUp)
-          }
-          window.addEventListener('pointermove', onMove)
-          window.addEventListener('pointerup', onUp)
         }}
+        onPointerMove={(e) => {
+          if (joystickPointerRef.current?.id !== e.pointerId) return
+          const rect = e.currentTarget.querySelector('.joystick-base')!.getBoundingClientRect()
+          handleJoystickMove(e.clientX, e.clientY, rect)
+        }}
+        onPointerUp={(e) => { if (joystickPointerRef.current?.id === e.pointerId) handleJoystickEnd() }}
+        onPointerCancel={(e) => { if (joystickPointerRef.current?.id === e.pointerId) handleJoystickEnd() }}
+        onLostPointerCapture={(e) => { if (joystickPointerRef.current?.id === e.pointerId) handleJoystickEnd() }}
       >
         <div className="joystick-base">
           <div
@@ -873,7 +1066,7 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
             }}
           />
         </div>
-        <span className="joystick-tip">摇杆移动</span>
+        <span className="joystick-tip">按画面方向移动</span>
       </div>
 
       {localPOI && <section className="map-local-detail" role="dialog" aria-modal="true" aria-label={`${localPOI.name}详情`}>
@@ -896,7 +1089,7 @@ export function MiaoVillageScene({ selected = 1, onWalkingChange, onOpenExplore,
           ) : (
             <button type="button" className="lusheng-copy-toggle lusheng-copy-reopen" onClick={() => setIsLushengCopyOpen(true)} aria-label="展开芦笙说明">展开说明 ›</button>
           )}
-          <model-viewer
+          <ModelViewer
             src="/map-assets/models/lusheng.glb"
             alt="Lux3D 生成的苗族芦笙模型"
             camera-controls

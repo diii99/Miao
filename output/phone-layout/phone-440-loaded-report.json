@@ -1,0 +1,736 @@
+[
+  {
+    "size": {
+      "name": "phone-440",
+      "width": 440,
+      "height": 956
+    },
+    "checks": [
+      {
+        "name": "Intro and home share frame bounds",
+        "pass": true
+      },
+      {
+        "name": "Phone frame uses all viewport space or desktop frame fits",
+        "pass": true
+      },
+      {
+        "name": "Home avatar fits within usable content",
+        "pass": true
+      },
+      {
+        "name": "Opening guide fits within usable content",
+        "pass": true
+      },
+      {
+        "name": "Chat and reachable input stay above navigation",
+        "pass": true
+      },
+      {
+        "name": "Home stays stationary when reaching chat input",
+        "pass": true
+      },
+      {
+        "name": "home: no outer document overflow",
+        "pass": true
+      },
+      {
+        "name": "home: four complete tabs stay visible",
+        "pass": true
+      },
+      {
+        "name": "home: usable content ends above tabs",
+        "pass": true
+      },
+      {
+        "name": "home: no horizontal content overflow",
+        "pass": true
+      },
+      {
+        "name": "map: no outer document overflow",
+        "pass": true
+      },
+      {
+        "name": "map: four complete tabs stay visible",
+        "pass": true
+      },
+      {
+        "name": "map: usable content ends above tabs",
+        "pass": true
+      },
+      {
+        "name": "map: no horizontal content overflow",
+        "pass": true
+      },
+      {
+        "name": "Map hud remains inside scene",
+        "pass": true
+      },
+      {
+        "name": "Map tools remains inside scene",
+        "pass": true
+      },
+      {
+        "name": "Map outfits remains inside scene",
+        "pass": true
+      },
+      {
+        "name": "Map landmarks remains inside scene",
+        "pass": true
+      },
+      {
+        "name": "Map joystick remains inside scene",
+        "pass": true
+      },
+      {
+        "name": "Loaded map control groups do not overlap",
+        "pass": true,
+        "details": []
+      },
+      {
+        "name": "Instrument overlay fits inside usable map",
+        "pass": true
+      },
+      {
+        "name": "Instrument model stays inside its overlay",
+        "pass": true
+      },
+      {
+        "name": "heritage: no outer document overflow",
+        "pass": true
+      },
+      {
+        "name": "heritage: four complete tabs stay visible",
+        "pass": true
+      },
+      {
+        "name": "heritage: usable content ends above tabs",
+        "pass": true
+      },
+      {
+        "name": "heritage: no horizontal content overflow",
+        "pass": true
+      },
+      {
+        "name": "heritage: inner content can scroll when needed",
+        "pass": true
+      },
+      {
+        "name": "heritage: scrolling keeps header and tabs fixed",
+        "pass": true
+      },
+      {
+        "name": "workshop: no outer document overflow",
+        "pass": true
+      },
+      {
+        "name": "workshop: four complete tabs stay visible",
+        "pass": true
+      },
+      {
+        "name": "workshop: usable content ends above tabs",
+        "pass": true
+      },
+      {
+        "name": "workshop: no horizontal content overflow",
+        "pass": true
+      },
+      {
+        "name": "workshop: inner content can scroll when needed",
+        "pass": true
+      },
+      {
+        "name": "workshop: scrolling keeps header and tabs fixed",
+        "pass": true
+      },
+      {
+        "name": "No browser runtime errors",
+        "pass": true,
+        "details": []
+      }
+    ],
+    "routes": {
+      "home": {
+        "documentWidth": 440,
+        "documentHeight": 956,
+        "scrollY": 0,
+        "path": "/",
+        "tabsList": [
+          {
+            "x": 12,
+            "y": 897,
+            "right": 116,
+            "bottom": 949,
+            "width": 104,
+            "height": 52,
+            "scrollTop": 0,
+            "scrollHeight": 52,
+            "clientHeight": 52,
+            "scrollWidth": 104,
+            "clientWidth": 104
+          },
+          {
+            "x": 116,
+            "y": 897,
+            "right": 220,
+            "bottom": 949,
+            "width": 104,
+            "height": 52,
+            "scrollTop": 0,
+            "scrollHeight": 52,
+            "clientHeight": 52,
+            "scrollWidth": 104,
+            "clientWidth": 104
+          },
+          {
+            "x": 220,
+            "y": 897,
+            "right": 324,
+            "bottom": 949,
+            "width": 104,
+            "height": 52,
+            "scrollTop": 0,
+            "scrollHeight": 52,
+            "clientHeight": 52,
+            "scrollWidth": 104,
+            "clientWidth": 104
+          },
+          {
+            "x": 324,
+            "y": 897,
+            "right": 428,
+            "bottom": 949,
+            "width": 104,
+            "height": 52,
+            "scrollTop": 0,
+            "scrollHeight": 52,
+            "clientHeight": 52,
+            "scrollWidth": 104,
+            "clientWidth": 104
+          }
+        ],
+        "frame": {
+          "x": 0,
+          "y": 0,
+          "right": 440,
+          "bottom": 956,
+          "width": 440,
+          "height": 956,
+          "scrollTop": 0,
+          "scrollHeight": 956,
+          "clientHeight": 956,
+          "scrollWidth": 440,
+          "clientWidth": 440
+        },
+        "nav": {
+          "x": 0,
+          "y": 0,
+          "right": 440,
+          "bottom": 64,
+          "width": 440,
+          "height": 64,
+          "scrollTop": 0,
+          "scrollHeight": 61,
+          "clientHeight": 61,
+          "scrollWidth": 440,
+          "clientWidth": 440
+        },
+        "content": {
+          "x": 0,
+          "y": 64,
+          "right": 440,
+          "bottom": 888,
+          "width": 440,
+          "height": 824,
+          "scrollTop": 0,
+          "scrollHeight": 824,
+          "clientHeight": 824,
+          "scrollWidth": 440,
+          "clientWidth": 440
+        },
+        "tabs": {
+          "x": 0,
+          "y": 888,
+          "right": 440,
+          "bottom": 956,
+          "width": 440,
+          "height": 68,
+          "scrollTop": 0,
+          "scrollHeight": 66,
+          "clientHeight": 66,
+          "scrollWidth": 440,
+          "clientWidth": 440
+        },
+        "avatar": {
+          "x": 158.40625,
+          "y": 489.53125,
+          "right": 431.203125,
+          "bottom": 871.53125,
+          "width": 272.796875,
+          "height": 382,
+          "scrollTop": 0,
+          "scrollHeight": 382,
+          "clientHeight": 382,
+          "scrollWidth": 273,
+          "clientWidth": 273
+        },
+        "guide": null,
+        "chat": null,
+        "input": null,
+        "scene": null,
+        "hud": null,
+        "tools": null,
+        "outfits": null,
+        "landmarks": null,
+        "joystick": null,
+        "sheet": null,
+        "storyBody": null
+      },
+      "map": {
+        "documentWidth": 440,
+        "documentHeight": 956,
+        "scrollY": 0,
+        "path": "/map",
+        "tabsList": [
+          {
+            "x": 12,
+            "y": 897,
+            "right": 116,
+            "bottom": 949,
+            "width": 104,
+            "height": 52,
+            "scrollTop": 0,
+            "scrollHeight": 52,
+            "clientHeight": 52,
+            "scrollWidth": 104,
+            "clientWidth": 104
+          },
+          {
+            "x": 116,
+            "y": 897,
+            "right": 220,
+            "bottom": 949,
+            "width": 104,
+            "height": 52,
+            "scrollTop": 0,
+            "scrollHeight": 52,
+            "clientHeight": 52,
+            "scrollWidth": 104,
+            "clientWidth": 104
+          },
+          {
+            "x": 220,
+            "y": 897,
+            "right": 324,
+            "bottom": 949,
+            "width": 104,
+            "height": 52,
+            "scrollTop": 0,
+            "scrollHeight": 52,
+            "clientHeight": 52,
+            "scrollWidth": 104,
+            "clientWidth": 104
+          },
+          {
+            "x": 324,
+            "y": 897,
+            "right": 428,
+            "bottom": 949,
+            "width": 104,
+            "height": 52,
+            "scrollTop": 0,
+            "scrollHeight": 52,
+            "clientHeight": 52,
+            "scrollWidth": 104,
+            "clientWidth": 104
+          }
+        ],
+        "frame": {
+          "x": 0,
+          "y": 0,
+          "right": 440,
+          "bottom": 956,
+          "width": 440,
+          "height": 956,
+          "scrollTop": 0,
+          "scrollHeight": 956,
+          "clientHeight": 956,
+          "scrollWidth": 440,
+          "clientWidth": 440
+        },
+        "nav": {
+          "x": 0,
+          "y": 0,
+          "right": 440,
+          "bottom": 64,
+          "width": 440,
+          "height": 64,
+          "scrollTop": 0,
+          "scrollHeight": 61,
+          "clientHeight": 61,
+          "scrollWidth": 440,
+          "clientWidth": 440
+        },
+        "content": {
+          "x": 0,
+          "y": 64,
+          "right": 440,
+          "bottom": 888,
+          "width": 440,
+          "height": 824,
+          "scrollTop": 0,
+          "scrollHeight": 824,
+          "clientHeight": 824,
+          "scrollWidth": 440,
+          "clientWidth": 440
+        },
+        "tabs": {
+          "x": 0,
+          "y": 888,
+          "right": 440,
+          "bottom": 956,
+          "width": 440,
+          "height": 68,
+          "scrollTop": 0,
+          "scrollHeight": 66,
+          "clientHeight": 66,
+          "scrollWidth": 440,
+          "clientWidth": 440
+        },
+        "avatar": null,
+        "guide": null,
+        "chat": null,
+        "input": null,
+        "scene": {
+          "x": 0,
+          "y": 64,
+          "right": 440,
+          "bottom": 888,
+          "width": 440,
+          "height": 824,
+          "scrollTop": 0,
+          "scrollHeight": 824,
+          "clientHeight": 824,
+          "scrollWidth": 440,
+          "clientWidth": 440
+        },
+        "hud": {
+          "x": 14,
+          "y": 71,
+          "right": 426,
+          "bottom": 158,
+          "width": 412,
+          "height": 87,
+          "scrollTop": 0,
+          "scrollHeight": 87,
+          "clientHeight": 87,
+          "scrollWidth": 412,
+          "clientWidth": 412
+        },
+        "tools": {
+          "x": 304,
+          "y": 189,
+          "right": 428,
+          "bottom": 375,
+          "width": 124,
+          "height": 186,
+          "scrollTop": 0,
+          "scrollHeight": 186,
+          "clientHeight": 186,
+          "scrollWidth": 124,
+          "clientWidth": 124
+        },
+        "outfits": {
+          "x": 12,
+          "y": 189,
+          "right": 117.328125,
+          "bottom": 387,
+          "width": 105.328125,
+          "height": 198,
+          "scrollTop": 0,
+          "scrollHeight": 198,
+          "clientHeight": 198,
+          "scrollWidth": 105,
+          "clientWidth": 105
+        },
+        "landmarks": {
+          "x": 12,
+          "y": 724,
+          "right": 428,
+          "bottom": 776,
+          "width": 416,
+          "height": 52,
+          "scrollTop": 0,
+          "scrollHeight": 52,
+          "clientHeight": 52,
+          "scrollWidth": 416,
+          "clientWidth": 416
+        },
+        "joystick": {
+          "x": 18,
+          "y": 790,
+          "right": 90,
+          "bottom": 876,
+          "width": 72,
+          "height": 86,
+          "scrollTop": 0,
+          "scrollHeight": 86,
+          "clientHeight": 86,
+          "scrollWidth": 72,
+          "clientWidth": 72
+        },
+        "sheet": null,
+        "storyBody": null
+      },
+      "heritage": {
+        "documentWidth": 440,
+        "documentHeight": 956,
+        "scrollY": 0,
+        "path": "/heritage",
+        "tabsList": [
+          {
+            "x": 12,
+            "y": 897,
+            "right": 116,
+            "bottom": 949,
+            "width": 104,
+            "height": 52,
+            "scrollTop": 0,
+            "scrollHeight": 52,
+            "clientHeight": 52,
+            "scrollWidth": 104,
+            "clientWidth": 104
+          },
+          {
+            "x": 116,
+            "y": 897,
+            "right": 220,
+            "bottom": 949,
+            "width": 104,
+            "height": 52,
+            "scrollTop": 0,
+            "scrollHeight": 52,
+            "clientHeight": 52,
+            "scrollWidth": 104,
+            "clientWidth": 104
+          },
+          {
+            "x": 220,
+            "y": 897,
+            "right": 324,
+            "bottom": 949,
+            "width": 104,
+            "height": 52,
+            "scrollTop": 0,
+            "scrollHeight": 52,
+            "clientHeight": 52,
+            "scrollWidth": 104,
+            "clientWidth": 104
+          },
+          {
+            "x": 324,
+            "y": 897,
+            "right": 428,
+            "bottom": 949,
+            "width": 104,
+            "height": 52,
+            "scrollTop": 0,
+            "scrollHeight": 52,
+            "clientHeight": 52,
+            "scrollWidth": 104,
+            "clientWidth": 104
+          }
+        ],
+        "frame": {
+          "x": 0,
+          "y": 0,
+          "right": 440,
+          "bottom": 956,
+          "width": 440,
+          "height": 956,
+          "scrollTop": 0,
+          "scrollHeight": 956,
+          "clientHeight": 956,
+          "scrollWidth": 440,
+          "clientWidth": 440
+        },
+        "nav": {
+          "x": 0,
+          "y": 0,
+          "right": 440,
+          "bottom": 64,
+          "width": 440,
+          "height": 64,
+          "scrollTop": 0,
+          "scrollHeight": 61,
+          "clientHeight": 61,
+          "scrollWidth": 440,
+          "clientWidth": 440
+        },
+        "content": {
+          "x": 0,
+          "y": 64,
+          "right": 440,
+          "bottom": 888,
+          "width": 440,
+          "height": 824,
+          "scrollTop": 0,
+          "scrollHeight": 1468,
+          "clientHeight": 824,
+          "scrollWidth": 440,
+          "clientWidth": 440
+        },
+        "tabs": {
+          "x": 0,
+          "y": 888,
+          "right": 440,
+          "bottom": 956,
+          "width": 440,
+          "height": 68,
+          "scrollTop": 0,
+          "scrollHeight": 66,
+          "clientHeight": 66,
+          "scrollWidth": 440,
+          "clientWidth": 440
+        },
+        "avatar": null,
+        "guide": null,
+        "chat": null,
+        "input": null,
+        "scene": null,
+        "hud": null,
+        "tools": null,
+        "outfits": null,
+        "landmarks": null,
+        "joystick": null,
+        "sheet": null,
+        "storyBody": null
+      },
+      "workshop": {
+        "documentWidth": 440,
+        "documentHeight": 956,
+        "scrollY": 0,
+        "path": "/workshop",
+        "tabsList": [
+          {
+            "x": 12,
+            "y": 897,
+            "right": 116,
+            "bottom": 949,
+            "width": 104,
+            "height": 52,
+            "scrollTop": 0,
+            "scrollHeight": 52,
+            "clientHeight": 52,
+            "scrollWidth": 104,
+            "clientWidth": 104
+          },
+          {
+            "x": 116,
+            "y": 897,
+            "right": 220,
+            "bottom": 949,
+            "width": 104,
+            "height": 52,
+            "scrollTop": 0,
+            "scrollHeight": 52,
+            "clientHeight": 52,
+            "scrollWidth": 104,
+            "clientWidth": 104
+          },
+          {
+            "x": 220,
+            "y": 897,
+            "right": 324,
+            "bottom": 949,
+            "width": 104,
+            "height": 52,
+            "scrollTop": 0,
+            "scrollHeight": 52,
+            "clientHeight": 52,
+            "scrollWidth": 104,
+            "clientWidth": 104
+          },
+          {
+            "x": 324,
+            "y": 897,
+            "right": 428,
+            "bottom": 949,
+            "width": 104,
+            "height": 52,
+            "scrollTop": 0,
+            "scrollHeight": 52,
+            "clientHeight": 52,
+            "scrollWidth": 104,
+            "clientWidth": 104
+          }
+        ],
+        "frame": {
+          "x": 0,
+          "y": 0,
+          "right": 440,
+          "bottom": 956,
+          "width": 440,
+          "height": 956,
+          "scrollTop": 0,
+          "scrollHeight": 956,
+          "clientHeight": 956,
+          "scrollWidth": 440,
+          "clientWidth": 440
+        },
+        "nav": {
+          "x": 0,
+          "y": 0,
+          "right": 440,
+          "bottom": 64,
+          "width": 440,
+          "height": 64,
+          "scrollTop": 0,
+          "scrollHeight": 61,
+          "clientHeight": 61,
+          "scrollWidth": 440,
+          "clientWidth": 440
+        },
+        "content": {
+          "x": 0,
+          "y": 64,
+          "right": 440,
+          "bottom": 888,
+          "width": 440,
+          "height": 824,
+          "scrollTop": 0,
+          "scrollHeight": 1085,
+          "clientHeight": 824,
+          "scrollWidth": 440,
+          "clientWidth": 440
+        },
+        "tabs": {
+          "x": 0,
+          "y": 888,
+          "right": 440,
+          "bottom": 956,
+          "width": 440,
+          "height": 68,
+          "scrollTop": 0,
+          "scrollHeight": 66,
+          "clientHeight": 66,
+          "scrollWidth": 440,
+          "clientWidth": 440
+        },
+        "avatar": null,
+        "guide": null,
+        "chat": null,
+        "input": null,
+        "scene": null,
+        "hud": null,
+        "tools": null,
+        "outfits": null,
+        "landmarks": null,
+        "joystick": null,
+        "sheet": null,
+        "storyBody": null
+      }
+    },
+    "errors": []
+  }
+]

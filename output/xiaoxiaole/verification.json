@@ -1,0 +1,22 @@
+{
+  "results": [
+    "Help preserves board, moves and score",
+    "Invalid exchange restores tiles without spending a move",
+    "Native touch swipe completes a match without scrolling the board",
+    "Click and pointer swipe each spend exactly one move, including cascades",
+    "Difficulty change during removal cancels the old cascade; new board remains playable",
+    "Restart during swap cancels delayed work and resets busy state",
+    "Theme switching and two free manual shuffles work",
+    "All 21 catalog images load",
+    "Keyboard navigation and selection work",
+    "Full round reaches a result and can restart",
+    "phone: no horizontal overflow, restart reachable",
+    "small-phone: no horizontal overflow, restart reachable",
+    "short-phone: no horizontal overflow, restart reachable",
+    "landscape: no horizontal overflow, restart reachable",
+    "desktop: no horizontal overflow, restart reachable",
+    "/games/xiaoxiaole: embedded game loads",
+    "/miniapp/games/xiaoxiaole: embedded game loads"
+  ],
+  "errors": []
+}

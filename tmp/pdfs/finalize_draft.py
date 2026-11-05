@@ -1,0 +1,12 @@
+from pathlib import Path
+p=Path('tmp/pdfs/build_manual.py'); s=p.read_text(encoding='utf-8-sig')
+s=s.replace('iw=180;ih=iw*im.height/im.width',"iw=174 if name in ('10-result','19b-step') else 180;ih=iw*im.height/im.width")
+s=s.replace("[['首页','/'],['地图','/map'],['非遗 / 兼容入口','/heritage / /culture'],['体验坊','/workshop'],['消消乐','/games/xiaoxiaole'],['红酸汤','/games/hongsuantang'],['千锤成银','/games/silver'],['蜡染工坊','/games/wax-dye'],['长桌宴','/games/miao-feast'],['苗语听音猜义','/games/miao-language']]", "[['首页 / 地图','/  /map'],['非遗 / 兼容入口','/heritage / /culture'],['体验坊','/workshop'],['六项小游戏','消消乐：/games/xiaoxiaole\\n红酸汤：/games/hongsuantang\\n千锤成银：/games/silver\\n蜡染：/games/wax-dye\\n长桌宴：/games/miao-feast\\n苗语：/games/miao-language']]")
+s=s.replace('完成后使用“再酿一坛”','使用“回到封面”，再点击“开始做一坛”')
+s=s.replace('“再酿一坛”会重置主料、调味和全部制作进度；“回到封面”返回体验封面。','“再酿一坛”会清空本轮并直接进入捣碎阶段；需要重新选料时，点击“回到封面”，再点击“开始做一坛”。')
+s=s.replace('拖动下方时间轴，或点击不同时间节点','拖动下方时间轴，或点击时间轴上的不同位置')
+s=s.replace('图 13  发酵时间轴，可拖动或点击时间节点查看阶段。','图 13  发酵时间轴，拖动到末端后可查看成熟阶段。')
+s=s.replace("if y<57: print(f'OVERFLOW {idx}: {y:.1f}')", "if y<57:raise ValueError(f'Page {idx} overflow: bottom={y:.1f}')")
+p.write_text(s,encoding='utf-8')
+p=Path('tmp/pdfs/capture_soup.cjs');s=p.read_text(encoding='utf-8-sig');s=s.replace("await f.locator('.tl-node').last().click();", "const tb=await f.locator('#tlTrack').boundingBox();await page.mouse.move(tb.x+tb.width*.12,tb.y+tb.height/2);await page.mouse.down();await page.mouse.move(tb.x+tb.width*.96,tb.y+tb.height/2,{steps:15});await page.mouse.up();await page.waitForTimeout(600);")
+p.write_text(s,encoding='utf-8')

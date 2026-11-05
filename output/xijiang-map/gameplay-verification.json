@@ -1,0 +1,681 @@
+{
+  "startedAt": "2026-09-09T17:30:37.770Z",
+  "environment": "Chrome headless software WebGL, real mouse and CDP touch; read-only scene diagnostics",
+  "devices": [
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "touch": false,
+      "status": "passed",
+      "movements": [
+        {
+          "label": "forward",
+          "input": [
+            0,
+            -0.4
+          ],
+          "cancel": false,
+          "requestAlignment": 1,
+          "actualAlignment": 1,
+          "actualDistance": 0.38400065104166714,
+          "avatarRotationBefore": 0,
+          "avatarRotationAfter": 3.124003452050608,
+          "avatarDelta": {
+            "x": 0,
+            "y": 0,
+            "z": -0.41481670328740305
+          },
+          "cameraDelta": {
+            "x": 0,
+            "y": 0,
+            "z": -0.4148165974789557
+          },
+          "projection": {
+            "x": 0,
+            "y": 1.6750438277728983e-8,
+            "z": 0.9834242721756971
+          }
+        },
+        {
+          "label": "strafe",
+          "input": [
+            0.4,
+            0
+          ],
+          "cancel": false,
+          "requestAlignment": 1,
+          "actualAlignment": 1,
+          "actualDistance": 0.3839998881022133,
+          "avatarRotationBefore": 3.124003452050608,
+          "avatarRotationAfter": 1.574646342337438,
+          "avatarDelta": {
+            "x": 0.47999986012776663,
+            "y": 0,
+            "z": 0
+          },
+          "cameraDelta": {
+            "x": 0.4799997542694978,
+            "y": 0,
+            "z": -7.754282504990329e-8
+          },
+          "projection": {
+            "x": 1.5148924601284454e-8,
+            "y": -2.7454338537496615e-16,
+            "z": 0.9834242720769665
+          }
+        },
+        {
+          "label": "forward-after-strafe",
+          "input": [
+            0,
+            -0.4
+          ],
+          "cancel": false,
+          "requestAlignment": 1,
+          "actualAlignment": 1,
+          "actualDistance": 0.38400065104166714,
+          "avatarRotationBefore": 1.574646342337438,
+          "avatarRotationAfter": 3.137590294420254,
+          "avatarDelta": {
+            "x": 0,
+            "y": 0,
+            "z": -0.4776008097330733
+          },
+          "cameraDelta": {
+            "x": 1.0585826881737148e-7,
+            "y": 0,
+            "z": -0.47760069427237095
+          },
+          "projection": {
+            "x": 1.271034183531398e-16,
+            "y": 1.8278477923374928e-8,
+            "z": 0.9834242721847037
+          }
+        },
+        {
+          "label": "cancel",
+          "input": [
+            -0.4,
+            0
+          ],
+          "cancel": true,
+          "requestAlignment": 1,
+          "actualAlignment": 1,
+          "actualDistance": 0.3080640122417204,
+          "avatarRotationBefore": 3.137590294420254,
+          "avatarRotationAfter": 4.702303641994543,
+          "avatarDelta": {
+            "x": -0.4040640160564175,
+            "y": 0,
+            "z": 0
+          },
+          "cameraDelta": {
+            "x": -0.40406375122402416,
+            "y": 0,
+            "z": -8.617070079708355e-8
+          },
+          "projection": {
+            "x": -3.7899032264364976e-8,
+            "y": -9.151446179165537e-17,
+            "z": 0.9834242720769665
+          }
+        },
+        {
+          "label": "after-zoom",
+          "input": [
+            0,
+            -0.35
+          ],
+          "cancel": false,
+          "requestAlignment": 1,
+          "actualAlignment": 1,
+          "actualDistance": 0.33600056966145786,
+          "avatarRotationBefore": 4.702303641994543,
+          "avatarRotationAfter": 3.145627211605946,
+          "avatarDelta": {
+            "x": 0,
+            "y": 0,
+            "z": -0.4170607070922845
+          },
+          "cameraDelta": {
+            "x": 0,
+            "y": 0,
+            "z": -0.4170606842500959
+          },
+          "projection": {
+            "x": 0,
+            "y": 1.2053750457724798e-9,
+            "z": 0.9948081740488625
+          }
+        }
+      ],
+      "peeks": [
+        {
+          "cancel": false,
+          "heldPeek": {
+            "x": -0.8249533920265546,
+            "z": 0.3396866908344637
+          },
+          "heldTarget": {
+            "x": -6.837772612907285,
+            "y": 1.05,
+            "z": -3.954574835171278
+          },
+          "restoredPeek": {
+            "x": -0.000016828639534703524,
+            "z": 0.000006929439808407335
+          },
+          "restoredProjection": {
+            "x": 0.000008752906045566273,
+            "y": 0.000003987036489238876,
+            "z": 0.9834242955773899
+          }
+        },
+        {
+          "cancel": true,
+          "heldPeek": {
+            "x": -0.8249584607153769,
+            "z": 0.33968877794162583
+          },
+          "heldTarget": {
+            "x": -6.837862305874588,
+            "y": 1.05,
+            "z": -3.9545379027730236
+          },
+          "restoredPeek": {
+            "x": -0.00001682874293343844,
+            "z": 0.000006929482384357008
+          },
+          "restoredProjection": {
+            "x": 0.000008752983809511928,
+            "y": 0.000003987071911369559,
+            "z": 0.9834242955775986
+          }
+        }
+      ],
+      "screenshots": [
+        "D:\\Miao\\output\\xijiang-map\\desktop-gameplay-default.png"
+      ],
+      "initial": {
+        "mode": "gameplay",
+        "zoom": 0.3,
+        "camera": {
+          "fov": 45,
+          "zoom": 1,
+          "effectiveFov": 45,
+          "position": {
+            "x": -6.088888888888889,
+            "y": 10.05,
+            "z": 4.098211090988668
+          },
+          "quaternion": {
+            "x": -0.4241553962497236,
+            "y": 0,
+            "z": 0,
+            "w": 0.9055894212236802
+          }
+        },
+        "avatar": {
+          "position": {
+            "x": -6.088888888888889,
+            "y": 0.6,
+            "z": -3.4017889090113322
+          },
+          "rotationY": 0,
+          "visible": true,
+          "screen": {
+            "x": 0,
+            "y": -1.8302892358331077e-16,
+            "z": 0.9834242720769665
+          }
+        },
+        "target": {
+          "x": -6.088888888888889,
+          "y": 1.05,
+          "z": -3.4017889090113322
+        },
+        "joystick": {
+          "x": 18,
+          "y": 886,
+          "width": 72,
+          "height": 86
+        }
+      },
+      "zoom": {
+        "initial": {
+          "zoom": 0.3,
+          "distance": 11.715374513859983,
+          "fov": 45,
+          "effectiveFov": 45,
+          "position": {
+            "x": -6.012953044817542,
+            "y": 10.05,
+            "z": 3.2057935779681923
+          },
+          "target": {
+            "x": -6.012953044817542,
+            "y": 1.05,
+            "z": -4.294206422031808
+          }
+        },
+        "results": [
+          {
+            "action": "button-in-max",
+            "zoom": 0.5,
+            "distance": 7.029224708315989,
+            "fov": 45,
+            "effectiveFov": 45,
+            "position": {
+              "x": -6.0129530448175394,
+              "y": 6.449999999999999,
+              "z": 0.20579357796819142
+            },
+            "target": {
+              "x": -6.0129530448175394,
+              "y": 1.05,
+              "z": -4.294206422031809
+            }
+          },
+          {
+            "action": "button-out-min",
+            "zoom": 0.1,
+            "distance": 35.14612354157994,
+            "fov": 45,
+            "effectiveFov": 45,
+            "position": {
+              "x": -6.0129530448175394,
+              "y": 28.049999999999997,
+              "z": 18.205793577968187
+            },
+            "target": {
+              "x": -6.0129530448175394,
+              "y": 1.05,
+              "z": -4.294206422031809
+            }
+          },
+          {
+            "action": "wheel-in",
+            "beforeZoom": 0.1,
+            "zoom": 0.2281880765329304,
+            "distance": 15.402261185416458,
+            "fov": 45,
+            "effectiveFov": 45,
+            "position": {
+              "x": -6.0129530448175394,
+              "y": 12.882344796553626,
+              "z": 5.566080908429547
+            },
+            "target": {
+              "x": -6.0129530448175394,
+              "y": 1.05,
+              "z": -4.294206422031809
+            }
+          },
+          {
+            "action": "wheel-out",
+            "beforeZoom": 0.2281880765329304,
+            "zoom": 0.1,
+            "distance": 35.14612354157994,
+            "fov": 45,
+            "effectiveFov": 45,
+            "position": {
+              "x": -6.0129530448175394,
+              "y": 28.049999999999997,
+              "z": 18.205793577968187
+            },
+            "target": {
+              "x": -6.0129530448175394,
+              "y": 1.05,
+              "z": -4.294206422031809
+            }
+          }
+        ]
+      },
+      "modeTransition": "gameplay → panoramic → gameplay passed"
+    },
+    {
+      "name": "mobile",
+      "width": 430,
+      "height": 932,
+      "touch": true,
+      "status": "passed",
+      "movements": [
+        {
+          "label": "forward",
+          "input": [
+            0,
+            -0.4
+          ],
+          "cancel": false,
+          "requestAlignment": 1,
+          "actualAlignment": 1,
+          "actualDistance": 0.31017652587854894,
+          "avatarRotationBefore": 0,
+          "avatarRotationAfter": 3.1410572395017713,
+          "avatarDelta": {
+            "x": 0,
+            "y": 0,
+            "z": -0.6941771769202156
+          },
+          "cameraDelta": {
+            "x": 0,
+            "y": 0,
+            "z": -0.694177170471753
+          },
+          "projection": {
+            "x": -7.084009830812988e-16,
+            "y": 9.114734986531454e-10,
+            "z": 0.9852538277554375
+          }
+        },
+        {
+          "label": "strafe",
+          "input": [
+            0.4,
+            0
+          ],
+          "cancel": false,
+          "requestAlignment": 1,
+          "actualAlignment": 1,
+          "actualDistance": 0.3839998881022133,
+          "avatarRotationBefore": 3.1410572395017713,
+          "avatarRotationAfter": 1.5718729151072097,
+          "avatarDelta": {
+            "x": 0.5828158301667763,
+            "y": 0,
+            "z": 0
+          },
+          "cameraDelta": {
+            "x": 0.5828158252912274,
+            "y": 0,
+            "z": -1.590171549992192e-9
+          },
+          "projection": {
+            "x": 1.944340740664648e-9,
+            "y": 8.170934088540659e-17,
+            "z": 0.9852538277506407
+          }
+        },
+        {
+          "label": "forward-after-strafe",
+          "input": [
+            0,
+            -0.4
+          ],
+          "cancel": false,
+          "requestAlignment": 1,
+          "actualAlignment": 1,
+          "actualDistance": 0.38400065104166714,
+          "avatarRotationBefore": 1.5718729151072097,
+          "avatarRotationAfter": 3.14123967491249,
+          "avatarDelta": {
+            "x": 0,
+            "y": 0,
+            "z": -0.6720011393229175
+          },
+          "cameraDelta": {
+            "x": 1.468780652658097e-9,
+            "y": 0,
+            "z": -0.6720010586857281
+          },
+          "projection": {
+            "x": 0,
+            "y": 1.1397856857320655e-8,
+            "z": 0.9852538278106239
+          }
+        },
+        {
+          "label": "cancel",
+          "input": [
+            -0.4,
+            0
+          ],
+          "cancel": true,
+          "requestAlignment": 1,
+          "actualAlignment": 1,
+          "actualDistance": 0.38400001525878835,
+          "avatarRotationBefore": 3.14123967491249,
+          "avatarRotationAfter": 4.7122825684273915,
+          "avatarDelta": {
+            "x": -0.7680000305175767,
+            "y": 0,
+            "z": 0
+          },
+          "cameraDelta": {
+            "x": -0.7679999526507464,
+            "y": 0,
+            "z": -1.9884885738008506e-8
+          },
+          "projection": {
+            "x": -3.105284848686542e-8,
+            "y": 0,
+            "z": 0.9852538277506407
+          }
+        },
+        {
+          "label": "after-zoom",
+          "input": [
+            0,
+            -0.35
+          ],
+          "cancel": false,
+          "requestAlignment": 1,
+          "actualAlignment": 1,
+          "actualDistance": 0.3197045420325644,
+          "avatarRotationBefore": 4.7122825684273915,
+          "avatarRotationAfter": 3.1417220169922313,
+          "avatarDelta": {
+            "x": 0,
+            "y": 0,
+            "z": -0.6583091161085859
+          },
+          "cameraDelta": {
+            "x": 0,
+            "y": 0,
+            "z": -0.6583090946407815
+          },
+          "projection": {
+            "x": 0,
+            "y": 1.011472631099519e-9,
+            "z": 0.9954180259394931
+          }
+        }
+      ],
+      "peeks": [
+        {
+          "cancel": false,
+          "heldPeek": {
+            "x": -0.952872336059802,
+            "z": 0.4082071821186688
+          },
+          "heldTarget": {
+            "x": -7.226758802147744,
+            "y": 1.05,
+            "z": -4.359839991737826
+          },
+          "restoredPeek": {
+            "x": -0.00001943812246986326,
+            "z": 0.000008327223804094648
+          },
+          "restoredProjection": {
+            "x": 0.000028174199668600537,
+            "y": 0.000004277956726244497,
+            "z": 0.9852538502641832
+          }
+        },
+        {
+          "cancel": true,
+          "heldPeek": {
+            "x": -0.9528740994464882,
+            "z": 0.4082079375473689
+          },
+          "heldTarget": {
+            "x": -7.226884138774072,
+            "y": 1.05,
+            "z": -4.359786298033387
+          },
+          "restoredPeek": {
+            "x": -0.000019438158442075983,
+            "z": 0.000008327239214464995
+          },
+          "restoredProjection": {
+            "x": 0.000028174261913485906,
+            "y": 0.000004277966177372627,
+            "z": 0.985253850264233
+          }
+        }
+      ],
+      "screenshots": [
+        "D:\\Miao\\output\\xijiang-map\\mobile-gameplay-default.png"
+      ],
+      "initial": {
+        "mode": "gameplay",
+        "zoom": 0.3,
+        "camera": {
+          "fov": 45,
+          "zoom": 1,
+          "effectiveFov": 45,
+          "position": {
+            "x": -6.088888888888889,
+            "y": 11.130000000000003,
+            "z": 4.998211090988669
+          },
+          "quaternion": {
+            "x": -0.42415539624972365,
+            "y": 0,
+            "z": 0,
+            "w": 0.9055894212236802
+          }
+        },
+        "avatar": {
+          "position": {
+            "x": -6.088888888888889,
+            "y": 0.6,
+            "z": -3.4017889090113322
+          },
+          "rotationY": 0,
+          "visible": true,
+          "screen": {
+            "x": -7.084009833041764e-16,
+            "y": 8.170934088540662e-17,
+            "z": 0.9852538277506407
+          }
+        },
+        "target": {
+          "x": -6.088888888888889,
+          "y": 1.05,
+          "z": -3.4017889090113322
+        },
+        "joystick": {
+          "x": 18,
+          "y": 818,
+          "width": 72,
+          "height": 86
+        }
+      },
+      "zoom": {
+        "initial": {
+          "zoom": 0.3,
+          "distance": 13.121219455523182,
+          "fov": 45,
+          "effectiveFov": 45,
+          "position": {
+            "x": -6.2740730892396925,
+            "y": 11.130000000000003,
+            "z": 3.632032774745536
+          },
+          "target": {
+            "x": -6.2740730892396925,
+            "y": 1.05,
+            "z": -4.7679672252544645
+          }
+        },
+        "results": [
+          {
+            "action": "button-in-max",
+            "zoom": 0.5,
+            "distance": 7.8727316733139086,
+            "fov": 45,
+            "effectiveFov": 45,
+            "position": {
+              "x": -6.274073089239689,
+              "y": 7.098,
+              "z": 0.27203277474553467
+            },
+            "target": {
+              "x": -6.274073089239689,
+              "y": 1.05,
+              "z": -4.767967225254465
+            }
+          },
+          {
+            "action": "button-out-min",
+            "zoom": 0.1,
+            "distance": 39.36365836656954,
+            "fov": 45,
+            "effectiveFov": 45,
+            "position": {
+              "x": -6.274073089239689,
+              "y": 31.29,
+              "z": 20.432032774745533
+            },
+            "target": {
+              "x": -6.274073089239689,
+              "y": 1.05,
+              "z": -4.767967225254465
+            }
+          },
+          {
+            "action": "touch-spread",
+            "beforeZoom": 0.1,
+            "zoom": 0.31428566757514576,
+            "distance": 12.524802250855963,
+            "fov": 45,
+            "effectiveFov": 45,
+            "position": {
+              "x": -6.274073089239689,
+              "y": 10.67181961185666,
+              "z": 3.250215784626085
+            },
+            "target": {
+              "x": -6.274073089239689,
+              "y": 1.05,
+              "z": -4.767967225254465
+            }
+          },
+          {
+            "action": "touch-pinch",
+            "beforeZoom": 0.31428566757514576,
+            "zoom": 0.10000000000000002,
+            "distance": 39.36365836656954,
+            "fov": 45,
+            "effectiveFov": 45,
+            "position": {
+              "x": -6.274073089239689,
+              "y": 31.289999999999996,
+              "z": 20.43203277474553
+            },
+            "target": {
+              "x": -6.274073089239689,
+              "y": 1.05,
+              "z": -4.767967225254465
+            }
+          }
+        ]
+      },
+      "modeTransition": "gameplay → panoramic → gameplay passed"
+    }
+  ],
+  "errors": [],
+  "status": "passed",
+  "finishedAt": "2026-09-09T17:35:01.649Z",
+  "fingerprints": {
+    "src/map-3d/MiaoVillageScene.tsx": "d390bd6efd6ca756ffb4b280545fc43807c116b859d16574a5a475d88e18f488",
+    "src/map-3d/cameraNavigation.ts": "ad135b43272d29a4e2b22ea203fb1e79375c22d6c1cc1e7419b91584cfeac8e6",
+    "src/map-3d/navigation.ts": "072e84b1aa479036e1a0761a2c967b4371ba47d978c0d5418d3a38dc52de3dc0",
+    "src/map-3d/terrain.ts": "0a4401e65fa279d3bb4c298da7f75349f916e05c9d706aaf0788b7bf6fa3bb84",
+    "src/map-3d/xijiang-layout.json": "8d56a59c90b5433961d1e658d166d150f79d8e55e2b2c52c00f05a4598b72f94",
+    "public/map-assets/models/xijiang-valley.glb": "9f46893a68b789d14742cf5e4086033fe1d73f2867e6bc67f96f036443332e0b"
+  }
+}

@@ -1,0 +1,313 @@
+/* Shared display frame: opening video and four-tab UI have identical bounds. */
+:root {
+  --app-frame-height: 100dvh;
+  --app-frame-width: 100%;
+  --app-frame-gutter: 0px;
+  --app-frame-radius: 0px;
+  --app-safe-top: env(safe-area-inset-top, 0px);
+  --app-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --app-safe-left: env(safe-area-inset-left, 0px);
+  --app-safe-right: env(safe-area-inset-right, 0px);
+  --app-header-base: clamp(52px, 7.4dvh, 64px);
+  --app-tab-base: clamp(58px, 7.8dvh, 68px);
+  --app-header-height: calc(var(--app-header-base) + var(--app-safe-top));
+  --app-tab-height: calc(var(--app-tab-base) + var(--app-safe-bottom));
+}
+
+/* A wide phone is still a phone. Only roomy, mouse-first screens get a preview frame. */
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+  :root {
+    --app-frame-width: 430px;
+    --app-frame-height: min(844px, calc(100dvh - 36px));
+    --app-frame-gutter: 18px;
+    --app-frame-radius: 24px;
+  }
+}
+
+/* Scope viewport containment to this shell; standalone games/WebViews keep their own layout. */
+body:has(#root > .app-frame) { min-width: 0; }
+#root:has(> .app-frame) {
+  height: 100dvh;
+  padding-block: var(--app-frame-gutter);
+  overflow: hidden;
+}
+
+body main.app-frame {
+  position: relative;
+  width: min(100%, var(--app-frame-width));
+  container-type: size;
+  container-name: app-frame;
+  height: var(--app-frame-height);
+  min-height: 0;
+  max-height: 100%;
+  margin: 0 auto;
+  padding: 0;
+  border-radius: var(--app-frame-radius);
+  overflow: hidden;
+  overscroll-behavior: none;
+  padding-inline: var(--app-safe-left) var(--app-safe-right);
+}
+
+.app-frame > .navigation-bar {
+  height: var(--app-header-height);
+  padding-top: calc(9px + var(--app-safe-top));
+  padding-bottom: 5px;
+}
+
+body .app-frame > .page-content {
+  height: calc(100% - var(--app-header-height) - var(--app-tab-height));
+  padding-bottom: 20px;
+  overflow-x: hidden;
+  min-height: 0;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.app-frame > .tab-bar {
+  height: var(--app-tab-height);
+  padding-bottom: calc(7px + var(--app-safe-bottom));
+  padding-left: calc(12px + var(--app-safe-left));
+  padding-right: calc(12px + var(--app-safe-right));
+}
+
+.app-frame.intro-screen > .intro-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.app-frame.intro-screen > button { top: calc(25px + var(--app-safe-top)); right: calc(18px + var(--app-safe-right)); min-height: 36px; }
+.app-frame.intro-screen > p { top: calc(28px + var(--app-safe-top)); left: calc(22px + var(--app-safe-left)); }
+
+/* Header and bottom tabs stay outside the heritage page's only vertical scroller. */
+body .app-frame.heritage-shell > .page-content {
+  height: calc(100% - var(--app-header-height) - var(--app-tab-height));
+  padding-bottom: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-padding-block: 16px;
+}
+
+.heritage-shell .culture-explore .explore-rail {
+  touch-action: pan-x pan-y;
+  overscroll-behavior-x: contain;
+}
+
+.heritage-shell .heritage-hero-story {
+  display: block;
+  width: calc(100% - 36px);
+  padding: 0;
+  border: 0;
+  text-align: left;
+}
+
+.heritage-shell .heritage-hero-story:focus-visible,
+.heritage-shell .heritage-story-card:focus-visible,
+.heritage-shell .heritage-list-card:focus-visible {
+  outline: 3px solid #357fa6;
+  outline-offset: -3px;
+}
+
+/* A story belongs to the fixed shell, never the content being scrolled beneath it. */
+.app-frame.heritage-shell > .heritage-story-modal {
+  position: absolute;
+  inset: var(--app-header-height) var(--app-safe-right) var(--app-tab-height) var(--app-safe-left);
+  min-height: 0;
+  overscroll-behavior: contain;
+}
+
+.heritage-shell .heritage-story-sheet {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100% - 12px);
+  min-height: 0;
+}
+
+.heritage-shell .story-cover {
+  flex: 0 0 clamp(110px, 23dvh, 184px);
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: 45px;
+}
+
+.heritage-shell .story-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heritage-shell .heritage-story-sheet { animation: none; }
+}
+
+
+.app-frame > .tab-bar .tab-item { min-width: 0; min-height: 44px; }
+
+body .app-frame.map-shell > .page-content { padding: 0; overflow: hidden; }
+
+.app-frame.workshop-shell .workshop-page,
+.app-frame.workshop-shell .workshop-landing { min-height: 100%; }
+
+/* The home composition scales against usable space, after navigation and safe areas. */
+body .app-frame.home-shell > .page-content { container-type: size; }
+
+.app-frame.home-shell .daily-hero {
+  --home-avatar-width: min(62cqw, 300px);
+  --home-dialog-avatar-width: min(44cqw, 220px);
+  --home-avatar-right: max(8px, 2cqw);
+  --home-dialog-left: 16px;
+  --home-dialog-gap: 12px;
+}
+
+.app-frame.home-shell .daily-hero:has(.opening-guide, .pet-speech) {
+  --home-avatar-width: var(--home-dialog-avatar-width);
+}
+
+body main.app-frame.home-shell .page-content .daily-hero .home-avatar-model {
+  left: auto !important;
+  right: var(--home-avatar-right);
+  bottom: max(8px, 2cqh) !important;
+  width: var(--home-avatar-width);
+  height: min(66cqh, 382px);
+  max-width: none;
+  transform: none !important;
+}
+
+.app-frame.home-shell .daily-hero .dress-copy {
+  top: clamp(18px, 4cqh, 30px) !important;
+  left: clamp(18px, 5cqw, 25px) !important;
+}
+
+.app-frame.home-shell .dress-copy h1 { font-size: clamp(24px, 7cqw, 28px); }
+.app-frame.home-shell .daily-hero .dress-seal { top: clamp(24px, 5cqh, 40px) !important; right: 20px; }
+
+.app-frame.home-shell .opening-guide,
+.app-frame.home-shell .pet-speech {
+  left: var(--home-dialog-left);
+  right: calc(var(--home-avatar-width) + var(--home-avatar-right) + var(--home-dialog-gap));
+  width: auto;
+  max-width: none;
+  bottom: 20px;
+  max-height: calc(100% - 150px);
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+
+.app-frame.home-shell .opening-guide::after { display: none; }
+.app-frame.home-shell .opening-guide button { min-height: 36px; }
+.app-frame.home-shell .pet-speech {
+  top: var(--home-chat-top, 150px);
+  max-height: none;
+  display: flex;
+  flex-direction: column;
+  padding-right: 3px;
+}
+.app-frame.home-shell .pet-speech .chat-history {
+  flex: 1 1 auto;
+  min-height: 64px;
+  max-height: none;
+  justify-content: flex-start;
+}
+.app-frame.home-shell .pet-speech .chat-history > :first-child { margin-top: auto; }
+.app-frame.home-shell .pet-speech > .pet-close,
+.app-frame.home-shell .pet-speech > .chat-suggestions,
+.app-frame.home-shell .pet-speech > form { flex-shrink: 0; }
+.app-frame.home-shell .pet-speech input { min-width: 0; font-size: 16px; }
+.app-frame.home-shell .pet-speech .chat-suggestions button { white-space: normal; }
+.app-frame.home-shell .pet-speech .chat-suggestions button span { min-width: 0; overflow-wrap: anywhere; }
+.app-frame.home-shell .joson-chat-trigger,
+.app-frame.home-shell .joson-chat-trigger.compact { bottom: 20px; min-height: 44px; }
+
+@media (max-width: 359px) {
+  .app-frame.workshop-shell .game-card { grid-template-columns: 32px minmax(0, 1fr); gap: 7px; padding: 10px; }
+  .app-frame.workshop-shell .game-card i { width: 32px; height: 32px; font-size: 23px; }
+  .app-frame.workshop-shell .game-card b { font-size: 13px; }
+}
+
+@container app-frame (max-height: 599px) and (min-width: 520px) {
+  .app-frame.home-shell .daily-hero { --home-avatar-width: 32cqw; --home-dialog-avatar-width: 32cqw; --home-dialog-left: 28%; }
+  .app-frame.home-shell .daily-hero .dress-copy { top: 15px !important; left: 16px !important; width: 24%; }
+  .app-frame.home-shell .dress-copy h1 { font-size: 23px; }
+  .app-frame.home-shell .daily-hero .dress-seal { right: 12px; top: 12px !important; font-size: 13px; }
+  body main.app-frame.home-shell .page-content .daily-hero .home-avatar-model { height: 94cqh; bottom: 0 !important; }
+  .app-frame.home-shell .opening-guide,
+  .app-frame.home-shell .pet-speech { bottom: 12px; max-height: calc(100% - 24px); }
+  .app-frame.home-shell .opening-guide { top: 12px; bottom: auto; }
+  .app-frame.home-shell .pet-speech { max-height: none; }
+  .app-frame.home-shell .joson-chat-trigger,
+  .app-frame.home-shell .joson-chat-trigger.compact { bottom: 12px; }
+  .app-frame.map-shell .scene-top-hud { left: 10px; right: auto; width: 36%; }
+  .app-frame.map-shell .scene-brand h1 { font-size: 14px; }
+  .app-frame.map-shell .avatar-selector-bar { top: 10px; left: 40%; width: calc(60% - 146px); max-height: 70px; overflow-y: auto; }
+  .app-frame.map-shell .outfit-pills { max-height: none; }
+  .app-frame.map-shell .scene-float-tools { top: 8px; right: 10px; max-height: calc(100% - 16px); overflow-y: auto; }
+  .app-frame.map-shell .scene-float-tools > * { flex-shrink: 0; }
+  .app-frame.map-shell .map-access-toggle { top: 90px; left: 10px; right: auto; }
+  .app-frame.map-shell .landmarks-quick-nav { left: 108px; right: 144px; bottom: 10px; }
+  .app-frame.map-shell .virtual-joystick-zone { left: 16px; bottom: 10px; }
+  .app-frame.map-shell .poi-interaction-bubble { left: 108px; right: 144px; width: auto; max-width: none; bottom: 64px; max-height: calc(100% - 158px); align-items: flex-start; gap: 8px; padding: 6px 10px; overflow-y: auto; }
+  .app-frame.map-shell .map-focus-card { left: 25%; right: 20%; bottom: 62px; max-height: calc(100% - 74px); overflow-y: auto; }
+}
+
+
+/* Short portrait screens keep map tools scrollable above the landmark rail. */
+@container app-frame (max-height: 650px) and (max-width: 519px) {
+  .app-frame.map-shell .scene-float-tools,
+  .app-frame.map-shell .avatar-selector-bar { max-height: max(74px, calc(100% - 295px)); overflow-y: auto; }
+  .app-frame.map-shell .scene-float-tools > * { flex-shrink: 0; }
+  .app-frame.map-shell .outfit-pills { max-height: none; flex-shrink: 0; }
+  .app-frame.map-shell .landmarks-quick-nav { bottom: 106px; }
+}
+
+
+/* Map overlays use the available scene, including when the phone is rotated. */
+.app-frame.map-shell .map-detail-card { max-height: 100%; }
+.app-frame.map-shell .map-game-card { height: 100%; max-height: 720px; min-height: 0; }
+.app-frame.map-shell .map-game-card header { gap: 7px; padding-inline: 10px; }
+.app-frame.map-shell .map-game-card header span { max-width: 38%; }
+.app-frame.map-shell .map-game-card header b { min-width: 0; font-size: 13px; }
+.app-frame.map-shell .map-game-card header button { flex-shrink: 0; }
+.app-frame.map-shell .lusheng-viewer-modal model-viewer { min-width: 0; min-height: 0; }
+.app-frame.map-shell .lusheng-viewer-copy { min-height: 0; overflow-y: auto; }
+
+@container app-frame (max-width: 519px) {
+  .app-frame.map-shell .lusheng-viewer-modal {
+    inset: 5%;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, .65fr) minmax(0, 1fr);
+  }
+  .app-frame.map-shell .lusheng-viewer-copy { align-self: stretch; padding: 45px 16px 12px; }
+  .app-frame.map-shell .lusheng-viewer-copy h2 { font-size: 23px; }
+  .app-frame.map-shell .lusheng-viewer-modal.copy-collapsed { grid-template-rows: minmax(0, 1fr); }
+}
+
+@container app-frame (max-height: 599px) and (min-width: 520px) {
+  .app-frame.map-shell .lusheng-viewer-modal { inset: 5%; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .app-frame.map-shell .lusheng-viewer-copy { align-self: stretch; padding: 43px 14px 12px; }
+  .app-frame.map-shell .lusheng-viewer-copy h2 { font-size: 20px; }
+  .app-frame.map-shell .lusheng-viewer-modal.copy-collapsed { grid-template-columns: minmax(0, 1fr); }
+}
+
+@container app-frame (max-height: 599px) and (min-width: 520px) {
+  .app-frame.map-shell .tod-switcher { overflow-x: auto; padding-bottom: 3px; }
+  .app-frame.map-shell .tod-btn { flex: 0 0 auto; white-space: nowrap; }
+  .app-frame.map-shell .outfit-pills { flex-direction: row; overflow-x: auto; padding-bottom: 4px; }
+  .app-frame.map-shell .outfit-pill { flex: 0 0 auto; }
+}
+
+
+
+/* Leave a clear row between portrait map shortcuts and movement/detail controls. */
+@container app-frame (max-width: 519px) {
+  .app-frame.map-shell .landmarks-quick-nav { bottom: 112px; }
+  .app-frame.map-shell .virtual-joystick-zone { bottom: 12px; }
+  .app-frame.map-shell .poi-interaction-bubble { bottom: 12px; max-height: 86px; overflow-y: auto; }
+}

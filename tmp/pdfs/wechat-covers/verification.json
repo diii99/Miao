@@ -1,0 +1,30 @@
+[
+  {
+    "file": "苗家亲_产品操作手册_V0.1.0.pdf",
+    "pages": 22,
+    "image_rect": [
+      42,
+      110,
+      152,
+      220
+    ],
+    "image_added": true,
+    "text_unchanged": true,
+    "body_pages_unchanged": true,
+    "website_link_preserved": true
+  },
+  {
+    "file": "苗家亲_产品说明书_V0.1.0.pdf",
+    "pages": 8,
+    "image_rect": [
+      42,
+      110,
+      152,
+      220
+    ],
+    "image_added": true,
+    "text_unchanged": true,
+    "body_pages_unchanged": true,
+    "website_link_preserved": true
+  }
+]

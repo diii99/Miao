@@ -1,0 +1,168 @@
+{
+  "markdown_sha256": "a175a4858cc1a00dc10c9129f92307a3b22268cfe286ad8bf53a3d3878bbe32b",
+  "pages": 22,
+  "chapters": [
+    {
+      "title": "目录",
+      "page": 2
+    },
+    {
+      "title": "认识苗家亲，完成第一次体验",
+      "page": 3
+    },
+    {
+      "title": "和纠笙开始一段对话",
+      "page": 4
+    },
+    {
+      "title": "看懂地图和视角工具",
+      "page": 5
+    },
+    {
+      "title": "定位地标并沿路步行",
+      "page": 6
+    },
+    {
+      "title": "换装、看展和返回地图",
+      "page": 7
+    },
+    {
+      "title": "从搜索进入文化档案",
+      "page": 8
+    },
+    {
+      "title": "阅读故事、跳转目录与查来源",
+      "page": 9
+    },
+    {
+      "title": "21 篇故事速查",
+      "page": 10
+    },
+    {
+      "title": "小游戏与手作定制（商业化）",
+      "page": 11
+    },
+    {
+      "title": "上传图片，生成手作预览",
+      "page": 12
+    },
+    {
+      "title": "查看结果与演示定制",
+      "page": 13
+    },
+    {
+      "title": "体验坊 / 玩偶",
+      "page": 14
+    },
+    {
+      "title": "蜡染三维工坊",
+      "page": 15
+    },
+    {
+      "title": "红酸汤体验坊",
+      "page": 16
+    },
+    {
+      "title": "炼铁工坊",
+      "page": 17
+    },
+    {
+      "title": "长桌宴游览",
+      "page": 18
+    },
+    {
+      "title": "苗家消消乐",
+      "page": 19
+    },
+    {
+      "title": "苗语传承",
+      "page": 20
+    },
+    {
+      "title": "常见问题",
+      "page": 21
+    },
+    {
+      "title": "访问路径与嵌入页面说明",
+      "page": 22
+    }
+  ],
+  "figures": [
+    {
+      "caption": "图 01  首页引导结束后的提问面板。",
+      "path": "D:\\Miao\\output\\pdf\\manual-assets\\02-guide.png",
+      "sha256": "1cf36054775f9cdbc2b8601d1d040427d78b4916beb3cacad449627b52186c81"
+    },
+    {
+      "caption": "图 02  俯视漫游：人物、光影、装扮、地标与摇杆。",
+      "path": "D:\\Miao\\output\\pdf\\manual-assets\\13-map.png",
+      "sha256": "dfbdbcbf4efdc5fcb512d8242a4c58940617083da1cb6b1926a520c984acc4fd"
+    },
+    {
+      "caption": "图 03  地标卡片提供“沿路步行前往”和“查看详情”。",
+      "path": "D:\\Miao\\output\\pdf\\manual-assets\\15-landmark.png",
+      "sha256": "3ce6758cd08c39cc748dc4d48bf573f1f5d217d626b3d05e67f9f07faa589934"
+    },
+    {
+      "caption": "图 04  宏观全景可帮助理解主要地标的相对位置。",
+      "path": "D:\\Miao\\output\\pdf\\manual-assets\\14-overview.png",
+      "sha256": "59efd564acafd61ea4bc4b1ede5fbfda0fdada663ef9a49344e88732d1ec5c20"
+    },
+    {
+      "caption": "图 05  输入“苗绣”后显示相关故事，搜索可匹配正文。",
+      "path": "D:\\Miao\\output\\pdf\\manual-assets\\05-search.png",
+      "sha256": "1de410904e5654e0bf699b0075bc94327394c64c5c0beccfb5cd3a42efca116a"
+    },
+    {
+      "caption": "图 06  故事详情展示地域、文化类别与收录说明。",
+      "path": "D:\\Miao\\output\\pdf\\manual-assets\\06-story.png",
+      "sha256": "6766d4725d612086d84a5932970baea9ec3ee9086fbaba79e5e97e234bfe222d"
+    },
+    {
+      "caption": "图 07  体验坊首页：六项游戏与下方手作卡片。",
+      "path": "D:\\Miao\\output\\pdf\\manual-assets\\08-workshop.png",
+      "sha256": "1d1846b505205a11f33655a518682837aec7f4e1344219d38bed5a990f563507"
+    },
+    {
+      "caption": "图 08  苗绣手作编辑页，先选择风格，再上传图片。",
+      "path": "D:\\Miao\\output\\pdf\\manual-assets\\09-editor.png",
+      "sha256": "566e2596ac3387312b29e7f8b2be9fe3890f2228113887fd109c8be29f4e3b40"
+    },
+    {
+      "caption": "图 09  本次使用项目内蝴蝶纹样图生成的本地预览。",
+      "path": "D:\\Miao\\output\\pdf\\manual-assets\\10-result.png",
+      "sha256": "6a84cfe89865be5f84f052b06684a041fc239a72516c3c1de02edd014cda236b"
+    },
+    {
+      "caption": "图 10  蜡染三维工坊，黄色提示是取刀入口。",
+      "path": "D:\\Miao\\output\\pdf\\manual-assets\\22-wax.png",
+      "sha256": "8ccb6b34618b75cdd2611f96583417dc17492bab7e8dd52da4b65d91ae36db3e"
+    },
+    {
+      "caption": "图 12  主料选择，毛辣果和红辣椒都需至少一份。",
+      "path": "D:\\Miao\\output\\pdf\\manual-assets\\18b-ingredients.png",
+      "sha256": "9a0de7ce865fda00ce79c7c8278f5785055dfcd9b120f5951f1a885166c44676"
+    },
+    {
+      "caption": "图 14  每道工序先显示介绍、操作提示和开始按钮。",
+      "path": "D:\\Miao\\output\\pdf\\manual-assets\\19b-step.png",
+      "sha256": "3b4dc06b3b0082126f9152be4c0cefbcc59de2da21728c7f382e3068646fbf3d"
+    },
+    {
+      "caption": "图 15  点击器皿打开展签，阅读“这一席”和“苗家讲究”。",
+      "path": "D:\\Miao\\output\\pdf\\manual-assets\\20c-feast-detail.png",
+      "sha256": "8bd0d2aeb4fb6bf0200008dcd61b7cca9e88851bbdd7a6f837d19c70a996b59f"
+    },
+    {
+      "caption": "图 16  棋盘上方显示剩余步数、收集目标和得分。",
+      "path": "D:\\Miao\\output\\pdf\\manual-assets\\17b-board.png",
+      "sha256": "30ddcf4654fda551d1885beb016b2fe160db2ca725c40af5652865df022f2039"
+    },
+    {
+      "caption": "图 17  作答后显示正确答案、苗文和解释。",
+      "path": "D:\\Miao\\output\\pdf\\manual-assets\\21b-answer.png",
+      "sha256": "8c92a843ea62ca0190b5e0ad295a5d8b6da1b4c44b739b9a524e27c3b6f08040"
+    }
+  ],
+  "avatar_count": 6
+}

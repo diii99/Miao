@@ -1,0 +1,1201 @@
+{
+  "status": "passed",
+  "createdAt": "2026-09-09T17:00:25.231Z",
+  "fingerprints": {
+    "src/map-3d/xijiang-layout.json": "8d56a59c90b5433961d1e658d166d150f79d8e55e2b2c52c00f05a4598b72f94",
+    "src/map-3d/xijiang-terrain.json": "f61bb87c8b5beee9ccd1c19a5ea39712b95f1c5cb1258c699b52cd0f44be6036",
+    "src/map-3d/xijiang-terrain-pads.json": "da7c3bc23577adff4d3577cbb7777e18af57b8bf9679e882a575eb3fdd7a3c92",
+    "src/map-3d/terrain.ts": "0a4401e65fa279d3bb4c298da7f75349f916e05c9d706aaf0788b7bf6fa3bb84",
+    "src/map-3d/navigation.ts": "072e84b1aa479036e1a0761a2c967b4371ba47d978c0d5418d3a38dc52de3dc0"
+  },
+  "checks": {
+    "surfaceMesh": {
+      "vertices": 64801,
+      "triangles": 129240,
+      "sha256": "9f46893a68b789d14742cf5e4086033fe1d73f2867e6bc67f96f036443332e0b"
+    },
+    "surfaceMeshVertexResidual": 0.94,
+    "sections": {
+      "sectionCount": 106,
+      "offRoadSections": 87,
+      "gradedSections": 19,
+      "maxFormulaError": 0,
+      "maxMeshError": 0.06778727687595243,
+      "maxGradedMeshError": 0.06778727687595243,
+      "sections": [
+        {
+          "station": "north",
+          "sceneX": -26,
+          "side": "ne",
+          "samples": [
+            {
+              "d": 31,
+              "roadBench": true,
+              "sourceRiseM": 0,
+              "modelRiseM": -0.207221,
+              "authoredRoadGradeM": -0.2,
+              "sourceErrorM": 0.207221,
+              "meshToRuntimeErrorM": 0.007221
+            },
+            {
+              "d": 40,
+              "roadBench": false,
+              "sourceRiseM": 1.3716,
+              "modelRiseM": 1.342977,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.028623,
+              "meshToRuntimeErrorM": 0.028623
+            },
+            {
+              "d": 60,
+              "roadBench": true,
+              "sourceRiseM": 3.5686,
+              "modelRiseM": 2.959317,
+              "authoredRoadGradeM": -0.62213,
+              "sourceErrorM": 0.609283,
+              "meshToRuntimeErrorM": 0.012847
+            },
+            {
+              "d": 80,
+              "roadBench": false,
+              "sourceRiseM": 5.0016,
+              "modelRiseM": 5.045566,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.043966,
+              "meshToRuntimeErrorM": 0.043966
+            },
+            {
+              "d": 100,
+              "roadBench": true,
+              "sourceRiseM": 7.7826,
+              "modelRiseM": 7.135735,
+              "authoredRoadGradeM": -0.689756,
+              "sourceErrorM": 0.646865,
+              "meshToRuntimeErrorM": 0.042891
+            },
+            {
+              "d": 120,
+              "roadBench": false,
+              "sourceRiseM": 12.5726,
+              "modelRiseM": 12.693744,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.121144,
+              "meshToRuntimeErrorM": 0.121144
+            },
+            {
+              "d": 140,
+              "roadBench": false,
+              "sourceRiseM": 21.6506,
+              "modelRiseM": 21.233547,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.417053,
+              "meshToRuntimeErrorM": 0.417053
+            },
+            {
+              "d": 160,
+              "roadBench": true,
+              "sourceRiseM": 27.1096,
+              "modelRiseM": 26.977888,
+              "authoredRoadGradeM": 0.372169,
+              "sourceErrorM": 0.131712,
+              "meshToRuntimeErrorM": 0.503881
+            },
+            {
+              "d": 180,
+              "roadBench": false,
+              "sourceRiseM": 30.6866,
+              "modelRiseM": 30.621014,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.065586,
+              "meshToRuntimeErrorM": 0.065586
+            },
+            {
+              "d": 200,
+              "roadBench": true,
+              "sourceRiseM": 33.2286,
+              "modelRiseM": 32.776063,
+              "authoredRoadGradeM": -0.544275,
+              "sourceErrorM": 0.452537,
+              "meshToRuntimeErrorM": 0.091737
+            },
+            {
+              "d": 220,
+              "roadBench": false,
+              "sourceRiseM": 34.0976,
+              "modelRiseM": 34.082072,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.015528,
+              "meshToRuntimeErrorM": 0.015528
+            },
+            {
+              "d": 240,
+              "roadBench": true,
+              "sourceRiseM": 35.4826,
+              "modelRiseM": 35.153518,
+              "authoredRoadGradeM": -0.246556,
+              "sourceErrorM": 0.329082,
+              "meshToRuntimeErrorM": 0.082527
+            },
+            {
+              "d": 260,
+              "roadBench": false,
+              "sourceRiseM": 38.0626,
+              "modelRiseM": 38.081364,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.018764,
+              "meshToRuntimeErrorM": 0.018764
+            },
+            {
+              "d": 280,
+              "roadBench": false,
+              "sourceRiseM": 43.8566,
+              "modelRiseM": 43.633342,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.223258,
+              "meshToRuntimeErrorM": 0.223258
+            },
+            {
+              "d": 300,
+              "roadBench": false,
+              "sourceRiseM": 45.6356,
+              "modelRiseM": 45.624753,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.010847,
+              "meshToRuntimeErrorM": 0.010847
+            }
+          ]
+        },
+        {
+          "station": "north",
+          "sceneX": -26,
+          "side": "sw",
+          "samples": [
+            {
+              "d": 31,
+              "roadBench": true,
+              "sourceRiseM": 0,
+              "modelRiseM": -0.207221,
+              "authoredRoadGradeM": -0.2,
+              "sourceErrorM": 0.207221,
+              "meshToRuntimeErrorM": 0.007221
+            },
+            {
+              "d": 40,
+              "roadBench": false,
+              "sourceRiseM": 2.2572,
+              "modelRiseM": 2.231117,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.026083,
+              "meshToRuntimeErrorM": 0.026083
+            },
+            {
+              "d": 60,
+              "roadBench": false,
+              "sourceRiseM": 9.2542,
+              "modelRiseM": 9.305521,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.051321,
+              "meshToRuntimeErrorM": 0.051321
+            },
+            {
+              "d": 80,
+              "roadBench": false,
+              "sourceRiseM": 17.3432,
+              "modelRiseM": 17.325433,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.017767,
+              "meshToRuntimeErrorM": 0.017767
+            },
+            {
+              "d": 100,
+              "roadBench": false,
+              "sourceRiseM": 24.0772,
+              "modelRiseM": 24.083302,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.006102,
+              "meshToRuntimeErrorM": 0.006102
+            },
+            {
+              "d": 120,
+              "roadBench": false,
+              "sourceRiseM": 30.7142,
+              "modelRiseM": 30.701605,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.012595,
+              "meshToRuntimeErrorM": 0.012595
+            },
+            {
+              "d": 140,
+              "roadBench": false,
+              "sourceRiseM": 36.4552,
+              "modelRiseM": 36.483452,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.028252,
+              "meshToRuntimeErrorM": 0.028252
+            },
+            {
+              "d": 160,
+              "roadBench": false,
+              "sourceRiseM": 40.9752,
+              "modelRiseM": 40.97221,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.00299,
+              "meshToRuntimeErrorM": 0.00299
+            },
+            {
+              "d": 180,
+              "roadBench": false,
+              "sourceRiseM": 44.7192,
+              "modelRiseM": 44.851169,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.131969,
+              "meshToRuntimeErrorM": 0.131969
+            },
+            {
+              "d": 200,
+              "roadBench": false,
+              "sourceRiseM": 51.0662,
+              "modelRiseM": 51.305049,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.238849,
+              "meshToRuntimeErrorM": 0.238849
+            },
+            {
+              "d": 220,
+              "roadBench": false,
+              "sourceRiseM": 60.4342,
+              "modelRiseM": 60.641934,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.207734,
+              "meshToRuntimeErrorM": 0.207734
+            },
+            {
+              "d": 240,
+              "roadBench": false,
+              "sourceRiseM": 74.2562,
+              "modelRiseM": 74.34276,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.08656,
+              "meshToRuntimeErrorM": 0.08656
+            },
+            {
+              "d": 260,
+              "roadBench": false,
+              "sourceRiseM": 90.3932,
+              "modelRiseM": 90.385663,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.007537,
+              "meshToRuntimeErrorM": 0.007537
+            },
+            {
+              "d": 280,
+              "roadBench": false,
+              "sourceRiseM": 104.6382,
+              "modelRiseM": 104.582154,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.056046,
+              "meshToRuntimeErrorM": 0.056046
+            }
+          ]
+        },
+        {
+          "station": "core",
+          "sceneX": -6,
+          "side": "ne",
+          "samples": [
+            {
+              "d": 120,
+              "roadBench": true,
+              "sourceRiseM": 5.76245,
+              "modelRiseM": 5.71063,
+              "authoredRoadGradeM": -0.034461,
+              "sourceErrorM": 0.05182,
+              "meshToRuntimeErrorM": 0.017359
+            },
+            {
+              "d": 140,
+              "roadBench": false,
+              "sourceRiseM": 6.74645,
+              "modelRiseM": 6.776476,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.030026,
+              "meshToRuntimeErrorM": 0.030026
+            },
+            {
+              "d": 160,
+              "roadBench": true,
+              "sourceRiseM": 9.53645,
+              "modelRiseM": 9.043012,
+              "authoredRoadGradeM": -0.511972,
+              "sourceErrorM": 0.493438,
+              "meshToRuntimeErrorM": 0.018535
+            },
+            {
+              "d": 180,
+              "roadBench": false,
+              "sourceRiseM": 13.35845,
+              "modelRiseM": 13.466582,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.108132,
+              "meshToRuntimeErrorM": 0.108132
+            },
+            {
+              "d": 200,
+              "roadBench": true,
+              "sourceRiseM": 18.43745,
+              "modelRiseM": 17.089336,
+              "authoredRoadGradeM": -1.370112,
+              "sourceErrorM": 1.348114,
+              "meshToRuntimeErrorM": 0.021998
+            },
+            {
+              "d": 220,
+              "roadBench": false,
+              "sourceRiseM": 23.98145,
+              "modelRiseM": 24.032721,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.051271,
+              "meshToRuntimeErrorM": 0.051271
+            },
+            {
+              "d": 240,
+              "roadBench": true,
+              "sourceRiseM": 28.73145,
+              "modelRiseM": 27.724471,
+              "authoredRoadGradeM": -1.468021,
+              "sourceErrorM": 1.006979,
+              "meshToRuntimeErrorM": 0.461042
+            },
+            {
+              "d": 260,
+              "roadBench": false,
+              "sourceRiseM": 33.78445,
+              "modelRiseM": 33.927875,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.143425,
+              "meshToRuntimeErrorM": 0.143425
+            },
+            {
+              "d": 280,
+              "roadBench": false,
+              "sourceRiseM": 40.93145,
+              "modelRiseM": 41.133031,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.201581,
+              "meshToRuntimeErrorM": 0.201581
+            },
+            {
+              "d": 300,
+              "roadBench": false,
+              "sourceRiseM": 48.74645,
+              "modelRiseM": 48.860972,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.114522,
+              "meshToRuntimeErrorM": 0.114522
+            }
+          ]
+        },
+        {
+          "station": "core",
+          "sceneX": -6,
+          "side": "sw",
+          "samples": [
+            {
+              "d": 31,
+              "roadBench": true,
+              "sourceRiseM": 0,
+              "modelRiseM": -0.207221,
+              "authoredRoadGradeM": -0.2,
+              "sourceErrorM": 0.207221,
+              "meshToRuntimeErrorM": 0.007221
+            },
+            {
+              "d": 40,
+              "roadBench": false,
+              "sourceRiseM": 1.82115,
+              "modelRiseM": 1.88359,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.06244,
+              "meshToRuntimeErrorM": 0.06244
+            },
+            {
+              "d": 60,
+              "roadBench": false,
+              "sourceRiseM": 8.99815,
+              "modelRiseM": 8.996959,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.001191,
+              "meshToRuntimeErrorM": 0.001191
+            },
+            {
+              "d": 80,
+              "roadBench": false,
+              "sourceRiseM": 16.88515,
+              "modelRiseM": 16.862067,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.023083,
+              "meshToRuntimeErrorM": 0.023083
+            },
+            {
+              "d": 100,
+              "roadBench": false,
+              "sourceRiseM": 25.19815,
+              "modelRiseM": 25.249822,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.051672,
+              "meshToRuntimeErrorM": 0.051672
+            },
+            {
+              "d": 120,
+              "roadBench": false,
+              "sourceRiseM": 36.03715,
+              "modelRiseM": 35.958416,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.078734,
+              "meshToRuntimeErrorM": 0.078734
+            },
+            {
+              "d": 140,
+              "roadBench": false,
+              "sourceRiseM": 46.42615,
+              "modelRiseM": 46.349246,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.076904,
+              "meshToRuntimeErrorM": 0.076904
+            },
+            {
+              "d": 160,
+              "roadBench": false,
+              "sourceRiseM": 54.68215,
+              "modelRiseM": 54.518132,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.164018,
+              "meshToRuntimeErrorM": 0.164018
+            },
+            {
+              "d": 180,
+              "roadBench": false,
+              "sourceRiseM": 60.82915,
+              "modelRiseM": 60.757352,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.071798,
+              "meshToRuntimeErrorM": 0.071798
+            },
+            {
+              "d": 200,
+              "roadBench": false,
+              "sourceRiseM": 66.41415,
+              "modelRiseM": 66.359995,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.054155,
+              "meshToRuntimeErrorM": 0.054155
+            },
+            {
+              "d": 220,
+              "roadBench": false,
+              "sourceRiseM": 74.06915,
+              "modelRiseM": 73.976028,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.093122,
+              "meshToRuntimeErrorM": 0.093122
+            },
+            {
+              "d": 240,
+              "roadBench": false,
+              "sourceRiseM": 82.32315,
+              "modelRiseM": 82.335505,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.012355,
+              "meshToRuntimeErrorM": 0.012355
+            },
+            {
+              "d": 260,
+              "roadBench": false,
+              "sourceRiseM": 92.76315,
+              "modelRiseM": 92.71946,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.04369,
+              "meshToRuntimeErrorM": 0.04369
+            },
+            {
+              "d": 280,
+              "roadBench": false,
+              "sourceRiseM": 105.92115,
+              "modelRiseM": 105.74116,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.17999,
+              "meshToRuntimeErrorM": 0.17999
+            },
+            {
+              "d": 300,
+              "roadBench": false,
+              "sourceRiseM": 116.34015,
+              "modelRiseM": 116.220031,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.120119,
+              "meshToRuntimeErrorM": 0.120119
+            }
+          ]
+        },
+        {
+          "station": "south",
+          "sceneX": 14,
+          "side": "ne",
+          "samples": [
+            {
+              "d": 31,
+              "roadBench": true,
+              "sourceRiseM": 0,
+              "modelRiseM": -0.207221,
+              "authoredRoadGradeM": -0.2,
+              "sourceErrorM": 0.207221,
+              "meshToRuntimeErrorM": 0.007221
+            },
+            {
+              "d": 40,
+              "roadBench": false,
+              "sourceRiseM": 1.6389,
+              "modelRiseM": 1.626855,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.012045,
+              "meshToRuntimeErrorM": 0.012045
+            },
+            {
+              "d": 100,
+              "roadBench": true,
+              "sourceRiseM": 9.1909,
+              "modelRiseM": 8.950284,
+              "authoredRoadGradeM": -0.249473,
+              "sourceErrorM": 0.240616,
+              "meshToRuntimeErrorM": 0.008857
+            },
+            {
+              "d": 120,
+              "roadBench": false,
+              "sourceRiseM": 11.2069,
+              "modelRiseM": 11.261926,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.055026,
+              "meshToRuntimeErrorM": 0.055026
+            },
+            {
+              "d": 140,
+              "roadBench": true,
+              "sourceRiseM": 12.8019,
+              "modelRiseM": 12.291112,
+              "authoredRoadGradeM": -0.609848,
+              "sourceErrorM": 0.510788,
+              "meshToRuntimeErrorM": 0.099059
+            },
+            {
+              "d": 160,
+              "roadBench": true,
+              "sourceRiseM": 14.2729,
+              "modelRiseM": 14.54066,
+              "authoredRoadGradeM": 0.161951,
+              "sourceErrorM": 0.26776,
+              "meshToRuntimeErrorM": 0.10581
+            },
+            {
+              "d": 180,
+              "roadBench": false,
+              "sourceRiseM": 16.8149,
+              "modelRiseM": 16.862933,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.048033,
+              "meshToRuntimeErrorM": 0.048033
+            },
+            {
+              "d": 200,
+              "roadBench": true,
+              "sourceRiseM": 20.4119,
+              "modelRiseM": 19.698612,
+              "authoredRoadGradeM": -0.935057,
+              "sourceErrorM": 0.713288,
+              "meshToRuntimeErrorM": 0.221769
+            },
+            {
+              "d": 220,
+              "roadBench": true,
+              "sourceRiseM": 28.1869,
+              "modelRiseM": 29.451206,
+              "authoredRoadGradeM": 1.023321,
+              "sourceErrorM": 1.264306,
+              "meshToRuntimeErrorM": 0.240985
+            },
+            {
+              "d": 240,
+              "roadBench": false,
+              "sourceRiseM": 37.8369,
+              "modelRiseM": 38.064433,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.227533,
+              "meshToRuntimeErrorM": 0.227533
+            },
+            {
+              "d": 260,
+              "roadBench": false,
+              "sourceRiseM": 52.0279,
+              "modelRiseM": 52.137056,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.109156,
+              "meshToRuntimeErrorM": 0.109156
+            },
+            {
+              "d": 280,
+              "roadBench": false,
+              "sourceRiseM": 67.8419,
+              "modelRiseM": 67.706476,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.135424,
+              "meshToRuntimeErrorM": 0.135424
+            },
+            {
+              "d": 300,
+              "roadBench": false,
+              "sourceRiseM": 77.9529,
+              "modelRiseM": 77.798111,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.154789,
+              "meshToRuntimeErrorM": 0.154789
+            }
+          ]
+        },
+        {
+          "station": "south",
+          "sceneX": 14,
+          "side": "sw",
+          "samples": [
+            {
+              "d": 31,
+              "roadBench": true,
+              "sourceRiseM": 0,
+              "modelRiseM": -0.207221,
+              "authoredRoadGradeM": -0.2,
+              "sourceErrorM": 0.207221,
+              "meshToRuntimeErrorM": 0.007221
+            },
+            {
+              "d": 40,
+              "roadBench": false,
+              "sourceRiseM": 1.8009,
+              "modelRiseM": 1.763009,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.037891,
+              "meshToRuntimeErrorM": 0.037891
+            },
+            {
+              "d": 60,
+              "roadBench": false,
+              "sourceRiseM": 4.8719,
+              "modelRiseM": 4.885214,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.013314,
+              "meshToRuntimeErrorM": 0.013314
+            },
+            {
+              "d": 80,
+              "roadBench": false,
+              "sourceRiseM": 8.2809,
+              "modelRiseM": 8.342138,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.061238,
+              "meshToRuntimeErrorM": 0.061238
+            },
+            {
+              "d": 100,
+              "roadBench": false,
+              "sourceRiseM": 14.0629,
+              "modelRiseM": 14.146854,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.083954,
+              "meshToRuntimeErrorM": 0.083954
+            },
+            {
+              "d": 120,
+              "roadBench": false,
+              "sourceRiseM": 22.1149,
+              "modelRiseM": 22.133752,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.018852,
+              "meshToRuntimeErrorM": 0.018852
+            },
+            {
+              "d": 140,
+              "roadBench": false,
+              "sourceRiseM": 30.8659,
+              "modelRiseM": 30.861801,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.004099,
+              "meshToRuntimeErrorM": 0.004099
+            },
+            {
+              "d": 160,
+              "roadBench": false,
+              "sourceRiseM": 40.6909,
+              "modelRiseM": 40.772659,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.081759,
+              "meshToRuntimeErrorM": 0.081759
+            },
+            {
+              "d": 180,
+              "roadBench": false,
+              "sourceRiseM": 54.9599,
+              "modelRiseM": 54.607462,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.352438,
+              "meshToRuntimeErrorM": 0.352438
+            },
+            {
+              "d": 200,
+              "roadBench": false,
+              "sourceRiseM": 60.5229,
+              "modelRiseM": 60.417425,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.105475,
+              "meshToRuntimeErrorM": 0.105475
+            },
+            {
+              "d": 220,
+              "roadBench": false,
+              "sourceRiseM": 70.4889,
+              "modelRiseM": 70.114678,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.374222,
+              "meshToRuntimeErrorM": 0.374222
+            },
+            {
+              "d": 240,
+              "roadBench": false,
+              "sourceRiseM": 77.9829,
+              "modelRiseM": 77.774629,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.208271,
+              "meshToRuntimeErrorM": 0.208271
+            },
+            {
+              "d": 260,
+              "roadBench": false,
+              "sourceRiseM": 83.3129,
+              "modelRiseM": 83.35001,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.03711,
+              "meshToRuntimeErrorM": 0.03711
+            },
+            {
+              "d": 280,
+              "roadBench": false,
+              "sourceRiseM": 92.6259,
+              "modelRiseM": 92.540846,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.085054,
+              "meshToRuntimeErrorM": 0.085054
+            }
+          ]
+        },
+        {
+          "station": "downstream",
+          "sceneX": 34,
+          "side": "ne",
+          "samples": [
+            {
+              "d": 31,
+              "roadBench": false,
+              "sourceRiseM": 0,
+              "modelRiseM": 0.548473,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.548473,
+              "meshToRuntimeErrorM": 0.548473
+            },
+            {
+              "d": 40,
+              "roadBench": false,
+              "sourceRiseM": 5.95035,
+              "modelRiseM": 5.887116,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.063234,
+              "meshToRuntimeErrorM": 0.063234
+            },
+            {
+              "d": 60,
+              "roadBench": false,
+              "sourceRiseM": 15.11135,
+              "modelRiseM": 15.054229,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.057121,
+              "meshToRuntimeErrorM": 0.057121
+            },
+            {
+              "d": 80,
+              "roadBench": false,
+              "sourceRiseM": 23.18635,
+              "modelRiseM": 22.95962,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.22673,
+              "meshToRuntimeErrorM": 0.22673
+            },
+            {
+              "d": 100,
+              "roadBench": false,
+              "sourceRiseM": 25.44035,
+              "modelRiseM": 25.528929,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.088579,
+              "meshToRuntimeErrorM": 0.088579
+            },
+            {
+              "d": 120,
+              "roadBench": false,
+              "sourceRiseM": 31.12235,
+              "modelRiseM": 31.006809,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.115541,
+              "meshToRuntimeErrorM": 0.115541
+            },
+            {
+              "d": 140,
+              "roadBench": false,
+              "sourceRiseM": 35.73735,
+              "modelRiseM": 35.797404,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.060054,
+              "meshToRuntimeErrorM": 0.060054
+            },
+            {
+              "d": 160,
+              "roadBench": false,
+              "sourceRiseM": 42.64235,
+              "modelRiseM": 42.635607,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.006743,
+              "meshToRuntimeErrorM": 0.006743
+            },
+            {
+              "d": 180,
+              "roadBench": false,
+              "sourceRiseM": 50.30535,
+              "modelRiseM": 50.306483,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.001133,
+              "meshToRuntimeErrorM": 0.001133
+            },
+            {
+              "d": 200,
+              "roadBench": false,
+              "sourceRiseM": 59.17235,
+              "modelRiseM": 59.255644,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.083294,
+              "meshToRuntimeErrorM": 0.083294
+            },
+            {
+              "d": 220,
+              "roadBench": false,
+              "sourceRiseM": 71.61235,
+              "modelRiseM": 71.363665,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.248685,
+              "meshToRuntimeErrorM": 0.248685
+            },
+            {
+              "d": 240,
+              "roadBench": false,
+              "sourceRiseM": 83.05435,
+              "modelRiseM": 82.824578,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.229772,
+              "meshToRuntimeErrorM": 0.229772
+            },
+            {
+              "d": 260,
+              "roadBench": false,
+              "sourceRiseM": 95.22535,
+              "modelRiseM": 94.547477,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.677873,
+              "meshToRuntimeErrorM": 0.677873
+            },
+            {
+              "d": 280,
+              "roadBench": false,
+              "sourceRiseM": 101.05735,
+              "modelRiseM": 100.966528,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.090822,
+              "meshToRuntimeErrorM": 0.090822
+            },
+            {
+              "d": 300,
+              "roadBench": false,
+              "sourceRiseM": 103.85535,
+              "modelRiseM": 103.327564,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.527786,
+              "meshToRuntimeErrorM": 0.527786
+            }
+          ]
+        },
+        {
+          "station": "downstream",
+          "sceneX": 34,
+          "side": "sw",
+          "samples": [
+            {
+              "d": 31,
+              "roadBench": false,
+              "sourceRiseM": 0,
+              "modelRiseM": 0.102038,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.102038,
+              "meshToRuntimeErrorM": 0.102038
+            },
+            {
+              "d": 40,
+              "roadBench": false,
+              "sourceRiseM": 0.792,
+              "modelRiseM": 0.86611,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.07411,
+              "meshToRuntimeErrorM": 0.07411
+            },
+            {
+              "d": 60,
+              "roadBench": false,
+              "sourceRiseM": 4.242,
+              "modelRiseM": 4.169288,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.072712,
+              "meshToRuntimeErrorM": 0.072712
+            },
+            {
+              "d": 80,
+              "roadBench": false,
+              "sourceRiseM": 5.589,
+              "modelRiseM": 5.640365,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.051365,
+              "meshToRuntimeErrorM": 0.051365
+            },
+            {
+              "d": 100,
+              "roadBench": false,
+              "sourceRiseM": 9.351,
+              "modelRiseM": 9.183376,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.167624,
+              "meshToRuntimeErrorM": 0.167624
+            },
+            {
+              "d": 120,
+              "roadBench": false,
+              "sourceRiseM": 10.156,
+              "modelRiseM": 10.240081,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.084081,
+              "meshToRuntimeErrorM": 0.084081
+            },
+            {
+              "d": 140,
+              "roadBench": false,
+              "sourceRiseM": 11.167,
+              "modelRiseM": 11.236781,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.069781,
+              "meshToRuntimeErrorM": 0.069781
+            },
+            {
+              "d": 160,
+              "roadBench": false,
+              "sourceRiseM": 13.165,
+              "modelRiseM": 13.21396,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.04896,
+              "meshToRuntimeErrorM": 0.04896
+            },
+            {
+              "d": 180,
+              "roadBench": false,
+              "sourceRiseM": 14.565,
+              "modelRiseM": 14.771906,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.206906,
+              "meshToRuntimeErrorM": 0.206906
+            },
+            {
+              "d": 200,
+              "roadBench": false,
+              "sourceRiseM": 17.86,
+              "modelRiseM": 18.165374,
+              "authoredRoadGradeM": 0,
+              "sourceErrorM": 0.305374,
+              "meshToRuntimeErrorM": 0.305374
+            }
+          ]
+        }
+      ],
+      "outsideCutaway": [
+        {
+          "profile": "north",
+          "side": "sw",
+          "d": 300,
+          "x": -26,
+          "z": 33.16009666165445,
+          "reason": "Outside authored oval extent"
+        },
+        {
+          "profile": "south",
+          "side": "sw",
+          "d": 300,
+          "x": 14,
+          "z": 38.39509775399944,
+          "reason": "Outside authored oval extent"
+        },
+        {
+          "profile": "downstream",
+          "side": "sw",
+          "d": 220,
+          "x": 34,
+          "z": 27.537457929339162,
+          "reason": "Outside authored oval extent"
+        },
+        {
+          "profile": "downstream",
+          "side": "sw",
+          "d": 240,
+          "x": 34,
+          "z": 29.537457929339162,
+          "reason": "Outside authored oval extent"
+        },
+        {
+          "profile": "downstream",
+          "side": "sw",
+          "d": 260,
+          "x": 34,
+          "z": 31.537457929339162,
+          "reason": "Outside authored oval extent"
+        },
+        {
+          "profile": "downstream",
+          "side": "sw",
+          "d": 280,
+          "x": 34,
+          "z": 33.53745792933916,
+          "reason": "Outside authored oval extent"
+        },
+        {
+          "profile": "downstream",
+          "side": "sw",
+          "d": 300,
+          "x": 34,
+          "z": 35.53745792933916,
+          "reason": "Outside authored oval extent"
+        }
+      ]
+    },
+    "ungradedCore": [
+      {
+        "x": -20,
+        "d": 150,
+        "height": 2.2708505000000043,
+        "final": 2.2708505000000043,
+        "natural": 2.2708505000000043
+      },
+      {
+        "x": -20,
+        "d": 200,
+        "height": 3.1991255000000063,
+        "final": 3.0838094022371743,
+        "natural": 3.1991255000000063
+      },
+      {
+        "x": -12,
+        "d": 150,
+        "height": 1.6213045,
+        "final": 1.5285436473214258,
+        "natural": 1.6213045
+      },
+      {
+        "x": -12,
+        "d": 200,
+        "height": 2.6074794999999975,
+        "final": 2.4714414908685978,
+        "natural": 2.6074794999999975
+      },
+      {
+        "x": 0,
+        "d": 200,
+        "height": 2.2229784999999915,
+        "final": 2.105383178571419,
+        "natural": 2.2229784999999915
+      },
+      {
+        "x": 12,
+        "d": 100,
+        "height": 1.1880954999999938,
+        "final": 1.1423342443560387,
+        "natural": 1.1880954999999938
+      },
+      {
+        "x": 12,
+        "d": 150,
+        "height": 1.6197804999999939,
+        "final": 1.573715249999997,
+        "natural": 1.6197804999999939
+      },
+      {
+        "x": 12,
+        "d": 200,
+        "height": 2.341445499999994,
+        "final": 2.2286683980025455,
+        "natural": 2.341445499999994
+      },
+      {
+        "x": 20,
+        "d": 100,
+        "height": 1.7265734999999949,
+        "final": 1.664752319340288,
+        "natural": 1.7265734999999949
+      },
+      {
+        "x": 20,
+        "d": 150,
+        "height": 2.443313499999995,
+        "final": 2.443313499999995,
+        "natural": 2.443313499999995
+      },
+      {
+        "x": 20,
+        "d": 200,
+        "height": 3.524003499999994,
+        "final": 3.3599782284811748,
+        "natural": 3.524003499999994
+      }
+    ],
+    "roadGradeScope": {
+      "unchangedOffRoad": 3507,
+      "maxUnintendedGrade": 0
+    },
+    "paths": {
+      "count": 32,
+      "samples": 10025,
+      "minimumCenterClearance": 0.09762882375845261,
+      "maximumGrade": 0.9919970576821211,
+      "centerPenetrations": 0,
+      "edgePenetrations": 0
+    },
+    "buildings": {
+      "count": 306,
+      "samples": 11016,
+      "minimumFloorClearance": 0.06371356330156441,
+      "maxRecordedCornerError": 1.1546319456101628e-14
+    },
+    "routes": {
+      "pois": 18,
+      "samples": 2357,
+      "maxRouteRise": 0.15027263839617022,
+      "maxRouteGrade": 0.9064175371732631
+    }
+  },
+  "failures": []
+}

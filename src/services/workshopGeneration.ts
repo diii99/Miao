@@ -32,6 +32,10 @@ const silverStyleGuidance: Record<string, string> = {
 const dollStyleGuidance: Record<string, string> = {
   'doll-silver-crown': '保留银冠、银项圈与靛蓝盛装的层次，让造型适合做成收藏级玩偶。',
   'doll-pleated-dress': '保留百褶裙、彩色绣片与舞动姿态的层次，让造型适合做成收藏级玩偶。',
+  'doll-indigo-headwrap': '保留靛蓝头帕、绣边上衣与百褶裙的造型层次。',
+  'doll-horn-crown': '保留高角冠饰、银项圈与彩绣盛服的造型层次。',
+  'doll-high-bun': '保留高束盘髻、绣衣与浅色围裙的造型层次。',
+  'doll-embroidered-cape': '保留彩绣披肩、流苏发饰与裙装的造型层次。',
 }
 
 /**

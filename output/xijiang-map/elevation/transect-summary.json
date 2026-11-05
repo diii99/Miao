@@ -1,0 +1,66 @@
+[
+  {
+    "id": "north",
+    "longitude": 108.16798609040734,
+    "latitude": 26.498500121832087,
+    "riverSurfaceM": 837.441,
+    "ne": {
+      "riseAt300m": 48.2,
+      "averageAngleDegrees": 9.1,
+      "elevationAt300m": 885.636
+    },
+    "sw": {
+      "riseAt300m": 122.2,
+      "averageAngleDegrees": 22.2,
+      "elevationAt300m": 959.668
+    }
+  },
+  {
+    "id": "core",
+    "longitude": 108.1677604,
+    "latitude": 26.4961842,
+    "riverSurfaceM": 839.736,
+    "ne": {
+      "riseAt300m": 48.1,
+      "averageAngleDegrees": 9.1,
+      "elevationAt300m": 887.801
+    },
+    "sw": {
+      "riseAt300m": 121.5,
+      "averageAngleDegrees": 22.0,
+      "elevationAt300m": 961.245
+    }
+  },
+  {
+    "id": "south",
+    "longitude": 108.16979184345841,
+    "latitude": 26.494097467174218,
+    "riverSurfaceM": 841.955,
+    "ne": {
+      "riseAt300m": 81.3,
+      "averageAngleDegrees": 15.2,
+      "elevationAt300m": 923.268
+    },
+    "sw": {
+      "riseAt300m": 107.0,
+      "averageAngleDegrees": 19.6,
+      "elevationAt300m": 948.954
+    }
+  },
+  {
+    "id": "downstream",
+    "longitude": 108.17856649331989,
+    "latitude": 26.48998783889833,
+    "riverSurfaceM": 855.326,
+    "ne": {
+      "riseAt300m": 119.5,
+      "averageAngleDegrees": 21.7,
+      "elevationAt300m": 974.848
+    },
+    "sw": {
+      "riseAt300m": 30.2,
+      "averageAngleDegrees": 5.8,
+      "elevationAt300m": 885.551
+    }
+  }
+]

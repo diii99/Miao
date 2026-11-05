@@ -1,0 +1,36 @@
+{
+  "checks": [
+    {
+      "route": "/miniapp/games/hongsuantang",
+      "no3D": true,
+      "scripts": [
+        "http://127.0.0.1:4178/assets/index-Uyvh-YO9.js"
+      ]
+    },
+    {
+      "route": "/",
+      "avatarLoaded": true,
+      "mapAndWaxDeferred": true
+    },
+    {
+      "route": "/workshop",
+      "dollsLoaded": 6,
+      "loadListenersWorking": true
+    },
+    {
+      "route": "/miniapp/map",
+      "modelReady": true,
+      "modeSwitch": true,
+      "viewerAndWaxDeferred": true
+    },
+    {
+      "route": "/miniapp/games/batik",
+      "canvasReady": true,
+      "pickKnife": true,
+      "otherFeaturesDeferred": true
+    }
+  ],
+  "errors": [],
+  "modelAssets": "Local public/人物/3d fixtures substitute for the production Worker /models endpoint.",
+  "status": "passed"
+}

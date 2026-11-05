@@ -1,0 +1,48 @@
+{
+  "markdown": "D:\\Miao\\output\\pdf\\苗家亲_产品说明书_V0.1.0.md",
+  "markdown_sha256": "a92ac68eca154f0395137989c05bf6b6d70b4025d3e335bf0a56c73af9696751",
+  "pdf": "D:\\Miao\\output\\pdf\\苗家亲_产品说明书_V0.1.0.pdf",
+  "pages": 8,
+  "chapters": [
+    {
+      "title": "一 产品定位",
+      "page": 1
+    },
+    {
+      "title": "二 产品希望解决的问题",
+      "page": 2
+    },
+    {
+      "title": "三 面向谁以及如何使用",
+      "page": 2
+    },
+    {
+      "title": "四 整体产品体验",
+      "page": 3
+    },
+    {
+      "title": "五 核心产品能力",
+      "page": 4
+    },
+    {
+      "title": "五 核心产品能力 续",
+      "page": 5
+    },
+    {
+      "title": "六 产品特色与可积累的价值",
+      "page": 6
+    },
+    {
+      "title": "七 客户合作与商业化方向",
+      "page": 7
+    },
+    {
+      "title": "八 面向投资与规模发展的推进思路",
+      "page": 8
+    },
+    {
+      "title": "九 当前版本与合作范围",
+      "page": 8
+    }
+  ]
+}

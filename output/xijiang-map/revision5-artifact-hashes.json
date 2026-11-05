@@ -1,0 +1,16 @@
+{
+  "revision": 5,
+  "validation": "Production build; 8 camera unit tests / 1807 assertions; decoded GLB terrain audit; all18POI/7bridge routes; targeted desktop+mobile zoom and joystick; 9 scene captures",
+  "priorFullRotationBrowserReport": "controls-verification.json predates terrain revision5; current rotation coverage is the camera math test suite",
+  "files": {
+    "public/map-assets/models/xijiang-valley.glb": "9f46893a68b789d14742cf5e4086033fe1d73f2867e6bc67f96f036443332e0b",
+    "src/map-3d/xijiang-layout.json": "8d56a59c90b5433961d1e658d166d150f79d8e55e2b2c52c00f05a4598b72f94",
+    "src/map-3d/xijiang-terrain.json": "f61bb87c8b5beee9ccd1c19a5ea39712b95f1c5cb1258c699b52cd0f44be6036",
+    "src/map-3d/xijiang-terrain-pads.json": "da7c3bc23577adff4d3577cbb7777e18af57b8bf9679e882a575eb3fdd7a3c92",
+    "src/map-3d/MiaoVillageScene.tsx": "5373d6a765012ca4d33612b8a8035355439193d6e9ec18a134f29908cac10628",
+    "src/map-3d/cameraNavigation.ts": "f064487b656f6816053ed4393990fb9ccd950600eb2862d5f86135a356da20a2",
+    "src/map-3d/terrain.ts": "0a4401e65fa279d3bb4c298da7f75349f916e05c9d706aaf0788b7bf6fa3bb84",
+    "scripts/build_xijiang_map.py": "35b86bb3b8b0beb9ee53ae6d578c2dfa6f20ea90b26a85745e6df03f9200c9b5",
+    "scripts/xijiang_terrain.py": "7c1e3bbce61bf68f1e821536cfea7da6918cfe9c816cff3e1bf66f1b0fc354e9"
+  }
+}

@@ -1,7 +1,7 @@
 export const CHAT_SYSTEM_PROMPT = [
   'You are 纠笙, a friendly guide to Guizhou Miao culture and travel.',
   "Answer in the user's language, be accurate, and stay focused on Miao culture or travel.",
-  'Never use markdown, titles, or lists. Your entire reply must contain no more than 20 words.',
+  'Never use markdown, titles, or lists. Keep your entire reply around 30 words, with a maximum of 30 words. For Chinese, use at most 30 Chinese characters, excluding punctuation.',
 ].join(' ')
 
 const WORD_UNIT_PATTERN = /[\p{Script=Han}]|[\p{L}\p{N}]+(?:[\u2019''-][\p{L}\p{N}]+)*/gu
@@ -20,12 +20,12 @@ export function normalizeMessages(input) {
   return messages.every(Boolean) ? messages : null
 }
 
-export function limitReplyToTwentyWords(value) {
+export function limitReplyToThirtyWords(value) {
   const reply = value.replace(/\s+/gu, ' ').trim()
   const units = Array.from(reply.matchAll(WORD_UNIT_PATTERN))
-  if (units.length <= 20) return reply
+  if (units.length <= 30) return reply
 
-  const lastUnit = units[19]
+  const lastUnit = units[29]
   const end = (lastUnit.index ?? 0) + lastUnit[0].length
   return reply.slice(0, end).replace(/[，。！？、,;:!?.…]+$/gu, '').trim()
 }
@@ -38,7 +38,7 @@ export async function requestGuideReply({ apiKey, messages, signal }) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      model: 'deepseek-v4-flash',
+      model: 'deepseek-flash',
       thinking: { type: 'disabled' },
       max_tokens: 80,
       temperature: 0.5,
@@ -51,7 +51,7 @@ export async function requestGuideReply({ apiKey, messages, signal }) {
   if (!upstream.ok) throw new Error(`DeepSeek request failed with ${upstream.status}`)
 
   const result = await upstream.json()
-  const reply = limitReplyToTwentyWords(result?.choices?.[0]?.message?.content ?? '')
+  const reply = limitReplyToThirtyWords(result?.choices?.[0]?.message?.content ?? '')
   if (!reply) throw new Error('DeepSeek returned an empty reply')
   return reply
 }

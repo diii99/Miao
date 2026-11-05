@@ -1,0 +1,1012 @@
+[
+  {
+    "size": {
+      "name": "folded",
+      "width": 280,
+      "height": 653
+    },
+    "checks": [
+      {
+        "name": "Guide: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 117.90518188476562,
+          "avatarWidth": 123.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Guide: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 117.90518188476562,
+          "avatarWidth": 123.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Conversation: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 108.73124694824219,
+          "avatarWidth": 123.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Conversation: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 108.73124694824219,
+          "avatarWidth": 123.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Long reply: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 120.8125,
+          "avatarWidth": 123.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Long reply: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 120.8125,
+          "avatarWidth": 123.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Input reachable above tabs",
+        "pass": true
+      },
+      {
+        "name": "Closed conversation restores avatar width",
+        "pass": true
+      },
+      {
+        "name": "Reopened conversation: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 108.73124694824219,
+          "avatarWidth": 123.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Reopened conversation: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 108.73124694824219,
+          "avatarWidth": 123.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "No browser runtime errors",
+        "pass": true,
+        "detail": []
+      }
+    ]
+  },
+  {
+    "size": {
+      "name": "small",
+      "width": 320,
+      "height": 480
+    },
+    "checks": [
+      {
+        "name": "Guide: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 131.2794952392578,
+          "avatarWidth": 140.796875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Guide: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 131.2794952392578,
+          "avatarWidth": 140.796875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Conversation: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 128.8828125,
+          "avatarWidth": 140.796875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Conversation: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 128.8828125,
+          "avatarWidth": 140.796875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Long reply: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 143.203125,
+          "avatarWidth": 140.796875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Long reply: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 143.203125,
+          "avatarWidth": 140.796875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Input reachable above tabs",
+        "pass": true
+      },
+      {
+        "name": "Closed conversation restores avatar width",
+        "pass": true
+      },
+      {
+        "name": "Reopened conversation: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 128.8828125,
+          "avatarWidth": 140.796875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Reopened conversation: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 128.8828125,
+          "avatarWidth": 140.796875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "No browser runtime errors",
+        "pass": true,
+        "detail": []
+      }
+    ]
+  },
+  {
+    "size": {
+      "name": "standard",
+      "width": 390,
+      "height": 844
+    },
+    "checks": [
+      {
+        "name": "Guide: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 167.21746826171875,
+          "avatarWidth": 171.59375,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Guide: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 167.21746826171875,
+          "avatarWidth": 171.59375,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Conversation: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 164.16561889648438,
+          "avatarWidth": 171.59375,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Conversation: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 164.16561889648438,
+          "avatarWidth": 171.59375,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Long reply: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 182.40625,
+          "avatarWidth": 171.59375,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Long reply: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 182.40625,
+          "avatarWidth": 171.59375,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Input reachable above tabs",
+        "pass": true
+      },
+      {
+        "name": "Closed conversation restores avatar width",
+        "pass": true
+      },
+      {
+        "name": "Reopened conversation: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 164.16561889648438,
+          "avatarWidth": 171.59375,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Reopened conversation: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 164.16561889648438,
+          "avatarWidth": 171.59375,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "No browser runtime errors",
+        "pass": true,
+        "detail": []
+      }
+    ]
+  },
+  {
+    "size": {
+      "name": "large",
+      "width": 440,
+      "height": 956
+    },
+    "checks": [
+      {
+        "name": "Guide: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 193.784912109375,
+          "avatarWidth": 193.59375,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Guide: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 193.784912109375,
+          "avatarWidth": 193.59375,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Conversation: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 188.6484375,
+          "avatarWidth": 193.59375,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Conversation: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 188.6484375,
+          "avatarWidth": 193.59375,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Long reply: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 209.609375,
+          "avatarWidth": 193.59375,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Long reply: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 209.609375,
+          "avatarWidth": 193.59375,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Input reachable above tabs",
+        "pass": true
+      },
+      {
+        "name": "Closed conversation restores avatar width",
+        "pass": true
+      },
+      {
+        "name": "Reopened conversation: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 188.6484375,
+          "avatarWidth": 193.59375,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Reopened conversation: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 188.6484375,
+          "avatarWidth": 193.59375,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "No browser runtime errors",
+        "pass": true,
+        "detail": []
+      }
+    ]
+  },
+  {
+    "size": {
+      "name": "wide",
+      "width": 480,
+      "height": 960
+    },
+    "checks": [
+      {
+        "name": "Guide: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 210.0629425048828,
+          "avatarWidth": 211.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Guide: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 210.0629425048828,
+          "avatarWidth": 211.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Conversation: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 208.0828094482422,
+          "avatarWidth": 211.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Conversation: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 208.0828094482422,
+          "avatarWidth": 211.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Long reply: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 231.203125,
+          "avatarWidth": 211.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Long reply: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 231.203125,
+          "avatarWidth": 211.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Input reachable above tabs",
+        "pass": true
+      },
+      {
+        "name": "Closed conversation restores avatar width",
+        "pass": true
+      },
+      {
+        "name": "Reopened conversation: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 208.0828094482422,
+          "avatarWidth": 211.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Reopened conversation: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 208.0828094482422,
+          "avatarWidth": 211.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "No browser runtime errors",
+        "pass": true,
+        "detail": []
+      }
+    ]
+  },
+  {
+    "size": {
+      "name": "landscape",
+      "width": 568,
+      "height": 320
+    },
+    "checks": [
+      {
+        "name": "Guide: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 186.875244140625,
+          "avatarWidth": 181.75,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Guide: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 186.875244140625,
+          "avatarWidth": 181.75,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Conversation: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 183.4734344482422,
+          "avatarWidth": 181.75,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Conversation: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 183.4734344482422,
+          "avatarWidth": 181.75,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Long reply: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 203.859375,
+          "avatarWidth": 181.75,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Long reply: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 203.859375,
+          "avatarWidth": 181.75,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Input reachable above tabs",
+        "pass": true
+      },
+      {
+        "name": "Closed conversation restores avatar width",
+        "pass": true
+      },
+      {
+        "name": "Reopened conversation: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 183.4734344482422,
+          "avatarWidth": 181.75,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Reopened conversation: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12,
+          "panelWidth": 183.4734344482422,
+          "avatarWidth": 181.75,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "No browser runtime errors",
+        "pass": true,
+        "detail": []
+      }
+    ]
+  },
+  {
+    "size": {
+      "name": "notched-landscape",
+      "width": 844,
+      "height": 390,
+      "safe": true
+    },
+    "checks": [
+      {
+        "name": "Guide: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 254.51837158203125,
+          "avatarWidth": 241.90625,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Guide: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 254.51837158203125,
+          "avatarWidth": 241.90625,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Conversation: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 247.76718139648438,
+          "avatarWidth": 241.90625,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Conversation: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 247.76718139648438,
+          "avatarWidth": 241.90625,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Long reply: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 275.296875,
+          "avatarWidth": 241.90625,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Long reply: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 275.296875,
+          "avatarWidth": 241.90625,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Input reachable above tabs",
+        "pass": true
+      },
+      {
+        "name": "Closed conversation restores avatar width",
+        "pass": true
+      },
+      {
+        "name": "Reopened conversation: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 247.76718139648438,
+          "avatarWidth": 241.90625,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Reopened conversation: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 247.76718139648438,
+          "avatarWidth": 241.90625,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "No browser runtime errors",
+        "pass": true,
+        "detail": []
+      }
+    ]
+  },
+  {
+    "size": {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "desktop": true
+    },
+    "checks": [
+      {
+        "name": "Guide: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 188.788818359375,
+          "avatarWidth": 189.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Guide: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 188.788818359375,
+          "avatarWidth": 189.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Conversation: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 183.7828369140625,
+          "avatarWidth": 189.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Conversation: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 183.7828369140625,
+          "avatarWidth": 189.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Long reply: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 204.203125,
+          "avatarWidth": 189.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Long reply: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 204.203125,
+          "avatarWidth": 189.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Input reachable above tabs",
+        "pass": true
+      },
+      {
+        "name": "Closed conversation restores avatar width",
+        "pass": true
+      },
+      {
+        "name": "Reopened conversation: at least12px separation",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 183.7828369140625,
+          "avatarWidth": 189.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "Reopened conversation: panel and model fit content",
+        "pass": true,
+        "detail": {
+          "gap": 12.015625,
+          "panelWidth": 183.7828369140625,
+          "avatarWidth": 189.1875,
+          "inBounds": true,
+          "avatarInBounds": true,
+          "noHorizontalOverflow": true,
+          "documentFits": true
+        }
+      },
+      {
+        "name": "No browser runtime errors",
+        "pass": true,
+        "detail": []
+      }
+    ]
+  }
+]

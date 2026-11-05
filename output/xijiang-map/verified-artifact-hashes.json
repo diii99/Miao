@@ -1,0 +1,16 @@
+{
+  "revision": 6,
+  "camera": "fixed-angle gameplay; 0.1–0.5 distance zoom, default0.3",
+  "validation": "10 camera/movement tests, 2129 assertions; desktop/mobile gameplay browser QA; production build; desktop and mobile-shell complete landmark routes follow avatar with fixed bearing",
+  "cameraReport": "gameplay-verification.json",
+  "terrainReport": "terrain-verification.json (unchanged revision5 model)",
+  "files": {
+    "src/map-3d/MiaoVillageScene.tsx": "d390bd6efd6ca756ffb4b280545fc43807c116b859d16574a5a475d88e18f488",
+    "src/map-3d/cameraNavigation.ts": "ad135b43272d29a4e2b22ea203fb1e79375c22d6c1cc1e7419b91584cfeac8e6",
+    "src/map-3d/navigation.ts": "072e84b1aa479036e1a0761a2c967b4371ba47d978c0d5418d3a38dc52de3dc0",
+    "src/map-3d/terrain.ts": "0a4401e65fa279d3bb4c298da7f75349f916e05c9d706aaf0788b7bf6fa3bb84",
+    "src/map-3d/xijiang-layout.json": "8d56a59c90b5433961d1e658d166d150f79d8e55e2b2c52c00f05a4598b72f94",
+    "public/map-assets/models/xijiang-valley.glb": "9f46893a68b789d14742cf5e4086033fe1d73f2867e6bc67f96f036443332e0b"
+  },
+  "routeReport": "gameplay-route-verification.json"
+}

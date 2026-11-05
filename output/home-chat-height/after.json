@@ -1,0 +1,154 @@
+[
+  {
+    "width": 390,
+    "height": 844,
+    "pass": true,
+    "metrics": {
+      "avatar": {
+        "top": 381.84375,
+        "bottom": 763.84375,
+        "height": 382,
+        "width": 171.59375
+      },
+      "copy": {
+        "top": 91.078125,
+        "bottom": 212.046875,
+        "height": 120.96875,
+        "width": 117.9375
+      },
+      "subtitle": {
+        "top": 196.046875,
+        "bottom": 211.046875,
+        "height": 15,
+        "width": 110
+      },
+      "chat": {
+        "top": 224.453125,
+        "bottom": 758.15625,
+        "height": 533.703125,
+        "width": 182.40625
+      }
+    },
+    "history": {
+      "height": 460,
+      "scrollHeight": 460,
+      "atBottom": true
+    },
+    "oldestReachable": true,
+    "errors": []
+  },
+  {
+    "width": 320,
+    "height": 480,
+    "pass": true,
+    "metrics": {
+      "avatar": {
+        "top": 169.8125,
+        "bottom": 414,
+        "height": 244.1875,
+        "width": 140.796875
+      },
+      "copy": {
+        "top": 70,
+        "bottom": 182.375,
+        "height": 112.375,
+        "width": 110
+      },
+      "subtitle": {
+        "top": 166.375,
+        "bottom": 181.375,
+        "height": 15,
+        "width": 110
+      },
+      "chat": {
+        "top": 194,
+        "bottom": 402,
+        "height": 208,
+        "width": 143.203125
+      }
+    },
+    "history": {
+      "height": 134,
+      "scrollHeight": 533,
+      "atBottom": true
+    },
+    "oldestReachable": true,
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "height": 1000,
+    "pass": true,
+    "metrics": {
+      "avatar": {
+        "top": 397.765625,
+        "bottom": 779.765625,
+        "height": 382,
+        "width": 189.1875
+      },
+      "copy": {
+        "top": 110.46875,
+        "bottom": 233.25,
+        "height": 122.78125,
+        "width": 120.96875
+      },
+      "subtitle": {
+        "top": 217.25,
+        "bottom": 232.25,
+        "height": 15,
+        "width": 110
+      },
+      "chat": {
+        "top": 245,
+        "bottom": 774,
+        "height": 529,
+        "width": 204.203125
+      }
+    },
+    "history": {
+      "height": 455,
+      "scrollHeight": 455,
+      "atBottom": true
+    },
+    "oldestReachable": true,
+    "errors": []
+  },
+  {
+    "width": 844,
+    "height": 390,
+    "pass": true,
+    "metrics": {
+      "avatar": {
+        "top": 144.96875,
+        "bottom": 306,
+        "height": 161.03125,
+        "width": 189.1875
+      },
+      "copy": {
+        "top": 88,
+        "bottom": 210.78125,
+        "height": 122.78125,
+        "width": 120.96875
+      },
+      "subtitle": {
+        "top": 194.78125,
+        "bottom": 209.78125,
+        "height": 15,
+        "width": 110
+      },
+      "chat": {
+        "top": 223,
+        "bottom": 294,
+        "height": 71,
+        "width": 204.203125
+      }
+    },
+    "history": {
+      "height": 0,
+      "scrollHeight": 453,
+      "atBottom": true
+    },
+    "oldestReachable": true,
+    "errors": []
+  }
+]

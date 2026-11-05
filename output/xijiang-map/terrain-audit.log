@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "checks": {
+    "surface": {
+      "vertices": 64801,
+      "triangles": 129240,
+      "sha256": "9f46893a68b789d14742cf5e4086033fe1d73f2867e6bc67f96f036443332e0b"
+    },
+    "sections": {
+      "count": 106,
+      "maxMeshError": 0.06778727687595243,
+      "maxFormulaError": 0
+    },
+    "paths": {
+      "count": 32,
+      "samples": 10025,
+      "minimumCenterClearance": 0.09762882375845261,
+      "maximumGrade": 0.9919970576821211,
+      "centerPenetrations": 0,
+      "edgePenetrations": 0
+    },
+    "buildings": {
+      "count": 306,
+      "samples": 11016,
+      "minimumFloorClearance": 0.06371356330156441,
+      "maxRecordedCornerError": 1.1546319456101628e-14
+    },
+    "routes": {
+      "pois": 18,
+      "samples": 2357,
+      "maxRouteRise": 0.15027263839617022,
+      "maxRouteGrade": 0.9064175371732631
+    }
+  },
+  "failures": []
+}

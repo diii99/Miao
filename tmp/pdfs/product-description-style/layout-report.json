@@ -1,0 +1,96 @@
+{
+  "markdown": "D:\\Miao\\output\\pdf\\苗家亲_产品说明书_V0.1.0.md",
+  "markdown_sha256": "5e80671012ae6d466ff105510fb866fd9f81610945f30bea4af48b2adb0ba17c",
+  "pdf": "D:\\Miao\\output\\pdf\\苗家亲_产品说明书_V0.1.0.pdf",
+  "pages": 8,
+  "chapters": [
+    {
+      "title": "目录",
+      "page": 2
+    },
+    {
+      "title": "产品概述",
+      "page": 3
+    },
+    {
+      "title": "数字文旅参考案例",
+      "page": 4
+    },
+    {
+      "title": "数字导览与文化内容",
+      "page": 5
+    },
+    {
+      "title": "互动体验与文创手作",
+      "page": 6
+    },
+    {
+      "title": "客户合作与商业化",
+      "page": 7
+    },
+    {
+      "title": "发展方向与版本范围",
+      "page": 8
+    }
+  ],
+  "figures": [
+    {
+      "caption": "数字景德镇",
+      "path": "D:\\Miao\\output\\pdf\\description-assets\\景德镇.jpg",
+      "sha256": "05101647a2d5db468b0961e3c4a2e0101723604dd896e1449e52152d00a38306"
+    },
+    {
+      "caption": "云上中轴",
+      "path": "D:\\Miao\\output\\pdf\\description-assets\\云上中轴.jpg",
+      "sha256": "7ffed303b8e94eae3a5e93ed4234dfcec88d172a0fc434dbd67afc0f632f91c2"
+    },
+    {
+      "caption": "云游敦煌",
+      "path": "D:\\Miao\\output\\pdf\\description-assets\\云游敦煌.jpg",
+      "sha256": "6573083ca31621ab38042ec6cb22c0f13fc8e8dc632d5fccf2a2f05fbd724a65"
+    },
+    {
+      "caption": "图 01 苗寨全景与文化地标。",
+      "path": "D:\\Miao\\output\\pdf\\manual-assets\\14-overview.png",
+      "sha256": "59efd564acafd61ea4bc4b1ede5fbfda0fdada663ef9a49344e88732d1ec5c20"
+    },
+    {
+      "caption": "图 02 苗绣纹样与手作预览。",
+      "path": "D:\\Miao\\output\\pdf\\manual-assets\\10-result.png",
+      "sha256": "6a84cfe89865be5f84f052b06684a041fc239a72516c3c1de02edd014cda236b"
+    }
+  ],
+  "style_source": "tmp/pdfs/build_manual_from_md.py",
+  "styles": {
+    "p": {
+      "font": "Yahei",
+      "size": 10,
+      "leading": 17
+    },
+    "h": {
+      "font": "YaheiBold",
+      "size": 11.5,
+      "leading": 18
+    },
+    "chapter": {
+      "font": "YaheiBold",
+      "size": 22,
+      "leading": 31
+    },
+    "cap": {
+      "font": "Yahei",
+      "size": 8,
+      "leading": 12
+    },
+    "note": {
+      "font": "Yahei",
+      "size": 9,
+      "leading": 15
+    },
+    "small": {
+      "font": "Yahei",
+      "size": 9,
+      "leading": 15
+    }
+  }
+}

@@ -1,12 +1,15 @@
 # 西江千户苗寨地图实景还原研究
 
-研究日期：2026-09-08。工作区：`D:/Miao`。状态：研究完成，实施未开始。
+研究始于 2026-09-08，更新于 2026-09-09。工作区：`D:/Miao`。当前已接入实景资料支持的三维场景；最新实现、来源和验收见 [地景细化与第一人称控制](07-landscape-and-controls.md)。下方初始研究边界保留为历史记录。
 
 ## 阅读顺序
 
 1. [图片、报道与证据表](01-sources-and-visual-evidence.md)
 2. [现状差距、重设计步骤与验收](02-redesign-plan.md)
-3. [项目文件整理规范](../../project-structure.md)
+3. [实施记录与验证](03-implementation.md)
+4. [全景对照第三版](06-panorama-revision.md)
+5. [地景细化与第一人称控制](07-landscape-and-controls.md)
+6. [项目文件整理规范](../../project-structure.md)
 
 ## 结论
 
@@ -39,3 +42,8 @@
 ## 后续实施
 
 2026-09-08 已根据新的用户请求完成第一版研究支持的空间示意模型，见 [实施记录与验证](03-implementation.md)。上文的研究轮边界保留为历史记录。
+
+- [08 — Terrain source evidence](08-terrain-source-notes.md)
+- [09 — Sampled elevation calibration and 0.1–0.5× first-person zoom](09-terrain-calibration.md)
+
+- [10 — 俯视漫游：固定朝向、角色跟随与拖动查看](10-gameplay-camera.md)
